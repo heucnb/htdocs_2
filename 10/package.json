@@ -1,0 +1,27 @@
+{
+  "name": "10",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "//": "watch ở đây sẽ theo dõi sự thay đổi ở các file trong tailwind.config.js",
+    "ghep_file": "nodemon ghep_file.js --legacy-watch --watch static/fontend  --watch ghep_file.js  ",
+    "css": "npx tailwindcss -i ./src/tailwind.css -o ./static/style_converted.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "node-notifier": "^10.0.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.17.6",
+    "@babel/core": "^7.17.5",
+    "@babel/plugin-transform-async-to-generator": "^7.18.6",
+    "@babel/preset-env": "^7.15.0",
+    "@babel/preset-react": "^7.14.5",
+    "nodemon": "^2.0.19",
+    "tailwindcss": "^3.2.4",
+    "uglify-js": "^3.17.4"
+  }
+}
