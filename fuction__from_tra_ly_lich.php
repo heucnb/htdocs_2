@@ -1,40 +1,4 @@
 
-
-<table class="table_nhận_dữ_liệu" id="table2" > 
-   
-</table>
-
-<table  class="table_nhận_dữ_liệu" id="table1" > 
- <tr height="21" > 
- <td  >Số tai</td>
- <td  >Ngày sinh</td>
- <td  >Bố</td>
- <td  >Mẹ</td>
- </tr>  
-<tr height="21" > <td  > </td><td  > </td><td  ></td><td  ></td></tr>      
-<tr height="21" > <td  > </td><td  > </td><td  ></td><td  ></td></tr>    
-<tr height="21" > <td  > </td><td  > </td><td  ></td><td  ></td></tr>    
-<tr height="21" > <td  > </td><td  > </td><td  ></td><td  ></td></tr>    
-<tr height="21" > <td  > </td><td  > </td><td  ></td><td  ></td></tr>    
-<tr height="21" > <td  > </td><td  > </td><td  ></td><td  ></td></tr>    
-<tr height="21" > <td  > </td><td  > </td><td  ></td><td  ></td></tr>    
-<tr height="21" > <td  > </td><td  > </td><td  ></td><td  ></td></tr>    
-<tr height="21" > <td  > </td><td  > </td><td  ></td><td  ></td></tr>    
-<tr height="21" > <td  > </td><td  > </td><td  ></td><td  ></td></tr>    
-<tr height="21" > <td  > </td><td  > </td><td  ></td><td  ></td></tr>    
-<tr height="21" > <td  > </td><td  > </td><td  ></td><td  ></td></tr>    
-<tr height="21" > <td  > </td><td  > </td><td  ></td><td  ></td></tr>    
-<tr height="21" > <td  > </td><td  > </td><td  ></td><td  ></td></tr>    
-<tr height="21" > <td  > </td><td  > </td><td  ></td><td  ></td></tr>    
-<tr height="21" > <td  > </td><td  > </td><td  ></td><td  ></td></tr>    
-<tr height="21" > <td  > </td><td  > </td><td  ></td><td  ></td></tr>    
-<tr height="21" > <td  > </td><td  > </td><td  ></td><td  ></td></tr>    
-<tr height="21" > <td  > </td><td  > </td><td  ></td><td  ></td></tr>    
-<tr height="21" > <td  > </td><td  > </td><td  ></td><td  ></td></tr>    
-</table>
-
-
-<script>
 <?php
 		
 
@@ -383,49 +347,41 @@ And
 $result_1 = mysqli_query($conn, $sql_1);
 $cout_1 = mysqli_num_rows($result_1);
 $arraymysql_1 = [];
-for ($x = 0; $x < $cout_1; $x++) {
+for ($x = 1; $x < $cout_1+1; $x++) {
     $arraymysql_1[$x] = mysqli_fetch_row($result_1) ;
   }
+  $arraymysql_1[0] = ["Số tai",
+
+  "Ngày sinh",
+  "Bố",
+  "Mẹ"
   
+  
+  ];
 
+if ($_POST["post1"]=="khong_co_du_lieu"){$arraymysql_1[1][0] ='';}else{ $arraymysql_1[1][0] = $_POST["post1"];}
+if ($_POST["post2"]=="khong_co_du_lieu"){$arraymysql_1[2][0] ='';}else{ $arraymysql_1[2][0] = $_POST["post2"];}
+if ($_POST["post3"]=="khong_co_du_lieu"){$arraymysql_1[3][0] ='';}else{ $arraymysql_1[3][0] = $_POST["post3"];}
+if ($_POST["post4"]=="khong_co_du_lieu"){$arraymysql_1[4][0] ='';}else{ $arraymysql_1[4][0] = $_POST["post4"];}
+if ($_POST["post5"]=="khong_co_du_lieu"){$arraymysql_1[5][0] ='';}else{ $arraymysql_1[5][0] = $_POST["post5"];}
+if ($_POST["post6"]=="khong_co_du_lieu"){$arraymysql_1[6][0] ='';}else{ $arraymysql_1[6][0] = $_POST["post6"];}
+if ($_POST["post7"]=="khong_co_du_lieu"){$arraymysql_1[7][0] ='';}else{ $arraymysql_1[7][0] = $_POST["post7"];}
+if ($_POST["post8"]=="khong_co_du_lieu"){$arraymysql_1[8][0] ='';}else{ $arraymysql_1[8][0] = $_POST["post8"];}
+if ($_POST["post9"]=="khong_co_du_lieu"){$arraymysql_1[9][0] ='';}else{ $arraymysql_1[9][0] = $_POST["post9"];}
+if ($_POST["post10"]=="khong_co_du_lieu"){$arraymysql_1[10][0] ='';}else{ $arraymysql_1[10][0] = $_POST["post10"];}
+if ($_POST["post11"]=="khong_co_du_lieu"){$arraymysql_1[11][0] ='';}else{ $arraymysql_1[11][0] = $_POST["post11"];}
+if ($_POST["post12"]=="khong_co_du_lieu"){$arraymysql_1[12][0] ='';}else{ $arraymysql_1[12][0] = $_POST["post12"];}
+if ($_POST["post13"]=="khong_co_du_lieu"){$arraymysql_1[13][0] ='';}else{ $arraymysql_1[13][0] = $_POST["post13"];}
+if ($_POST["post14"]=="khong_co_du_lieu"){$arraymysql_1[14][0] ='';}else{ $arraymysql_1[14][0] = $_POST["post14"];}
+if ($_POST["post15"]=="khong_co_du_lieu"){$arraymysql_1[15][0] ='';}else{ $arraymysql_1[15][0] = $_POST["post15"];}
+if ($_POST["post16"]=="khong_co_du_lieu"){$arraymysql_1[16][0] ='';}else{ $arraymysql_1[16][0] = $_POST["post16"];}
+if ($_POST["post17"]=="khong_co_du_lieu"){$arraymysql_1[17][0] ='';}else{ $arraymysql_1[17][0] = $_POST["post17"];}
+if ($_POST["post18"]=="khong_co_du_lieu"){$arraymysql_1[18][0] ='';}else{ $arraymysql_1[18][0] = $_POST["post18"];}
+if ($_POST["post19"]=="khong_co_du_lieu"){$arraymysql_1[19][0] ='';}else{ $arraymysql_1[19][0] = $_POST["post19"];}
+if ($_POST["post20"]=="khong_co_du_lieu"){$arraymysql_1[20][0] ='';}else{ $arraymysql_1[20][0] = $_POST["post20"];}
+// dung hàm UNION ALL sẽ trả về 1 obj
 
+  echo json_encode($arraymysql_1);
 ?>	
-
-
-
-// tạo bảng trên html
-// điền dữ liệu vào bảng 
- var arrayjavascript = <?php echo json_encode($arraymysql_1); ?>; // ***** gán mảng 2 chiều từ php vào javácript
-  document.getElementById('table1').rows[1].cells[0].innerHTML =<?php if ($_POST["post1"]=="khong_co_du_lieu"){echo json_encode("") ;} else { echo json_encode($_POST["post1"]); }?>;
-   document.getElementById('table1').rows[2].cells[0].innerHTML =<?php if ($_POST["post2"]=="khong_co_du_lieu"){echo json_encode("") ;} else { echo json_encode($_POST["post2"]); }?>;
-    document.getElementById('table1').rows[3].cells[0].innerHTML =<?php if ($_POST["post3"]=="khong_co_du_lieu"){echo json_encode("") ;} else { echo json_encode($_POST["post3"]); }?>;
-	 document.getElementById('table1').rows[4].cells[0].innerHTML =<?php if ($_POST["post4"]=="khong_co_du_lieu"){echo json_encode("") ;} else { echo json_encode($_POST["post4"]); }?>;
-	  document.getElementById('table1').rows[5].cells[0].innerHTML =<?php if ($_POST["post5"]=="khong_co_du_lieu"){echo json_encode("") ;} else { echo json_encode($_POST["post5"]); }?>;
-	   document.getElementById('table1').rows[6].cells[0].innerHTML =<?php if ($_POST["post6"]=="khong_co_du_lieu"){echo json_encode("") ;} else { echo json_encode($_POST["post6"]); }?>;
-	    document.getElementById('table1').rows[7].cells[0].innerHTML =<?php if ($_POST["post7"]=="khong_co_du_lieu"){echo json_encode("") ;} else { echo json_encode($_POST["post7"]); }?>;
-		 document.getElementById('table1').rows[8].cells[0].innerHTML =<?php if ($_POST["post8"]=="khong_co_du_lieu"){echo json_encode("") ;} else { echo json_encode($_POST["post8"]); }?>;
-		  document.getElementById('table1').rows[9].cells[0].innerHTML =<?php if ($_POST["post9"]=="khong_co_du_lieu"){echo json_encode("") ;} else { echo json_encode($_POST["post9"]); }?>;
-		   document.getElementById('table1').rows[10].cells[0].innerHTML =<?php if ($_POST["post10"]=="khong_co_du_lieu"){echo json_encode("") ;} else { echo json_encode($_POST["post10"]); }?>;
-		    document.getElementById('table1').rows[11].cells[0].innerHTML =<?php if ($_POST["post11"]=="khong_co_du_lieu"){echo json_encode("") ;} else { echo json_encode($_POST["post11"]); }?>;
-			 document.getElementById('table1').rows[12].cells[0].innerHTML =<?php if ($_POST["post12"]=="khong_co_du_lieu"){echo json_encode("") ;} else { echo json_encode($_POST["post12"]); }?>;
-			  document.getElementById('table1').rows[13].cells[0].innerHTML =<?php if ($_POST["post13"]=="khong_co_du_lieu"){echo json_encode("") ;} else { echo json_encode($_POST["post13"]); }?>;
-			   document.getElementById('table1').rows[14].cells[0].innerHTML =<?php if ($_POST["post14"]=="khong_co_du_lieu"){echo json_encode("") ;} else { echo json_encode($_POST["post14"]); }?>;
-			    document.getElementById('table1').rows[15].cells[0].innerHTML =<?php if ($_POST["post15"]=="khong_co_du_lieu"){echo json_encode("") ;} else { echo json_encode($_POST["post15"]); }?>;
-				 document.getElementById('table1').rows[16].cells[0].innerHTML =<?php if ($_POST["post16"]=="khong_co_du_lieu"){echo json_encode("") ;} else { echo json_encode($_POST["post16"]); }?>;
-				  document.getElementById('table1').rows[17].cells[0].innerHTML =<?php if ($_POST["post17"]=="khong_co_du_lieu"){echo json_encode("") ;} else { echo json_encode($_POST["post17"]); }?>;
-				   document.getElementById('table1').rows[18].cells[0].innerHTML =<?php if ($_POST["post18"]=="khong_co_du_lieu"){echo json_encode("") ;} else { echo json_encode($_POST["post18"]); }?>;
-				    document.getElementById('table1').rows[19].cells[0].innerHTML =<?php if ($_POST["post19"]=="khong_co_du_lieu"){echo json_encode("") ;} else { echo json_encode($_POST["post19"]); }?>;
-					 document.getElementById('table1').rows[20].cells[0].innerHTML =<?php if ($_POST["post20"]=="khong_co_du_lieu"){echo json_encode("") ;} else { echo json_encode($_POST["post20"]); }?>;
-for(var r=0;r<20;r++)
-  {
-document.getElementById('table1').rows[r+1].cells[1].innerHTML =arrayjavascript[r][1]; 
- document.getElementById('table1').rows[r+1].cells[2].innerHTML =arrayjavascript[r][2]; 
-document.getElementById('table1').rows[r+1].cells[3].innerHTML =arrayjavascript[r][3];  
-	   }
-
-   
-	document.getElementById('table2').innerHTML = <?php if (isset($kiem_tra_loi_1)) {echo json_encode($kiem_tra_loi_1);	} else {echo json_encode("");} ?>;		
-	
-</script>
 
 

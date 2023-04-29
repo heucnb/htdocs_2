@@ -1,25 +1,6 @@
-<table class="table_nhận_dữ_liệu" id="table2" > 
-   
-</table>
 
-
-<table class="table_nhận_dữ_liệu" id="table1" > 
-   
-</table>
-
-
-<script>
 <?php
 		
-
-
-$kiem_tra=$_POST["post1"];
-
-$trai=$_POST["post8"];
-
-//** danh sách heo phối
-if ($kiem_tra == "Danh sách heo phối")
-{
 
 // kết nối csdl	
 include "setup/fuction_ket_noi_csdl.php";
@@ -29,6 +10,17 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 	if (!$conn) {
 	die("Connection failed: " . mysqli_connect_error());
 	}
+
+$kiem_tra=$_POST["post1"];
+
+$trai=$_POST["post8"];
+
+
+
+//** danh sách heo phối
+if ($kiem_tra == "Danh sách heo phối")
+{
+
 	
 // lấy dữ liệu lên html
 $sql_1 = "Select
@@ -75,14 +67,7 @@ for ($x = 0+1; $x < $cout_1+1; $x++) {
 if ($kiem_tra == "Danh sách heo đẻ")
 {
 
-// kết nối csdl	
-include "setup/fuction_ket_noi_csdl.php";
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-	if (!$conn) {
-	die("Connection failed: " . mysqli_connect_error());
-	}
+
 	
 // lấy dữ liệu lên html
 $sql_1 = "Select
@@ -142,14 +127,7 @@ for ($x = 0+1; $x < $cout_1+1; $x++) {
 if ($kiem_tra == "Danh sách heo cai sữa")
 {
 
-// kết nối csdl	
-include "setup/fuction_ket_noi_csdl.php";
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-	if (!$conn) {
-	die("Connection failed: " . mysqli_connect_error());
-	}
+
 	
 // lấy dữ liệu lên html
 $sql_1 = "Select
@@ -212,14 +190,7 @@ for ($x = 0+1; $x < $cout_1+1; $x++) {
 if ($kiem_tra == "Danh sách heo vấn đề")
 {
 
-// kết nối csdl	
-include "setup/fuction_ket_noi_csdl.php";
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-	if (!$conn) {
-	die("Connection failed: " . mysqli_connect_error());
-	}
+
 	
 // lấy dữ liệu lên html
 $sql_1 = "Select
@@ -275,15 +246,7 @@ for ($x = 0+1; $x < $cout_1+1; $x++) {
 if ($kiem_tra == "Danh sách heo hậu bị")
 {
 
-// kết nối csdl	
-include "setup/fuction_ket_noi_csdl.php";
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-	if (!$conn) {
-	die("Connection failed: " . mysqli_connect_error());
-	}
-	
+
 // lấy dữ liệu lên html
 $sql_1 = "Select
 	sheet2.`so_tai`,
@@ -323,14 +286,7 @@ for ($x = 0+1; $x < $cout_1+1; $x++) {
 if ($kiem_tra == "Danh sách heo đực")
 {
 
-// kết nối csdl	
-include "setup/fuction_ket_noi_csdl.php";
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-	if (!$conn) {
-	die("Connection failed: " . mysqli_connect_error());
-	}
+
 	
 // lấy dữ liệu lên html
 $sql_1 = "Select
@@ -374,15 +330,7 @@ for ($x = 0+1; $x < $cout_1+1; $x++) {
 if ($kiem_tra == "Heo quá 123 ngày chưa đẻ")
 {
 
-// kết nối csdl	
-include "setup/fuction_ket_noi_csdl.php";
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-	if (!$conn) {
-	die("Connection failed: " . mysqli_connect_error());
-	}
-	
+
 // lấy dữ liệu lên html
 $sql_1 = "Select
      sheet1.`so tai`,
@@ -428,14 +376,7 @@ for ($x = 0+1; $x < $cout_1+1; $x++) {
 if ($kiem_tra == "Heo quá 35 ngày chưa cai sữa")
 {
 
-// kết nối csdl	
-include "setup/fuction_ket_noi_csdl.php";
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-	if (!$conn) {
-	die("Connection failed: " . mysqli_connect_error());
-	}
+
 	
 // lấy dữ liệu lên html
 $sql_1 = "Select
@@ -492,17 +433,10 @@ for ($x = 0+1; $x < $cout_1+1; $x++) {
 }
 
 //** heo cai sữa quá 7 ngày chưa phối
-if ($kiem_tra == "Heo cai sữa >7 ngày chưa phối")
+if ($kiem_tra == "Heo cai sữa quá 7 ngày chưa phối")
 {
 
-// kết nối csdl	
-include "setup/fuction_ket_noi_csdl.php";
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-	if (!$conn) {
-	die("Connection failed: " . mysqli_connect_error());
-	}
+
 	
 // lấy dữ liệu lên html
 $sql_1 = "Select
@@ -534,6 +468,7 @@ sheet1.trai = '".$trai."' AND
 $result_1 = mysqli_query($conn, $sql_1);
 $cout_1 = mysqli_num_rows($result_1);
 $arraymysql_1 = [];
+
 $arraymysql_1[0] =["Số tai",
 "Ngày phối",
 
@@ -548,7 +483,7 @@ $arraymysql_1[0] =["Số tai",
 "Còi",
 "SCCS",
 "Ngày cai",
-"Số con cai"
+"Số con cai-----------"
 
 
 ];
@@ -563,14 +498,7 @@ for ($x = 0+1; $x < $cout_1+1; $x++) {
 if ($kiem_tra == "Heo lốc, xảy thai 2 lần liên tiếp")
 {
 
-// kết nối csdl	
-include "setup/fuction_ket_noi_csdl.php";
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-	if (!$conn) {
-	die("Connection failed: " . mysqli_connect_error());
-	}
+
 	
 // lấy dữ liệu lên html
 $sql_1 = "SELECT `so tai`,ngay_phoi,table1.nvd,table1.`nguyen nhan van de`,table2.nvd2,table2.`nguyen nhan van de`
@@ -604,14 +532,7 @@ for ($x = 0+1; $x < $cout_1+1; $x++) {
 if ($kiem_tra == "Heo đẻ trung bình 2 lứa dưới 7 con")
 {
 
-// kết nối csdl	
-include "setup/fuction_ket_noi_csdl.php";
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-	if (!$conn) {
-	die("Connection failed: " . mysqli_connect_error());
-	}
+
 	
 // lấy dữ liệu lên html
 $sql_1 = "select *
@@ -646,43 +567,7 @@ for ($x = 0+1; $x < $cout_1+1; $x++) {
 }
 
 
-
+echo json_encode($arraymysql_1);
 
 ?>	
 
-
-
-// tạo bảng trên html
-// điền dữ liệu vào bảng 
- var arrayjavascript = <?php echo json_encode($arraymysql_1); ?>; // ***** gán mảng 2 chiều từ php vào javácript
- 
- var countjavascript = arrayjavascript.length ;
- var coloumsjavascript  ;
-  if (countjavascript == 1)
-   {
-	 document.getElementById('table2').innerHTML = "Không tìm thấy"  ;   
-   }
-   else
-   {
-	 document.getElementById('table2').innerHTML = ""  ;
-	   
-   }	
-   
-   
- if (countjavascript == 1) { coloumsjavascript = 0 ;countjavascript = 0 ;} else {  coloumsjavascript = arrayjavascript[0].length ;} ;
- 
-   
-   
-   
-    for(var r=0;r<countjavascript;r++)
-  {
-   var x= document.getElementById('table1').insertRow(r);
-    
-   for(var c=0;c<coloumsjavascript;c++)  
-    {
-     x.insertCell(c);
-	   document.getElementById('table1').rows[r].cells[c].innerHTML =arrayjavascript[r][c]; 
-    }
-	
-   }
-   

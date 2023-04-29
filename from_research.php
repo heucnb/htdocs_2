@@ -89,7 +89,7 @@ var count_dem_string = dem_string.length;
 		else 
 	    {
 	        document.getElementById("id_nhan_research").innerHTML =  "<progress ></progress>"; 
-			$.post("fuction--from_research.php", {post1:$("#id_1_research").val() ,post4:$("#id_chon_cot_in_csdl").val(),  post8:$("#id_8").val() }, function(data){
+			$.post("fuction--from_research.php", {post1:$("#id_1_research").val() ,post4: gobal_tim_kiem_sua_xoa ,  post8:$("#id_8").val() }, function(data){
 			$("#id_nhan_research").html(data);	});
 	
         }
@@ -113,7 +113,7 @@ var count_dem_string = dem_string.length;
 		else 
 	    {
 	         document.getElementById("id_nhan_research").innerHTML =  "<progress ></progress>"; 
-			$.post("fuction--from_research_date_to_date.php", { post2:$("#id_2_research").val(), post3:$("#id_3_research").val(), post8:$("#id_8").val(), post4:$("#id_chon_cot_in_csdl").val() }, function(data){
+			$.post("fuction--from_research_date_to_date.php", { post2:$("#id_2_research").val(), post3:$("#id_3_research").val(), post8:$("#id_8").val(), post4: gobal_tim_kiem_sua_xoa }, function(data){
 			$("#id_nhan_research").html(data);	});
 	
         }

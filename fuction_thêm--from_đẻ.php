@@ -1,15 +1,4 @@
 
-
-<table class="table_nhận_dữ_liệu" id="table2" > 
-   
-</table>
-
-<table class="table_nhận_dữ_liệu" id="table1" > 
- <tr  > <td  >Số tai</td><td  >Ngày đẻ</td><td  >Lứa đẻ</td><td  >Pss</td><td  >Sinh ra</td><td  >Chết trắng</td><td  >Chết khô</td><td  >Tật</td><td  >Còi</td><td  >Còn sống</td><td  >Số heo đực</td><td  >Lý lịch</td>	</tr>  
-</table>
-
-
-<script>
 <?php
 		
 $ma_the_nai =$_POST["post1"];
@@ -521,6 +510,9 @@ $result_3 = mysqli_query($conn, $sql_3);
 	
 a:
 
+  
+if (isset($kiem_tra_loi_1)) {echo $kiem_tra_loi_1;	}
+else {
 // lấy dữ liệu lên html
 $sql_1 = "Select
     sheet1.`so tai`,
@@ -547,92 +539,29 @@ Where
 $result_1 = mysqli_query($conn, $sql_1);
 $cout_1 = mysqli_num_rows($result_1);
 $arraymysql_1 = [];
-for ($x = 0; $x < $cout_1; $x++) {
+$arraymysql_1[0] = ["Số tai",
+
+"Ngày đẻ",
+"Lứa",
+"Pss",
+"SCSR",
+"Chết",
+"Tật",
+"Khô",
+"Còi",
+"SCCS",
+"Số con đực",
+"Số cắt tai"
+
+
+];
+for ($x = 1; $x < $cout_1 + 1; $x++) {
     $arraymysql_1[$x] = mysqli_fetch_row($result_1) ;
   }
   
+  echo json_encode($arraymysql_1);
+
+}
 
 
 ?>	
-
-
-// tạo bảng trên html
-// điền dữ liệu vào bảng 
-
- var arrayjavascript = <?php echo json_encode($arraymysql_1); ?>; // ***** gán mảng 2 chiều từ php vào javácript
-  var countjavascript = <?php echo json_encode($cout_1); ?> ;
-  var coloumsjavascript ;
- if (countjavascript == 0) { coloumsjavascript = 0 ;} else {  coloumsjavascript = arrayjavascript[0].length ;} ;
- 
-   for(var r=0 ;r<countjavascript ;r++)
-  {
-   var x= document.getElementById('table1').insertRow(r + 1);
-    
-   for(var c=0;c<coloumsjavascript;c++)  
-    {
-     x.insertCell(c);
-	  document.getElementById('table1').rows[r+1].cells[c].innerHTML =arrayjavascript[r][c]; 
-    }
-   }
-   
-
-	
-	var kiem_tra_loi_1 = <?php if (isset($kiem_tra_loi_1)) {echo json_encode($kiem_tra_loi_1);	} else {echo json_encode("");} ?>;		
-	 if (kiem_tra_loi_1 == "")
-	 { 
-document.getElementById('id_cat_tai_1').value = "";	
-document.getElementById('id_cat_tai_2').value = "";	
-document.getElementById('id_cat_tai_3').value = "";	
-document.getElementById('id_cat_tai_4').value = "";	
-document.getElementById('id_cat_tai_5').value = "";	
-document.getElementById('id_cat_tai_6').value = "";	
-document.getElementById('id_cat_tai_7').value = "";	
-document.getElementById('id_cat_tai_8').value = "";	
-document.getElementById('id_cat_tai_9').value = "";	
-document.getElementById('id_cat_tai_10').value = "";	
-document.getElementById('id_cat_tai_11').value = "";	
-document.getElementById('id_cat_tai_12').value = "";	
-document.getElementById('id_cat_tai_13').value = "";	
-document.getElementById('id_cat_tai_14').value = "";	
-document.getElementById('id_cat_tai_15').value = "";	
-document.getElementById('id_cat_tai_16').value = "";	
-document.getElementById('id_cat_tai_17').value = "";
-
-document.getElementById('id_1').value = "";
-document.getElementById('id_3').value = "";
-document.getElementById('id_4').value = "";
-document.getElementById('id_5').value = "";
-document.getElementById('id_6').value = "";
-document.getElementById('id_7').value = "";
-document.getElementById('id_9').value = "";
-document.getElementById('id_10').value = "";
-
-document.getElementById("id_1").focus();  
-
-document.getElementById('id_cat_tai_2').style.display= 'none';
-document.getElementById('id_cat_tai_3').style.display= 'none';
-document.getElementById('id_cat_tai_4').style.display= 'none';
-document.getElementById('id_cat_tai_5').style.display= 'none';
-document.getElementById('id_cat_tai_6').style.display= 'none';
-document.getElementById('id_cat_tai_7').style.display= 'none';
-document.getElementById('id_cat_tai_8').style.display= 'none';
-document.getElementById('id_cat_tai_9').style.display= 'none';
-document.getElementById('id_cat_tai_10').style.display= 'none';
-document.getElementById('id_cat_tai_11').style.display= 'none';
-document.getElementById('id_cat_tai_12').style.display= 'none';
-document.getElementById('id_cat_tai_13').style.display= 'none';
-document.getElementById('id_cat_tai_14').style.display= 'none';
-document.getElementById('id_cat_tai_15').style.display= 'none';
-document.getElementById('id_cat_tai_16').style.display= 'none';
-document.getElementById('id_cat_tai_17').style.display= 'none';
-
-
-	 }
-	 else
-	 {
-		document.getElementById('table2').innerHTML = kiem_tra_loi_1 ; 
-	 }
-	
-</script>
-
-

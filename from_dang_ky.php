@@ -1,5 +1,17 @@
 <!DOCTYPE html>
 <html>
+
+<head>
+<style>
+
+</style>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="jquery-3.1.0.min.js"></script>
+
+
+
+</head>
+
 <body>
 
 

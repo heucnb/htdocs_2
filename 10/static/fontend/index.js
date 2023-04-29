@@ -16,6 +16,10 @@ function tb(string_pc, string_mobi) {
    
     
 }
+ReactDOM.render(React.createElement(App, null), document.getElementById('root'));
 
-Router();
+
+// Router();
+
+
 

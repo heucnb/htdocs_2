@@ -8,7 +8,7 @@
 
 // xóa csdl phối
 
-if ($_POST["post_7"]=="Sổ phối")	
+if ($_POST["post_7"]=="phoi")	
 {
 $ma_the_nai =$_POST["post_1"];
 $lan_phoi=$_POST["post_6"];
@@ -139,7 +139,7 @@ echo 'Đã xóa' ;
 
 // xóa csdl đẻ
 
-if ($_POST["post_7"]=="Sổ đẻ")	
+if ($_POST["post_7"]=="de")	
 {
 $ma_the_nai =$_POST["post_1"];
 $lan_phoi=$_POST["post_6"];
@@ -248,7 +248,7 @@ echo 'Đã xóa' ;
 
 // xóa csdl cai sữa
 
-if ($_POST["post_7"] == "Sổ cai sữa")	
+if ($_POST["post_7"] == "cai_sua")	
 {
 $ma_the_nai =$_POST["post_1"];
 $lan_phoi=$_POST["post_6"] ;
@@ -368,7 +368,7 @@ echo 'Đã xóa' ;
 
 // xoa heo van de
 
-if ($_POST["post_7"] == "Sổ heo vấn đề")	
+if ($_POST["post_7"] == "van_de")	
 {
 $ma_the_nai =$_POST["post_1"];
 $lan_phoi=$_POST["post_6"] ;
@@ -487,7 +487,7 @@ echo 'Đã xóa' ;
 
 // xoa heo nai chet loai
 
-if ($_POST["post_7"] == "Sổ theo dõi heo nái chết loại")	
+if ($_POST["post_7"] == "nai_chet_loai")	
 {
 $ma_the_nai =$_POST["post_1"];
 $lan_phoi=$_POST["post_6"] ;
@@ -552,7 +552,7 @@ echo "Người quản lý đã khóa không cho thêm, sửa, xóa dữ liệu t
 
 // xóa csdl heo con chet theo me
 
-if ($_POST["post_7"] == "Sổ heo con chết theo mẹ")	
+if ($_POST["post_7"] == "con_chet_loai")	
 {
 $ma_the_nai =$_POST["post_1"];
 $lan_phoi=$_POST["post_6"] ;
@@ -673,7 +673,7 @@ echo 'Đã xóa' ;
 
 // xóa heo hậu bị
 
-if ($_POST["post_7"]=="Sổ theo dõi hậu bị")	
+if ($_POST["post_7"]=="hau_bi")	
 {
 $so_tai =$_POST["post_1"];
 $trai=$_POST["post_8"];
@@ -770,7 +770,7 @@ echo 'Đã xóa' ;
 
 // xóa heo hậu đực
 
-if ($_POST["post_7"]=="Sổ theo dõi heo đực")	
+if ($_POST["post_7"]=="duc")	
 {
 $so_tai =$_POST["post_1"];
 $trai=$_POST["post_8"];

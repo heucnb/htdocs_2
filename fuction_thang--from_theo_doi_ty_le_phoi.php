@@ -1,15 +1,4 @@
 
-
-<html>
-<body>
-
-<table id="table1" class="table_nhận_dữ_liệu table_ty_le_phoi" > 
-   
-</table>
-
-</body>
-</html>
-<script>
 <?php
 		
 $day_post_bat_dau = date('Y-m-d', strtotime($_POST["post1"].'-01-01'. ' - 8 days')) ; 
@@ -118,47 +107,11 @@ $mien_lay_du_lieu_excel = 'AC2:AO21';
 
 
 
-
-
-
-
+    echo json_encode($dataexcel);
 
 
 ?>	
 
-// B.2 - lấy dữ liệu từ mảng php vào html tiếp
- var arrayjavascript = <?php echo json_encode($dataexcel); ?>; // ***** gán mảng 2 chiều từ php vào javácript
- var countjavascript = arrayjavascript.length ;
-  var coloumsjavascript = arrayjavascript[1].length ; 
- 
-// tạo bảng trên html 
-   for(var r=0;r< countjavascript;r++)
-  {
-  var x= document.getElementById('table1').insertRow(r);
-    
-   for(var c=0;c<coloumsjavascript;c++)  
-    {
-     x.insertCell(c);
-    }
-   }
-// điền dữ liệu vào bảng 
 
-   for(var r=0;r<countjavascript;r++)
-  {
-  
-    
-   for(var c=0;c<coloumsjavascript;c++)  
-    {
-    
-	  document.getElementById('table1').rows[r].cells[c].innerHTML =arrayjavascript[r][c]; 
-    }
-   }
-   
-
-
-
-	
-	
-</script>
 
 

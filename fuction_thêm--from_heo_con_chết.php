@@ -1,15 +1,4 @@
 
-
-<table class="table_nhận_dữ_liệu" id="table2" > 
-   
-</table>
-
-<table class="table_nhận_dữ_liệu" id="table1" > 
-   <tr  > <td  >Số tai</td><td  >Lần phối</td><td  >Ngày heo con chết(loại)</td><td  >Số lượng</td><td  >Nguyên nhân</td>	</tr>     
-</table>
-
-
-<script>
 <?php
 		
 $ma_the_nai =$_POST["post1"];
@@ -144,17 +133,17 @@ goto a;
 }
 if($ngay_heo_con_chet_moi_nhat_in_csdl <>"")
 {
-$kiem_tra_loi_1 = "Số tai này đã báo heo con chet roi" ;
+$kiem_tra_loi_1 = "Số tai này đã báo heo con chết roi" ;
 goto a;
 }
 
 if( ( strtotime($date_ngay_heo_con_chet) - strtotime($ngay_de_moi_nhat_in_csdl) )  < 1*24*60*60)
 {
-$kiem_tra_loi_1 = "Ngày heo con chet không đúng so với ngày đẻ" ;
+$kiem_tra_loi_1 = "Ngày heo con chết không đúng so với ngày đẻ" ;
 goto a;
 }
 
-//
+
 
 
 // update dữ liệu vào mysql
@@ -174,53 +163,46 @@ $result_3 = mysqli_query($conn, $sql_3);
 	
 a:
 
-// lấy dữ liệu lên html
-$sql_1 = "Select
-    sheet1.`so tai`,
-    sheet1.`lan phoi`,
-DATE_FORMAT(sheet1.`ngay heo con chet`, '%d/%m/%Y')	,
-	sheet1.`so luong heo con chet theo me`,
-	sheet1.`nguyen nhan heo con chet`
+if (isset($kiem_tra_loi_1)) {echo $kiem_tra_loi_1;  }
+else {
 
-   
+    // lấy dữ liệu lên html
+$sql_1 = "Select
+sheet1.`so tai`,
+sheet1.`lan phoi`,
+DATE_FORMAT(sheet1.`ngay heo con chet`, '%d/%m/%Y')	,
+sheet1.`so luong heo con chet theo me`,
+sheet1.`nguyen nhan heo con chet`
+
+
 From
-    sheet1
+sheet1
 Where
-    sheet1.`ngay heo con chet` =  '".$date_ngay_heo_con_chet."'
-	And     
-	sheet1.trai = '".$trai."'
-	";
+sheet1.`ngay heo con chet` =  '".$date_ngay_heo_con_chet."'
+And     
+sheet1.trai = '".$trai."'
+";
 $result_1 = mysqli_query($conn, $sql_1);
 $cout_1 = mysqli_num_rows($result_1);
 $arraymysql_1 = [];
-for ($x = 0; $x < $cout_1; $x++) {
-    $arraymysql_1[$x] = mysqli_fetch_row($result_1) ;
-  }
-  
+$arraymysql_1[0] = ["Số tai",
+
+"Lần phối",
+"Ngày heo con chết",
+"Số lượng heo con chết theo mẹ",
+"Nguyên nhân heo con chết"
+
+
+];
+for ($x = 1; $x < $cout_1 + 1; $x++) {
+$arraymysql_1[$x] = mysqli_fetch_row($result_1) ;
+}
+
+
+
+    echo json_encode( $arraymysql_1 );
+}
+
 
 
 ?>	
-
-// tạo bảng trên html
-// điền dữ liệu vào bảng 
- var arrayjavascript = <?php echo json_encode($arraymysql_1); ?>; // ***** gán mảng 2 chiều từ php vào javácript
-  var countjavascript = <?php echo json_encode($cout_1); ?> ;
-  var coloumsjavascript ;
- if (countjavascript == 0) { coloumsjavascript = 0 ;} else {  coloumsjavascript = arrayjavascript[0].length ;} ;
- 
-   for(var r=0;r<countjavascript;r++)
-  {
-   var x= document.getElementById('table1').insertRow(r+1);
-    
-   for(var c=0;c<coloumsjavascript;c++)  
-    {
-     x.insertCell(c);
-	  document.getElementById('table1').rows[r+1].cells[c].innerHTML =arrayjavascript[r][c]; 
-    }
-   }
-   
-	document.getElementById('table2').innerHTML = <?php if (isset($kiem_tra_loi_1)) {echo json_encode($kiem_tra_loi_1);	} else {echo json_encode("");} ?>;		
-	
-</script>
-
-

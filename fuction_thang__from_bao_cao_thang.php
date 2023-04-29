@@ -1,19 +1,4 @@
 
-
-<html>
-<body>
-
-<table id="table1" class="table_nhận_dữ_liệu" > 
-   
-</table>
-
-<table class="table_nhận_dữ_liệu" id="table2" > 
-   
-</table>
-
-</body>
-</html>
-<script>
 <?php
 $day_post_bat_dau = $_POST["post1"].'-01-01';
 $year_them_1 = $_POST["post1"] +1 ;
@@ -615,21 +600,12 @@ $so_o_lay_du_lieu_array = $spreadsheet->getSheetByName('getdata')->rangeToArray(
 																				false       // Should the array be indexed by cell row and cell column
 																				);
 $so_o_lay = $so_o_lay_du_lieu_array[0][0] +2;
-
-
-
-if($so_o_lay == 0 )
-{
+	$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, "Xlsx");
+    $writer->save("05featuredemo.xlsx");
 	
-$kiem_tra_loi_1 = "Chưa có dữ liệu" ;
-
-$dataexcel = "";
-
-goto a;
-}
-
-
-$mien_lay_du_lieu_excel = 'C1:AP'.$so_o_lay ;
+if ($so_o_lay === 0) { echo ("Chưa có dữ liệu"); } 
+ else {
+    $mien_lay_du_lieu_excel = 'C1:AP'.$so_o_lay ;
 	$dataexcel = $spreadsheet->getSheetByName('getdata')
     ->rangeToArray(
        $mien_lay_du_lieu_excel,     // The worksheet range that we want to retrieve
@@ -640,54 +616,9 @@ $mien_lay_du_lieu_excel = 'C1:AP'.$so_o_lay ;
     );
 
 
-a:
-    
+echo json_encode($dataexcel);
 
-    
-    
+  }
+
+
 ?>	
-
-
- var arrayjavascript = <?php echo json_encode($dataexcel); ?>; // ***** gán mảng 2 chiều từ php vào javácript
-if (arrayjavascript == "") 
-{
-document.getElementById('table2').innerHTML = <?php if (isset($kiem_tra_loi_1)) {echo json_encode($kiem_tra_loi_1);	} else {echo json_encode("");} ?>;		
-		
-}
-
-else
-{
-
- var countjavascript = arrayjavascript.length ;
-  var coloumsjavascript = arrayjavascript[1].length ; 
- 
-// tạo bảng trên html chuyển dòng thành cột
-   for(var r=0;r<coloumsjavascript;r++)
-  {
-  var x= document.getElementById('table1').insertRow(r);
-    
-   for(var c=0;c<countjavascript;c++)  
-    {
-     x.insertCell(c);
-    }
-   }
-// điền dữ liệu vào bảng 
-
-   for(var r=0;r<countjavascript;r++)
-  {
-  
-    
-   for(var c=0;c<coloumsjavascript;c++)  
-    {
-    
-	  document.getElementById('table1').rows[c].cells[r].innerHTML =arrayjavascript[r][c]; 
-    }
-   }
-   
-
-}
-	
-	
-</script>
-
-

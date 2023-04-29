@@ -3,7 +3,7 @@
 <body>
 <fieldset class="fieldset_chung" > 
 <legend>Báo Cáo theo ngày, tháng </legend>
-	<form  >
+
 	
 	<table  > 
 	
@@ -35,8 +35,7 @@
 
 		
 
-		
-</form>
+
 		
 </fieldset>
 

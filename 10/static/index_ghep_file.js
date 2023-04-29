@@ -1,5 +1,2044 @@
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function App(props) {
+  function remove_color_click(dom) {
+    const collection = document.getElementById(dom).children;
+    for (let i = 0; i < collection.length; i++) {
+      collection[i].style.color = "black";
+      document.getElementById(dom).style.borderLeft = "thin solid rgb(14 165 233)";
+      document.getElementById(dom).style.borderTop = "thin solid rgb(14 165 233)";
+      document.getElementById(dom).style.borderBottom = "thin solid rgb(14 165 233)";
+    }
+  }
+  useEffect(() => {
+    let id_nhan_index = document.getElementById('id_nhan_index');
+    if (arrayjavascript_1 == 1) {
+      document.getElementById('id_td_1').innerHTML = "Đăng nhập - " + arrayjavascript_2;
+      var array_option = new Array();
+      // This will return an array with strings "1", "2", etc.
+      array_option = arrayjavascript_3[0][2].split(",");
+      console.log(array_option);
+      array_option_ten_day_du = arrayjavascript_3[0][3].split(",");
+      console.log(array_option_ten_day_du);
+      var select = document.getElementById("id_8");
+      for (var i = 0; i < array_option.length; i++) {
+        var option = document.createElement("OPTION"),
+          txt = document.createTextNode(array_option_ten_day_du[i]);
+        option.appendChild(txt);
+        option.setAttribute("value", array_option[i]);
+        select.insertBefore(option, select.lastChild);
+      }
+      // kiểm tra xem có được quyền thêm người dùng và khóa dữ liệu không
+      var quyen_them_nguoi_dung_va_khoa_ngay_sua_du_lieu = arrayjavascript_3[0][4];
+      if (quyen_them_nguoi_dung_va_khoa_ngay_sua_du_lieu == 1) {
+        document.getElementById('id_them_user').style.display = 'inline';
+        document.getElementById('id_khoa_ngay_nhap_du_lieu').style.display = 'inline';
+      } else {
+        document.getElementById('id_them_user').style.display = 'none';
+        document.getElementById('id_khoa_ngay_nhap_du_lieu').style.display = 'none';
+      }
+    }
+    /*đăng ký*/
+
+    $(document).ready(function () {
+      $("#id_td_0").click(function () {
+        $.post("from_dang_ky.php", {}, function (data) {
+          $("#id_nhan_index").html(data);
+        });
+      });
+    });
+
+    /*đăng nhập*/
+
+    $(document).ready(function () {
+      $("#id_td_1").click(function () {
+        if (document.getElementById('id_td_1').innerHTML == "Đăng nhập") {
+          ReactDOM.render( /*#__PURE__*/React.createElement(Login, null), id_nhan_index);
+        } else {
+          ReactDOM.render( /*#__PURE__*/React.createElement(Logout, null), id_nhan_index);
+        }
+      });
+    });
+
+    /*phối*/
+
+    $(document).ready(function () {
+      $("#id_td_2").click(function () {
+        ReactDOM.unmountComponentAtNode(id_nhan_index);
+        if (document.getElementById('id_td_1').innerHTML == "Đăng nhập") {
+          _alert("Bạn phải đăng nhập trước đã");
+        } else {
+          var dem_string = $("#id_8").val();
+          var count_dem_string = dem_string.length;
+          if (count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
+            return _alert('Bạn phải chọn công ty để nhập dữ liệu hoặc lỗi chọn công ty có chứa *');
+          }
+          ReactDOM.render(React.createElement(Phoi, null), id_nhan_index);
+          gobal_tim_kiem_sua_xoa = "phoi";
+        }
+      });
+    });
+
+    /* đẻ*/
+
+    $(document).ready(function () {
+      $("#id_td_13").click(function () {
+        if (document.getElementById('id_td_1').innerHTML == "Đăng nhập") {
+          _alert('Bạn phải đăng nhập trước đã');
+        } else {
+          var dem_string = $("#id_8").val();
+          var count_dem_string = dem_string.length;
+          if (count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
+            return _alert('Bạn phải chọn công ty để nhập dữ liệu hoặc lỗi chọn công ty có chứa *');
+          }
+          ReactDOM.render(React.createElement(De, null), id_nhan_index);
+          gobal_tim_kiem_sua_xoa = "de";
+        }
+      });
+    });
+
+    /* cai sữa*/
+
+    $(document).ready(function () {
+      $("#id_td_3").click(function () {
+        if (document.getElementById('id_td_1').innerHTML == "Đăng nhập") {
+          _alert('Bạn phải đăng nhập trước đã');
+        } else {
+          var dem_string = $("#id_8").val();
+          var count_dem_string = dem_string.length;
+          if (count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
+            return _alert('Bạn phải chọn công ty để nhập dữ liệu hoặc lỗi chọn công ty có chứa *');
+          }
+          ReactDOM.render(React.createElement(Cai_sua, null), id_nhan_index);
+          gobal_tim_kiem_sua_xoa = "cai_sua";
+        }
+      });
+    });
+
+    /* heo vấn đề*/
+
+    $(document).ready(function () {
+      $("#id_td_4").click(function () {
+        if (document.getElementById('id_td_1').innerHTML == "Đăng nhập") {
+          _alert('Bạn phải đăng nhập trước đã');
+        } else {
+          var dem_string = $("#id_8").val();
+          var count_dem_string = dem_string.length;
+          if (count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
+            return _alert('Bạn phải chọn công ty để nhập dữ liệu hoặc lỗi chọn công ty có chứa *');
+          }
+          ReactDOM.render(React.createElement(Heo_van_de, null), id_nhan_index);
+          gobal_tim_kiem_sua_xoa = "van_de";
+        }
+      });
+    });
+
+    /* heo nái chết loại*/
+
+    $(document).ready(function () {
+      $("#id_td_5").click(function () {
+        if (document.getElementById('id_td_1').innerHTML == "Đăng nhập") {
+          _alert('Bạn phải đăng nhập trước đã');
+        } else {
+          var dem_string = $("#id_8").val();
+          var count_dem_string = dem_string.length;
+          if (count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
+            return _alert('Bạn phải chọn công ty để nhập dữ liệu hoặc lỗi chọn công ty có chứa *');
+          }
+          ReactDOM.render(React.createElement(Nai_chet, null), id_nhan_index);
+          gobal_tim_kiem_sua_xoa = "nai_chet_loai";
+        }
+      });
+    });
+
+    /* heo con chết loại*/
+
+    $(document).ready(function () {
+      $("#id_td_6").click(function () {
+        if (document.getElementById('id_td_1').innerHTML == "Đăng nhập") {
+          _alert('Bạn phải đăng nhập trước đã');
+        } else {
+          var dem_string = $("#id_8").val();
+          var count_dem_string = dem_string.length;
+          if (count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
+            return _alert('Bạn phải chọn công ty để nhập dữ liệu hoặc lỗi chọn công ty có chứa *');
+          }
+          ReactDOM.render(React.createElement(Heo_con_chet, null), id_nhan_index);
+          gobal_tim_kiem_sua_xoa = "con_chet_loai";
+        }
+      });
+    });
+
+    /* hậu bị*/
+
+    $(document).ready(function () {
+      $("#id_td_7").click(function () {
+        if (document.getElementById('id_td_1').innerHTML == "Đăng nhập") {
+          _alert('Bạn phải đăng nhập trước đã');
+        } else {
+          var dem_string = $("#id_8").val();
+          var count_dem_string = dem_string.length;
+          if (count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
+            return _alert('Bạn phải chọn công ty để nhập dữ liệu hoặc lỗi chọn công ty có chứa *');
+          }
+          ReactDOM.unmountComponentAtNode(id_nhan_index);
+          ReactDOM.render(React.createElement(Hau_bi, null), id_nhan_index);
+          gobal_tim_kiem_sua_xoa = "hau_bi";
+        }
+      });
+    });
+
+    /* đực */
+
+    $(document).ready(function () {
+      $("#id_td_8").click(function () {
+        if (document.getElementById('id_td_1').innerHTML == "Đăng nhập") {
+          _alert('Bạn phải đăng nhập trước đã');
+        } else {
+          var dem_string = $("#id_8").val();
+          var count_dem_string = dem_string.length;
+          if (count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
+            return _alert('Bạn phải chọn công ty để nhập dữ liệu hoặc lỗi chọn công ty có chứa *');
+          }
+          ReactDOM.unmountComponentAtNode(id_nhan_index);
+          ReactDOM.render(React.createElement(Duc, null), id_nhan_index);
+          gobal_tim_kiem_sua_xoa = "duc";
+        }
+      });
+    });
+
+    /*báo cáo tháng*/
+
+    $(document).ready(function () {
+      $("#id_td_10").click(function () {
+        if (document.getElementById('id_td_1').innerHTML == "Đăng nhập") {
+          _alert('Bạn phải đăng nhập trước đã');
+        } else {
+          try {
+            Table_hieu_2.remove_EventListener();
+          } catch (error) {}
+          ReactDOM.unmountComponentAtNode(id_nhan_index);
+          gobal_post_month = "fuction_thang__from_bao_cao_thang.php";
+          gobal_post = "fuction_tuan__from_bao_cao_thang.php";
+          ReactDOM.render(React.createElement(from_bao_cao_thang, null), id_nhan_index);
+        }
+      });
+    });
+
+    /*báo cáo tháng phối*/
+
+    $(document).ready(function () {
+      $("#id_td_12").click(function () {
+        if (document.getElementById('id_td_1').innerHTML == "Đăng nhập") {
+          _alert('Bạn phải đăng nhập trước đã');
+        } else {
+          try {
+            Table_hieu_2.remove_EventListener();
+          } catch (error) {}
+          ReactDOM.unmountComponentAtNode(id_nhan_index);
+          gobal_post_month = "fuction_thang__from_bao_cao_tinh_theo_phoi.php";
+          gobal_post = "fuction_tuan__from_bao_cao_tinh_theo_phoi.php";
+          ReactDOM.render(React.createElement(from_bao_cao_thang, null), id_nhan_index);
+        }
+      });
+    });
+
+    /*theo dõi tỷ lệ phối*/
+
+    $(document).ready(function () {
+      $("#id_td_9").click(function () {
+        if (document.getElementById('id_td_1').innerHTML == "Đăng nhập") {
+          _alert('Bạn phải đăng nhập trước đã');
+        } else {
+          try {
+            Table_hieu_2.remove_EventListener();
+          } catch (error) {}
+          ReactDOM.unmountComponentAtNode(id_nhan_index);
+          gobal_post_month = "fuction_thang--from_theo_doi_ty_le_phoi.php";
+          gobal_post = "fuction_tuan--from_theo_doi_ty_le_phoi.php";
+          ReactDOM.render(React.createElement(from_bao_cao_thang, null), id_nhan_index);
+        }
+      });
+    });
+
+    /*tra lý lịch*/
+
+    $(document).ready(function () {
+      $("#id_td_14").click(function () {
+        if (document.getElementById('id_td_1').innerHTML == "Đăng nhập") {
+          _alert('Bạn phải đăng nhập trước đã');
+        } else {
+          $.post("from_tra_ly_lich.php", {}, function (data) {
+            ReactDOM.unmountComponentAtNode(id_nhan_index);
+            ReactDOM.render(React.createElement(Tra_ly_lich, null), id_nhan_index);
+          });
+        }
+      });
+    });
+
+    /*chọn được phối*/
+
+    $(document).ready(function () {
+      $("#id_td_15").click(function () {
+        if (document.getElementById('id_td_1').innerHTML == "Đăng nhập") {
+          _alert('Bạn phải đăng nhập trước đã');
+        } else {
+          //--------------------------- truyền biến sang app script theo phương pháp doGet	    
+          var select_id_8 = document.getElementById('id_8');
+          // lấy text của option của select html
+          var trai = select_id_8.options[select_id_8.selectedIndex].text;
+          var ma_trai = select_id_8.value;
+          const nextURL = 'https://script.google.com/macros/s/AKfycbwjx_VZLp4bGa_2jBdZCkEcNrbevvXzqfuSnEDoOk0/dev?' + trai + '_-_' + ma_trai;
+
+          // This will create a new entry in the browser's history, reloading afterwards
+          window.location.href = nextURL;
+        }
+      });
+    });
+
+    /*Xem danh sách đàn nái, đực*/
+
+    $(document).ready(function () {
+      $("#id_td_16").click(function () {
+        if (document.getElementById('id_td_1').innerHTML == "Đăng nhập") {
+          _alert('Bạn phải đăng nhập trước đã');
+        } else {
+          ReactDOM.render(React.createElement(Danh_sach_heo, null), id_nhan_index);
+        }
+      });
+    });
+
+    // test
+
+    $(document).ready(function () {
+      $("#id_td_17").click(function () {
+        $.post("10.php", {}, function (data) {
+          console.log(data);
+        });
+      });
+    });
+
+    // test
+
+    $(document).ready(function () {
+      $("#id_td_18").click(function () {
+        $.post("10.php", {}, function (data) {
+          console.log(data);
+        });
+      });
+    });
+
+    /*Thêm user*/
+
+    $(document).ready(function () {
+      $("#id_them_user").click(function () {
+        if (document.getElementById('id_td_1').innerHTML == "Đăng nhập") {
+          _alert('Bạn phải đăng nhập trước đã');
+        } else {
+          document.getElementById("id_nhan_index").innerHTML = "<progress ></progress>";
+          $.post("from_them_user.php", {}, function (data) {
+            $("#id_nhan_index").html(data);
+          });
+        }
+      });
+    });
+
+    /*Khóa ngày sửa dữ liệu*/
+
+    $(document).ready(function () {
+      $("#id_khoa_ngay_nhap_du_lieu").click(function () {
+        if (document.getElementById('id_td_1').innerHTML == "Đăng nhập") {
+          _alert('Bạn phải đăng nhập trước đã');
+        } else {
+          var dem_string = $("#id_8").val();
+          var count_dem_string = dem_string.length;
+          if (count_dem_string > 50) {
+            return _alert('Để khóa ngày sửa dữ liệu phải chọn từng công ty riêng. Không được chọn công ty có chứa * ');
+          }
+          document.getElementById("id_nhan_index").innerHTML = "<progress ></progress>";
+          $.post("from_khoa_ngay_nhap_du_lieu.php", {
+            post8: $("#id_8").val()
+          }, function (data) {
+            $("#id_nhan_index").html(data);
+          });
+        }
+      });
+    });
+
+    /*show_hide thanh menu web*/
+    var show_hide = 1;
+    $(document).ready(function () {
+      $("#id_hide").click(function () {
+        if (show_hide == 1) {
+          document.getElementById('id_menu').style.display = 'none';
+          show_hide = 0;
+        } else {
+          document.getElementById('id_menu').style.display = 'inline';
+          show_hide = 1;
+        }
+      });
+    });
+  }, []);
+  return /*#__PURE__*/React.createElement("div", {
+    className: `  flex  h-screen flex-col `
+  }, /*#__PURE__*/React.createElement("div", {
+    className: `  flex bg-green-400 justify-between `
+  }, /*#__PURE__*/React.createElement("div", {
+    id: "id_hide"
+  }, " Hide  "), /*#__PURE__*/React.createElement("div", null, " T\u1EADp \u0110o\xE0n DABACO Vi\u1EC7t Nam  "), /*#__PURE__*/React.createElement("select", {
+    id: "id_8"
+  }), /*#__PURE__*/React.createElement("input", {
+    id: "id_them_user",
+    type: "button",
+    value: "Th\xEAm ng\u01B0\u1EDDi d\xF9ng"
+  }), /*#__PURE__*/React.createElement("input", {
+    id: "id_khoa_ngay_nhap_du_lieu",
+    type: "button",
+    value: "Kh\xF3a ng\xE0y s\u1EE7a d\u1EEF li\u1EC7u"
+  })), /*#__PURE__*/React.createElement("div", {
+    className: ` flex flex-row  grow bg-orange-200  _shadow `
+  }, /*#__PURE__*/React.createElement("div", {
+    id: "id_menu",
+    className: `  flex-shrink-0 w-[180px] h-full `
+  }, /*#__PURE__*/React.createElement("div", {
+    id: "id_td_0",
+    className: ` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `,
+    onClick: event => {
+      remove_color_click('id_menu');
+      event.target.style.color = "blue";
+    }
+  }, "\u0110\u0103ng k\xFD"), /*#__PURE__*/React.createElement("div", {
+    id: "id_td_1",
+    className: ` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `,
+    onClick: event => {
+      remove_color_click('id_menu');
+      event.target.style.color = "blue";
+    }
+  }, "\u0110\u0103ng nh\u1EADp"), /*#__PURE__*/React.createElement("div", {
+    id: "id_td_2",
+    className: ` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `,
+    onClick: event => {
+      remove_color_click('id_menu');
+      event.target.style.color = "blue";
+    }
+  }, "Ph\u1ED1i"), /*#__PURE__*/React.createElement("div", {
+    id: "id_td_13",
+    className: ` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `,
+    onClick: event => {
+      remove_color_click('id_menu');
+      event.target.style.color = "blue";
+    }
+  }, "\u0110\u1EBB"), /*#__PURE__*/React.createElement("div", {
+    id: "id_td_3",
+    className: ` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `,
+    onClick: event => {
+      remove_color_click('id_menu');
+      event.target.style.color = "blue";
+    }
+  }, "Cai s\u1EEFa"), /*#__PURE__*/React.createElement("div", {
+    id: "id_td_4",
+    className: ` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `,
+    onClick: event => {
+      remove_color_click('id_menu');
+      event.target.style.color = "blue";
+    }
+  }, "Heo v\u1EA5n \u0111\u1EC1"), /*#__PURE__*/React.createElement("div", {
+    id: "id_td_5",
+    className: ` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `,
+    onClick: event => {
+      remove_color_click('id_menu');
+      event.target.style.color = "blue";
+    }
+  }, "Heo n\xE1i ch\u1EBFt lo\u1EA1i"), /*#__PURE__*/React.createElement("div", {
+    id: "id_td_6",
+    className: ` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `,
+    onClick: event => {
+      remove_color_click('id_menu');
+      event.target.style.color = "blue";
+    }
+  }, "Heo con ch\u1EBFt lo\u1EA1i"), /*#__PURE__*/React.createElement("div", {
+    id: "id_td_7",
+    className: ` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `,
+    onClick: event => {
+      remove_color_click('id_menu');
+      event.target.style.color = "blue";
+    }
+  }, "Heo H\u1EADu b\u1ECB"), /*#__PURE__*/React.createElement("div", {
+    id: "id_td_8",
+    className: ` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `,
+    onClick: event => {
+      remove_color_click('id_menu');
+      event.target.style.color = "blue";
+    }
+  }, "Heo \u0110\u1EF1c"), /*#__PURE__*/React.createElement("div", {
+    id: "id_td_9",
+    className: ` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `,
+    onClick: event => {
+      remove_color_click('id_menu');
+      event.target.style.color = "blue";
+    }
+  }, "B\xE1o c\xE1o t\u1EF7 l\u1EC7 ph\u1ED1i"), /*#__PURE__*/React.createElement("div", {
+    id: "id_td_10",
+    className: ` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `,
+    onClick: event => {
+      remove_color_click('id_menu');
+      event.target.style.color = "blue";
+    }
+  }, "B\xE1o c\xE1o th\xE1ng"), /*#__PURE__*/React.createElement("div", {
+    id: "id_td_12",
+    className: ` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `,
+    onClick: event => {
+      remove_color_click('id_menu');
+      event.target.style.color = "blue";
+    }
+  }, "B\xE1o c\xE1o 41 ch\u1EC9 ti\xEAu"), /*#__PURE__*/React.createElement("div", {
+    id: "id_td_14",
+    className: ` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `,
+    onClick: event => {
+      remove_color_click('id_menu');
+      event.target.style.color = "blue";
+    }
+  }, "Tra l\xFD l\u1ECBch"), /*#__PURE__*/React.createElement("div", {
+    id: "id_td_15",
+    className: ` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `,
+    onClick: event => {
+      remove_color_click('id_menu');
+      event.target.style.color = "blue";
+    }
+  }, "Ch\u1ECDn \u0111\u1EF1c ph\u1ED1i"), /*#__PURE__*/React.createElement("div", {
+    id: "id_td_16",
+    className: ` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `,
+    onClick: event => {
+      remove_color_click('id_menu');
+      event.target.style.color = "blue";
+    }
+  }, "Xem danh s\xE1ch \u0111\xE0n heo"), /*#__PURE__*/React.createElement("div", {
+    id: "id_td_17",
+    className: ` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `,
+    onClick: event => {
+      remove_color_click('id_menu');
+      event.target.style.color = "blue";
+    }
+  }, "test"), /*#__PURE__*/React.createElement("div", {
+    id: "id_td_18",
+    className: ` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `,
+    onClick: event => {
+      remove_color_click('id_menu');
+      event.target.style.color = "blue";
+    }
+  }, "test")), /*#__PURE__*/React.createElement("div", {
+    className: ` flex h-full grow  bg-gray-100  `,
+    id: "id_nhan_index"
+  }, "-------------------")), /*#__PURE__*/React.createElement("table", {
+    class: "footer"
+  }, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", {
+    rowspan: "2",
+    width: "25"
+  }, /*#__PURE__*/React.createElement("img", {
+    src: "logo2.jpg",
+    alt: "",
+    height: "20"
+  })), " ", /*#__PURE__*/React.createElement("td", null, "35 Ly Thai To Street - Bac Ninh City - Bac Ninh Province - Viet Nam")), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, " Tel: +84 (241) 3826077 - 3895111. Fax: +84 (241) 3826095 - 3821377"))));
+}
+;
+function Cai_sua() {
+  let arrayjavascript_so_tai;
+  function handleChange(event) {
+    var gia_tri_tim = event.target.value;
+    var chuoi_ban_dau = "," + arrayjavascript_so_tai.join();
+    var gia_tri_tim = new RegExp("," + "[A-Z]*[0-9]*" + gia_tri_tim, 'i');
+    var vi_tri_tim_thay = chuoi_ban_dau.search(gia_tri_tim);
+    var chuoi_cat_ra = chuoi_ban_dau.substr(vi_tri_tim_thay, 20);
+    var mang_cat_ra_tu_chuoi = chuoi_cat_ra.split(",");
+    document.getElementById('id_tim_1').innerHTML = mang_cat_ra_tu_chuoi[1];
+  }
+  useEffect(() => {
+    $.post("from_cai_sua.php", {
+      post8: $("#id_8").val()
+    }, function (data) {
+      arrayjavascript_so_tai = JSON.parse(data);
+    });
+
+    /* phím enter */
+    $(document).ready(function () {
+      $('#id_1').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          if (document.getElementById("id_checkbox").checked == true) {
+            document.getElementById('id_1').value = document.getElementById('id_tim_1').innerHTML;
+          }
+          document.getElementById("id_2").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id_2').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id_3").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id_3').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id_gui").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $("#id_gui").click(function () {
+        let width_table = document.getElementById('id_nhan').getBoundingClientRect().width;
+        let height_table = document.getElementById('id_nhan').getBoundingClientRect().height;
+        if (isNaN(Number($("#id_3").val())) || $("#id_3").val() < 0 || $("#id_3").val() > 30 || $("#id_3").val() == null || $("#id_3").val() == "") {
+          return _alert("Số heo cai sữa  phải định dạng số từ 0-30 và không được để trống");
+        }
+        var dem_string = $("#id_8").val();
+        var count_dem_string = dem_string.length;
+        if ($("#id_1").val() == null || $("#id_1").val() == "" || $("#id_2").val() == null || $("#id_2").val() == "" || $("#id_3").val() == null || $("#id_3").val() == "" || count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
+          return _alert("Bạn phải điền đầy đủ thông tin hoặc lỗi chọn công ty có chứa *");
+        } else {
+          $.post("fuction_thêm--from_cai_sữa.php", {
+            post1: $("#id_1").val(),
+            post2: $("#id_2").val(),
+            post3: $("#id_3").val(),
+            post8: $("#id_8").val()
+          }, function (data) {
+            if (data.trim().slice(0, 2) !== "[[") {
+              _alert(data);
+            } else {
+              ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
+              ReactDOM.render(React.createElement(Table, {
+                value: {
+                  data: JSON.parse(data),
+                  width: width_table,
+                  height: height_table
+                }
+              }), document.getElementById('id_nhan'));
+            }
+          });
+        }
+      });
+    });
+
+    /* nút thêm, sửa, xóa*/
+    $(document).ready(function () {
+      $("#id_gui_research").click(function () {
+        ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
+        ReactDOM.render( /*#__PURE__*/React.createElement(Tim_kiem, null), document.getElementById('id_nhan'));
+      });
+    });
+  }, []);
+  return /*#__PURE__*/React.createElement("div", {
+    className: `flex flex-col w-full h-full border bg-gray-100   border-sky-500 `
+  }, /*#__PURE__*/React.createElement("input", {
+    id: "id_gui_research",
+    type: "button",
+    value: "T\xECm ki\u1EBFm, s\u1EEDa, x\xF3a"
+  }), /*#__PURE__*/React.createElement("div", {
+    className: `ml-1 border-b border-sky-500 mr-1`
+  }, " Nh\u1EADp Heo Cai S\u1EEFa "), /*#__PURE__*/React.createElement("div", {
+    className: ` flex grow  mt-2 `
+  }, /*#__PURE__*/React.createElement("div", {
+    className: ` shrink-0 ml-2 `
+  }, /*#__PURE__*/React.createElement("div", null, " M\xE3 th\u1EBB n\xE1i:  "), /*#__PURE__*/React.createElement("input", {
+    id: "id_1",
+    className: `  border border-sky-500 `,
+    onChange: handleChange
+  }), " ", /*#__PURE__*/React.createElement("label", {
+    id: "id_tim_1",
+    type: "text"
+  }, "Nh\u1EADp theo s\u1ED1 tai g\u1EE3i \xFD"), /*#__PURE__*/React.createElement("input", {
+    type: "checkbox",
+    id: "id_checkbox"
+  }), /*#__PURE__*/React.createElement("div", null, " Ng\xE0y cai: "), /*#__PURE__*/React.createElement("input", {
+    id: "id_2",
+    type: "date",
+    className: `  border border-sky-500 `
+  }), /*#__PURE__*/React.createElement("div", null, " S\u1ED1 con cai: "), /*#__PURE__*/React.createElement("input", {
+    id: "id_3",
+    className: `  border border-sky-500 `
+  }), /*#__PURE__*/React.createElement("input", {
+    type: "button",
+    value: "Th\xEAm",
+    id: "id_gui",
+    className: ` mt-2 mb-2  _shadow rounded w-full  bg-sky-500 hover:bg-sky-700 h-8 flex items-center justify-center pl-2  font-medium `
+  })), /*#__PURE__*/React.createElement("div", {
+    id: "id_nhan",
+    className: ` text-sm grow ml-1 `
+  })));
+}
+;
+function Danh_sach_heo(props) {
+  function remove_color_click(dom) {
+    const collection = document.getElementById(dom).children;
+    for (let i = 0; i < collection.length; i++) {
+      collection[i].style.color = "black";
+    }
+  }
+  useEffect(() => {
+    let width_table = document.getElementById('id_nhan').getBoundingClientRect().width;
+    let height_table = document.getElementById('id_nhan').getBoundingClientRect().height;
+
+    // phối
+    $(document).ready(function () {
+      $("#id_xem_danh_sach_1").click(function () {
+        try {
+          Table_hieu_2.remove_EventListener();
+        } catch (error) {}
+        ReactDOM.unmountComponentAtNode(id_nhan);
+        $.post("fuction_danh_sach_heo__from_xem_danh_sach_dan_nai_duc.php", {
+          post1: $("#id_xem_danh_sach_1").text(),
+          post8: $("#id_8").val()
+        }, function (data) {
+          ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
+          ReactDOM.render(React.createElement(Table_hieu_2, {
+            value: {
+              data: JSON.parse(data),
+              width: width_table,
+              height: height_table,
+              convert: false
+            }
+          }), document.getElementById('id_nhan'));
+        });
+      });
+    });
+
+    // đẻ
+    $(document).ready(function () {
+      $("#id_xem_danh_sach_2").click(function () {
+        try {
+          Table_hieu_2.remove_EventListener();
+        } catch (error) {}
+        ReactDOM.unmountComponentAtNode(id_nhan);
+        $.post("fuction_danh_sach_heo__from_xem_danh_sach_dan_nai_duc.php", {
+          post1: $("#id_xem_danh_sach_2").text(),
+          post8: $("#id_8").val()
+        }, function (data) {
+          ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
+          ReactDOM.render(React.createElement(Table_hieu_2, {
+            value: {
+              data: JSON.parse(data),
+              width: width_table,
+              height: height_table,
+              convert: false
+            }
+          }), document.getElementById('id_nhan'));
+        });
+      });
+    });
+
+    // cai sữa
+    $(document).ready(function () {
+      $("#id_xem_danh_sach_3").click(function () {
+        try {
+          Table_hieu_2.remove_EventListener();
+        } catch (error) {}
+        ReactDOM.unmountComponentAtNode(id_nhan);
+        $.post("fuction_danh_sach_heo__from_xem_danh_sach_dan_nai_duc.php", {
+          post1: $("#id_xem_danh_sach_3").text(),
+          post8: $("#id_8").val()
+        }, function (data) {
+          ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
+          ReactDOM.render(React.createElement(Table_hieu_2, {
+            value: {
+              data: JSON.parse(data),
+              width: width_table,
+              height: height_table,
+              convert: false
+            }
+          }), document.getElementById('id_nhan'));
+        });
+      });
+    });
+
+    // vấn đề
+    $(document).ready(function () {
+      $("#id_xem_danh_sach_4").click(function () {
+        try {
+          Table_hieu_2.remove_EventListener();
+        } catch (error) {}
+        ReactDOM.unmountComponentAtNode(id_nhan);
+        $.post("fuction_danh_sach_heo__from_xem_danh_sach_dan_nai_duc.php", {
+          post1: $("#id_xem_danh_sach_4").text(),
+          post8: $("#id_8").val()
+        }, function (data) {
+          ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
+          ReactDOM.render(React.createElement(Table_hieu_2, {
+            value: {
+              data: JSON.parse(data),
+              width: width_table,
+              height: height_table,
+              convert: false
+            }
+          }), document.getElementById('id_nhan'));
+        });
+      });
+    });
+
+    // hậu bị
+    $(document).ready(function () {
+      $("#id_xem_danh_sach_5").click(function () {
+        try {
+          Table_hieu_2.remove_EventListener();
+        } catch (error) {}
+        ReactDOM.unmountComponentAtNode(id_nhan);
+        $.post("fuction_danh_sach_heo__from_xem_danh_sach_dan_nai_duc.php", {
+          post1: $("#id_xem_danh_sach_5").text(),
+          post8: $("#id_8").val()
+        }, function (data) {
+          $("#id_nhan").html(data);
+          ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
+          ReactDOM.render(React.createElement(Table_hieu_2, {
+            value: {
+              data: JSON.parse(data),
+              width: width_table,
+              height: height_table,
+              convert: false
+            }
+          }), document.getElementById('id_nhan'));
+        });
+      });
+    });
+    // đực
+    $(document).ready(function () {
+      $("#id_xem_danh_sach_6").click(function () {
+        try {
+          Table_hieu_2.remove_EventListener();
+        } catch (error) {}
+        ReactDOM.unmountComponentAtNode(id_nhan);
+        $.post("fuction_danh_sach_heo__from_xem_danh_sach_dan_nai_duc.php", {
+          post1: $("#id_xem_danh_sach_6").text(),
+          post8: $("#id_8").val()
+        }, function (data) {
+          ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
+          ReactDOM.render(React.createElement(Table_hieu_2, {
+            value: {
+              data: JSON.parse(data),
+              width: width_table,
+              height: height_table,
+              convert: false
+            }
+          }), document.getElementById('id_nhan'));
+        });
+      });
+    });
+
+    // quá 123 ngày chưa đẻ
+    $(document).ready(function () {
+      $("#id_xem_danh_sach_7").click(function () {
+        try {
+          Table_hieu_2.remove_EventListener();
+        } catch (error) {}
+        ReactDOM.unmountComponentAtNode(id_nhan);
+        $.post("fuction_danh_sach_heo__from_xem_danh_sach_dan_nai_duc.php", {
+          post1: $("#id_xem_danh_sach_7").text(),
+          post8: $("#id_8").val()
+        }, function (data) {
+          ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
+          ReactDOM.render(React.createElement(Table_hieu_2, {
+            value: {
+              data: JSON.parse(data),
+              width: width_table,
+              height: height_table,
+              convert: false
+            }
+          }), document.getElementById('id_nhan'));
+        });
+      });
+    });
+
+    // quá 35 ngày chưa cai
+    $(document).ready(function () {
+      $("#id_xem_danh_sach_8").click(function () {
+        try {
+          Table_hieu_2.remove_EventListener();
+        } catch (error) {}
+        ReactDOM.unmountComponentAtNode(id_nhan);
+        $.post("fuction_danh_sach_heo__from_xem_danh_sach_dan_nai_duc.php", {
+          post1: $("#id_xem_danh_sach_8").text(),
+          post8: $("#id_8").val()
+        }, function (data) {
+          ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
+          ReactDOM.render(React.createElement(Table_hieu_2, {
+            value: {
+              data: JSON.parse(data),
+              width: width_table,
+              height: height_table,
+              convert: false
+            }
+          }), document.getElementById('id_nhan'));
+        });
+      });
+    });
+
+    // heo cai sữa quá 7 ngày chưa phối
+    $(document).ready(function () {
+      $("#id_xem_danh_sach_9").click(function () {
+        try {
+          Table_hieu_2.remove_EventListener();
+        } catch (error) {}
+        ReactDOM.unmountComponentAtNode(id_nhan);
+        $.post("fuction_danh_sach_heo__from_xem_danh_sach_dan_nai_duc.php", {
+          post1: $("#id_xem_danh_sach_9").text(),
+          post8: $("#id_8").val()
+        }, function (data) {
+          ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
+          ReactDOM.render(React.createElement(Table_hieu_2, {
+            value: {
+              data: JSON.parse(data),
+              width: width_table,
+              height: height_table,
+              convert: false
+            }
+          }), document.getElementById('id_nhan'));
+        });
+      });
+    });
+
+    // lốc 2 lần liên tiếp
+    $(document).ready(function () {
+      $("#id_xem_danh_sach_10").click(function () {
+        try {
+          Table_hieu_2.remove_EventListener();
+        } catch (error) {}
+        ReactDOM.unmountComponentAtNode(id_nhan);
+        $.post("fuction_danh_sach_heo__from_xem_danh_sach_dan_nai_duc.php", {
+          post1: $("#id_xem_danh_sach_10").text(),
+          post8: $("#id_8").val()
+        }, function (data) {
+          ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
+          ReactDOM.render(React.createElement(Table_hieu_2, {
+            value: {
+              data: JSON.parse(data),
+              width: width_table,
+              height: height_table,
+              convert: false
+            }
+          }), document.getElementById('id_nhan'));
+        });
+      });
+    });
+
+    // trung bình 2 lứa đẻ dưới 7 con
+    $(document).ready(function () {
+      $("#id_xem_danh_sach_11").click(function () {
+        try {
+          Table_hieu_2.remove_EventListener();
+        } catch (error) {}
+        ReactDOM.unmountComponentAtNode(id_nhan);
+        $.post("fuction_danh_sach_heo__from_xem_danh_sach_dan_nai_duc.php", {
+          post1: $("#id_xem_danh_sach_11").text(),
+          post8: $("#id_8").val()
+        }, function (data) {
+          ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
+          ReactDOM.render(React.createElement(Table_hieu_2, {
+            value: {
+              data: JSON.parse(data),
+              width: width_table,
+              height: height_table,
+              convert: false
+            }
+          }), document.getElementById('id_nhan'));
+        });
+      });
+    });
+  }, []);
+  return /*#__PURE__*/React.createElement("div", {
+    className: `text-sm flex flex-row h-full  grow border bg-gray-100   border-sky-500 `
+  }, /*#__PURE__*/React.createElement("div", {
+    id: "id_ds",
+    className: `  flex-shrink-0 w-[225px] h-full  `
+  }, /*#__PURE__*/React.createElement("div", {
+    id: "id_xem_danh_sach_1",
+    className: ` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `,
+    onClick: event => {
+      remove_color_click('id_ds');
+      event.target.style.color = "blue";
+    }
+  }, "Danh s\xE1ch heo ph\u1ED1i"), /*#__PURE__*/React.createElement("div", {
+    id: "id_xem_danh_sach_2",
+    className: ` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `,
+    onClick: event => {
+      remove_color_click('id_ds');
+      event.target.style.color = "blue";
+    }
+  }, "Danh s\xE1ch heo \u0111\u1EBB"), /*#__PURE__*/React.createElement("div", {
+    id: "id_xem_danh_sach_3",
+    className: ` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `,
+    onClick: event => {
+      remove_color_click('id_ds');
+      event.target.style.color = "blue";
+    }
+  }, "Danh s\xE1ch heo cai s\u1EEFa"), /*#__PURE__*/React.createElement("div", {
+    id: "id_xem_danh_sach_4",
+    className: ` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `,
+    onClick: event => {
+      remove_color_click('id_ds');
+      event.target.style.color = "blue";
+    }
+  }, "Danh s\xE1ch heo v\u1EA5n \u0111\u1EC1"), /*#__PURE__*/React.createElement("div", {
+    id: "id_xem_danh_sach_5",
+    className: ` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `,
+    onClick: event => {
+      remove_color_click('id_ds');
+      event.target.style.color = "blue";
+    }
+  }, "Danh s\xE1ch heo h\u1EADu b\u1ECB"), /*#__PURE__*/React.createElement("div", {
+    id: "id_xem_danh_sach_6",
+    className: ` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `,
+    onClick: event => {
+      remove_color_click('id_ds');
+      event.target.style.color = "blue";
+    }
+  }, "Danh s\xE1ch heo \u0111\u1EF1c"), /*#__PURE__*/React.createElement("div", {
+    id: "id_xem_danh_sach_7",
+    className: ` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `,
+    onClick: event => {
+      remove_color_click('id_ds');
+      event.target.style.color = "blue";
+    }
+  }, "Heo qu\xE1 123 ng\xE0y ch\u01B0a \u0111\u1EBB"), /*#__PURE__*/React.createElement("div", {
+    id: "id_xem_danh_sach_8",
+    className: ` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `,
+    onClick: event => {
+      remove_color_click('id_ds');
+      event.target.style.color = "blue";
+    }
+  }, "Heo qu\xE1 35 ng\xE0y ch\u01B0a cai s\u1EEFa"), /*#__PURE__*/React.createElement("div", {
+    id: "id_xem_danh_sach_9",
+    className: ` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `,
+    onClick: event => {
+      remove_color_click('id_ds');
+      event.target.style.color = "blue";
+    }
+  }, "Heo cai s\u1EEFa qu\xE1 7 ng\xE0y ch\u01B0a ph\u1ED1i"), /*#__PURE__*/React.createElement("div", {
+    id: "id_xem_danh_sach_10",
+    className: ` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `,
+    onClick: event => {
+      remove_color_click('id_ds');
+      event.target.style.color = "blue";
+    }
+  }, "Heo l\u1ED1c, x\u1EA3y thai 2 l\u1EA7n li\xEAn ti\u1EBFp"), /*#__PURE__*/React.createElement("div", {
+    id: "id_xem_danh_sach_11",
+    className: ` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `,
+    onClick: event => {
+      remove_color_click('id_ds');
+      event.target.style.color = "blue";
+    }
+  }, "Heo \u0111\u1EBB trung b\xECnh 2 l\u1EE9a d\u01B0\u1EDBi 7 con")), /*#__PURE__*/React.createElement("div", {
+    className: ` flex h-full grow  bg-gray-100  `,
+    id: "id_nhan"
+  }, "-------------------"));
+}
+;
+function De() {
+  let arrayjavascript_so_tai;
+  function handleChange(event) {
+    var gia_tri_tim = event.target.value;
+    var chuoi_ban_dau = "," + arrayjavascript_so_tai.join();
+    var gia_tri_tim = new RegExp("," + "[A-Z]*[0-9]*" + gia_tri_tim, 'i');
+    var vi_tri_tim_thay = chuoi_ban_dau.search(gia_tri_tim);
+    var chuoi_cat_ra = chuoi_ban_dau.substr(vi_tri_tim_thay, 20);
+    var mang_cat_ra_tu_chuoi = chuoi_cat_ra.split(",");
+    document.getElementById('id_tim_1').innerHTML = mang_cat_ra_tu_chuoi[1];
+  }
+  useEffect(() => {
+    $.post("from_de.php", {
+      post8: $("#id_8").val()
+    }, function (data) {
+      arrayjavascript_so_tai = JSON.parse(data);
+    });
+    document.getElementById('id_cat_tai_2').style.display = 'none';
+    document.getElementById('id_cat_tai_3').style.display = 'none';
+    document.getElementById('id_cat_tai_4').style.display = 'none';
+    document.getElementById('id_cat_tai_5').style.display = 'none';
+    document.getElementById('id_cat_tai_6').style.display = 'none';
+    document.getElementById('id_cat_tai_7').style.display = 'none';
+    document.getElementById('id_cat_tai_8').style.display = 'none';
+    document.getElementById('id_cat_tai_9').style.display = 'none';
+    document.getElementById('id_cat_tai_10').style.display = 'none';
+    document.getElementById('id_cat_tai_11').style.display = 'none';
+    document.getElementById('id_cat_tai_12').style.display = 'none';
+    document.getElementById('id_cat_tai_13').style.display = 'none';
+    document.getElementById('id_cat_tai_14').style.display = 'none';
+    document.getElementById('id_cat_tai_15').style.display = 'none';
+    document.getElementById('id_cat_tai_16').style.display = 'none';
+    document.getElementById('id_cat_tai_17').style.display = 'none';
+    /* ẩn hiện lý lịch */
+    $(document).ready(function () {
+      $("#id_cat_tai_1").keypress(function () {
+        document.getElementById('id_cat_tai_2').style.display = 'inline';
+      });
+    });
+    $(document).ready(function () {
+      $("#id_cat_tai_2").keypress(function () {
+        document.getElementById('id_cat_tai_3').style.display = 'inline';
+      });
+    });
+    $(document).ready(function () {
+      $("#id_cat_tai_3").keypress(function () {
+        document.getElementById('id_cat_tai_4').style.display = 'inline';
+      });
+    });
+    $(document).ready(function () {
+      $("#id_cat_tai_4").keypress(function () {
+        document.getElementById('id_cat_tai_5').style.display = 'inline';
+      });
+    });
+    $(document).ready(function () {
+      $("#id_cat_tai_5").keypress(function () {
+        document.getElementById('id_cat_tai_6').style.display = 'inline';
+      });
+    });
+    $(document).ready(function () {
+      $("#id_cat_tai_6").keypress(function () {
+        document.getElementById('id_cat_tai_7').style.display = 'inline';
+      });
+    });
+    $(document).ready(function () {
+      $("#id_cat_tai_7").keypress(function () {
+        document.getElementById('id_cat_tai_8').style.display = 'inline';
+      });
+    });
+    $(document).ready(function () {
+      $("#id_cat_tai_8").keypress(function () {
+        document.getElementById('id_cat_tai_9').style.display = 'inline';
+      });
+    });
+    $(document).ready(function () {
+      $("#id_cat_tai_9").keypress(function () {
+        document.getElementById('id_cat_tai_10').style.display = 'inline';
+      });
+    });
+    $(document).ready(function () {
+      $("#id_cat_tai_10").keypress(function () {
+        document.getElementById('id_cat_tai_11').style.display = 'inline';
+      });
+    });
+    $(document).ready(function () {
+      $("#id_cat_tai_11").keypress(function () {
+        document.getElementById('id_cat_tai_12').style.display = 'inline';
+      });
+    });
+    $(document).ready(function () {
+      $("#id_cat_tai_12").keypress(function () {
+        document.getElementById('id_cat_tai_13').style.display = 'inline';
+      });
+    });
+    $(document).ready(function () {
+      $("#id_cat_tai_13").keypress(function () {
+        document.getElementById('id_cat_tai_14').style.display = 'inline';
+      });
+    });
+    $(document).ready(function () {
+      $("#id_cat_tai_14").keypress(function () {
+        document.getElementById('id_cat_tai_15').style.display = 'inline';
+      });
+    });
+    $(document).ready(function () {
+      $("#id_cat_tai_15").keypress(function () {
+        document.getElementById('id_cat_tai_16').style.display = 'inline';
+      });
+    });
+    $(document).ready(function () {
+      $("#id_cat_tai_16").keypress(function () {
+        document.getElementById('id_cat_tai_17').style.display = 'inline';
+      });
+    });
+
+    /* phím enter */
+    $(document).ready(function () {
+      $('#id_1').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          if (document.getElementById("id_checkbox").checked == true) {
+            document.getElementById('id_1').value = document.getElementById('id_tim_1').innerHTML;
+          }
+          document.getElementById("id_2").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id_2').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id_3").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id_3').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id_4").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id_4').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id_5").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id_5').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id_6").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id_6').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id_7").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id_7').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id_9").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id_9').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id_10").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id_10').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id_cat_tai_1").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id_cat_tai_1').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id_cat_tai_2").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id_cat_tai_2').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13 && document.getElementById('id_cat_tai_2').value == "") {
+          document.getElementById("id_gui").focus();
+        } else {
+          document.getElementById("id_cat_tai_3").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id_cat_tai_3').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13 && document.getElementById('id_cat_tai_3').value == "") {
+          document.getElementById("id_gui").focus();
+        } else {
+          document.getElementById("id_cat_tai_4").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id_cat_tai_4').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13 && document.getElementById('id_cat_tai_4').value == "") {
+          document.getElementById("id_gui").focus();
+        } else {
+          document.getElementById("id_cat_tai_5").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id_cat_tai_5').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13 && document.getElementById('id_cat_tai_5').value == "") {
+          document.getElementById("id_gui").focus();
+        } else {
+          document.getElementById("id_cat_tai_6").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id_cat_tai_6').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13 && document.getElementById('id_cat_tai_6').value == "") {
+          document.getElementById("id_gui").focus();
+        } else {
+          document.getElementById("id_cat_tai_7").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id_cat_tai_7').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13 && document.getElementById('id_cat_tai_7').value == "") {
+          document.getElementById("id_gui").focus();
+        } else {
+          document.getElementById("id_cat_tai_8").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id_cat_tai_8').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13 && document.getElementById('id_cat_tai_8').value == "") {
+          document.getElementById("id_gui").focus();
+        } else {
+          document.getElementById("id_cat_tai_9").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id_cat_tai_9').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13 && document.getElementById('id_cat_tai_9').value == "") {
+          document.getElementById("id_gui").focus();
+        } else {
+          document.getElementById("id_cat_tai_10").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id_cat_tai_10').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13 && document.getElementById('id_cat_tai_10').value == "") {
+          document.getElementById("id_gui").focus();
+        } else {
+          document.getElementById("id_cat_tai_11").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id_cat_tai_11').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13 && document.getElementById('id_cat_tai_11').value == "") {
+          document.getElementById("id_gui").focus();
+        } else {
+          document.getElementById("id_cat_tai_12").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id_cat_tai_12').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13 && document.getElementById('id_cat_tai_12').value == "") {
+          document.getElementById("id_gui").focus();
+        } else {
+          document.getElementById("id_cat_tai_13").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id_cat_tai_13').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13 && document.getElementById('id_cat_tai_13').value == "") {
+          document.getElementById("id_gui").focus();
+        } else {
+          document.getElementById("id_cat_tai_14").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id_cat_tai_14').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13 && document.getElementById('id_cat_tai_14').value == "") {
+          document.getElementById("id_gui").focus();
+        } else {
+          document.getElementById("id_cat_tai_15").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id_cat_tai_15').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13 && document.getElementById('id_cat_tai_15').value == "") {
+          document.getElementById("id_gui").focus();
+        } else {
+          document.getElementById("id_cat_tai_16").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id_cat_tai_16').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13 && document.getElementById('id_cat_tai_16').value == "") {
+          document.getElementById("id_gui").focus();
+        } else {
+          document.getElementById("id_cat_tai_17").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id_cat_tai_17').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id_gui").focus();
+        }
+      });
+    });
+
+    /* post */
+    $(document).ready(function () {
+      $("#id_gui").click(function () {
+        let width_table = document.getElementById('id_nhan').getBoundingClientRect().width;
+        let height_table = document.getElementById('id_nhan').getBoundingClientRect().height;
+        if (isNaN(Number($("#id_3").val())) || $("#id_3").val() < 0 || $("#id_3").val() > 30 || $("#id_3").val() == null || $("#id_3").val() == "") {
+          return _alert("Số heo sinh ra  phải định dạng số từ 0-30 và không được để trống");
+        }
+        if (isNaN(Number($("#id_4").val())) || $("#id_4").val() < 0 || $("#id_4").val() - $("#id_3").val() > 0 || $("#id_4").val() == null || $("#id_4").val() == "" || isNaN(Number($("#id_5").val())) || $("#id_5").val() < 0 || $("#id_5").val() - $("#id_3").val() > 0 || $("#id_5").val() == null || $("#id_5").val() == "" || isNaN(Number($("#id_6").val())) || $("#id_6").val() < 0 || $("#id_6").val() - $("#id_3").val() > 0 || $("#id_6").val() == null || $("#id_6").val() == "" || isNaN(Number($("#id_7").val())) || $("#id_7").val() < 0 || $("#id_7").val() - $("#id_3").val() > 0 || $("#id_7").val() == null || $("#id_7").val() == "" || isNaN(Number($("#id_10").val())) || $("#id_10").val() < 0 || $("#id_10").val() - $("#id_3").val() > 0 || $("#id_10").val() == null || $("#id_10").val() == "") {
+          return _alert("Số heo chết, khô, tật, còi, đực phải >0 và bé hơn số sinh ra và không được để trống");
+        }
+        if (isNaN(Number($("#id_9").val())) || $("#id_9").val() < 0 || $("#id_9").val() > 80 || $("#id_9").val() == null || $("#id_9").val() == "") {
+          return _alert("Trọng lượng sơ sinh phải định dạng số từ 0-80 và không được để trống");
+        }
+        if ($("#id_1").val() == null || $("#id_1").val() == "") {
+          return _alert("Mã thẻ nái không được để trống");
+        }
+        if ($("#id_2").val() == null || $("#id_2").val() == "") {
+          return _alert("Ngày đẻ không được để trống");
+        }
+        var dem_string = $("#id_8").val();
+        var count_dem_string = dem_string.length;
+        if (count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
+          _alert("Trại không được để trống hoặc lỗi chọn công ty có chứa * ");
+        } else {
+          var ly_lich = "_" + document.getElementById('id_cat_tai_1').value + "_" + document.getElementById('id_cat_tai_2').value + "_" + document.getElementById('id_cat_tai_3').value + "_" + document.getElementById('id_cat_tai_4').value + "_" + document.getElementById('id_cat_tai_5').value + "_" + document.getElementById('id_cat_tai_6').value + "_" + document.getElementById('id_cat_tai_7').value + "_" + document.getElementById('id_cat_tai_8').value + "_" + document.getElementById('id_cat_tai_9').value + "_" + document.getElementById('id_cat_tai_10').value + "_" + document.getElementById('id_cat_tai_11').value + "_" + document.getElementById('id_cat_tai_12').value + "_" + document.getElementById('id_cat_tai_13').value + "_" + document.getElementById('id_cat_tai_14').value + "_" + document.getElementById('id_cat_tai_15').value + "_" + document.getElementById('id_cat_tai_16').value + "_" + document.getElementById('id_cat_tai_17').value + "_";
+          $.post("fuction_thêm--from_đẻ.php", {
+            post1: $("#id_1").val(),
+            post2: $("#id_2").val(),
+            post3: $("#id_3").val(),
+            post4: $("#id_4").val(),
+            post5: $("#id_5").val(),
+            post6: $("#id_6").val(),
+            post7: $("#id_7").val(),
+            post9: $("#id_9").val(),
+            post10: $("#id_10").val(),
+            id_cat_tai_1: $("#id_cat_tai_1").val(),
+            id_cat_tai_2: $("#id_cat_tai_2").val(),
+            id_cat_tai_3: $("#id_cat_tai_3").val(),
+            id_cat_tai_4: $("#id_cat_tai_4").val(),
+            id_cat_tai_5: $("#id_cat_tai_5").val(),
+            id_cat_tai_6: $("#id_cat_tai_6").val(),
+            id_cat_tai_7: $("#id_cat_tai_7").val(),
+            id_cat_tai_8: $("#id_cat_tai_8").val(),
+            id_cat_tai_9: $("#id_cat_tai_9").val(),
+            id_cat_tai_10: $("#id_cat_tai_10").val(),
+            id_cat_tai_11: $("#id_cat_tai_11").val(),
+            id_cat_tai_12: $("#id_cat_tai_12").val(),
+            id_cat_tai_13: $("#id_cat_tai_13").val(),
+            id_cat_tai_14: $("#id_cat_tai_14").val(),
+            id_cat_tai_15: $("#id_cat_tai_15").val(),
+            id_cat_tai_16: $("#id_cat_tai_16").val(),
+            id_cat_tai_17: $("#id_cat_tai_17").val(),
+            post_ly_lich: ly_lich,
+            post8: $("#id_8").val()
+          }, function (data) {
+            if (data.trim().slice(0, 2) !== "[[") {
+              _alert(data);
+            } else {
+              ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
+              ReactDOM.render(React.createElement(Table, {
+                value: {
+                  data: JSON.parse(data),
+                  width: width_table,
+                  height: height_table
+                }
+              }), document.getElementById('id_nhan'));
+              document.getElementById('id_cat_tai_1').value = "";
+              document.getElementById('id_cat_tai_2').value = "";
+              document.getElementById('id_cat_tai_3').value = "";
+              document.getElementById('id_cat_tai_4').value = "";
+              document.getElementById('id_cat_tai_5').value = "";
+              document.getElementById('id_cat_tai_6').value = "";
+              document.getElementById('id_cat_tai_7').value = "";
+              document.getElementById('id_cat_tai_8').value = "";
+              document.getElementById('id_cat_tai_9').value = "";
+              document.getElementById('id_cat_tai_10').value = "";
+              document.getElementById('id_cat_tai_11').value = "";
+              document.getElementById('id_cat_tai_12').value = "";
+              document.getElementById('id_cat_tai_13').value = "";
+              document.getElementById('id_cat_tai_14').value = "";
+              document.getElementById('id_cat_tai_15').value = "";
+              document.getElementById('id_cat_tai_16').value = "";
+              document.getElementById('id_cat_tai_17').value = "";
+              document.getElementById('id_1').value = "";
+              document.getElementById('id_3').value = "";
+              document.getElementById('id_4').value = "";
+              document.getElementById('id_5').value = "";
+              document.getElementById('id_6').value = "";
+              document.getElementById('id_7').value = "";
+              document.getElementById('id_9').value = "";
+              document.getElementById('id_10').value = "";
+              document.getElementById("id_1").focus();
+              document.getElementById('id_cat_tai_2').style.display = 'none';
+              document.getElementById('id_cat_tai_3').style.display = 'none';
+              document.getElementById('id_cat_tai_4').style.display = 'none';
+              document.getElementById('id_cat_tai_5').style.display = 'none';
+              document.getElementById('id_cat_tai_6').style.display = 'none';
+              document.getElementById('id_cat_tai_7').style.display = 'none';
+              document.getElementById('id_cat_tai_8').style.display = 'none';
+              document.getElementById('id_cat_tai_9').style.display = 'none';
+              document.getElementById('id_cat_tai_10').style.display = 'none';
+              document.getElementById('id_cat_tai_11').style.display = 'none';
+              document.getElementById('id_cat_tai_12').style.display = 'none';
+              document.getElementById('id_cat_tai_13').style.display = 'none';
+              document.getElementById('id_cat_tai_14').style.display = 'none';
+              document.getElementById('id_cat_tai_15').style.display = 'none';
+              document.getElementById('id_cat_tai_16').style.display = 'none';
+              document.getElementById('id_cat_tai_17').style.display = 'none';
+            }
+          });
+        }
+      });
+    });
+
+    /* nút thêm, sửa, xóa*/
+    $(document).ready(function () {
+      $("#id_gui_research").click(function () {
+        ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
+        ReactDOM.render( /*#__PURE__*/React.createElement(Tim_kiem, null), document.getElementById('id_nhan'));
+      });
+    });
+  }, []);
+  return /*#__PURE__*/React.createElement("div", {
+    className: ` flex flex-col grow h-full w-full border bg-gray-100   border-sky-500 `
+  }, /*#__PURE__*/React.createElement("input", {
+    id: "id_gui_research",
+    type: "button",
+    value: "T\xECm ki\u1EBFm, s\u1EEDa, x\xF3a"
+  }), /*#__PURE__*/React.createElement("div", {
+    className: `ml-1 border-b border-sky-500 mr-1`
+  }, " Nh\u1EADp \u0110\u1EBB "), /*#__PURE__*/React.createElement("div", {
+    className: ` flex  grow  mt-2 `
+  }, /*#__PURE__*/React.createElement("div", {
+    className: `shrink-0  ml-2 `
+  }, /*#__PURE__*/React.createElement("div", null, " M\xE3 th\u1EBB n\xE1i:  "), /*#__PURE__*/React.createElement("input", {
+    id: "id_1",
+    className: `  border border-sky-500 `,
+    onChange: handleChange
+  }), " ", /*#__PURE__*/React.createElement("label", {
+    id: "id_tim_1",
+    type: "text"
+  }, "Nh\u1EADp theo s\u1ED1 tai g\u1EE3i \xFD"), /*#__PURE__*/React.createElement("input", {
+    type: "checkbox",
+    id: "id_checkbox"
+  }), /*#__PURE__*/React.createElement("div", null, " Ng\xE0y \u0111\u1EBB:  "), /*#__PURE__*/React.createElement("input", {
+    id: "id_2",
+    type: "date",
+    className: `  border border-sky-500 `
+  }), /*#__PURE__*/React.createElement("div", null, " S\u1ED1 con sinh ra: "), /*#__PURE__*/React.createElement("input", {
+    id: "id_3",
+    className: `  border border-sky-500 `
+  }), " ", /*#__PURE__*/React.createElement("label", {
+    id: "id_tim_2",
+    type: "text"
+  }, "Nh\u1EADp theo s\u1ED1 tai g\u1EE3i \xFD"), /*#__PURE__*/React.createElement("input", {
+    type: "checkbox",
+    id: "id_checkbox2"
+  }), /*#__PURE__*/React.createElement("div", null, " Ch\u1EBFt tr\u1EAFng: "), /*#__PURE__*/React.createElement("input", {
+    id: "id_4",
+    className: `  border border-sky-500 `
+  }), /*#__PURE__*/React.createElement("div", null, " Kh\xF4:  "), /*#__PURE__*/React.createElement("input", {
+    id: "id_5",
+    className: `  border border-sky-500 `
+  }), /*#__PURE__*/React.createElement("div", null, " T\u1EADt: "), /*#__PURE__*/React.createElement("input", {
+    id: "id_6",
+    className: `  border border-sky-500 `
+  }), /*#__PURE__*/React.createElement("div", null, " C\xF2i:  "), /*#__PURE__*/React.createElement("input", {
+    id: "id_7",
+    className: `  border border-sky-500 `
+  }), /*#__PURE__*/React.createElement("div", null, " Tr\u1ECDng l\u01B0\u1EE3ng s\u01A1 sinh:"), /*#__PURE__*/React.createElement("input", {
+    id: "id_9",
+    className: `  border border-sky-500 `
+  }), /*#__PURE__*/React.createElement("div", null, " S\u1ED1 heo \u0111\u1EF1c "), /*#__PURE__*/React.createElement("input", {
+    id: "id_10",
+    className: `  border border-sky-500 `
+  }), /*#__PURE__*/React.createElement("input", {
+    type: "button",
+    value: "Th\xEAm",
+    id: "id_gui",
+    className: ` mt-2 mb-2  _shadow rounded w-full  bg-sky-500 hover:bg-sky-700 h-8 flex items-end justify-center pl-2  font-medium `
+  })), /*#__PURE__*/React.createElement("div", {
+    className: `flex flex-col shrink-0 `
+  }, /*#__PURE__*/React.createElement("div", null, " L\xFD l\u1ECBch heo con "), /*#__PURE__*/React.createElement("input", {
+    className: `  border border-sky-500 `,
+    id: "id_cat_tai_1",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: `  border border-sky-500 `,
+    id: "id_cat_tai_2",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: `  border border-sky-500 `,
+    id: "id_cat_tai_3",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: `  border border-sky-500 `,
+    id: "id_cat_tai_4",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: `  border border-sky-500 `,
+    id: "id_cat_tai_5",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: `  border border-sky-500 `,
+    id: "id_cat_tai_6",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: `  border border-sky-500 `,
+    id: "id_cat_tai_7",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: `  border border-sky-500 `,
+    id: "id_cat_tai_8",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: `  border border-sky-500 `,
+    id: "id_cat_tai_9",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: `  border border-sky-500 `,
+    id: "id_cat_tai_10",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: `  border border-sky-500 `,
+    id: "id_cat_tai_11",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: `  border border-sky-500 `,
+    id: "id_cat_tai_12",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: `  border border-sky-500 `,
+    id: "id_cat_tai_13",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: `  border border-sky-500 `,
+    id: "id_cat_tai_14",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: `  border border-sky-500 `,
+    id: "id_cat_tai_15",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: `  border border-sky-500 `,
+    id: "id_cat_tai_16",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: `  border border-sky-500 `,
+    id: "id_cat_tai_17",
+    type: "text"
+  })), /*#__PURE__*/React.createElement("div", {
+    id: "id_nhan",
+    className: `text-sm grow w-full ml-1 `
+  })));
+}
+;
+function Duc() {
+  function Duc_nhap() {
+    useEffect(() => {
+      $(document).ready(function () {
+        $("#id_gui").click(function () {
+          let width_table = document.getElementById('id_nhan').getBoundingClientRect().width;
+          let height_table = document.getElementById('id_nhan').getBoundingClientRect().height;
+          var gia_tri_nhap = document.getElementById("id_1").value;
+          if (gia_tri_nhap == null || gia_tri_nhap == "" || gia_tri_nhap.indexOf(' ') >= 0) {
+            return _alert("Mã thẻ tai không được để trống, hoặc chứa khoảng trắng");
+          }
+          var dem_string = $("#id_8").val();
+          var count_dem_string = dem_string.length;
+          if ($("#id_1").val() == null || $("#id_1").val() == "" || $("#id_2").val() == null || $("#id_2").val() == "" || $("#id_3").val() == null || $("#id_3").val() == "" || count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
+            return _alert("Bạn phải điền đầy đủ thông tin hoặc lỗi chọn công ty có chứa *");
+          } else {
+            $.post("fuction_them_heo_duc_nhap.php", {
+              post1: $("#id_1").val(),
+              post2: $("#id_2").val(),
+              post3: $("#id_3").val(),
+              post8: $("#id_8").val()
+            }, function (data) {
+              if (data.trim().slice(0, 2) !== "[[") {
+                _alert(data);
+              } else {
+                ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
+                ReactDOM.render(React.createElement(Table, {
+                  value: {
+                    data: JSON.parse(data),
+                    width: width_table,
+                    height: height_table
+                  }
+                }), document.getElementById('id_nhan'));
+              }
+            });
+          }
+        });
+      });
+
+      /* nút thêm, sửa, xóa*/
+      $(document).ready(function () {
+        $("#id_gui_research").click(function () {
+          ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
+          ReactDOM.render( /*#__PURE__*/React.createElement(Tim_kiem, null), document.getElementById('id_nhan'));
+        });
+      });
+
+      /* phím enter */
+      $(document).ready(function () {
+        $('#id_1').keypress(function () {
+          var x = event.keyCode;
+          if (x == 13) {
+            document.getElementById("id_2").focus();
+          }
+        });
+      });
+      $(document).ready(function () {
+        $('#id_2').keypress(function () {
+          var x = event.keyCode;
+          if (x == 13) {
+            document.getElementById("id_3").focus();
+          }
+        });
+      });
+      $(document).ready(function () {
+        $('#id_3').keypress(function () {
+          var x = event.keyCode;
+          if (x == 13) {
+            document.getElementById("id_gui").focus();
+          }
+        });
+      });
+    }, []);
+    return /*#__PURE__*/React.createElement("div", {
+      className: ` flex grow h-full w-full `
+    }, /*#__PURE__*/React.createElement("div", {
+      className: `shrink-0 ml-2 `
+    }, /*#__PURE__*/React.createElement("div", null, " M\xE3 th\u1EBB Tai:  "), /*#__PURE__*/React.createElement("input", {
+      id: "id_1",
+      className: `  border border-sky-500 `
+    }), /*#__PURE__*/React.createElement("div", null, " Ng\xE0y nh\u1EADp: "), /*#__PURE__*/React.createElement("input", {
+      id: "id_2",
+      type: "date",
+      className: `  border border-sky-500 `
+    }), /*#__PURE__*/React.createElement("div", null, " Ng\xE0y sinh: "), /*#__PURE__*/React.createElement("input", {
+      id: "id_3",
+      type: "date",
+      className: `  border border-sky-500 `
+    }), /*#__PURE__*/React.createElement("input", {
+      type: "button",
+      value: "Th\xEAm",
+      id: "id_gui",
+      className: ` mt-2 mb-2  _shadow rounded w-full  bg-sky-500 hover:bg-sky-700 h-8 flex items-center justify-center pl-2  font-medium `
+    }), /*#__PURE__*/React.createElement("input", {
+      id: "id_gui_research",
+      type: "button",
+      value: "T\xECm ki\u1EBFm, s\u1EEDa, x\xF3a"
+    })), /*#__PURE__*/React.createElement("div", {
+      id: "id_nhan",
+      className: `text-sm grow ml-1 `
+    }));
+  }
+  ;
+
+  //---------------------------------------------------------------------------------------------------------
+  function Duc_chet() {
+    useEffect(() => {
+      $(document).ready(function () {
+        $("#id_gui").click(function () {
+          let width_table = document.getElementById('id_nhan').getBoundingClientRect().width;
+          let height_table = document.getElementById('id_nhan').getBoundingClientRect().height;
+          var gia_tri_nhap = document.getElementById("id_1").value;
+          if (gia_tri_nhap == null || gia_tri_nhap == "" || gia_tri_nhap.indexOf(' ') >= 0) {
+            return _alert("Mã thẻ tai không được để trống, hoặc chứa khoảng trắng");
+          }
+          var dem_string = $("#id_8").val();
+          var count_dem_string = dem_string.length;
+          if ($("#id_1").val() == null || $("#id_1").val() == "" || $("#id_2").val() == null || $("#id_2").val() == "" || count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
+            return _alert("Bạn phải điền đầy đủ thông tin hoặc lỗi chọn công ty có chứa *");
+          } else {
+            $.post("fuction_them_heo_duc_chet.php", {
+              post1: $("#id_1").val(),
+              post2: $("#id_2").val(),
+              post3: $("#id_3").val(),
+              post8: $("#id_8").val()
+            }, function (data) {
+              if (data.trim().slice(0, 2) !== "[[") {
+                _alert(data);
+              } else {
+                ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
+                ReactDOM.render(React.createElement(Table, {
+                  value: {
+                    data: JSON.parse(data),
+                    width: width_table,
+                    height: height_table
+                  }
+                }), document.getElementById('id_nhan'));
+              }
+            });
+          }
+        });
+      });
+
+      /* nút thêm, sửa, xóa*/
+      $(document).ready(function () {
+        $("#id_gui_research").click(function () {
+          ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
+          ReactDOM.render( /*#__PURE__*/React.createElement(Tim_kiem, null), document.getElementById('id_nhan'));
+        });
+      });
+      $(document).ready(function () {
+        $('#id_1').keypress(function () {
+          var x = event.keyCode;
+          if (x == 13) {
+            document.getElementById("id_2").focus();
+          }
+        });
+      });
+      $(document).ready(function () {
+        $('#id_2').keypress(function () {
+          var x = event.keyCode;
+          if (x == 13) {
+            document.getElementById("id_gui").focus();
+          }
+        });
+      });
+    }, []);
+    return /*#__PURE__*/React.createElement("div", {
+      className: ` flex grow h-full w-full   `
+    }, /*#__PURE__*/React.createElement("div", {
+      className: `shrink-0 ml-2 `
+    }, /*#__PURE__*/React.createElement("div", null, " M\xE3 th\u1EBB :  "), /*#__PURE__*/React.createElement("input", {
+      id: "id_1",
+      className: `  border border-sky-500 `
+    }), /*#__PURE__*/React.createElement("div", null, " Ng\xE0y ch\u1EBFt (lo\u1EA1i): "), /*#__PURE__*/React.createElement("input", {
+      id: "id_2",
+      type: "date",
+      className: `  border border-sky-500 `
+    }), /*#__PURE__*/React.createElement("div", null, " Ph\xE2n lo\u1EA1i:  "), /*#__PURE__*/React.createElement("select", {
+      id: "id_3"
+    }, /*#__PURE__*/React.createElement("option", {
+      value: "c"
+    }, "Heo ch\u1EBFt"), /*#__PURE__*/React.createElement("option", {
+      value: "l"
+    }, "B\xE1n lo\u1EA1i")), /*#__PURE__*/React.createElement("input", {
+      type: "button",
+      value: "Th\xEAm",
+      id: "id_gui",
+      className: ` mt-2 mb-2  _shadow rounded w-full  bg-sky-500 hover:bg-sky-700 h-8 flex items-center justify-center pl-2  font-medium `
+    }), /*#__PURE__*/React.createElement("input", {
+      id: "id_gui_research",
+      type: "button",
+      value: "T\xECm ki\u1EBFm, s\u1EEDa, x\xF3a"
+    })), /*#__PURE__*/React.createElement("div", {
+      id: "id_nhan",
+      className: `text-sm grow ml-1 `
+    }));
+  }
+  ;
+
+  //-------------------------------------------------------------------------------------------------------------
+
+  useEffect(() => {
+    function id_gui_1_click() {
+      ReactDOM.render(React.createElement(Duc_nhap, null), document.getElementById('id_nhan_hb'));
+      id_gui_1.style.color = "blue";
+      id_gui_2.style.color = "black";
+    }
+    ;
+    id_gui_1.onclick = id_gui_1_click;
+    function id_gui_2_click() {
+      ReactDOM.render(React.createElement(Duc_chet, null), document.getElementById('id_nhan_hb'));
+      id_gui_1.style.color = "black";
+      id_gui_2.style.color = "blue";
+    }
+    ;
+    id_gui_2.onclick = id_gui_2_click;
+
+    // bắt đầu là vào luôn from nhập hậu bị
+    id_gui_1_click();
+  }, []);
+  return /*#__PURE__*/React.createElement("div", {
+    className: `flex h-full w-full flex-col border bg-gray-100   border-sky-500 `
+  }, /*#__PURE__*/React.createElement("div", {
+    className: `flex  border bg-orange-200  border-sky-500 `
+  }, /*#__PURE__*/React.createElement("input", {
+    type: "button",
+    value: "Theo d\xF5i heo \u0111\u1EF1c nh\u1EADp \u0111\xE0n",
+    id: "id_gui_1",
+    className: `  bg-orange-200 hover:bg-sky-700 h-6 flex items-end justify-center pl-2 pr-2 `
+  }), /*#__PURE__*/React.createElement("input", {
+    type: "button",
+    value: "Theo d\xF5i heo \u0111\u1EF1c ch\u1EBFt, lo\u1EA1i",
+    id: "id_gui_2",
+    className: `  bg-orange-200 hover:bg-sky-700 h-6 flex items-end justify-center pr-2 `
+  })), /*#__PURE__*/React.createElement("div", {
+    id: "id_nhan_hb",
+    className: `flex grow w-full border bg-gray-100   border-sky-500 `
+  }, "   "));
+}
+;
+function from_bao_cao_thang(props) {
+  useEffect(() => {
+    let width_table = document.getElementById('id_nhan').getBoundingClientRect().width;
+    let height_table = document.getElementById('id_nhan').getBoundingClientRect().height;
+    var year = new Date().getFullYear();
+    document.getElementById("id_6_1").innerHTML = year;
+    document.getElementById('id_6_1').value = year;
+    $(document).ready(function () {
+      $("#id_6_year").click(function () {
+        var n = new Date().getFullYear();
+        document.getElementById("id_6_10").innerHTML = n - 9;
+        document.getElementById("id_6_10").value = n - 9;
+        document.getElementById("id_6_9").innerHTML = n - 8;
+        document.getElementById("id_6_9").value = n - 8;
+        document.getElementById("id_6_8").innerHTML = n - 7;
+        document.getElementById("id_6_8").value = n - 7;
+        document.getElementById("id_6_7").innerHTML = n - 6;
+        document.getElementById("id_6_7").value = n - 6;
+        document.getElementById("id_6_6").innerHTML = n - 5;
+        document.getElementById("id_6_6").value = n - 5;
+        document.getElementById("id_6_5").innerHTML = n - 4;
+        document.getElementById("id_6_5").value = n - 4;
+        document.getElementById("id_6_4").innerHTML = n - 3;
+        document.getElementById("id_6_4").value = n - 3;
+        document.getElementById("id_6_3").innerHTML = n - 2;
+        document.getElementById("id_6_3").value = n - 2;
+        document.getElementById("id_6_2").innerHTML = n - 1;
+        document.getElementById("id_6_2").value = n - 1;
+        document.getElementById("id_6_1").innerHTML = n;
+        document.getElementById("id_6_1").value = n;
+      });
+    });
+    function bao_cao_thang() {
+      id_gui.style.color = "blue";
+      id_gui_1.style.color = "black";
+      try {
+        Table_hieu_2.remove_EventListener();
+      } catch (error) {}
+      ReactDOM.unmountComponentAtNode(id_nhan);
+      $.post(gobal_post_month, {
+        post1: $("#id_6_year").val(),
+        post8: $("#id_8").val()
+      }, function (data) {
+        if (data.trim() === "Chưa có dữ liệu") {
+          _alert("Chưa có dữ liệu");
+        } else {
+          let arrayjavascript = JSON.parse(data);
+
+          // mặc định undefined là convert row to col
+          let convert_row_to_col;
+          if (gobal_post_month === "fuction_thang--from_theo_doi_ty_le_phoi.php") {
+            convert_row_to_col = false;
+          }
+          ReactDOM.render(React.createElement(Table_hieu_2, {
+            value: {
+              data: arrayjavascript,
+              width: width_table,
+              height: height_table,
+              convert: convert_row_to_col
+            }
+          }), document.getElementById('id_nhan'));
+        }
+      });
+    }
+    id_gui.onclick = bao_cao_thang;
+    $(document).ready(function () {
+      $("#id_gui_1").click(function () {
+        id_gui_1.style.color = "blue";
+        id_gui.style.color = "black";
+        try {
+          Table_hieu_2.remove_EventListener();
+        } catch (error) {}
+        ReactDOM.unmountComponentAtNode(id_nhan);
+        $.post(gobal_post, {
+          post1: $("#id_6_year").val(),
+          post8: $("#id_8").val()
+        }, function (data) {
+          if (data.trim() === "Chưa có dữ liệu") {
+            _alert("Chưa có dữ liệu");
+          } else {
+            let arrayjavascript = JSON.parse(data);
+
+            // mặc định undefined là convert row to col
+            let convert_row_to_col;
+            if (gobal_post === "fuction_tuan--from_theo_doi_ty_le_phoi.php") {
+              convert_row_to_col = false;
+            }
+            ReactDOM.render(React.createElement(Table_hieu_2, {
+              value: {
+                data: arrayjavascript,
+                width: width_table,
+                height: height_table,
+                convert: convert_row_to_col
+              }
+            }), document.getElementById('id_nhan'));
+          }
+        });
+      });
+    });
+  }, []);
+  return /*#__PURE__*/React.createElement("div", {
+    className: 'grow flex flex-col flex-wrap  '
+  }, /*#__PURE__*/React.createElement("div", {
+    className: ' w-full  '
+  }, "  ", /*#__PURE__*/React.createElement("select", {
+    id: "id_6_year"
+  }, /*#__PURE__*/React.createElement("option", {
+    id: "id_6_1",
+    value: ""
+  }), /*#__PURE__*/React.createElement("option", {
+    id: "id_6_2",
+    value: ""
+  }), /*#__PURE__*/React.createElement("option", {
+    id: "id_6_3",
+    value: ""
+  }), /*#__PURE__*/React.createElement("option", {
+    id: "id_6_4",
+    value: ""
+  }), /*#__PURE__*/React.createElement("option", {
+    id: "id_6_5",
+    value: ""
+  }), /*#__PURE__*/React.createElement("option", {
+    id: "id_6_6",
+    value: ""
+  }), /*#__PURE__*/React.createElement("option", {
+    id: "id_6_7",
+    value: ""
+  }), /*#__PURE__*/React.createElement("option", {
+    id: "id_6_8",
+    value: ""
+  }), /*#__PURE__*/React.createElement("option", {
+    id: "id_6_9",
+    value: ""
+  }), /*#__PURE__*/React.createElement("option", {
+    id: "id_6_10",
+    value: ""
+  })), " ", /*#__PURE__*/React.createElement("input", {
+    id: "id_gui",
+    type: "button",
+    value: "Tra theo th\xE1ng"
+  }), " ", /*#__PURE__*/React.createElement("input", {
+    id: "id_gui_1",
+    type: "button",
+    value: "Tra theo tu\u1EA7n"
+  })), /*#__PURE__*/React.createElement("div", {
+    className: 'text-sm w-full grow ',
+    id: "id_nhan"
+  }, "   "));
+}
+;
 function path_match(string) {
   if (string.slice(-1) === '/') {
     return string.slice(0, -1);
@@ -68,10 +2107,15 @@ function hover(event, object_style, object_style_leave, dom) {
 
 function _alert(componet_react) {
   let _div = document.createElement("_div");
-  document.getElementById("root").appendChild(_div);
-  document.getElementById("root").style.position = "absolute";
-  document.getElementById("root").style.zIndex = "100";
+  // getElementsByTagName sẽ lấy ra một mảng tag name phù hợp không giống by id lấy ra 1 cái 
+  let body = document.getElementsByTagName("body");
+  body[0].appendChild(_div);
+  _div.style.zIndex = "10000";
   function Alert() {
+    let ref_thoat = useRef(null);
+    useEffect(() => {
+      ref_thoat.current.focus();
+    }, []);
     return /*#__PURE__*/React.createElement("div", {
       className: 'flex flex-wrap absolute rounded border border-solid border-slate-400 bg-amber-400  _shadow ',
       style: {
@@ -82,12 +2126,16 @@ function _alert(componet_react) {
       className: `mx-5 mt-2 w-full`
     }, " ", componet_react, " "), /*#__PURE__*/React.createElement("div", {
       className: ' my-2 w-full flex justify-end'
-    }, /*#__PURE__*/React.createElement("div", {
+    }, /*#__PURE__*/React.createElement("input", {
+      type: "button",
+      value: "Tho\xE1t",
+      ref: ref_thoat,
       className: 'mx-10  text-white rounded w-16 flex justify-center bg-sky-500 hover:bg-sky-700 _shadow',
       onClick: () => {
         ReactDOM.unmountComponentAtNode(_div);
+        _div.remove();
       }
-    }, "Tho\xE1t")));
+    })));
   }
   return ReactDOM.render( /*#__PURE__*/React.createElement(Alert, null), _div);
 }
@@ -139,188 +2187,1000 @@ function google_login(client_id, in_dom) {
   });
 }
 
+function Hau_bi() {
+  function Hau_bi_nhap() {
+    useEffect(() => {
+      $(document).ready(function () {
+        $("#id_gui").click(function () {
+          let width_table = document.getElementById('id_nhan').getBoundingClientRect().width;
+          let height_table = document.getElementById('id_nhan').getBoundingClientRect().height;
+          var gia_tri_nhap = document.getElementById("id_1").value;
+          if (gia_tri_nhap == null || gia_tri_nhap == "" || gia_tri_nhap.indexOf(' ') >= 0) {
+            return _alert("Mã thẻ tai không được để trống, hoặc chứa khoảng trắng");
+          }
+          var dem_string = $("#id_8").val();
+          var count_dem_string = dem_string.length;
+          if ($("#id_1").val() == null || $("#id_1").val() == "" || $("#id_2").val() == null || $("#id_2").val() == "" || $("#id_3").val() == null || $("#id_3").val() == "" || $("#id_4").val() == null || $("#id_4").val() == "" || count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
+            return _alert("Bạn phải điền đầy đủ thông tin hoặc lỗi chọn công ty có chứa *");
+          } else {
+            $.post("fuction_them_hau_bi_nhap.php", {
+              post1: $("#id_1").val(),
+              post2: $("#id_2").val(),
+              post3: $("#id_3").val(),
+              post4: $("#id_4").val(),
+              post8: $("#id_8").val()
+            }, function (data) {
+              if (data.trim().slice(0, 2) !== "[[") {
+                _alert(data);
+              } else {
+                ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
+                ReactDOM.render(React.createElement(Table, {
+                  value: {
+                    data: JSON.parse(data),
+                    width: width_table,
+                    height: height_table
+                  }
+                }), document.getElementById('id_nhan'));
+              }
+            });
+          }
+        });
+      });
+
+      /* nút thêm, sửa, xóa*/
+      $(document).ready(function () {
+        $("#id_gui_research").click(function () {
+          ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
+          ReactDOM.render( /*#__PURE__*/React.createElement(Tim_kiem, null), document.getElementById('id_nhan'));
+        });
+      });
+
+      /* phím enter */
+      $(document).ready(function () {
+        $('#id_1').keypress(function () {
+          var x = event.keyCode;
+          if (x == 13) {
+            document.getElementById("id_2").focus();
+          }
+        });
+      });
+      $(document).ready(function () {
+        $('#id_2').keypress(function () {
+          var x = event.keyCode;
+          if (x == 13) {
+            document.getElementById("id_3").focus();
+          }
+        });
+      });
+      $(document).ready(function () {
+        $('#id_3').keypress(function () {
+          var x = event.keyCode;
+          if (x == 13) {
+            document.getElementById("id_4").focus();
+          }
+        });
+      });
+      $(document).ready(function () {
+        $('#id_4').keypress(function () {
+          var x = event.keyCode;
+          if (x == 13) {
+            document.getElementById("id_gui").focus();
+          }
+        });
+      });
+    }, []);
+    return /*#__PURE__*/React.createElement("div", {
+      className: ` flex grow h-full w-full  `
+    }, /*#__PURE__*/React.createElement("div", {
+      className: `shrink-0 ml-2 `
+    }, /*#__PURE__*/React.createElement("div", null, " M\xE3 th\u1EBB Tai:  "), /*#__PURE__*/React.createElement("input", {
+      id: "id_1",
+      className: `  border border-sky-500 `
+    }), /*#__PURE__*/React.createElement("div", null, " Ng\xE0y nh\u1EADp: "), /*#__PURE__*/React.createElement("input", {
+      id: "id_2",
+      type: "date",
+      className: `  border border-sky-500 `
+    }), /*#__PURE__*/React.createElement("div", null, " Ng\xE0y sinh: "), /*#__PURE__*/React.createElement("input", {
+      id: "id_3",
+      type: "date",
+      className: `  border border-sky-500 `
+    }), /*#__PURE__*/React.createElement("div", null, " L\xF4: "), /*#__PURE__*/React.createElement("input", {
+      id: "id_4",
+      className: `  border border-sky-500 `
+    }), /*#__PURE__*/React.createElement("input", {
+      type: "button",
+      value: "Th\xEAm",
+      id: "id_gui",
+      className: ` mt-2 mb-2  _shadow rounded w-full  bg-sky-500 hover:bg-sky-700 h-8 flex items-center justify-center pl-2  font-medium `
+    }), /*#__PURE__*/React.createElement("input", {
+      id: "id_gui_research",
+      type: "button",
+      value: "T\xECm ki\u1EBFm, s\u1EEDa, x\xF3a"
+    })), /*#__PURE__*/React.createElement("div", {
+      id: "id_nhan",
+      className: `grow ml-1 `
+    }));
+  }
+  ;
+
+  //---------------------------------------------------------------------------------------------------------
+  function Hau_bi_chet() {
+    useEffect(() => {
+      $(document).ready(function () {
+        $("#id_gui").click(function () {
+          let width_table = document.getElementById('id_nhan').getBoundingClientRect().width;
+          let height_table = document.getElementById('id_nhan').getBoundingClientRect().height;
+          var gia_tri_nhap = document.getElementById("id_1").value;
+          if (gia_tri_nhap == null || gia_tri_nhap == "" || gia_tri_nhap.indexOf(' ') >= 0) {
+            return _alert("Mã thẻ tai không được để trống, hoặc chứa khoảng trắng");
+          }
+          var dem_string = $("#id_8").val();
+          var count_dem_string = dem_string.length;
+          if ($("#id_1").val() == null || $("#id_1").val() == "" || $("#id_2").val() == null || $("#id_2").val() == "" || count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
+            return _alert("Bạn phải điền đầy đủ thông tin hoặc lỗi chọn công ty có chứa *");
+          } else {
+            $.post("fuction_them_hau_bi_chet.php", {
+              post1: $("#id_1").val(),
+              post2: $("#id_2").val(),
+              post3: $("#id_3").val(),
+              post8: $("#id_8").val()
+            }, function (data) {
+              if (data.trim().slice(0, 2) !== "[[") {
+                _alert(data);
+              } else {
+                ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
+                ReactDOM.render(React.createElement(Table, {
+                  value: {
+                    data: JSON.parse(data),
+                    width: width_table,
+                    height: height_table
+                  }
+                }), document.getElementById('id_nhan'));
+              }
+            });
+          }
+        });
+      });
+
+      /* nút thêm, sửa, xóa*/
+      $(document).ready(function () {
+        $("#id_gui_research").click(function () {
+          ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
+          ReactDOM.render( /*#__PURE__*/React.createElement(Tim_kiem, null), document.getElementById('id_nhan'));
+        });
+      });
+      $(document).ready(function () {
+        $('#id_1').keypress(function () {
+          var x = event.keyCode;
+          if (x == 13) {
+            document.getElementById("id_2").focus();
+          }
+        });
+      });
+      $(document).ready(function () {
+        $('#id_2').keypress(function () {
+          var x = event.keyCode;
+          if (x == 13) {
+            document.getElementById("id_gui").focus();
+          }
+        });
+      });
+    }, []);
+    return /*#__PURE__*/React.createElement("div", {
+      className: ` flex grow h-full w-full  `
+    }, /*#__PURE__*/React.createElement("div", {
+      className: `shrink-0 ml-2 `
+    }, /*#__PURE__*/React.createElement("div", null, " M\xE3 th\u1EBB n\xE1i:  "), /*#__PURE__*/React.createElement("input", {
+      id: "id_1",
+      className: `  border border-sky-500 `
+    }), /*#__PURE__*/React.createElement("div", null, " Ng\xE0y ch\u1EBFt (lo\u1EA1i): "), /*#__PURE__*/React.createElement("input", {
+      id: "id_2",
+      type: "date",
+      className: `  border border-sky-500 `
+    }), /*#__PURE__*/React.createElement("div", null, " Ph\xE2n lo\u1EA1i:  "), /*#__PURE__*/React.createElement("select", {
+      id: "id_3"
+    }, /*#__PURE__*/React.createElement("option", {
+      value: "c"
+    }, "Heo ch\u1EBFt"), /*#__PURE__*/React.createElement("option", {
+      value: "l"
+    }, "B\xE1n lo\u1EA1i")), /*#__PURE__*/React.createElement("input", {
+      type: "button",
+      value: "Th\xEAm",
+      id: "id_gui",
+      className: ` mt-2 mb-2  _shadow rounded w-full  bg-sky-500 hover:bg-sky-700 h-8 flex items-center justify-center pl-2  font-medium `
+    }), /*#__PURE__*/React.createElement("input", {
+      id: "id_gui_research",
+      type: "button",
+      value: "T\xECm ki\u1EBFm, s\u1EEDa, x\xF3a"
+    })), /*#__PURE__*/React.createElement("div", {
+      id: "id_nhan",
+      className: `grow ml-1 `
+    }));
+  }
+  ;
+
+  //-------------------------------------------------------------------------------------------------------------
+
+  useEffect(() => {
+    function id_gui_1_click() {
+      ReactDOM.render(React.createElement(Hau_bi_nhap, null), document.getElementById('id_nhan_hb'));
+      id_gui_1.style.color = "blue";
+      id_gui_2.style.color = "black";
+    }
+    ;
+    id_gui_1.onclick = id_gui_1_click;
+    function id_gui_2_click() {
+      ReactDOM.render(React.createElement(Hau_bi_chet, null), document.getElementById('id_nhan_hb'));
+      id_gui_1.style.color = "black";
+      id_gui_2.style.color = "blue";
+    }
+    ;
+    id_gui_2.onclick = id_gui_2_click;
+
+    // bắt đầu là vào luôn from nhập hậu bị
+    id_gui_1_click();
+  }, []);
+  return /*#__PURE__*/React.createElement("div", {
+    className: `flex h-full w-full flex-col border bg-gray-100   border-sky-500 `
+  }, /*#__PURE__*/React.createElement("div", {
+    className: `flex  border bg-orange-200  border-sky-500 `
+  }, /*#__PURE__*/React.createElement("input", {
+    type: "button",
+    value: "Theo d\xF5i h\u1EADu b\u1ECB nh\u1EADp \u0111\xE0n",
+    id: "id_gui_1",
+    className: `  bg-orange-200 hover:bg-slate-300 hover:bg-opacity-50 h-6 flex items-end justify-center pl-2 pr-2 `
+  }), /*#__PURE__*/React.createElement("input", {
+    type: "button",
+    value: "Theo d\xF5i h\u1EADu b\u1ECB ch\u1EBFt, lo\u1EA1i",
+    id: "id_gui_2",
+    className: `  bg-orange-200 hover:bg-sky-700 h-6 flex items-end justify-center pr-2 `
+  })), /*#__PURE__*/React.createElement("div", {
+    id: "id_nhan_hb",
+    className: `text-sm flex grow w-full border bg-gray-100   border-sky-500 `
+  }, "   "));
+}
+;
+function Heo_con_chet() {
+  let arrayjavascript_so_tai;
+  function handleChange(event) {
+    var gia_tri_tim = event.target.value;
+    var chuoi_ban_dau = "," + arrayjavascript_so_tai.join();
+    var gia_tri_tim = new RegExp("," + "[A-Z]*[0-9]*" + gia_tri_tim, 'i');
+    var vi_tri_tim_thay = chuoi_ban_dau.search(gia_tri_tim);
+    var chuoi_cat_ra = chuoi_ban_dau.substr(vi_tri_tim_thay, 20);
+    var mang_cat_ra_tu_chuoi = chuoi_cat_ra.split(",");
+    document.getElementById('id_tim_1').innerHTML = mang_cat_ra_tu_chuoi[1];
+  }
+  useEffect(() => {
+    $.post("from_heo_con_chet.php", {
+      post8: $("#id_8").val()
+    }, function (data) {
+      arrayjavascript_so_tai = JSON.parse(data);
+    });
+    $(document).ready(function () {
+      $("#id_gui").click(function () {
+        let width_table = document.getElementById('id_nhan').getBoundingClientRect().width;
+        let height_table = document.getElementById('id_nhan').getBoundingClientRect().height;
+        var gia_tri_nhap = document.getElementById("id_1").value;
+        if (gia_tri_nhap == null || gia_tri_nhap == "" || gia_tri_nhap.indexOf(' ') >= 0) {
+          return _alert("Mã thẻ tai không được để trống, hoặc chứa khoảng trắng");
+        }
+        if (isNaN(Number($("#id_3").val())) || $("#id_3").val() < 0 || $("#id_3").val() > 50 || $("#id_3").val() == null || $("#id_3").val() == "") {
+          return _alert("Số heo con chết  phải định dạng số từ 0-50 và không được để trống");
+        }
+        var dem_string = $("#id_8").val();
+        var count_dem_string = dem_string.length;
+        if ($("#id_1").val() == null || $("#id_1").val() == "" || $("#id_2").val() == null || $("#id_2").val() == "" || $("#id_3").val() == null || $("#id_3").val() == "" || $("#id_4").val() == null || $("#id_4").val() == "" || count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
+          return _alert("Bạn phải điền đầy đủ thông tin hoặc lỗi chọn công ty có chứa *");
+        } else {
+          $.post("fuction_thêm--from_heo_con_chết.php", {
+            post1: $("#id_1").val(),
+            post2: $("#id_2").val(),
+            post3: $("#id_3").val(),
+            post4: $("#id_4").val(),
+            post8: $("#id_8").val()
+          }, function (data) {
+            if (data.trim().slice(0, 2) !== "[[") {
+              _alert(data);
+            } else {
+              ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
+              ReactDOM.render(React.createElement(Table, {
+                value: {
+                  data: JSON.parse(data),
+                  width: width_table,
+                  height: height_table
+                }
+              }), document.getElementById('id_nhan'));
+            }
+          });
+        }
+      });
+    });
+
+    /* nút thêm, sửa, xóa*/
+    $(document).ready(function () {
+      $("#id_gui_research").click(function () {
+        ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
+        ReactDOM.render( /*#__PURE__*/React.createElement(Tim_kiem, null), document.getElementById('id_nhan'));
+      });
+    });
+
+    /* phím enter */
+    $(document).ready(function () {
+      $('#id_1').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          if (document.getElementById("id_checkbox").checked == true) {
+            document.getElementById('id_1').value = document.getElementById('id_tim_1').innerHTML;
+          }
+          document.getElementById("id_2").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id_2').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id_3").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id_3').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id_4").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id_4').keypress(function (event) {
+        event.preventDefault();
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id_gui").focus();
+        }
+      });
+    });
+  }, []);
+  return /*#__PURE__*/React.createElement("div", {
+    className: `flex flex-col h-full w-full border bg-gray-100   border-sky-500 `
+  }, /*#__PURE__*/React.createElement("input", {
+    id: "id_gui_research",
+    type: "button",
+    value: "T\xECm ki\u1EBFm, s\u1EEDa, x\xF3a"
+  }), /*#__PURE__*/React.createElement("div", {
+    className: `ml-1 border-b border-sky-500 mr-1`
+  }, " Nh\u1EADp con ch\u1EBFt, lo\u1EA1i "), /*#__PURE__*/React.createElement("div", {
+    className: ` flex grow  mt-2 `
+  }, /*#__PURE__*/React.createElement("div", {
+    className: `shrink-0 ml-2 `
+  }, /*#__PURE__*/React.createElement("div", null, " M\xE3 th\u1EBB tai :  "), /*#__PURE__*/React.createElement("input", {
+    id: "id_1",
+    className: `  border border-sky-500 `,
+    onChange: handleChange
+  }), " ", /*#__PURE__*/React.createElement("label", {
+    id: "id_tim_1",
+    type: "text"
+  }, "Nh\u1EADp theo s\u1ED1 tai g\u1EE3i \xFD"), /*#__PURE__*/React.createElement("input", {
+    type: "checkbox",
+    id: "id_checkbox"
+  }), /*#__PURE__*/React.createElement("div", null, " Ng\xE0y heo con ch\u1EBFt: "), /*#__PURE__*/React.createElement("input", {
+    id: "id_2",
+    type: "date",
+    className: `  border border-sky-500 `
+  }), /*#__PURE__*/React.createElement("div", null, " S\u1ED1 con ch\u1EBFt: "), /*#__PURE__*/React.createElement("input", {
+    id: "id_3",
+    className: `  border border-sky-500 `
+  }), /*#__PURE__*/React.createElement("div", null, " Nguy\xEAn nh\xE2n heo con ch\u1EBFt:  "), /*#__PURE__*/React.createElement("select", {
+    id: "id_4"
+  }, /*#__PURE__*/React.createElement("option", {
+    value: "M\u1EB9 \u0111\xE8"
+  }, "M\u1EB9 \u0111\xE8"), /*#__PURE__*/React.createElement("option", {
+    value: "Ti\xEAu ch\u1EA3y"
+  }, "Ti\xEAu ch\u1EA3y"), /*#__PURE__*/React.createElement("option", {
+    value: "Vi\xEAm ph\u1ED5i"
+  }, "Vi\xEAm ph\u1ED5i"), /*#__PURE__*/React.createElement("option", {
+    value: "Vi\xEAm da,kh\u1EDBp"
+  }, "Vi\xEAm da,kh\u1EDBp"), /*#__PURE__*/React.createElement("option", {
+    value: "Nguy\xEAn nh\xE2n kh\xE1c"
+  }, "Nguy\xEAn nh\xE2n kh\xE1c")), /*#__PURE__*/React.createElement("input", {
+    type: "button",
+    value: "Th\xEAm",
+    id: "id_gui",
+    className: ` mt-2 mb-2  _shadow rounded w-full  bg-sky-500 hover:bg-sky-700 h-8 flex items-center justify-center pl-2  font-medium `
+  }), /*#__PURE__*/React.createElement("input", {
+    id: "id_gui_research",
+    type: "button",
+    value: "T\xECm ki\u1EBFm, s\u1EEDa, x\xF3a"
+  })), /*#__PURE__*/React.createElement("div", {
+    id: "id_nhan",
+    className: `text-sm grow ml-1 `
+  })));
+}
+;
+function Heo_van_de() {
+  let arrayjavascript_so_tai;
+  function handleChange(event) {
+    var gia_tri_tim = event.target.value;
+    var chuoi_ban_dau = "," + arrayjavascript_so_tai.join();
+    var gia_tri_tim = new RegExp("," + "[A-Z]*[0-9]*" + gia_tri_tim, 'i');
+    var vi_tri_tim_thay = chuoi_ban_dau.search(gia_tri_tim);
+    var chuoi_cat_ra = chuoi_ban_dau.substr(vi_tri_tim_thay, 20);
+    var mang_cat_ra_tu_chuoi = chuoi_cat_ra.split(",");
+    document.getElementById('id_tim_1').innerHTML = mang_cat_ra_tu_chuoi[1];
+  }
+  useEffect(() => {
+    $.post("from_heo_van_de.php", {
+      post8: $("#id_8").val()
+    }, function (data) {
+      arrayjavascript_so_tai = JSON.parse(data);
+    });
+
+    /* phím enter */
+    $(document).ready(function () {
+      $('#id_1').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          if (document.getElementById("id_checkbox").checked == true) {
+            document.getElementById('id_1').value = document.getElementById('id_tim_1').innerHTML;
+          }
+          document.getElementById("id_2").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id_2').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id_3").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id_3').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id_gui").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $("#id_gui").click(function () {
+        let width_table = document.getElementById('id_nhan').getBoundingClientRect().width;
+        let height_table = document.getElementById('id_nhan').getBoundingClientRect().height;
+        var dem_string = $("#id_8").val();
+        var count_dem_string = dem_string.length;
+        if ($("#id_1").val() == null || $("#id_1").val() == "" || $("#id_2").val() == null || $("#id_2").val() == "" || $("#id_3").val() == null || $("#id_3").val() == "" || count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
+          return _alert("Bạn phải điền đầy đủ thông tin hoặc lỗi chọn công ty có chứa *");
+        } else {
+          $.post("fuction_them--from_heo_van_de.php", {
+            post1: $("#id_1").val(),
+            post2: $("#id_2").val(),
+            post3: $("#id_3").val(),
+            post8: $("#id_8").val()
+          }, function (data) {
+            if (data.trim().slice(0, 2) !== "[[") {
+              _alert(data);
+            } else {
+              ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
+              ReactDOM.render(React.createElement(Table, {
+                value: {
+                  data: JSON.parse(data),
+                  width: width_table,
+                  height: height_table
+                }
+              }), document.getElementById('id_nhan'));
+            }
+          });
+        }
+      });
+    });
+
+    /* nút thêm, sửa, xóa*/
+    $(document).ready(function () {
+      $("#id_gui_research").click(function () {
+        ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
+        ReactDOM.render( /*#__PURE__*/React.createElement(Tim_kiem, null), document.getElementById('id_nhan'));
+      });
+    });
+  }, []);
+  return /*#__PURE__*/React.createElement("div", {
+    className: `flex flex-col w-full h-full border bg-gray-100   border-sky-500 `
+  }, /*#__PURE__*/React.createElement("input", {
+    id: "id_gui_research",
+    type: "button",
+    value: "T\xECm ki\u1EBFm, s\u1EEDa, x\xF3a"
+  }), /*#__PURE__*/React.createElement("div", {
+    className: `ml-1 border-b border-sky-500 mr-1`
+  }, " Nh\u1EADp Heo v\u1EA5n \u0111\u1EC1 "), /*#__PURE__*/React.createElement("div", {
+    className: ` flex grow  mt-2 `
+  }, /*#__PURE__*/React.createElement("div", {
+    className: ` shrink-0 ml-2 `
+  }, /*#__PURE__*/React.createElement("div", null, " M\xE3 th\u1EBB n\xE1i:  "), /*#__PURE__*/React.createElement("input", {
+    id: "id_1",
+    className: `  border border-sky-500 `,
+    onChange: handleChange
+  }), " ", /*#__PURE__*/React.createElement("label", {
+    id: "id_tim_1",
+    type: "text"
+  }, "Nh\u1EADp theo s\u1ED1 tai g\u1EE3i \xFD"), /*#__PURE__*/React.createElement("input", {
+    type: "checkbox",
+    id: "id_checkbox"
+  }), /*#__PURE__*/React.createElement("div", null, " Ng\xE0y v\u1EA5n \u0111\u1EC1: "), /*#__PURE__*/React.createElement("input", {
+    id: "id_2",
+    type: "date",
+    className: `  border border-sky-500 `
+  }), /*#__PURE__*/React.createElement("div", null, " Nguy\xEAn nh\xE2n "), /*#__PURE__*/React.createElement("select", {
+    id: "id_3",
+    name: "name_3"
+  }, /*#__PURE__*/React.createElement("option", {
+    value: "R"
+  }, "L\u1ED1c"), /*#__PURE__*/React.createElement("option", {
+    value: "Rm"
+  }, "L\u1ED1c m\u1EE7"), /*#__PURE__*/React.createElement("option", {
+    value: "A"
+  }, "X\u1EA3y thai"), /*#__PURE__*/React.createElement("option", {
+    value: "K"
+  }, "Kh\xF4ng thai"), /*#__PURE__*/React.createElement("option", {
+    value: "Nguy\xEAn nh\xE2n kh\xE1c"
+  }, "Nguy\xEAn nh\xE2n kh\xE1c")), /*#__PURE__*/React.createElement("input", {
+    type: "button",
+    value: "Th\xEAm",
+    id: "id_gui",
+    className: ` mt-2 mb-2  _shadow rounded w-full  bg-sky-500 hover:bg-sky-700 h-8 flex items-center justify-center pl-2  font-medium `
+  })), /*#__PURE__*/React.createElement("div", {
+    id: "id_nhan",
+    className: `text-sm grow ml-1 `
+  })));
+}
+;
 function Login() {
   let ref_eyes = useRef(null);
   let ref_name_login = useRef(null);
   let ref_password = useRef(null);
+  let ref_parent_password = useRef(null);
   function dang_nhap(event) {
-    axios.post("/login", {
-      name: ref_name_login.current.textContent,
-      password: ref_password.current.value
-    }).then(function (response) {
-      localStorage.setItem('token', response.data[0]);
-      localStorage.setItem('refreshToken', response.data[1]);
-      console.log(response.data);
+    $.post("fuction_login.php", {
+      post1: id_1.textContent,
+      post2: $("#id_2").val()
+    }, function (data) {
+      if (data.trim().slice(0, 2) !== "[[") {
+        _alert(data);
+      } else {
+        var array_data_login = JSON.parse(data);
+        var array_option = new Array();
+        // This will return an array with strings "1", "2", etc.
+        array_option = array_data_login[0][2].split(",");
+        array_option_ten_day_du = array_data_login[0][3].split(",");
+        var select = document.getElementById("id_8");
+        for (var i = 0; i < array_option.length; i++) {
+          var option = document.createElement("OPTION"),
+            txt = document.createTextNode(array_option_ten_day_du[i]);
+          option.appendChild(txt);
+          option.setAttribute("value", array_option[i]);
+          select.insertBefore(option, select.lastChild);
+        }
+
+        // kiểm tra xem có được quyền thêm người dùng và khóa dữ liệu không
+        var quyen_them_nguoi_dung_va_khoa_ngay_sua_du_lieu = array_data_login[0][4];
+        if (quyen_them_nguoi_dung_va_khoa_ngay_sua_du_lieu == 1) {
+          document.getElementById('id_them_user').style.display = 'inline';
+          document.getElementById('id_khoa_ngay_nhap_du_lieu').style.display = 'inline';
+        } else {
+          document.getElementById('id_them_user').style.display = 'none';
+          document.getElementById('id_khoa_ngay_nhap_du_lieu').style.display = 'none';
+        }
+        document.getElementById('id_td_1').innerHTML = "Đăng nhập - " + id_1.textContent;
+        _alert("Đăng nhập thành công");
+        ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+      }
     });
   }
-  function truy_van(event) {
-    let token = localStorage.getItem("token");
-    let refreshToken = localStorage.getItem("refreshToken");
-    axios.post("/truy_van", {
-      token: token,
-      refreshToken: refreshToken
-    }).then(function (response) {
-      console.log(response.data);
-    });
-  }
+  useEffect(() => {
+    ref_password.current.onfocus = function (e) {
+      let dom = ref_parent_password.current;
+      dom.classList.add("border-2", "border-solid", "border-emerald-600");
+    };
+    ref_password.current.onblur = function (e) {
+      let dom = ref_parent_password.current;
+      dom.classList.remove("border-2", "border-solid", "border-emerald-600");
+    };
+  }, []);
   return /*#__PURE__*/React.createElement("div", {
-    className: `  flex  justify-center `
+    className: `w-full gap-3 flex flex-col justify-center items-center`
   }, /*#__PURE__*/React.createElement("div", {
-    className: ` ${tb('w-1/2 top-1/2  transform -translate-y-1/2 ', 'w-4/5 top-6 ')} flex flex-wrap   gap-4   absolute   `
-  }, /*#__PURE__*/React.createElement("div", {
-    className: ` w-full flex items-center  font-medium`
+    className: ` w-3/4 flex items-center  font-medium`
   }, " \u0110i\u1EC1n th\xF4ng tin \u0111\u0103ng nh\u1EADp "), /*#__PURE__*/React.createElement("div", {
+    id: "id_1",
     ref: ref_name_login,
     contentEditable: "true",
-    className: ` rounded w-full  h-8 pl-2 before:text-slate-400 border border-solid border-emerald-400  focus:border-2 focus:border-solid focus:border-emerald-600 outline-0 empty:before:content-['Tên_đăng_nhập']`
+    className: ` rounded w-3/4  h-8 pl-2 before:text-slate-400 border border-solid border-emerald-400  focus:border-2 focus:border-solid focus:border-emerald-600 outline-0 empty:before:content-['Tên_đăng_nhập']`
   }), /*#__PURE__*/React.createElement("div", {
-    className: ` rounded pl-2 pr-1 flex w-full border border-solid border-emerald-400  focus:border-2 focus:border-solid focus:border-emerald-600 outline-0 `
+    id: "id_3",
+    ref: ref_parent_password,
+    className: ` rounded pl-2 pr-1 flex w-3/4 border border-solid border-emerald-400  outline-0 `
   }, /*#__PURE__*/React.createElement("input", {
+    id: "id_2",
     ref: ref_password,
     className: `  h-8  outline-0   grow `,
     type: "password",
     placeholder: "Password"
   }), /*#__PURE__*/React.createElement("img", {
     ref: ref_eyes,
-    src: "/SVG/eyes_hide.svg",
+    src: "10/static/SVG/eyes_hide.svg",
     onClick: event => {
       if (ref_password.current.type === "password") {
         ref_password.current.type = "text";
-        ref_eyes.current.src = "/SVG/eyes_show.svg";
+        ref_eyes.current.src = "10/static/SVG/eyes_show.svg";
       } else {
         ref_password.current.type = "password";
         ref_eyes.current.src = "/SVG/eyes_hide.svg";
       }
     }
   })), /*#__PURE__*/React.createElement("div", {
-    className: ` _shadow rounded w-full  bg-sky-500 hover:bg-sky-700 h-8 flex items-center justify-center pl-2  font-medium `,
+    className: ` _shadow rounded w-3/4  bg-sky-500 hover:bg-sky-700 h-8 flex items-center justify-center pl-2  font-medium `,
     onClick: event => {
       dang_nhap();
     }
-  }, "  \u0110\u0103ng nh\u1EADp "), /*#__PURE__*/React.createElement("div", {
-    className: ` _shadow rounded w-full  bg-sky-500 hover:bg-sky-700 h-8 flex items-center justify-center pl-2  font-medium `,
-    onClick: event => {
-      truy_van();
-    }
-  }, "  truy v\xE1n 1 ")));
+  }, "  \u0110\u0103ng nh\u1EADp "));
 }
 ;
-function Phoi() {
-  let ref_nai = useRef(null);
-  let ref_date = useRef(null);
-  let ref_duc = useRef(null);
-  let ref_nguoi = useRef(null);
-  let ref_bieu_hien = useRef(null);
-  let ref_data = useRef(null);
-  function gui() {
-    // post to php with ajax
-    var hr = new XMLHttpRequest();
-    hr.open("POST", "fuction_thêm--from_phối.php", true);
-    hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    hr.send("post1=" + ref_nai.current.value +
-    // số tai
-    "&post2=" + ref_date.current.value +
-    // ngày phoi
-    "&post3=" + ref_duc.current.value + "&post4=" + ref_nguoi.current.value + "&post5=" + ref_bieu_hien.current.value + "&post8=" + document.getElementById("id_8").value); // trại
-    hr.onload = function () {
-      try {
-        array_return = JSON.parse(hr.responseText);
-        ref_data.current.innerHTML = array_return;
-      } catch (e) {
-        _alert(hr.responseText);
+function Logout() {
+  function dang_xuat(event) {
+    $.post("fuction_logout.php", {}, function (data) {
+      var select = document.getElementById("id_8");
+      var select_length = select.length;
+      for (var i = 0; i <= select_length; i++) {
+        select.remove(select.i);
       }
-    };
+      document.getElementById('id_td_1').innerHTML = "Đăng nhập";
+      ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+      document.getElementById('id_them_user').style.display = 'none';
+      document.getElementById('id_khoa_ngay_nhap_du_lieu').style.display = 'none';
+    });
   }
   useEffect(() => {}, []);
   return /*#__PURE__*/React.createElement("div", {
-    className: ` border bg-gray-100   border-sky-500 mt-2`
+    className: `w-full gap-3 flex flex-col justify-center items-center`
   }, /*#__PURE__*/React.createElement("div", {
+    className: ` w-3/4 flex items-center  font-medium`
+  }, " \u0110\u0103ng xu\u1EA5t "), /*#__PURE__*/React.createElement("div", {
+    className: ` _shadow rounded w-3/4  bg-sky-500 hover:bg-sky-700 h-8 flex items-center justify-center pl-2  font-medium `,
+    onClick: event => {
+      dang_xuat();
+    }
+  }, "  \u0110\u0103ng xu\u1EA5t "));
+}
+;
+function Nai_chet() {
+  let arrayjavascript_so_tai;
+  function handleChange(event) {
+    var gia_tri_tim = event.target.value;
+    var chuoi_ban_dau = "," + arrayjavascript_so_tai.join();
+    var gia_tri_tim = new RegExp("," + "[A-Z]*[0-9]*" + gia_tri_tim, 'i');
+    var vi_tri_tim_thay = chuoi_ban_dau.search(gia_tri_tim);
+    var chuoi_cat_ra = chuoi_ban_dau.substr(vi_tri_tim_thay, 20);
+    var mang_cat_ra_tu_chuoi = chuoi_cat_ra.split(",");
+    document.getElementById('id_tim_1').innerHTML = mang_cat_ra_tu_chuoi[1];
+  }
+  useEffect(() => {
+    $.post("from_heo_nai_chet_loai.php", {
+      post8: $("#id_8").val()
+    }, function (data) {
+      arrayjavascript_so_tai = JSON.parse(data);
+    });
+    $(document).ready(function () {
+      $("#id_gui").click(function () {
+        let width_table = document.getElementById('id_nhan').getBoundingClientRect().width;
+        let height_table = document.getElementById('id_nhan').getBoundingClientRect().height;
+        var gia_tri_nhap = document.getElementById("id_1").value;
+        if (gia_tri_nhap == null || gia_tri_nhap == "" || gia_tri_nhap.indexOf(' ') >= 0) {
+          return _alert("Mã thẻ tai không được để trống, hoặc chứa khoảng trắng");
+        }
+        var dem_string = $("#id_8").val();
+        var count_dem_string = dem_string.length;
+        if ($("#id_1").val() == null || $("#id_1").val() == "" || $("#id_2").val() == null || $("#id_2").val() == "" || count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
+          return _alert("Bạn phải điền đầy đủ thông tin hoặc lỗi chọn công ty có chứa *");
+        } else {
+          $.post("fuction_thêm--from_heo_nái_chết_loại.php", {
+            post1: $("#id_1").val(),
+            post2: $("#id_2").val(),
+            post3: $("#id_3").val(),
+            post8: $("#id_8").val()
+          }, function (data) {
+            if (data.trim().slice(0, 2) !== "[[") {
+              _alert(data);
+            } else {
+              ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
+              ReactDOM.render(React.createElement(Table, {
+                value: {
+                  data: JSON.parse(data),
+                  width: width_table,
+                  height: height_table
+                }
+              }), document.getElementById('id_nhan'));
+            }
+          });
+        }
+      });
+    });
+
+    /* nút thêm, sửa, xóa*/
+    $(document).ready(function () {
+      $("#id_gui_research").click(function () {
+        ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
+        ReactDOM.render( /*#__PURE__*/React.createElement(Tim_kiem, null), document.getElementById('id_nhan'));
+      });
+    });
+    $(document).ready(function () {
+      $('#id_1').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id_2").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id_2').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id_gui").focus();
+        }
+      });
+    });
+  }, []);
+  return /*#__PURE__*/React.createElement("div", {
+    className: `flex flex-col h-full w-full border bg-gray-100   border-sky-500 `
+  }, /*#__PURE__*/React.createElement("input", {
+    id: "id_gui_research",
+    type: "button",
+    value: "T\xECm ki\u1EBFm, s\u1EEDa, x\xF3a"
+  }), /*#__PURE__*/React.createElement("div", {
+    className: `ml-1 border-b border-sky-500 mr-1`
+  }, " Nh\u1EADp Heo n\xE1i ch\u1EBFt, lo\u1EA1i "), /*#__PURE__*/React.createElement("div", {
+    className: ` flex grow  mt-2 `
+  }, /*#__PURE__*/React.createElement("div", {
+    className: `shrink-0 ml-2 `
+  }, /*#__PURE__*/React.createElement("div", null, " M\xE3 th\u1EBB tai :  "), /*#__PURE__*/React.createElement("input", {
+    id: "id_1",
+    className: `  border border-sky-500 `,
+    onChange: handleChange
+  }), " ", /*#__PURE__*/React.createElement("label", {
+    id: "id_tim_1",
+    type: "text"
+  }, "Nh\u1EADp theo s\u1ED1 tai g\u1EE3i \xFD"), /*#__PURE__*/React.createElement("input", {
+    type: "checkbox",
+    id: "id_checkbox"
+  }), /*#__PURE__*/React.createElement("div", null, " Ng\xE0y ch\u1EBFt (lo\u1EA1i): "), /*#__PURE__*/React.createElement("input", {
+    id: "id_2",
+    type: "date",
+    className: `  border border-sky-500 `
+  }), /*#__PURE__*/React.createElement("div", null, " Ph\xE2n lo\u1EA1i:  "), /*#__PURE__*/React.createElement("select", {
+    id: "id_3"
+  }, /*#__PURE__*/React.createElement("option", {
+    value: "c"
+  }, "Heo ch\u1EBFt"), /*#__PURE__*/React.createElement("option", {
+    value: "l"
+  }, "B\xE1n lo\u1EA1i")), /*#__PURE__*/React.createElement("input", {
+    type: "button",
+    value: "Th\xEAm",
+    id: "id_gui",
+    className: ` mt-2 mb-2  _shadow rounded w-full  bg-sky-500 hover:bg-sky-700 h-8 flex items-center justify-center pl-2  font-medium `
+  }), /*#__PURE__*/React.createElement("input", {
+    id: "id_gui_research",
+    type: "button",
+    value: "T\xECm ki\u1EBFm, s\u1EEDa, x\xF3a"
+  })), /*#__PURE__*/React.createElement("div", {
+    id: "id_nhan",
+    className: `text-sm grow ml-1 `
+  })));
+}
+;
+function Phoi() {
+  let arrayjavascript_so_tai_phoi;
+  let arrayjavascript_so_tai_duc;
+  function handleChange_1(event) {
+    var gia_tri_tim = event.target.value;
+    var chuoi_ban_dau = "," + arrayjavascript_so_tai_phoi.join();
+    var gia_tri_tim = new RegExp("," + "[A-Z]*[0-9]*" + gia_tri_tim, 'i');
+    var vi_tri_tim_thay = chuoi_ban_dau.search(gia_tri_tim);
+    var chuoi_cat_ra = chuoi_ban_dau.substr(vi_tri_tim_thay, 20);
+    var mang_cat_ra_tu_chuoi = chuoi_cat_ra.split(",");
+    document.getElementById('id_tim_1').innerHTML = mang_cat_ra_tu_chuoi[1];
+  }
+  function handleChange_2(event) {
+    var gia_tri_tim = event.target.value;
+    var chuoi_ban_dau = "," + arrayjavascript_so_tai_duc.join();
+    var gia_tri_tim = new RegExp("," + "[A-Z]*[0-9]*" + gia_tri_tim, 'i');
+    var vi_tri_tim_thay = chuoi_ban_dau.search(gia_tri_tim);
+    var chuoi_cat_ra = chuoi_ban_dau.substr(vi_tri_tim_thay, 20);
+    var mang_cat_ra_tu_chuoi = chuoi_cat_ra.split(",");
+    document.getElementById('id_tim_2').innerHTML = mang_cat_ra_tu_chuoi[1];
+  }
+  useEffect(() => {
+    $.post("from_phoi.php", {
+      post8: $("#id_8").val()
+    }, function (data) {
+      let array_data = JSON.parse(data);
+      arrayjavascript_so_tai_phoi = array_data[0];
+      arrayjavascript_so_tai_duc = array_data[1];
+    });
+
+    //------------------------------------------
+    $('#id_1').keypress(function () {
+      var x = event.keyCode;
+      if (x == 13) {
+        if (document.getElementById("id_checkbox").checked == true) {
+          document.getElementById('id_1').value = document.getElementById('id_tim_1').innerHTML;
+        }
+        document.getElementById("id_2").focus();
+      }
+    });
+
+    //-------------------------------------------------------------------
+    $('#id_2').keypress(function () {
+      var x = event.keyCode;
+      if (x == 13) {
+        document.getElementById("id_3").focus();
+      }
+    });
+    //----------------------------------------------------------------
+    $('#id_3').keypress(function () {
+      var x = event.keyCode;
+      if (x == 13) {
+        if (document.getElementById("id_checkbox2").checked == true) {
+          document.getElementById('id_3').value = document.getElementById('id_tim_2').innerHTML;
+        }
+        document.getElementById("id_4").focus();
+      }
+    });
+    //------------------------------------------------------------------
+    $('#id_4').keypress(function () {
+      var x = event.keyCode;
+      if (x == 13) {
+        document.getElementById("id_5").focus();
+      }
+    });
+
+    //---------------------------------------------------------------------------
+    $('#id_5').keypress(function () {
+      var x = event.keyCode;
+      if (x == 13) {
+        document.getElementById("id_gui").focus();
+      }
+    });
+    //--------------------------------------------------------------------------
+    $("#id_gui_research").click(function () {
+      ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
+      ReactDOM.render( /*#__PURE__*/React.createElement(Tim_kiem, null), document.getElementById('id_nhan'));
+    });
+
+    //--------------------------------------------------------------------       
+
+    $("#id_gui").click(function () {
+      let width_table = document.getElementById('id_nhan').getBoundingClientRect().width;
+      let height_table = document.getElementById('id_nhan').getBoundingClientRect().height;
+      var dem_string = $("#id_8").val();
+      var count_dem_string = dem_string.length;
+      if ($("#id_1").val() == null || $("#id_1").val() == "" || $("#id_2").val() == null || $("#id_2").val() == "" || $("#id_3").val() == null || $("#id_3").val() == "" || $("#id_4").val() == null || $("#id_4").val() == "" || $("#id_5").val() == null || $("#id_5").val() == "" || count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
+        _alert("Bạn phải điền đầy đủ thông tin hoặc lỗi chọn công ty có chứa *");
+      } else {
+        $.post("fuction_thêm--from_phối.php", {
+          post1: $("#id_1").val(),
+          post2: $("#id_2").val(),
+          post3: $("#id_3").val(),
+          post4: $("#id_4").val(),
+          post5: $("#id_5").val(),
+          post8: $("#id_8").val()
+        }, function (data) {
+          if (data.trim().slice(0, 2) !== "[[") {
+            _alert(data);
+          } else {
+            ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
+            ReactDOM.render(React.createElement(Table, {
+              value: {
+                data: JSON.parse(data),
+                width: width_table,
+                height: height_table
+              }
+            }), document.getElementById('id_nhan'));
+          }
+        });
+      }
+    });
+  }, []);
+  return /*#__PURE__*/React.createElement("div", {
+    className: `flex flex-col h-full w-full border bg-gray-100   border-sky-500 `
+  }, /*#__PURE__*/React.createElement("input", {
+    id: "id_gui_research",
+    type: "button",
+    value: "T\xECm ki\u1EBFm, s\u1EEDa, x\xF3a"
+  }), /*#__PURE__*/React.createElement("div", {
     className: `ml-1 border-b border-sky-500 mr-1`
   }, " Nh\u1EADp Ph\u1ED1i "), /*#__PURE__*/React.createElement("div", {
-    className: ` flex  mt-2 `
+    className: ` flex grow  mt-2 `
   }, /*#__PURE__*/React.createElement("div", {
-    className: ` ml-2 `
+    className: `shrink-0 ml-2 `
   }, /*#__PURE__*/React.createElement("div", null, " M\xE3 th\u1EBB n\xE1i:  "), /*#__PURE__*/React.createElement("input", {
-    ref: ref_nai,
-    className: `  border border-sky-500 `
+    id: "id_1",
+    className: `  border border-sky-500 `,
+    onChange: handleChange_1
+  }), " ", /*#__PURE__*/React.createElement("label", {
+    id: "id_tim_1",
+    type: "text"
+  }, "Nh\u1EADp theo s\u1ED1 tai g\u1EE3i \xFD"), /*#__PURE__*/React.createElement("input", {
+    type: "checkbox",
+    id: "id_checkbox"
   }), /*#__PURE__*/React.createElement("div", null, " Ng\xE0y ph\u1ED1i:  "), /*#__PURE__*/React.createElement("input", {
-    ref: ref_date,
+    id: "id_2",
+    type: "date",
     className: `  border border-sky-500 `
   }), /*#__PURE__*/React.createElement("div", null, " M\xE3 \u0111\u1EF1c:  "), /*#__PURE__*/React.createElement("input", {
-    ref: ref_duc,
-    className: `  border border-sky-500 `
+    id: "id_3",
+    className: `  border border-sky-500 `,
+    onChange: handleChange_2
+  }), " ", /*#__PURE__*/React.createElement("label", {
+    id: "id_tim_2",
+    type: "text"
+  }, "Nh\u1EADp theo s\u1ED1 tai g\u1EE3i \xFD"), /*#__PURE__*/React.createElement("input", {
+    type: "checkbox",
+    id: "id_checkbox2"
   }), /*#__PURE__*/React.createElement("div", null, " Ng\u01B0\u1EDDi ph\u1ED1i: "), /*#__PURE__*/React.createElement("input", {
-    ref: ref_nguoi,
+    id: "id_4",
     className: `  border border-sky-500 `
   }), /*#__PURE__*/React.createElement("div", null, " Bi\u1EC3u hi\u1EC7n khi ph\u1ED1i:  "), /*#__PURE__*/React.createElement("input", {
-    ref: ref_bieu_hien,
+    id: "id_5",
     className: `  border border-sky-500 `
-  }), /*#__PURE__*/React.createElement("div", {
-    onClick: event => {
-      gui();
-    },
+  }), /*#__PURE__*/React.createElement("input", {
+    type: "button",
+    value: "Th\xEAm",
+    id: "id_gui",
     className: ` mt-2 mb-2  _shadow rounded w-full  bg-sky-500 hover:bg-sky-700 h-8 flex items-center justify-center pl-2  font-medium `
-  }, " Th\xEAm ")), /*#__PURE__*/React.createElement("div", {
-    ref: ref_data,
-    className: ` ml-1 `
+  })), /*#__PURE__*/React.createElement("div", {
+    id: "id_nhan",
+    className: `text-sm grow ml-1 `
   }, "d\u1EEF li\u1EC7u tr\u1EA3 v\u1EC1")));
 }
 ;
 function Router() {
   let path_quy_ve = path_match(path_name);
   console.log(path_quy_ve);
-  switch
-    // //-----------------------------------------------------------------------------------------------------------------
-    // case '/node/Login':
-    //  ReactDOM.render(React.createElement(Login, null), document.getElementById('root'));
-    //  break;
-
-    // default:
-    //   // ReactDOM.render("trang home", document.getElementById('root'));
-    //   break;
-  (path_quy_ve) {}
-}
-function Scroll_bar_row(props) {
-  let dom = props.value.dom;
-  let click_scroll_dichuyen = props.value.click_scroll_dichuyen;
-  let limit_scroll_col = props.value.limit_scroll_col;
-  let limit_col_view = props.value.limit_col_view;
-  var ref_track = useRef(null);
-  var ref_thumb = useRef(null);
-  function button_right_click(event) {
-    let move = ref_track.current.getBoundingClientRect().width / (limit_scroll_col + 3);
-    if (ref_thumb.current.offsetLeft <= ref_track.current.getBoundingClientRect().width - move) {
-      ref_thumb.current.style.left = ref_thumb.current.offsetLeft + move + "px";
-      dom.scrollLeft = dom.scrollLeft + click_scroll_dichuyen;
-    }
+  switch (path_quy_ve) {
+    default:
+      ReactDOM.render(App, document.getElementById('root'));
+      break;
   }
-  return /*#__PURE__*/React.createElement("div", {
-    className: ` mt-8 bg-red-400  flex  relative`
-  }, /*#__PURE__*/React.createElement("div", {
-    className: ` w-5 h-3 bg-black `
-  }, "  "), /*#__PURE__*/React.createElement("div", {
-    ref: ref_thumb,
-    className: ` left-5 w-5 h-3 bg-orange-400 absolute `
-  }, " "), /*#__PURE__*/React.createElement("div", {
-    ref: ref_track,
-    className: ` w-5/6 bg-green-400   `
-  }, " "), /*#__PURE__*/React.createElement("div", {
-    className: ` w-5 h-3 bg-black `,
-    onMouseDown: event => {
-      return button_right_click(event);
-    }
-  }, " "));
 }
 function Table(props) {
+  let table_excel_height = props.value.height;
+  let table_excel_width = props.value.width;
   let data_2d = props.value.data;
   return /*#__PURE__*/React.createElement("div", {
-    className: '   '
+    style: {
+      height: `${table_excel_height}px`,
+      width: `${table_excel_width}px`,
+      overflow: 'scroll',
+      position: 'relative'
+    }
   }, data_2d.map((row, i) => {
     return /*#__PURE__*/React.createElement("div", {
-      className: ' flex w-full border border-sky-500  '
+      style: {
+        display: "table-row"
+      }
     }, row.map((cell, j) => {
       return /*#__PURE__*/React.createElement("div", {
-        className: `  flex  ${j === 0 ? 'w-40' : 'w-16'}  border border-sky-500  `
+        style: {
+          position: 'relative',
+          backgroundColor: "white",
+          border: "1px ridge #ccc",
+          height: "20px",
+          display: "table-cell",
+          paddingLeft: "4px",
+          paddingRight: "4px",
+          borderRightStyle: 'none',
+          borderTopStyle: 'none'
+        }
       }, " ", cell, "  ");
     }));
   }));
@@ -329,31 +3189,51 @@ function Table(props) {
 // *** thẻ input và button khi click sẽ làm mất sự kiện tiêu điểm của focus, thẻ div thì không. Do đó ta phải setTimeout để lấy lại tiêu điểm sau.
 
 function Table_hieu_2(props) {
-  let col = 200;
-  let row = 100;
-  let limit_scroll = 45;
-  let limit_scroll_col = 45;
-  // dùng fill chậm hơn một ít không đáng kể so với for 
-  var Data = new Array(row).fill(null).map(i => i = new Array(col).fill(null));
-  var text_formular = new Array(row).fill(null).map(i => i = new Array(col).fill(null));
-  var index_formular = new Array(row).fill(null).map(i => i = new Array(col).fill(null));
-  var formular = [];
-  var Data_show;
-  var Data_show_0;
-  let limit = 50;
-  let limit_col = 50;
-  if (props.value === undefined) {} else {
-    let Data_save = props.value.Data_save;
-    let _len = Data_save.length;
-    for (let index = 0; index < _len; index++) {
-      Data[Data_save[index][0]][Data_save[index][1]] = Data_save[index][2];
-      text_formular[Data_save[index][0]][Data_save[index][1]] = Data_save[index][3];
-      index_formular[Data_save[index][0]][Data_save[index][1]] = Data_save[index][4];
-    }
-    let len_formular = props.value.formular.length;
-    let formular_save = props.value.formular;
-    for (let index = 0; index < len_formular; index++) {
-      formular.push(eval(formular_save[index]));
+  if (props.value === undefined) {
+    console.log('Không có dữ liệu');
+  } else {
+    var data_2d = props.value.data;
+    var countjavascript = data_2d.length;
+    var coloumsjavascript = data_2d[0].length;
+    // ở zoom 100 % 1 click scroll ở chrome di chuyển 40 pixcel 
+    // 20, 85 là chiều rộng và dài của ô excel lúc khởi tạo
+    // chú ý phải để data_lenght , data_col_lenght lớn hơn limit_scroll*height cell,  limit_scroll_col*width cell
+    // data_lenght = (row  ) *click_scroll_dichuyen ; 
+    // data_col_lenght = (col  ) *click_scroll_dichuyen ; 
+
+    var limit_scroll = countjavascript;
+    var limit_scroll_col = coloumsjavascript;
+    var row = Math.max(2 * countjavascript, 300);
+    var col = Math.max(coloumsjavascript, 300);
+
+    // dùng fill chậm hơn một ít không đáng kể so với for 
+    var Data = new Array(row).fill(null).map(i => i = new Array(col).fill(null));
+    var text_formular = new Array(row).fill(null).map(i => i = new Array(col).fill(null));
+    var index_formular = new Array(row).fill(null).map(i => i = new Array(col).fill(null));
+    var formular = [];
+    var Data_show;
+    var Data_show_0;
+    var limit = 50;
+    var limit_col = 50;
+
+    // xem có chuyển dòng thành cột không
+    if (props.value.convert !== undefined) {
+      // không chuyển đổi
+      for (var r = 0; r < countjavascript; r++) {
+        for (var c = 0; c < coloumsjavascript; c++) {
+          Data[r][c] = data_2d[r][c];
+          text_formular[r][c] = data_2d[r][c];
+        }
+      }
+    } else {
+      // chuyển dòng thành cột 
+
+      for (var c = 0; c < coloumsjavascript; c++) {
+        for (var r = 0; r < countjavascript; r++) {
+          Data[c][r] = data_2d[r][c];
+          text_formular[c][r] = data_2d[r][c];
+        }
+      }
     }
   }
   Data_show = Data.slice(0, limit);
@@ -373,7 +3253,40 @@ function Table_hieu_2(props) {
   var canvas_ = useRef(null);
   var ref_0 = useRef(null);
   let select_range_excel = false;
+  let paint_canvas;
+  let stop_fill;
+  let stop_document_move;
+  let stop_zoom;
+  let document_move_thumb;
 
+  //-------------------------------------
+  Table_hieu_2.remove_EventListener = function () {
+    try {
+      document.removeEventListener("onmousemove", paint_canvas);
+    } catch (error) {
+      console.log(error);
+    }
+    try {
+      document.removeEventListener("onmouseup", stop_fill);
+    } catch (error) {
+      console.log(error);
+    }
+    try {
+      document.removeEventListener("mouseup", stop_document_move);
+    } catch (error) {
+      console.log(error);
+    }
+    try {
+      document.body.removeEventListener("wheel", stop_zoom);
+    } catch (error) {
+      console.log(error);
+    }
+    try {
+      document.removeEventListener("mousemove", document_move_thumb);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   //-----------------------------------------------------------------
   var ref_track = useRef(null);
   var ref_thumb = useRef(null);
@@ -467,16 +3380,17 @@ function Table_hieu_2(props) {
 
     // ngăn cản zoom bằng ctr
     // phải truyền thêm thuộc tính  {passive: false}  mới ngăn cản được
-    document.body.addEventListener("wheel", e => {
+
+    stop_zoom = function (e) {
       if (e.ctrlKey === true) {
         e.preventDefault();
       }
-    }, {
+    };
+    document.body.addEventListener("wheel", stop_zoom, {
       passive: false
     });
     width_bar_reference_col = a.current.children[0].children[0].clientWidth;
     console.log(width_bar_reference_col);
-    document.body.style.margin = "0px 20px 20px 20px";
     console.log(table_excel.current.clientHeight);
     var sum = 0;
     while (a.current.children[sum + 1].children[0].getBoundingClientRect().y <= table_excel.current.clientHeight - 2 + table_excel.current.getBoundingClientRect().y) {
@@ -523,13 +3437,16 @@ function Table_hieu_2(props) {
     };
 
     // thay đổi  move_thumb về false
-    document.addEventListener('mouseup', event => {
+
+    stop_document_move = function (event) {
       select_range_excel = false;
       move_thumb = false;
       move_thumb_col = false;
-    });
-    document.addEventListener('mousemove', function (event) {
+    };
+    document.addEventListener('mouseup', stop_document_move);
+    document_move_thumb = function (event) {
       if (move_thumb === true) {
+        console.log('truc xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
         let move = event.clientX - x_thumb;
         let rect_ref_track = ref_track.current.getBoundingClientRect();
         let width_ref_track = rect_ref_track.width;
@@ -550,6 +3467,7 @@ function Table_hieu_2(props) {
       //--------------------------------------------------------------------------------------
 
       if (move_thumb_col === true) {
+        console.log('truc yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy');
         let move = event.clientY - y_thumb;
         let rect_ref_track_col = ref_track_col.current.getBoundingClientRect();
         let height_ref_track_col = rect_ref_track_col.height;
@@ -566,7 +3484,8 @@ function Table_hieu_2(props) {
           table_excel.current.scrollTop = 0;
         }
       }
-    });
+    };
+    document.addEventListener('mousemove', document_move_thumb);
 
     // if ( path_name_test(path_name,"/excel/save" )  ) { get_excel_get_save() ; }
     // if ( path_name.startsWith("/excel/file")  ) { get_excel_get_file() ; }
@@ -1415,7 +4334,6 @@ function Table_hieu_2(props) {
 
   function _onMouseEnter(event, x, y, i, j) {
     console.log('_onMouseEnter');
-    console.log('/////////////////////////////', select_range_excel);
     if (xuat_hien_the_input === true) {
       console.log('so lan chay stop');
       return;
@@ -2417,8 +5335,8 @@ function Table_hieu_2(props) {
   // cố định scrollHeight thì mới scroll đến cuối được.
   // cố định scrollHeight bằng mã if ( Math.round(_table.scrollTop) >= data_lenght - 100*20 )
   // hoặc để chiều dài bar_scroll + scrollTop bé hơn scrollHeight (data.lenght  10000 trở lên thì được)
-  let table_excel_height = window.innerHeight - 87.742 - 60;
-  let table_excel_width = window.innerWidth - 350;
+  let table_excel_height = props.value.height;
+  let table_excel_width = props.value.width;
 
   // ở zoom 100 % 1 click scroll ở chrome di chuyển 40 pixcel 
   let zoom = window.devicePixelRatio;
@@ -2520,9 +5438,85 @@ function Table_hieu_2(props) {
     }
 
     // cập nhật lại dữ liệu khi scroll -- bước1
-    for (let index = 0; index <= limit_view; index++) {
+
+    //  nếu cố định dòng đầu thì  cật nhật sẽ không cộng  ---- vi_tri_cat  ------------------
+    for (let index = 0; index <= 0; index++) {
+      a.current.children[index + 1].children[0].innerHTML = index;
+      //********************************* */
+      //  nếu cố định cột đầu thì  cật nhật sẽ không cộng  ---- vi_tri_cat_col  ------------------
+      for (let index_j = 0; index_j <= 0; index_j++) {
+        if (index === 0) {
+          a.current.children[0].children[index_j + 1].innerHTML = index_j;
+        }
+
+        // với  cell hiện lên trang web bảng tính thì ta duyệt từ cuối tới đầu dòng đó để xác định zIndex cho cell đó
+        let max_zindex = limit_col_view + 1;
+        for (let x = limit_col_view; x >= 0; x--) {
+          if (Data[index][x] === null) {
+            a.current.children[index + 1].children[x + 1].style.zIndex = x;
+          } else {
+            a.current.children[index + 1].children[x + 1].style.zIndex = max_zindex;
+            max_zindex = x;
+          }
+        }
+        if (Data[index][index_j] === null) {
+          a.current.children[index + 1].children[index_j + 1].innerHTML = null;
+        } else {
+          a.current.children[index + 1].children[index_j + 1].innerHTML = ` <div    style="  position:absolute;      background: inherit;   height: inherit ;   white-space: nowrap;   pointer-events: none;   "> ${Data[index][index_j]}  </div>`;
+        }
+      }
+      // cập nhật dữ liệu khi scroll cột không cố định cột
+      for (let index_j = 1; index_j <= limit_col_view; index_j++) {
+        if (index === 0) {
+          a.current.children[0].children[index_j + 1].innerHTML = index_j + vi_tri_cat_col;
+        }
+
+        // với  cell hiện lên trang web bảng tính thì ta duyệt từ cuối tới đầu dòng đó để xác định zIndex cho cell đó
+        let max_zindex = limit_col_view + 1;
+        for (let x = limit_col_view; x >= 0; x--) {
+          if (Data[index][x + vi_tri_cat_col] === null) {
+            a.current.children[index + 1].children[x + 1].style.zIndex = x;
+          } else {
+            a.current.children[index + 1].children[x + 1].style.zIndex = max_zindex;
+            max_zindex = x;
+          }
+        }
+        if (Data[index][index_j + vi_tri_cat_col] === null) {
+          a.current.children[index + 1].children[index_j + 1].innerHTML = null;
+        } else {
+          a.current.children[index + 1].children[index_j + 1].innerHTML = ` <div    style="  position:absolute;      background: inherit;   height: inherit ;   white-space: nowrap;   pointer-events: none;   "> ${Data[index][index_j + vi_tri_cat_col]}  </div>`;
+        }
+      }
+    }
+    //  // cập nhật dữ liệu khi scroll  cột không cố định dòng từ dòng 1
+
+    for (let index = 1; index <= limit_view; index++) {
       a.current.children[index + 1].children[0].innerHTML = index + vi_tri_cat;
-      for (let index_j = 0; index_j <= limit_col_view; index_j++) {
+      //********************************* */
+      //  nếu cố định cột đầu thì  cật nhật sẽ không cộng  ---- vi_tri_cat_col  ------------------
+      for (let index_j = 0; index_j <= 0; index_j++) {
+        if (index === 0) {
+          a.current.children[0].children[index_j + 1].innerHTML = index_j;
+        }
+
+        // với  cell hiện lên trang web bảng tính thì ta duyệt từ cuối tới đầu dòng đó để xác định zIndex cho cell đó
+        let max_zindex = limit_col_view + 1;
+        for (let x = limit_col_view; x >= 0; x--) {
+          if (Data[index + vi_tri_cat][x] === null) {
+            a.current.children[index + 1].children[x + 1].style.zIndex = x;
+          } else {
+            a.current.children[index + 1].children[x + 1].style.zIndex = max_zindex;
+            max_zindex = x;
+          }
+        }
+        if (Data[index + vi_tri_cat][index_j] === null) {
+          a.current.children[index + 1].children[index_j + 1].innerHTML = null;
+        } else {
+          a.current.children[index + 1].children[index_j + 1].innerHTML = ` <div    style="  position:absolute;      background: inherit;   height: inherit ;   white-space: nowrap;   pointer-events: none;   "> ${Data[index + vi_tri_cat][index_j]}  </div>`;
+        }
+      }
+      // cập nhật dữ liệu khi scroll cột không cố định cột
+      for (let index_j = 1; index_j <= limit_col_view; index_j++) {
         if (index === 0) {
           a.current.children[0].children[index_j + 1].innerHTML = index_j + vi_tri_cat_col;
         }
@@ -2718,7 +5712,7 @@ function Table_hieu_2(props) {
     // react thiết lập event.buttons bằng null : không điều khiển nút chuột để tăng hiệu suất. Để thiết lập event.buttons như javascript gốc cần chạy hàm event.persist();
 
     event.persist();
-    document.onmouseup = function () {
+    stop_fill = function () {
       clearTimeout(myInterval_0);
       clearTimeout(myInterval);
       position_mouse_brower = undefined;
@@ -2736,273 +5730,277 @@ function Table_hieu_2(props) {
         fill_22();
       }
     };
-    document.onmousemove = function (event_window) {
-      // console.log('document++++++++++onmousemove');
+    document.onmouseup = stop_fill;
+    paint_canvas = function (event_window) {
+      if (event_window.buttons === 1) {
+        // console.log('document++++++++++onmousemove');
 
-      var table_excel_scrollTop = table_excel.current.scrollTop;
-      var table_excel_scrollLeft = table_excel.current.scrollLeft;
-      clearTimeout(myInterval_0);
-      clearTimeout(myInterval);
-      position_mouse_brower = undefined;
-      mouse_Y = event_window.clientY;
-      mouse_X = event_window.clientX;
+        var table_excel_scrollTop = table_excel.current.scrollTop;
+        var table_excel_scrollLeft = table_excel.current.scrollLeft;
+        clearTimeout(myInterval_0);
+        clearTimeout(myInterval);
+        position_mouse_brower = undefined;
+        mouse_Y = event_window.clientY;
+        mouse_X = event_window.clientX;
 
-      // vẽ biểu tượng fill
+        // vẽ biểu tượng fill
 
-      var x_r0c0 = a.current.children[mien_select_quy_ve[0] + 1].children[mien_select_quy_ve[1] + 1].getBoundingClientRect().x;
-      var x_r0c1 = a.current.children[mien_select_quy_ve[2] + 1].children[mien_select_quy_ve[3] + 1 + 1].getBoundingClientRect().x;
-      var y_r0c0 = a.current.children[mien_select_quy_ve[0] + 1].children[mien_select_quy_ve[1] + 1].getBoundingClientRect().y;
-      var y_r1c0 = a.current.children[mien_select_quy_ve[2] + 1 + 1].children[mien_select_quy_ve[1] + 1].getBoundingClientRect().y;
-      let ty_le_canvas_width = table_excel_width / (x_r0c1 - x_r0c0 - 4);
-      let ty_le_canvas_height = table_excel_height / (y_r1c0 - y_r0c0 - 4);
+        var x_r0c0 = a.current.children[mien_select_quy_ve[0] + 1].children[mien_select_quy_ve[1] + 1].getBoundingClientRect().x;
+        var x_r0c1 = a.current.children[mien_select_quy_ve[2] + 1].children[mien_select_quy_ve[3] + 1 + 1].getBoundingClientRect().x;
+        var y_r0c0 = a.current.children[mien_select_quy_ve[0] + 1].children[mien_select_quy_ve[1] + 1].getBoundingClientRect().y;
+        var y_r1c0 = a.current.children[mien_select_quy_ve[2] + 1 + 1].children[mien_select_quy_ve[1] + 1].getBoundingClientRect().y;
+        let ty_le_canvas_width = table_excel_width / (x_r0c1 - x_r0c0 - 4);
+        let ty_le_canvas_height = table_excel_height / (y_r1c0 - y_r0c0 - 4);
 
-      // nếu trạng thái fill = true tức là đã vẽ rồi không cần vẽ lại nữa
-      if (trang_thai_fill === true && event_window.buttons === 1) {} else {
-        // vẽ khi vị trí mouse nằm ở góc cuối miền lựa chọn
-        if (mouse_X > x_r0c1 - 14 && mouse_X <= x_r0c1 && mouse_Y > y_r1c0 - 14 && mouse_Y <= y_r1c0 && event_window.buttons !== 1 && (mien_select_array_2d[1] === mien_select_array_2d[3] || mien_select_array_2d[0] === mien_select_array_2d[2])) {
-          console.log('ve-------------------move');
-          var ctx = canvas_.current.getContext("2d");
-          // xoá biểu tượng fill đã xuất hiện khi move mouse
-          console.log('xoá biểu tượng fill');
-          ctx.clearRect(0, 0, canvas_.current.width, canvas_.current.height);
+        // nếu trạng thái fill = true tức là đã vẽ rồi không cần vẽ lại nữa
+        if (trang_thai_fill === true && event_window.buttons === 1) {} else {
+          // vẽ khi vị trí mouse nằm ở góc cuối miền lựa chọn
+          if (mouse_X > x_r0c1 - 14 && mouse_X <= x_r0c1 && mouse_Y > y_r1c0 - 14 && mouse_Y <= y_r1c0 && event_window.buttons !== 1 && (mien_select_array_2d[1] === mien_select_array_2d[3] || mien_select_array_2d[0] === mien_select_array_2d[2])) {
+            console.log('ve-------------------move');
+            var ctx = canvas_.current.getContext("2d");
+            // xoá biểu tượng fill đã xuất hiện khi move mouse
+            console.log('xoá biểu tượng fill');
+            ctx.clearRect(0, 0, canvas_.current.width, canvas_.current.height);
 
-          // vẽ lại biểu tượng fill
-          console.log('vẽ lại biểu tượng fill');
-          ctx.beginPath();
-          ctx.fillRect(ty_le_canvas_width * (x_r0c1 - x_r0c0 - 4) - 10 * ty_le_canvas_width, ty_le_canvas_height * (y_r1c0 - y_r0c0 - 4) - 10 * ty_le_canvas_height, 10 * ty_le_canvas_width, 10 * ty_le_canvas_height);
-          ctx.globalAlpha = 0.3;
-          ctx.closePath();
-          trang_thai_fill = true;
-          if (mien_select_array_2d[0] === mien_select_array_2d[2] && mien_select_array_2d[1] === mien_select_array_2d[3]) {
-            kieu_fill = 1;
-            console.log('ve-------------------move-- kieu_fill = 1');
-          } else {
-            if (mien_select_array_2d[1] === mien_select_array_2d[3]) {
-              kieu_fill = 21;
-              console.log('ve-------------------move-- kieu_fill = 21');
+            // vẽ lại biểu tượng fill
+            console.log('vẽ lại biểu tượng fill');
+            ctx.beginPath();
+            ctx.fillRect(ty_le_canvas_width * (x_r0c1 - x_r0c0 - 4) - 10 * ty_le_canvas_width, ty_le_canvas_height * (y_r1c0 - y_r0c0 - 4) - 10 * ty_le_canvas_height, 10 * ty_le_canvas_width, 10 * ty_le_canvas_height);
+            ctx.globalAlpha = 0.3;
+            ctx.closePath();
+            trang_thai_fill = true;
+            if (mien_select_array_2d[0] === mien_select_array_2d[2] && mien_select_array_2d[1] === mien_select_array_2d[3]) {
+              kieu_fill = 1;
+              console.log('ve-------------------move-- kieu_fill = 1');
             } else {
-              kieu_fill = 22;
-              console.log('ve-------------------move-- kieu_fill = 22');
+              if (mien_select_array_2d[1] === mien_select_array_2d[3]) {
+                kieu_fill = 21;
+                console.log('ve-------------------move-- kieu_fill = 21');
+              } else {
+                kieu_fill = 22;
+                console.log('ve-------------------move-- kieu_fill = 22');
+              }
             }
+          } else {
+            kieu_fill = undefined;
+            trang_thai_fill = false;
+            canvas_.current.getContext("2d").clearRect(0, 0, canvas_.current.width, canvas_.current.height);
           }
-        } else {
-          kieu_fill = undefined;
-          trang_thai_fill = false;
-          canvas_.current.getContext("2d").clearRect(0, 0, canvas_.current.width, canvas_.current.height);
+        }
+
+        // cuộn cả 2 thanh khi bên ngoài brower vị trí mouse ngoài phía dưới bên phải -----------------------------------------------------------------
+        if (event_window.buttons == 1 && select_range_excel === true && mouse_Y > table_excel.current.getBoundingClientRect().y + table_excel.current.clientHeight && mouse_X > table_excel.current.getBoundingClientRect().x + table_excel.current.clientWidth) {
+          console.log('cuộn cả 2 thanh khi bên ngoài brower vị trí mouse ngoài phía dưới bên phải');
+          position_mouse_brower = 'ouside_brower';
+          myInterval_0 = setTimeout(function doSomething() {
+            table_excel.current.scrollTo(table_excel_scrollLeft + click_scroll_dichuyen, table_excel_scrollTop + click_scroll_dichuyen);
+            table_excel_scrollTop += click_scroll_dichuyen;
+            table_excel_scrollLeft += click_scroll_dichuyen;
+            myInterval = setTimeout(doSomething, 10);
+          }, 10);
+        }
+        // cuộn cả 2 thanh khi bên ngoài brower vị trí mouse ngoài phía dưới bên trái -----------------------------------------------------------------
+        else if (event_window.buttons == 1 && select_range_excel === true && mouse_Y > table_excel.current.getBoundingClientRect().y + table_excel.current.clientHeight && mouse_X < table_excel.current.getBoundingClientRect().x + width_bar_reference_col) {
+          console.log('cuộn cả 2 thanh khi bên ngoài brower vị trí mouse ngoài phía dưới bên trái ');
+          position_mouse_brower = 'ouside_brower';
+          myInterval_0 = setTimeout(function doSomething() {
+            table_excel.current.scrollTo(table_excel_scrollLeft - click_scroll_dichuyen, table_excel_scrollTop + click_scroll_dichuyen);
+            table_excel_scrollTop += click_scroll_dichuyen;
+            table_excel_scrollLeft -= click_scroll_dichuyen;
+            myInterval = setTimeout(doSomething, 10);
+          }, 10);
+        }
+        // cuộn cả 2 thanh khi bên ngoài brower vị trí mouse ngoài góc trên bên trái----------------------------------------------------------------------------------
+        else if (event_window.buttons == 1 && select_range_excel === true && mouse_Y < table_excel.current.getBoundingClientRect().y + 21 && mouse_X < table_excel.current.getBoundingClientRect().x + width_bar_reference_col) {
+          console.log('cuộn cả 2 thanh khi bên ngoài brower vị trí mouse ngoài góc trên bên trái');
+          position_mouse_brower = 'ouside_brower';
+          myInterval_0 = setTimeout(function doSomething() {
+            table_excel.current.scrollTo(table_excel_scrollLeft - click_scroll_dichuyen, table_excel_scrollTop - click_scroll_dichuyen);
+            table_excel_scrollTop -= click_scroll_dichuyen;
+            table_excel_scrollLeft -= click_scroll_dichuyen;
+            myInterval = setTimeout(doSomething, 10);
+          }, 10);
+        }
+        // cuộn cả 2 thanh khi bên ngoài brower vị trí mouse ngoài phía trên bên phải -----------------------------------------------------------------
+        else if (event_window.buttons == 1 && select_range_excel === true && mouse_Y < table_excel.current.getBoundingClientRect().y + 21 && mouse_X > table_excel.current.getBoundingClientRect().x + table_excel.current.clientWidth) {
+          console.log('cuộn cả 2 thanh khi bên ngoài brower vị trí mouse ngoài phía trên bên phải');
+          position_mouse_brower = 'ouside_brower';
+          myInterval_0 = setTimeout(function doSomething() {
+            table_excel.current.scrollTo(table_excel_scrollLeft + click_scroll_dichuyen, table_excel_scrollTop - click_scroll_dichuyen);
+            table_excel_scrollTop -= click_scroll_dichuyen;
+            table_excel_scrollLeft += click_scroll_dichuyen;
+            myInterval = setTimeout(doSomething, 10);
+          }, 10);
+        }
+        // cuộn thanh dọc khi vị trí mouse nằm dưới brower
+        else if (event_window.buttons == 1 && select_range_excel === true && mouse_Y > table_excel.current.getBoundingClientRect().y + table_excel.current.clientHeight) {
+          console.log('cuộn thanh dọc khi vị trí mouse nằm dưới brower');
+          position_mouse_brower = 'ouside_brower';
+          myInterval_0 = setTimeout(function doSomething() {
+            table_excel.current.scrollTop = table_excel_scrollTop + click_scroll_dichuyen;
+            table_excel_scrollTop += click_scroll_dichuyen;
+            myInterval = setTimeout(doSomething, 10);
+          }, 10);
+          // setTimeout ở đây để vẽ lại chạy sau các hàm khi scroll
+          setTimeout(() => {
+            var index = 1;
+            while (a.current.children[limit_view].children[index + 1].getBoundingClientRect().x <= mouse_X && index <= limit_col_view) {
+              index++;
+            }
+            var elem_i = limit_view - 1;
+            var elem_j = index - 1;
+            // chỉ vẽ lại khi vị trí chuột tới ô khác tương ứng
+
+            if (event_window.buttons == 1 && i_truyen != elem_i || j_truyen != elem_j) {
+              console.log('vẽ lại----------');
+              console.log(vi_tri_o_truoc[0], vi_tri_o_truoc[1], elem_i, elem_j);
+              i_truyen = elem_i;
+              j_truyen = elem_j;
+              let x = vi_tri_o_truoc[0];
+              let y = vi_tri_o_truoc[1];
+              if (x < 0) {
+                x = 0;
+              }
+              if (y < 0) {
+                y = 0;
+              }
+              if (x > limit_view - 1) {
+                x = limit_view - 1;
+              }
+              if (y > limit_col_view) {
+                y = limit_col_view;
+              }
+              _onMouseEnter(event, x, y, elem_i, elem_j);
+            }
+          }, 0);
+        }
+        // cuộn thanh ngang khi vị trí mouse nằm ngoài bên phải brower
+        else if (event_window.buttons == 1 && select_range_excel === true && mouse_X > table_excel.current.getBoundingClientRect().x + table_excel.current.clientWidth) {
+          console.log('cuộn thanh ngang khi vị trí mouse nằm ngoài bên phải brower');
+          position_mouse_brower = 'ouside_brower';
+          myInterval_0 = setTimeout(function doSomething() {
+            table_excel.current.scrollLeft = table_excel_scrollLeft + click_scroll_dichuyen;
+            table_excel_scrollLeft += click_scroll_dichuyen;
+            myInterval = setTimeout(doSomething, 10);
+          }, 10);
+
+          // setTimeout ở đây để vẽ lại chạy sau các hàm khi scroll
+          setTimeout(() => {
+            var index = 1;
+            while (a.current.children[index].children[0].getBoundingClientRect().y <= mouse_Y && index <= limit_view) {
+              index++;
+            }
+            var elem_i = index - 1;
+            var elem_j = limit_col_view;
+
+            // chỉ vẽ lại khi vị trí chuột tới ô khác tương ứng
+
+            if (event_window.buttons == 1 && i_truyen != elem_i || j_truyen != elem_j) {
+              i_truyen = elem_i;
+              j_truyen = elem_j;
+              let x = vi_tri_o_truoc[0];
+              let y = vi_tri_o_truoc[1];
+              if (x < 0) {
+                x = 0;
+              }
+              if (y < 0) {
+                y = 0;
+              }
+              if (x > limit_view - 1) {
+                x = limit_view - 1;
+              }
+              if (y > limit_col_view) {
+                y = limit_col_view;
+              }
+              _onMouseEnter(event, x, y, elem_i, elem_j);
+            }
+          }, 0);
+        }
+
+        // cuộn thanh doc khi vị trí mouse nằm ngoài bên trên brower
+        else if (event_window.buttons == 1 && select_range_excel === true && mouse_Y < table_excel.current.getBoundingClientRect().y + 21) {
+          console.log('cuộn thanh doc khi vị trí mouse nằm ngoài bên trên brower');
+          position_mouse_brower = 'ouside_brower';
+          myInterval_0 = setTimeout(function doSomething() {
+            table_excel.current.scrollTop = table_excel_scrollTop - click_scroll_dichuyen;
+            table_excel_scrollTop -= click_scroll_dichuyen;
+            myInterval = setTimeout(doSomething, 10);
+          }, 10);
+
+          // setTimeout ở đây để vẽ lại chạy sau các hàm khi scroll
+          setTimeout(() => {
+            var index = 1;
+            while (a.current.children[limit_view].children[index + 1].getBoundingClientRect().x <= mouse_X) {
+              index++;
+            }
+            var elem_i = 0;
+            var elem_j = index - 1;
+            // chỉ vẽ lại khi vị trí chuột tới ô khác tương ứng
+
+            if (event_window.buttons == 1 && i_truyen != elem_i || j_truyen != elem_j) {
+              i_truyen = elem_i;
+              j_truyen = elem_j;
+              let x = vi_tri_o_truoc[0];
+              let y = vi_tri_o_truoc[1];
+              if (x < 0) {
+                x = 0;
+              }
+              if (y < 0) {
+                y = 0;
+              }
+              if (x > limit_view - 1) {
+                x = limit_view - 1;
+              }
+              if (y > limit_col_view) {
+                y = limit_col_view;
+              }
+              _onMouseEnter(event, x, y, elem_i, elem_j);
+            }
+          }, 0);
+        }
+        // cuộn thanh ngang khi vị trí mouse nằm ngoài bên trái brower
+        else if (event_window.buttons == 1 && select_range_excel === true && mouse_X < table_excel.current.getBoundingClientRect().x + width_bar_reference_col) {
+          console.log('cuộn thanh ngang khi vị trí mouse nằm ngoài bên trái brower');
+          position_mouse_brower = 'ouside_brower';
+          myInterval_0 = setTimeout(function doSomething() {
+            table_excel.current.scrollLeft = table_excel_scrollLeft - click_scroll_dichuyen;
+            table_excel_scrollLeft -= click_scroll_dichuyen;
+            myInterval = setTimeout(doSomething, 10);
+          }, 10);
+
+          // setTimeout ở đây để vẽ lại chạy sau các hàm khi scroll
+          setTimeout(() => {
+            var index = 1;
+            while (a.current.children[index].children[0].getBoundingClientRect().y <= mouse_Y) {
+              index++;
+            }
+            var elem_i = index - 1;
+
+            // chỉ vẽ lại khi vị trí chuột tới ô khác tương ứng
+
+            if (event_window.buttons == 1 && i_truyen != elem_i) {
+              i_truyen = elem_i;
+              let x = vi_tri_o_truoc[0];
+              let y = vi_tri_o_truoc[1];
+              if (x < 0) {
+                x = 0;
+              }
+              if (y < 0) {
+                y = 0;
+              }
+              if (x > limit_view - 1) {
+                x = limit_view - 1;
+              }
+              if (y > limit_col_view) {
+                y = limit_col_view;
+              }
+              _onMouseEnter(event, x, y, elem_i, 0);
+            }
+          }, 0);
         }
       }
-
-      // cuộn cả 2 thanh khi bên ngoài brower vị trí mouse ngoài phía dưới bên phải -----------------------------------------------------------------
-      if (event_window.buttons == 1 && select_range_excel === true && mouse_Y > table_excel.current.getBoundingClientRect().y + table_excel.current.clientHeight && mouse_X > table_excel.current.getBoundingClientRect().x + table_excel.current.clientWidth) {
-        console.log('cuộn cả 2 thanh khi bên ngoài brower vị trí mouse ngoài phía dưới bên phải');
-        position_mouse_brower = 'ouside_brower';
-        myInterval_0 = setTimeout(function doSomething() {
-          table_excel.current.scrollTo(table_excel_scrollLeft + click_scroll_dichuyen, table_excel_scrollTop + click_scroll_dichuyen);
-          table_excel_scrollTop += click_scroll_dichuyen;
-          table_excel_scrollLeft += click_scroll_dichuyen;
-          myInterval = setTimeout(doSomething, 10);
-        }, 10);
-      }
-      // cuộn cả 2 thanh khi bên ngoài brower vị trí mouse ngoài phía dưới bên trái -----------------------------------------------------------------
-      else if (event_window.buttons == 1 && select_range_excel === true && mouse_Y > table_excel.current.getBoundingClientRect().y + table_excel.current.clientHeight && mouse_X < table_excel.current.getBoundingClientRect().x + width_bar_reference_col) {
-        console.log('cuộn cả 2 thanh khi bên ngoài brower vị trí mouse ngoài phía dưới bên trái ');
-        position_mouse_brower = 'ouside_brower';
-        myInterval_0 = setTimeout(function doSomething() {
-          table_excel.current.scrollTo(table_excel_scrollLeft - click_scroll_dichuyen, table_excel_scrollTop + click_scroll_dichuyen);
-          table_excel_scrollTop += click_scroll_dichuyen;
-          table_excel_scrollLeft -= click_scroll_dichuyen;
-          myInterval = setTimeout(doSomething, 10);
-        }, 10);
-      }
-      // cuộn cả 2 thanh khi bên ngoài brower vị trí mouse ngoài góc trên bên trái----------------------------------------------------------------------------------
-      else if (event_window.buttons == 1 && select_range_excel === true && mouse_Y < table_excel.current.getBoundingClientRect().y + 21 && mouse_X < table_excel.current.getBoundingClientRect().x + width_bar_reference_col) {
-        console.log('cuộn cả 2 thanh khi bên ngoài brower vị trí mouse ngoài góc trên bên trái');
-        position_mouse_brower = 'ouside_brower';
-        myInterval_0 = setTimeout(function doSomething() {
-          table_excel.current.scrollTo(table_excel_scrollLeft - click_scroll_dichuyen, table_excel_scrollTop - click_scroll_dichuyen);
-          table_excel_scrollTop -= click_scroll_dichuyen;
-          table_excel_scrollLeft -= click_scroll_dichuyen;
-          myInterval = setTimeout(doSomething, 10);
-        }, 10);
-      }
-      // cuộn cả 2 thanh khi bên ngoài brower vị trí mouse ngoài phía trên bên phải -----------------------------------------------------------------
-      else if (event_window.buttons == 1 && select_range_excel === true && mouse_Y < table_excel.current.getBoundingClientRect().y + 21 && mouse_X > table_excel.current.getBoundingClientRect().x + table_excel.current.clientWidth) {
-        console.log('cuộn cả 2 thanh khi bên ngoài brower vị trí mouse ngoài phía trên bên phải');
-        position_mouse_brower = 'ouside_brower';
-        myInterval_0 = setTimeout(function doSomething() {
-          table_excel.current.scrollTo(table_excel_scrollLeft + click_scroll_dichuyen, table_excel_scrollTop - click_scroll_dichuyen);
-          table_excel_scrollTop -= click_scroll_dichuyen;
-          table_excel_scrollLeft += click_scroll_dichuyen;
-          myInterval = setTimeout(doSomething, 10);
-        }, 10);
-      }
-      // cuộn thanh dọc khi vị trí mouse nằm dưới brower
-      else if (event_window.buttons == 1 && select_range_excel === true && mouse_Y > table_excel.current.getBoundingClientRect().y + table_excel.current.clientHeight) {
-        console.log('cuộn thanh dọc khi vị trí mouse nằm dưới brower');
-        position_mouse_brower = 'ouside_brower';
-        myInterval_0 = setTimeout(function doSomething() {
-          table_excel.current.scrollTop = table_excel_scrollTop + click_scroll_dichuyen;
-          table_excel_scrollTop += click_scroll_dichuyen;
-          myInterval = setTimeout(doSomething, 10);
-        }, 10);
-        // setTimeout ở đây để vẽ lại chạy sau các hàm khi scroll
-        setTimeout(() => {
-          var index = 1;
-          while (a.current.children[limit_view].children[index + 1].getBoundingClientRect().x <= mouse_X && index <= limit_col_view) {
-            index++;
-          }
-          var elem_i = limit_view - 1;
-          var elem_j = index - 1;
-          // chỉ vẽ lại khi vị trí chuột tới ô khác tương ứng
-
-          if (event_window.buttons == 1 && i_truyen != elem_i || j_truyen != elem_j) {
-            console.log('vẽ lại----------');
-            console.log(vi_tri_o_truoc[0], vi_tri_o_truoc[1], elem_i, elem_j);
-            i_truyen = elem_i;
-            j_truyen = elem_j;
-            let x = vi_tri_o_truoc[0];
-            let y = vi_tri_o_truoc[1];
-            if (x < 0) {
-              x = 0;
-            }
-            if (y < 0) {
-              y = 0;
-            }
-            if (x > limit_view - 1) {
-              x = limit_view - 1;
-            }
-            if (y > limit_col_view) {
-              y = limit_col_view;
-            }
-            _onMouseEnter(event, x, y, elem_i, elem_j);
-          }
-        }, 0);
-      }
-      // cuộn thanh ngang khi vị trí mouse nằm ngoài bên phải brower
-      else if (event_window.buttons == 1 && select_range_excel === true && mouse_X > table_excel.current.getBoundingClientRect().x + table_excel.current.clientWidth) {
-        console.log('cuộn thanh ngang khi vị trí mouse nằm ngoài bên phải brower');
-        position_mouse_brower = 'ouside_brower';
-        myInterval_0 = setTimeout(function doSomething() {
-          table_excel.current.scrollLeft = table_excel_scrollLeft + click_scroll_dichuyen;
-          table_excel_scrollLeft += click_scroll_dichuyen;
-          myInterval = setTimeout(doSomething, 10);
-        }, 10);
-
-        // setTimeout ở đây để vẽ lại chạy sau các hàm khi scroll
-        setTimeout(() => {
-          var index = 1;
-          while (a.current.children[index].children[0].getBoundingClientRect().y <= mouse_Y && index <= limit_view) {
-            index++;
-          }
-          var elem_i = index - 1;
-          var elem_j = limit_col_view;
-
-          // chỉ vẽ lại khi vị trí chuột tới ô khác tương ứng
-
-          if (event_window.buttons == 1 && i_truyen != elem_i || j_truyen != elem_j) {
-            i_truyen = elem_i;
-            j_truyen = elem_j;
-            let x = vi_tri_o_truoc[0];
-            let y = vi_tri_o_truoc[1];
-            if (x < 0) {
-              x = 0;
-            }
-            if (y < 0) {
-              y = 0;
-            }
-            if (x > limit_view - 1) {
-              x = limit_view - 1;
-            }
-            if (y > limit_col_view) {
-              y = limit_col_view;
-            }
-            _onMouseEnter(event, x, y, elem_i, elem_j);
-          }
-        }, 0);
-      }
-
-      // cuộn thanh doc khi vị trí mouse nằm ngoài bên trên brower
-      else if (event_window.buttons == 1 && select_range_excel === true && mouse_Y < table_excel.current.getBoundingClientRect().y + 21) {
-        console.log('cuộn thanh doc khi vị trí mouse nằm ngoài bên trên brower');
-        position_mouse_brower = 'ouside_brower';
-        myInterval_0 = setTimeout(function doSomething() {
-          table_excel.current.scrollTop = table_excel_scrollTop - click_scroll_dichuyen;
-          table_excel_scrollTop -= click_scroll_dichuyen;
-          myInterval = setTimeout(doSomething, 10);
-        }, 10);
-
-        // setTimeout ở đây để vẽ lại chạy sau các hàm khi scroll
-        setTimeout(() => {
-          var index = 1;
-          while (a.current.children[limit_view].children[index + 1].getBoundingClientRect().x <= mouse_X) {
-            index++;
-          }
-          var elem_i = 0;
-          var elem_j = index - 1;
-          // chỉ vẽ lại khi vị trí chuột tới ô khác tương ứng
-
-          if (event_window.buttons == 1 && i_truyen != elem_i || j_truyen != elem_j) {
-            i_truyen = elem_i;
-            j_truyen = elem_j;
-            let x = vi_tri_o_truoc[0];
-            let y = vi_tri_o_truoc[1];
-            if (x < 0) {
-              x = 0;
-            }
-            if (y < 0) {
-              y = 0;
-            }
-            if (x > limit_view - 1) {
-              x = limit_view - 1;
-            }
-            if (y > limit_col_view) {
-              y = limit_col_view;
-            }
-            _onMouseEnter(event, x, y, elem_i, elem_j);
-          }
-        }, 0);
-      }
-      // cuộn thanh ngang khi vị trí mouse nằm ngoài bên trái brower
-      else if (event_window.buttons == 1 && select_range_excel === true && mouse_X < table_excel.current.getBoundingClientRect().x + width_bar_reference_col) {
-        console.log('cuộn thanh ngang khi vị trí mouse nằm ngoài bên trái brower');
-        position_mouse_brower = 'ouside_brower';
-        myInterval_0 = setTimeout(function doSomething() {
-          table_excel.current.scrollLeft = table_excel_scrollLeft - click_scroll_dichuyen;
-          table_excel_scrollLeft -= click_scroll_dichuyen;
-          myInterval = setTimeout(doSomething, 10);
-        }, 10);
-
-        // setTimeout ở đây để vẽ lại chạy sau các hàm khi scroll
-        setTimeout(() => {
-          var index = 1;
-          while (a.current.children[index].children[0].getBoundingClientRect().y <= mouse_Y) {
-            index++;
-          }
-          var elem_i = index - 1;
-
-          // chỉ vẽ lại khi vị trí chuột tới ô khác tương ứng
-
-          if (event_window.buttons == 1 && i_truyen != elem_i) {
-            i_truyen = elem_i;
-            let x = vi_tri_o_truoc[0];
-            let y = vi_tri_o_truoc[1];
-            if (x < 0) {
-              x = 0;
-            }
-            if (y < 0) {
-              y = 0;
-            }
-            if (x > limit_view - 1) {
-              x = limit_view - 1;
-            }
-            if (y > limit_col_view) {
-              y = limit_col_view;
-            }
-            _onMouseEnter(event, x, y, elem_i, 0);
-          }
-        }, 0);
-      }
     };
+    document.onmousemove = paint_canvas;
   }
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -3078,7 +6076,6 @@ function Table_hieu_2(props) {
         position: 'relative',
         backgroundColor: "white",
         border: "1px ridge #ccc",
-        width: "35px",
         height: "20px",
         display: "table-cell",
         paddingLeft: "4px",
@@ -3183,6 +6180,7 @@ function Table_hieu_2(props) {
     }, i), " ", row.map((cell, j) => {
       return /*#__PURE__*/React.createElement("div", {
         style: css.col_excel,
+        className: `  ${j === 0 ? 'w-56 sticky' : 'w-32'}`,
         onMouseDown: event => {
           var _this = a.current.children[i + 1].children[j + 1];
           return _onMouseDown(_this, i, j, event);
@@ -3231,9 +6229,9 @@ function Table_hieu_2(props) {
   }))), /*#__PURE__*/React.createElement("div", {
     style: {
       border: "1px ridge #ccc",
-      top: -17,
+      top: table_excel_height - 17,
       display: 'flex',
-      position: 'relative',
+      position: 'absolute',
       width: table_excel_width - 17
     }
   }, /*#__PURE__*/React.createElement("img", {
@@ -3336,6 +6334,1372 @@ function Table_hieu_2(props) {
   })));
 }
 ;
+function Table_nguoc(props) {
+  let data_2d = props.value.data;
+  var countjavascript = data_2d.length;
+  var coloumsjavascript = data_2d[1].length;
+  let data_2d_nguoc = new Array(coloumsjavascript).fill(null).map(i => i = new Array(countjavascript).fill(null));
+  for (var c = 0; c < coloumsjavascript; c++) {
+    for (var r = 0; r < countjavascript; r++) {
+      data_2d_nguoc[c][r] = data_2d[r][c];
+    }
+  }
+  return /*#__PURE__*/React.createElement("div", {
+    className: '   '
+  }, data_2d_nguoc.map((row, i) => {
+    return /*#__PURE__*/React.createElement("div", {
+      className: ' flex w-full border border-sky-500  '
+    }, row.map((cell, j) => {
+      return /*#__PURE__*/React.createElement("div", {
+        className: `  ${j === 0 ? 'w-96 sticky' : 'w-16'}  border border-red-700 `
+      }, " ", cell, "  ");
+    }));
+  }));
+}
+;
+function Table_xoa(props) {
+  let table_excel_height = props.value.height;
+  let table_excel_width = props.value.width;
+  let data_2d = props.value.data;
+  function xoa(event, rIndex) {
+    // - Sổ phối table xóa click
+    if (gobal_tim_kiem_sua_xoa == "phoi") {
+      document.getElementById("id_1").value = data_2d[rIndex][0];
+      var date_convert = data_2d[rIndex][1];
+      document.getElementById("id_2").value = date_convert.substr(6, 4) + "-" + date_convert.substr(3, 2) + "-" + date_convert.substr(0, 2);
+      document.getElementById("id_3").value = data_2d[rIndex][3];
+      document.getElementById("id_4").value = data_2d[rIndex][4];
+      document.getElementById("id_5").value = data_2d[rIndex][5];
+
+      // post to php with ajax
+      var hr = new XMLHttpRequest();
+      hr.open("POST", "fuction_xoa--fuction_from_research_date_to_date.php", true);
+      hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      hr.send("post_1=" + document.getElementById("id_1").value +
+      // số tai
+      "&post_2=" + document.getElementById("id_2").value +
+      // ngày
+      "&post_6=" + data_2d[rIndex][2] +
+      // lần phối
+      "&post_7=" + gobal_tim_kiem_sua_xoa +
+      // bảng post
+      "&post_8=" + document.getElementById("id_8").value); // trại
+      hr.onload = function () {
+        // Do whatever with response
+
+        var ket_qua_tra_ve = hr.responseText.trim();
+        if (ket_qua_tra_ve !== "Đã xóa") {
+          document.getElementById("id_1").value = "";
+          document.getElementById("id_2").value = "";
+          document.getElementById("id_3").value = "";
+          document.getElementById("id_4").value = "";
+          document.getElementById("id_5").value = "";
+          _alert(ket_qua_tra_ve);
+        } else {
+          //	hiệu ứng amation css				
+          if (click_xoa == 0) {
+            document.getElementById('id_1').className = mystyle_array[click_xoa];
+            click_xoa = 1;
+          } else {
+            document.getElementById('id_1').className = mystyle_array[click_xoa];
+            click_xoa = 0;
+          }
+          ;
+          _alert(ket_qua_tra_ve + " dữ liệu phối  " + data_2d[rIndex][0]);
+          ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_research'));
+          document.getElementById('id_gui').value = 'Thêm lại hoặc sửa';
+        }
+      };
+    }
+    // - Sổ đẻ table xóa click
+    if (gobal_tim_kiem_sua_xoa == "de") {
+      if (data_2d[rIndex][7] == "") {
+        return _alert("Ngày đẻ không có dữ liệu");
+      }
+      document.getElementById("id_1").value = data_2d[rIndex][0];
+      var date_convert = data_2d[rIndex][7];
+      document.getElementById("id_2").value = date_convert.substr(6, 4) + "-" + date_convert.substr(3, 2) + "-" + date_convert.substr(0, 2);
+      document.getElementById("id_3").value = data_2d[rIndex][9];
+      document.getElementById("id_4").value = data_2d[rIndex][10];
+      document.getElementById("id_5").value = data_2d[rIndex][11];
+      document.getElementById("id_6").value = data_2d[rIndex][12];
+      document.getElementById("id_7").value = data_2d[rIndex][13];
+      document.getElementById("id_9").value = data_2d[rIndex][8];
+
+      // post to php with ajax
+      var hr = new XMLHttpRequest();
+      hr.open("POST", "fuction_xoa--fuction_from_research_date_to_date.php", true);
+      hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      hr.send("post_1=" + document.getElementById("id_1").value +
+      // số tai
+      "&post_2=" + document.getElementById("id_2").value +
+      // ngày
+      "&post_6=" + data_2d[rIndex][2] +
+      // lần phối
+      "&post_7=" + gobal_tim_kiem_sua_xoa +
+      // bảng post
+      "&post_8=" + document.getElementById("id_8").value); // trại
+      hr.onload = function () {
+        // Do whatever with response
+
+        var ket_qua_tra_ve = hr.responseText.trim();
+        if (ket_qua_tra_ve !== "Đã xóa") {
+          document.getElementById("id_1").value = "";
+          document.getElementById("id_2").value = "";
+          document.getElementById("id_3").value = "";
+          document.getElementById("id_4").value = "";
+          document.getElementById("id_5").value = "";
+          document.getElementById("id_6").value = "";
+          document.getElementById("id_7").value = "";
+          document.getElementById("id_9").value = "";
+          _alert(ket_qua_tra_ve);
+        } else {
+          //	hiệu ứng amation css				
+          if (click_xoa == 0) {
+            document.getElementById('id_1').className = mystyle_array[click_xoa];
+            click_xoa = 1;
+          } else {
+            document.getElementById('id_1').className = mystyle_array[click_xoa];
+            click_xoa = 0;
+          }
+          ;
+          _alert(ket_qua_tra_ve + " dữ liệu đẻ  " + data_2d[rIndex][0]);
+          ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_research'));
+          document.getElementById('id_gui').value = 'Thêm lại hoặc sửa';
+        }
+      };
+    }
+    // - Sổ cai sữa table xóa click
+    if (gobal_tim_kiem_sua_xoa == "cai_sua") {
+      if (data_2d[rIndex][14] == "") {
+        return _alert("Ngày cai sữa không có dữ liệu");
+      }
+      document.getElementById("id_1").value = data_2d[rIndex][0];
+      var date_convert = data_2d[rIndex][14];
+      document.getElementById("id_2").value = date_convert.substr(6, 4) + "-" + date_convert.substr(3, 2) + "-" + date_convert.substr(0, 2);
+      document.getElementById("id_3").value = data_2d[rIndex][15];
+
+      // post to php with ajax
+      var hr = new XMLHttpRequest();
+      hr.open("POST", "fuction_xoa--fuction_from_research_date_to_date.php", true);
+      hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      ;
+      hr.send("post_1=" + document.getElementById("id_1").value +
+      // số tai
+      "&post_2=" + document.getElementById("id_2").value +
+      // ngày
+      "&post_6=" + data_2d[rIndex][2] +
+      // lần phối
+      "&post_7=" + gobal_tim_kiem_sua_xoa +
+      // bảng post
+      "&post_8=" + document.getElementById("id_8").value); // trại
+      hr.onload = function () {
+        // Do whatever with response
+
+        var ket_qua_tra_ve = hr.responseText.trim();
+        if (ket_qua_tra_ve !== "Đã xóa") {
+          document.getElementById("id_1").value = "";
+          document.getElementById("id_2").value = "";
+          document.getElementById("id_3").value = "";
+          _alert(ket_qua_tra_ve);
+        } else {
+          //	hiệu ứng amation css				
+          if (click_xoa == 0) {
+            document.getElementById('id_1').className = mystyle_array[click_xoa];
+            click_xoa = 1;
+          } else {
+            document.getElementById('id_1').className = mystyle_array[click_xoa];
+            click_xoa = 0;
+          }
+          ;
+          _alert(ket_qua_tra_ve + " dữ liệu cai sữa " + data_2d[rIndex][0]);
+          ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_research'));
+          document.getElementById('id_gui').value = 'Thêm lại hoặc sửa';
+        }
+      };
+    }
+
+    // - Sổ heo vấn đề table xóa click
+    if (gobal_tim_kiem_sua_xoa == "van_de") {
+      if (data_2d[rIndex][5] == "") {
+        return _alert("Ngày vấn đề không có dữ liệu");
+      }
+      document.getElementById("id_1").value = data_2d[rIndex][0];
+      var date_convert = data_2d[rIndex][5];
+      document.getElementById("id_2").value = date_convert.substr(6, 4) + "-" + date_convert.substr(3, 2) + "-" + date_convert.substr(0, 2);
+      document.getElementById("id_3").value = data_2d[rIndex][6];
+
+      // post to php with ajax
+      var hr = new XMLHttpRequest();
+      hr.open("POST", "fuction_xoa--fuction_from_research_date_to_date.php", true);
+      hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      ;
+      hr.send("post_1=" + document.getElementById("id_1").value +
+      // số tai
+      "&post_2=" + document.getElementById("id_2").value +
+      // ngày
+      "&post_6=" + data_2d[rIndex][2] +
+      // lần phối
+      "&post_7=" + gobal_tim_kiem_sua_xoa +
+      // bảng post
+      "&post_8=" + document.getElementById("id_8").value); // trại
+      hr.onload = function () {
+        // Do whatever with response
+
+        var ket_qua_tra_ve = hr.responseText.trim();
+        if (ket_qua_tra_ve !== "Đã xóa") {
+          document.getElementById("id_1").value = "";
+          document.getElementById("id_2").value = "";
+          document.getElementById("id_3").value = "";
+          _alert(ket_qua_tra_ve);
+        } else {
+          //	hiệu ứng amation css				
+          if (click_xoa == 0) {
+            document.getElementById('id_1').className = mystyle_array[click_xoa];
+            click_xoa = 1;
+          } else {
+            document.getElementById('id_1').className = mystyle_array[click_xoa];
+            click_xoa = 0;
+          }
+          ;
+          _alert(ket_qua_tra_ve + " dữ liệu heo vấn đề  " + data_2d[rIndex][0]);
+          ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_research'));
+          document.getElementById('id_gui').value = 'Thêm lại hoặc sửa';
+        }
+      };
+    }
+
+    // - Sổ heo nái loại table xóa click
+    if (gobal_tim_kiem_sua_xoa == "nai_chet_loai") {
+      if (data_2d[rIndex][16] == null) {
+        return _alert("Ngày chết(loại) chưa có dữ liệu");
+      }
+      document.getElementById("id_1").value = data_2d[rIndex][0];
+      var date_convert = data_2d[rIndex][16];
+      console.log(data_2d);
+      console.log(date_convert);
+      console.log(date_convert.substr(6, 4) + "-" + date_convert.substr(3, 2) + "-" + date_convert.substr(0, 2));
+      document.getElementById("id_2").value = date_convert.substr(6, 4) + "-" + date_convert.substr(3, 2) + "-" + date_convert.substr(0, 2);
+      document.getElementById("id_3").value = data_2d[rIndex][17];
+
+      // post to php with ajax
+      var hr = new XMLHttpRequest();
+      hr.open("POST", "fuction_xoa--fuction_from_research_date_to_date.php", true);
+      hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      ;
+      hr.send("post_1=" + document.getElementById("id_1").value +
+      // số tai
+      "&post_2=" + document.getElementById("id_2").value +
+      // ngày
+      "&post_6=" + data_2d[rIndex][2] +
+      // lần phối
+      "&post_7=" + gobal_tim_kiem_sua_xoa +
+      // bảng post
+      "&post_8=" + document.getElementById("id_8").value); // trại
+      hr.onload = function () {
+        // Do whatever with response
+
+        var ket_qua_tra_ve = hr.responseText.trim();
+        if (ket_qua_tra_ve !== "Đã xóa") {
+          document.getElementById("id_1").value = "";
+          document.getElementById("id_2").value = "";
+          document.getElementById("id_3").value = "";
+          _alert(ket_qua_tra_ve);
+        } else {
+          //	hiệu ứng amation css				
+          if (click_xoa == 0) {
+            document.getElementById('id_1').className = mystyle_array[click_xoa];
+            click_xoa = 1;
+          } else {
+            document.getElementById('id_1').className = mystyle_array[click_xoa];
+            click_xoa = 0;
+          }
+          ;
+          _alert(ket_qua_tra_ve + " dữ liệu heo chết(loại)  " + data_2d[rIndex][0]);
+          ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_research'));
+          document.getElementById('id_gui').value = 'Thêm lại hoặc sửa';
+        }
+      };
+    }
+    // - Sổ heo con chết table xóa click
+    if (gobal_tim_kiem_sua_xoa == "con_chet_loai") {
+      if (data_2d[rIndex][17] == "") {
+        return alert("Ngày heo con chết(loại) chưa có dữ liệu");
+      }
+      document.getElementById("id_1").value = data_2d[rIndex][0];
+      var date_convert = data_2d[rIndex][17];
+      document.getElementById("id_2").value = date_convert.substr(6, 4) + "-" + date_convert.substr(3, 2) + "-" + date_convert.substr(0, 2);
+      document.getElementById("id_3").value = data_2d[rIndex][18];
+      document.getElementById("id_4").value = data_2d[rIndex][19];
+
+      // post to php with ajax
+      var hr = new XMLHttpRequest();
+      hr.open("POST", "fuction_xoa--fuction_from_research_date_to_date.php", true);
+      hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      ;
+      hr.send("post_1=" + document.getElementById("id_1").value +
+      // số tai
+      "&post_2=" + document.getElementById("id_2").value +
+      // ngày
+      "&post_6=" + data_2d[rIndex][2] +
+      // lần phối
+      "&post_7=" + gobal_tim_kiem_sua_xoa +
+      // bảng post
+      "&post_8=" + document.getElementById("id_8").value); // trại
+      hr.onload = function () {
+        // Do whatever with response
+
+        var ket_qua_tra_ve = hr.responseText.trim();
+        if (ket_qua_tra_ve !== "Đã xóa") {
+          document.getElementById("id_1").value = "";
+          document.getElementById("id_2").value = "";
+          document.getElementById("id_3").value = "";
+          document.getElementById("id_4").value = "";
+          _alert(ket_qua_tra_ve);
+        } else {
+          //	hiệu ứng amation css				
+          if (click_xoa == 0) {
+            document.getElementById('id_1').className = mystyle_array[click_xoa];
+            click_xoa = 1;
+          } else {
+            document.getElementById('id_1').className = mystyle_array[click_xoa];
+            click_xoa = 0;
+          }
+          ;
+          _alert(ket_qua_tra_ve + " dữ liệu heo con chết(loại)  " + data_2d[rIndex][0]);
+          ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_research'));
+          document.getElementById('id_gui').value = 'Thêm lại hoặc sửa';
+        }
+      };
+    }
+    // - Sổ heo hậu bị table xóa click
+    if (gobal_tim_kiem_sua_xoa == "hau_bi") {
+      document.getElementById("id_1").value = data_2d[rIndex][0];
+      var date_convert = data_2d[rIndex][1];
+      document.getElementById("id_2").value = date_convert.substr(6, 4) + "-" + date_convert.substr(3, 2) + "-" + date_convert.substr(0, 2);
+      var date_convert_2 = data_2d[rIndex][3];
+      document.getElementById("id_3").value = date_convert_2.substr(6, 4) + "-" + date_convert_2.substr(3, 2) + "-" + date_convert_2.substr(0, 2);
+      document.getElementById("id_4").value = data_2d[rIndex][2];
+      // post to php with ajax
+      var hr = new XMLHttpRequest();
+      hr.open("POST", "fuction_xoa--fuction_from_research_date_to_date.php", true);
+      hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      ;
+      hr.send("post_1=" + document.getElementById("id_1").value +
+      // số tai
+      "&post_2=" + document.getElementById("id_2").value +
+      // ngày
+      "&post_7=" + gobal_tim_kiem_sua_xoa +
+      // bảng post
+      "&post_8=" + document.getElementById("id_8").value); // trại
+      hr.onload = function () {
+        // Do whatever with response
+
+        var ket_qua_tra_ve = hr.responseText.trim();
+        if (ket_qua_tra_ve !== "Đã xóa") {
+          document.getElementById("id_1").value = "";
+          document.getElementById("id_2").value = "";
+          document.getElementById("id_3").value = "";
+          document.getElementById("id_4").value = "";
+          _alert(ket_qua_tra_ve);
+        } else {
+          //	hiệu ứng amation css				
+          if (click_xoa == 0) {
+            document.getElementById('id_1').className = mystyle_array[click_xoa];
+            click_xoa = 1;
+          } else {
+            document.getElementById('id_1').className = mystyle_array[click_xoa];
+            click_xoa = 0;
+          }
+          ;
+          _alert(ket_qua_tra_ve + " dữ liệu hậu bị  " + data_2d[rIndex][0]);
+          ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_research'));
+          document.getElementById('id_gui').value = 'Thêm lại hoặc sửa';
+        }
+      };
+    }
+
+    // - Sổ heo hậu đực table xóa click
+    if (gobal_tim_kiem_sua_xoa == "duc") {
+      document.getElementById("id_1").value = data_2d[rIndex][0];
+      var date_convert = data_2d[rIndex][1];
+      document.getElementById("id_2").value = date_convert.substr(6, 4) + "-" + date_convert.substr(3, 2) + "-" + date_convert.substr(0, 2);
+      var date_convert_2 = data_2d[rIndex][2];
+      document.getElementById("id_3").value = date_convert_2.substr(6, 4) + "-" + date_convert_2.substr(3, 2) + "-" + date_convert_2.substr(0, 2);
+
+      // post to php with ajax
+      var hr = new XMLHttpRequest();
+      hr.open("POST", "fuction_xoa--fuction_from_research_date_to_date.php", true);
+      hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      ;
+      hr.send("post_1=" + document.getElementById("id_1").value +
+      // số tai
+      "&post_2=" + document.getElementById("id_2").value +
+      // ngày
+      "&post_7=" + gobal_tim_kiem_sua_xoa +
+      // bảng post
+      "&post_8=" + document.getElementById("id_8").value); // trại
+      hr.onload = function () {
+        // Do whatever with response
+
+        var ket_qua_tra_ve = hr.responseText.trim();
+        if (ket_qua_tra_ve !== "Đã xóa") {
+          document.getElementById("id_1").value = "";
+          document.getElementById("id_2").value = "";
+          document.getElementById("id_3").value = "";
+          _alert(ket_qua_tra_ve);
+        } else {
+          //	hiệu ứng amation css				
+          if (click_xoa == 0) {
+            document.getElementById('id_1').className = mystyle_array[click_xoa];
+            click_xoa = 1;
+          } else {
+            document.getElementById('id_1').className = mystyle_array[click_xoa];
+            click_xoa = 0;
+          }
+          ;
+          _alert(ket_qua_tra_ve + " dữ liệu đực  " + data_2d[rIndex][0]);
+          ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_research'));
+          document.getElementById('id_gui').value = 'Thêm lại hoặc sửa';
+        }
+      };
+    }
+  }
+  return /*#__PURE__*/React.createElement("div", {
+    id: "id_table",
+    style: {
+      height: `${table_excel_height}px`,
+      width: `${table_excel_width}px`,
+      overflow: 'scroll',
+      position: 'relative'
+    }
+  }, data_2d.map((row, i) => {
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: "table-row"
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      onClick: event => {
+        xoa(event, i);
+      },
+      className: ` ${(() => {
+        if (i === 0) {} else {
+          return " _shadow rounded w-full  bg-sky-500 hover:bg-sky-700";
+        }
+      })()}  `,
+      style: {
+        position: 'relative',
+        border: "1px ridge #ccc",
+        height: "20px",
+        display: "table-cell",
+        paddingLeft: "4px",
+        paddingRight: "4px",
+        borderRightStyle: 'none',
+        borderTopStyle: 'none'
+      }
+    }, "  Xo\xE1 "), row.map((cell, j) => {
+      return /*#__PURE__*/React.createElement("div", {
+        style: {
+          position: 'relative',
+          backgroundColor: "white",
+          border: "1px ridge #ccc",
+          height: "20px",
+          display: "table-cell",
+          paddingLeft: "4px",
+          paddingRight: "4px",
+          borderRightStyle: 'none',
+          borderTopStyle: 'none'
+        }
+      }, " ", cell, "  ");
+    }));
+  }));
+}
+;
+function Table_xoa_date(props) {
+  let table_excel_height = props.value.height;
+  let table_excel_width = props.value.width;
+  let data_2d = props.value.data;
+  function xoa(event, rIndex) {
+    // - Sổ phối table xóa click
+    if (gobal_tim_kiem_sua_xoa == "phoi") {
+      document.getElementById("id_1").value = data_2d[rIndex][0];
+      var date_convert = data_2d[rIndex][1];
+      document.getElementById("id_2").value = date_convert.substr(6, 4) + "-" + date_convert.substr(3, 2) + "-" + date_convert.substr(0, 2);
+      document.getElementById("id_3").value = data_2d[rIndex][3];
+      document.getElementById("id_4").value = data_2d[rIndex][4];
+      document.getElementById("id_5").value = data_2d[rIndex][5];
+
+      // post to php with ajax
+      var hr = new XMLHttpRequest();
+      hr.open("POST", "fuction_xoa--fuction_from_research_date_to_date.php", true);
+      hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      ;
+      hr.send("post_1=" + document.getElementById("id_1").value +
+      // số tai
+      "&post_2=" + document.getElementById("id_2").value +
+      // ngày
+      "&post_6=" + data_2d[rIndex][2] +
+      // lần phối
+      "&post_7=" + gobal_tim_kiem_sua_xoa +
+      // bảng post
+      "&post_8=" + document.getElementById("id_8").value); // trại
+      hr.onload = function () {
+        // Do whatever with response
+
+        var ket_qua_tra_ve = hr.responseText.trim();
+        if (ket_qua_tra_ve !== "Đã xóa") {
+          document.getElementById("id_1").value = "";
+          document.getElementById("id_2").value = "";
+          document.getElementById("id_3").value = "";
+          document.getElementById("id_4").value = "";
+          document.getElementById("id_5").value = "";
+          _alert(ket_qua_tra_ve);
+        } else {
+          //	hiệu ứng amation css				
+          if (click_xoa == 0) {
+            document.getElementById('id_1').className = mystyle_array[click_xoa];
+            click_xoa = 1;
+          } else {
+            document.getElementById('id_1').className = mystyle_array[click_xoa];
+            click_xoa = 0;
+          }
+          ;
+          _alert(ket_qua_tra_ve + " dữ liệu phối  " + data_2d[rIndex][0]);
+          ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_research'));
+          document.getElementById('id_gui').value = 'Thêm lại hoặc sửa';
+        }
+      };
+    }
+    // - Sổ đẻ table xóa click
+    if (gobal_tim_kiem_sua_xoa == "de") {
+      document.getElementById("id_1").value = data_2d[rIndex][0];
+      var date_convert = data_2d[rIndex][1];
+      document.getElementById("id_2").value = date_convert.substr(6, 4) + "-" + date_convert.substr(3, 2) + "-" + date_convert.substr(0, 2);
+      document.getElementById("id_3").value = data_2d[rIndex][3];
+      document.getElementById("id_4").value = data_2d[rIndex][4];
+      document.getElementById("id_5").value = data_2d[rIndex][5];
+      document.getElementById("id_6").value = data_2d[rIndex][6];
+      document.getElementById("id_7").value = data_2d[rIndex][7];
+      document.getElementById("id_9").value = data_2d[rIndex][2];
+
+      // post to php with ajax
+      var hr = new XMLHttpRequest();
+      hr.open("POST", "fuction_xoa--fuction_from_research_date_to_date.php", true);
+      hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      ;
+      hr.send("post_1=" + document.getElementById("id_1").value +
+      // số tai
+      "&post_2=" + document.getElementById("id_2").value +
+      // ngày
+      "&post_6=" + data_2d[rIndex][13] +
+      // lần phối
+      "&post_7=" + gobal_tim_kiem_sua_xoa +
+      // bảng post
+      "&post_8=" + document.getElementById("id_8").value); // trại
+      hr.onload = function () {
+        // Do whatever with response
+
+        var ket_qua_tra_ve = hr.responseText.trim();
+        if (ket_qua_tra_ve !== "Đã xóa") {
+          document.getElementById("id_1").value = "";
+          document.getElementById("id_2").value = "";
+          document.getElementById("id_3").value = "";
+          document.getElementById("id_4").value = "";
+          document.getElementById("id_5").value = "";
+          document.getElementById("id_6").value = "";
+          document.getElementById("id_7").value = "";
+          document.getElementById("id_9").value = "";
+          _alert(ket_qua_tra_ve);
+        } else {
+          //	hiệu ứng amation css				
+          if (click_xoa == 0) {
+            document.getElementById('id_1').className = mystyle_array[click_xoa];
+            click_xoa = 1;
+          } else {
+            document.getElementById('id_1').className = mystyle_array[click_xoa];
+            click_xoa = 0;
+          }
+          ;
+          _alert(ket_qua_tra_ve + " dữ liệu đẻ  " + data_2d[rIndex][0]);
+          ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_research'));
+          document.getElementById('id_gui').value = 'Thêm lại hoặc sửa';
+        }
+      };
+    }
+    // - Sổ cai sữa table xóa click
+    if (gobal_tim_kiem_sua_xoa == "cai_sua") {
+      document.getElementById("id_1").value = data_2d[rIndex][0];
+      var date_convert = data_2d[rIndex][1];
+      document.getElementById("id_2").value = date_convert.substr(6, 4) + "-" + date_convert.substr(3, 2) + "-" + date_convert.substr(0, 2);
+      document.getElementById("id_3").value = data_2d[rIndex][2];
+
+      // post to php with ajax
+      var hr = new XMLHttpRequest();
+      hr.open("POST", "fuction_xoa--fuction_from_research_date_to_date.php", true);
+      hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      ;
+      hr.send("post_1=" + document.getElementById("id_1").value +
+      // số tai
+      "&post_2=" + document.getElementById("id_2").value +
+      // ngày
+      "&post_6=" + data_2d[rIndex][4] +
+      // lần phối
+      "&post_7=" + gobal_tim_kiem_sua_xoa +
+      // bảng post
+      "&post_8=" + document.getElementById("id_8").value); // trại
+      hr.onload = function () {
+        // Do whatever with response
+
+        var ket_qua_tra_ve = hr.responseText.trim();
+        if (ket_qua_tra_ve !== "Đã xóa") {
+          document.getElementById("id_1").value = "";
+          document.getElementById("id_2").value = "";
+          document.getElementById("id_3").value = "";
+          _alert(ket_qua_tra_ve);
+        } else {
+          //	hiệu ứng amation css				
+          if (click_xoa == 0) {
+            document.getElementById('id_1').className = mystyle_array[click_xoa];
+            click_xoa = 1;
+          } else {
+            document.getElementById('id_1').className = mystyle_array[click_xoa];
+            click_xoa = 0;
+          }
+          ;
+          _alert(ket_qua_tra_ve + " dữ liệu cai sữa  " + data_2d[rIndex][0]);
+          ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_research'));
+          document.getElementById('id_gui').value = 'Thêm lại hoặc sửa';
+        }
+      };
+    }
+    // - Sổ heo vấn đề table xóa click
+    if (gobal_tim_kiem_sua_xoa == "van_de") {
+      document.getElementById("id_1").value = data_2d[rIndex][0];
+      var date_convert = data_2d[rIndex][2];
+      document.getElementById("id_2").value = date_convert.substr(6, 4) + "-" + date_convert.substr(3, 2) + "-" + date_convert.substr(0, 2);
+      document.getElementById("id_3").value = data_2d[rIndex][3];
+
+      // post to php with ajax
+      var hr = new XMLHttpRequest();
+      hr.open("POST", "fuction_xoa--fuction_from_research_date_to_date.php", true);
+      hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      ;
+      hr.send("post_1=" + document.getElementById("id_1").value +
+      // số tai
+      "&post_2=" + document.getElementById("id_2").value +
+      // ngày
+      "&post_6=" + data_2d[rIndex][1] +
+      // lần phối
+      "&post_7=" + gobal_tim_kiem_sua_xoa +
+      // bảng post
+      "&post_8=" + document.getElementById("id_8").value); // trại
+      hr.onload = function () {
+        // Do whatever with response
+
+        var ket_qua_tra_ve = hr.responseText.trim();
+        if (ket_qua_tra_ve !== "Đã xóa") {
+          document.getElementById("id_1").value = "";
+          document.getElementById("id_2").value = "";
+          document.getElementById("id_3").value = "";
+          _alert(ket_qua_tra_ve);
+        } else {
+          //	hiệu ứng amation css				
+          if (click_xoa == 0) {
+            document.getElementById('id_1').className = mystyle_array[click_xoa];
+            click_xoa = 1;
+          } else {
+            document.getElementById('id_1').className = mystyle_array[click_xoa];
+            click_xoa = 0;
+          }
+          ;
+          _alert(ket_qua_tra_ve + " dữ liệu heo vấn đề  " + data_2d[rIndex][0]);
+          ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_research'));
+          document.getElementById('id_gui').value = 'Thêm lại hoặc sửa';
+        }
+      };
+    }
+
+    // - Sổ heo nái loại table xóa click
+    if (gobal_tim_kiem_sua_xoa == "nai_chet_loai") {
+      document.getElementById("id_1").value = data_2d[rIndex][0];
+      var date_convert = data_2d[rIndex][2];
+      document.getElementById("id_2").value = date_convert.substr(6, 4) + "-" + date_convert.substr(3, 2) + "-" + date_convert.substr(0, 2);
+      document.getElementById("id_3").value = data_2d[rIndex][3];
+
+      // post to php with ajax
+      var hr = new XMLHttpRequest();
+      hr.open("POST", "fuction_xoa--fuction_from_research_date_to_date.php", true);
+      hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      ;
+      hr.send("post_1=" + document.getElementById("id_1").value +
+      // số tai
+      "&post_2=" + document.getElementById("id_2").value +
+      // ngày
+      "&post_6=" + data_2d[rIndex][1] +
+      // lần phối
+      "&post_7=" + gobal_tim_kiem_sua_xoa +
+      // bảng post
+      "&post_8=" + document.getElementById("id_8").value); // trại
+      hr.onload = function () {
+        // Do whatever with response
+
+        var ket_qua_tra_ve = hr.responseText.trim();
+        if (ket_qua_tra_ve !== "Đã xóa") {
+          document.getElementById("id_1").value = "";
+          document.getElementById("id_2").value = "";
+          document.getElementById("id_3").value = "";
+          _alert(ket_qua_tra_ve);
+        } else {
+          //	hiệu ứng amation css				
+          if (click_xoa == 0) {
+            document.getElementById('id_1').className = mystyle_array[click_xoa];
+            click_xoa = 1;
+          } else {
+            document.getElementById('id_1').className = mystyle_array[click_xoa];
+            click_xoa = 0;
+          }
+          ;
+          _alert(ket_qua_tra_ve + " dữ liệu heo nái chết(loại)  " + data_2d[rIndex][0]);
+          ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_research'));
+          document.getElementById('id_gui').value = 'Thêm lại hoặc sửa';
+        }
+      };
+    }
+    // - Sổ heo con chết table xóa click
+    if (gobal_tim_kiem_sua_xoa == "con_chet_loai") {
+      document.getElementById("id_1").value = data_2d[rIndex][0];
+      var date_convert = data_2d[rIndex][2];
+      document.getElementById("id_2").value = date_convert.substr(6, 4) + "-" + date_convert.substr(3, 2) + "-" + date_convert.substr(0, 2);
+      document.getElementById("id_3").value = data_2d[rIndex][3];
+      document.getElementById("id_4").value = data_2d[rIndex][4];
+
+      // post to php with ajax
+      var hr = new XMLHttpRequest();
+      hr.open("POST", "fuction_xoa--fuction_from_research_date_to_date.php", true);
+      hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      ;
+      hr.send("post_1=" + document.getElementById("id_1").value +
+      // số tai
+      "&post_2=" + document.getElementById("id_2").value +
+      // ngày
+      "&post_6=" + data_2d[rIndex][1] +
+      // lần phối
+      "&post_7=" + gobal_tim_kiem_sua_xoa +
+      // bảng post
+      "&post_8=" + document.getElementById("id_8").value); // trại
+      hr.onload = function () {
+        // Do whatever with response
+
+        var ket_qua_tra_ve = hr.responseText.trim();
+        if (ket_qua_tra_ve !== "Đã xóa") {
+          document.getElementById("id_1").value = "";
+          document.getElementById("id_2").value = "";
+          document.getElementById("id_3").value = "";
+          document.getElementById("id_4").value = "";
+          _alert(ket_qua_tra_ve);
+        } else {
+          //	hiệu ứng amation css				
+          if (click_xoa == 0) {
+            document.getElementById('id_1').className = mystyle_array[click_xoa];
+            click_xoa = 1;
+          } else {
+            document.getElementById('id_1').className = mystyle_array[click_xoa];
+            click_xoa = 0;
+          }
+          ;
+          _alert(ket_qua_tra_ve + " dữ liệu heo con chết (loại)  " + data_2d[rIndex][0]);
+          ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_research'));
+          document.getElementById('id_gui').value = 'Thêm lại hoặc sửa';
+        }
+      };
+    }
+    // - Sổ heo hậu bị table xóa click
+    if (gobal_tim_kiem_sua_xoa == "hau_bi") {
+      document.getElementById("id_1").value = data_2d[rIndex][0];
+      var date_convert = data_2d[rIndex][1];
+      document.getElementById("id_2").value = date_convert.substr(6, 4) + "-" + date_convert.substr(3, 2) + "-" + date_convert.substr(0, 2);
+      var date_convert_2 = data_2d[rIndex][3];
+      document.getElementById("id_3").value = date_convert_2.substr(6, 4) + "-" + date_convert_2.substr(3, 2) + "-" + date_convert_2.substr(0, 2);
+      document.getElementById("id_4").value = data_2d[rIndex][2];
+      // post to php with ajax
+      var hr = new XMLHttpRequest();
+      hr.open("POST", "fuction_xoa--fuction_from_research_date_to_date.php", true);
+      hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      ;
+      hr.send("post_1=" + document.getElementById("id_1").value +
+      // số tai
+      "&post_2=" + document.getElementById("id_2").value +
+      // ngày
+      "&post_7=" + gobal_tim_kiem_sua_xoa +
+      // bảng post
+      "&post_8=" + document.getElementById("id_8").value); // trại
+      hr.onload = function () {
+        // Do whatever with response
+
+        var ket_qua_tra_ve = hr.responseText.trim();
+        if (ket_qua_tra_ve !== "Đã xóa") {
+          document.getElementById("id_1").value = "";
+          document.getElementById("id_2").value = "";
+          document.getElementById("id_3").value = "";
+          document.getElementById("id_4").value = "";
+          _alert(ket_qua_tra_ve);
+        } else {
+          //	hiệu ứng amation css				
+          if (click_xoa == 0) {
+            document.getElementById('id_1').className = mystyle_array[click_xoa];
+            click_xoa = 1;
+          } else {
+            document.getElementById('id_1').className = mystyle_array[click_xoa];
+            click_xoa = 0;
+          }
+          ;
+          _alert(ket_qua_tra_ve + " dữ liệu hậu bị  " + data_2d[rIndex][0]);
+          ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_research'));
+          document.getElementById('id_gui').value = 'Thêm lại hoặc sửa';
+        }
+      };
+    }
+
+    // - Sổ heo hậu đực table xóa click
+    if (gobal_tim_kiem_sua_xoa == "duc") {
+      document.getElementById("id_1").value = data_2d[rIndex][0];
+      var date_convert = data_2d[rIndex][1];
+      document.getElementById("id_2").value = date_convert.substr(6, 4) + "-" + date_convert.substr(3, 2) + "-" + date_convert.substr(0, 2);
+      var date_convert_2 = data_2d[rIndex][2];
+      document.getElementById("id_3").value = date_convert_2.substr(6, 4) + "-" + date_convert_2.substr(3, 2) + "-" + date_convert_2.substr(0, 2);
+
+      // post to php with ajax
+      var hr = new XMLHttpRequest();
+      hr.open("POST", "fuction_xoa--fuction_from_research_date_to_date.php", true);
+      hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      ;
+      hr.send("post_1=" + document.getElementById("id_1").value +
+      // số tai
+      "&post_2=" + document.getElementById("id_2").value +
+      // ngày
+      "&post_7=" + gobal_tim_kiem_sua_xoa +
+      // bảng post
+      "&post_8=" + document.getElementById("id_8").value); // trại
+      hr.onload = function () {
+        // Do whatever with response
+
+        var ket_qua_tra_ve = hr.responseText.trim();
+        if (ket_qua_tra_ve !== "Đã xóa") {
+          document.getElementById("id_1").value = "";
+          document.getElementById("id_2").value = "";
+          document.getElementById("id_3").value = "";
+          _alert(ket_qua_tra_ve);
+        } else {
+          //	hiệu ứng amation css				
+          if (click_xoa == 0) {
+            document.getElementById('id_1').className = mystyle_array[click_xoa];
+            click_xoa = 1;
+          } else {
+            document.getElementById('id_1').className = mystyle_array[click_xoa];
+            click_xoa = 0;
+          }
+          ;
+          _alert(ket_qua_tra_ve + " dữ liệu đực  " + data_2d[rIndex][0]);
+          ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_research'));
+          document.getElementById('id_gui').value = 'Thêm lại hoặc sửa';
+        }
+      };
+    }
+  }
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      height: `${table_excel_height}px`,
+      width: `${table_excel_width}px`,
+      overflow: 'scroll',
+      position: 'relative'
+    }
+  }, data_2d.map((row, i) => {
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: "table-row"
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      onClick: event => {
+        xoa(event, i);
+      },
+      className: ` ${(() => {
+        if (i === 0) {} else {
+          return " _shadow rounded w-full  bg-sky-500 hover:bg-sky-700";
+        }
+      })()}  `,
+      style: {
+        position: 'relative',
+        border: "1px ridge #ccc",
+        height: "20px",
+        display: "table-cell",
+        paddingLeft: "4px",
+        paddingRight: "4px",
+        borderRightStyle: 'none',
+        borderTopStyle: 'none'
+      }
+    }, "  Xo\xE1 "), row.map((cell, j) => {
+      return /*#__PURE__*/React.createElement("div", {
+        style: {
+          position: 'relative',
+          backgroundColor: "white",
+          border: "1px ridge #ccc",
+          height: "20px",
+          display: "table-cell",
+          paddingLeft: "4px",
+          paddingRight: "4px",
+          borderRightStyle: 'none',
+          borderTopStyle: 'none'
+        }
+      }, " ", cell, "  ");
+    }));
+  }));
+}
+;
+function Tim_kiem() {
+  useEffect(() => {
+    $(document).ready(function () {
+      $("#id_gui_fuction_research").click(function () {
+        let width_table = document.getElementById('id_nhan_research').getBoundingClientRect().width;
+        let height_table = document.getElementById('id_nhan_research').getBoundingClientRect().height;
+        var dem_string = $("#id_8").val();
+        var count_dem_string = dem_string.length;
+        if ($("#id_1_research").val() == null || count_dem_string > 50 || $("#id_1_research").val() == "") {
+          _alert("Bạn phải điền đầy đủ thông tin hoặc lỗi chọn công ty có chứa *");
+        } else {
+          $.post("fuction--from_research.php", {
+            post1: $("#id_1_research").val(),
+            post4: gobal_tim_kiem_sua_xoa,
+            post8: $("#id_8").val()
+          }, function (data) {
+            var arrayjavascript = JSON.parse(data); // ***** gán mảng 2 chiều từ php vào javácript
+
+            var countjavascript = arrayjavascript.length;
+            if (countjavascript == 1) {
+              _alert("Không tìm thấy");
+            } else {
+              ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_research'));
+              ReactDOM.render(React.createElement(Table_xoa, {
+                value: {
+                  data: arrayjavascript,
+                  width: width_table,
+                  height: height_table
+                }
+              }), document.getElementById('id_nhan_research'));
+            }
+          });
+        }
+      });
+    });
+    $(document).ready(function () {
+      $("#id_gui_fuction_research_date").click(function () {
+        let width_table = document.getElementById('id_nhan_research').getBoundingClientRect().width;
+        let height_table = document.getElementById('id_nhan_research').getBoundingClientRect().height;
+        var dem_string = $("#id_8").val();
+        var count_dem_string = dem_string.length;
+        if ($("#id_2_research").val() == null || $("#id_2_research").val() == "" || $("#id_3_research").val() == null || count_dem_string > 50 || $("#id_3_research").val() == "") {
+          _alert("Bạn phải điền đầy đủ thông tin hoặc lỗi chọn công ty có chứa *");
+        } else {
+          $.post("fuction--from_research_date_to_date.php", {
+            post2: $("#id_2_research").val(),
+            post3: $("#id_3_research").val(),
+            post8: $("#id_8").val(),
+            post4: gobal_tim_kiem_sua_xoa
+          }, function (data) {
+            var arrayjavascript = JSON.parse(data); // ***** gán mảng 2 chiều từ php vào javácript
+
+            var countjavascript = arrayjavascript.length;
+            if (countjavascript == 1) {
+              _alert("Không tìm thấy");
+            } else {
+              ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_research'));
+              ReactDOM.render(React.createElement(Table_xoa_date, {
+                value: {
+                  data: arrayjavascript,
+                  width: width_table,
+                  height: height_table
+                }
+              }), document.getElementById('id_nhan_research'));
+            }
+          });
+        }
+      });
+    });
+  }, []);
+  return /*#__PURE__*/React.createElement("div", {
+    className: `flex flex-col w-full h-full  bg-gray-100   `
+  }, /*#__PURE__*/React.createElement("div", {
+    className: `ml-1 border-b border-sky-500 mr-1`
+  }, " T\xECm ki\u1EBFm "), /*#__PURE__*/React.createElement("div", {
+    className: ` flex grow  mt-2 `
+  }, /*#__PURE__*/React.createElement("div", {
+    className: ` shrink-0 ml-2 `
+  }, /*#__PURE__*/React.createElement("div", null, " M\xE3 th\u1EBB n\xE1i:  "), /*#__PURE__*/React.createElement("input", {
+    id: "id_1_research",
+    className: `  border border-sky-500 `
+  }), /*#__PURE__*/React.createElement("input", {
+    type: "button",
+    value: "T\xECm ki\u1EBFm",
+    id: "id_gui_fuction_research",
+    className: ` mt-2 mb-2  _shadow rounded w-full  bg-sky-500 hover:bg-sky-700 h-8 flex items-center justify-center pl-2  font-medium `
+  }), /*#__PURE__*/React.createElement("div", null, " T\u1EEB ng\xE0y: "), /*#__PURE__*/React.createElement("input", {
+    id: "id_2_research",
+    type: "date",
+    className: `  border border-sky-500 `
+  }), /*#__PURE__*/React.createElement("div", null, " \u0110\u1EBFn ng\xE0y: "), /*#__PURE__*/React.createElement("input", {
+    id: "id_3_research",
+    type: "date",
+    className: `  border border-sky-500 `
+  }), /*#__PURE__*/React.createElement("input", {
+    type: "button",
+    value: "T\xECm ki\u1EBFm",
+    id: "id_gui_fuction_research_date",
+    className: ` mt-2 mb-2  _shadow rounded w-full  bg-sky-500 hover:bg-sky-700 h-8 flex items-center justify-center pl-2  font-medium `
+  })), /*#__PURE__*/React.createElement("div", {
+    id: "id_nhan_research",
+    className: ` text-sm grow ml-1 `
+  })));
+}
+;
+function Tra_ly_lich(props) {
+  useEffect(() => {
+    let data_sum = [];
+    //------------------------------------------------------
+    document.getElementById("id_xoa").onclick = function () {
+      const collection = id_ds.children;
+      for (let i = 0; i < 19; i++) {
+        collection[i].value = "";
+      }
+      document.getElementById("id1").focus();
+    };
+    document.getElementById("id_xoa_2").onclick = function () {
+      ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
+      data_sum = [];
+      document.getElementById("id1").focus();
+    };
+    document.getElementById("id1").focus();
+    $(document).ready(function () {
+      $('#id1').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id2").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id2').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id3").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id3').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id4").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id4').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id5").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id5').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id6").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id6').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id7").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id7').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id8").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id8').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id9").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id9').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id10").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id10').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id11").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id11').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id12").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id12').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id13").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id13').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id14").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id14').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id15").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id15').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id16").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id16').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id17").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id17').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id18").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id18').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id19").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id19').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id20").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id20').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id_gui").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $("#id_gui").click(function () {
+        let width_table = document.getElementById('id_nhan').getBoundingClientRect().width;
+        let height_table = document.getElementById('id_nhan').getBoundingClientRect().height;
+        var dem_string = $("#id_8").val();
+        var count_dem_string = dem_string.length;
+        if (count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
+          return _alert("Bạn phải điền đầy đủ thông tin hoặc lỗi chọn công ty có chứa *");
+        } else {
+          $.post("fuction__from_tra_ly_lich.php", {
+            post1: $("#id1").val(),
+            post2: $("#id2").val(),
+            post3: $("#id3").val(),
+            post4: $("#id4").val(),
+            post5: $("#id5").val(),
+            post6: $("#id6").val(),
+            post7: $("#id7").val(),
+            post8: $("#id8").val(),
+            post9: $("#id9").val(),
+            post10: $("#id10").val(),
+            post11: $("#id11").val(),
+            post12: $("#id12").val(),
+            post13: $("#id13").val(),
+            post14: $("#id14").val(),
+            post15: $("#id15").val(),
+            post16: $("#id16").val(),
+            post17: $("#id17").val(),
+            post18: $("#id18").val(),
+            post19: $("#id19").val(),
+            post20: $("#id20").val(),
+            post_trai: $("#id_8").val()
+          }, function (data) {
+            // dung hàm UNION ALL trên server sẽ trả về 1 obj
+            let array_2d = Object.values(JSON.parse(data));
+            for (let index = 0, len = array_2d.length; index < len; index++) {
+              if (array_2d[index][0] !== "") {
+                data_sum.push(array_2d[index]);
+              }
+            }
+            let sen = data_sum;
+            ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
+            ReactDOM.render( /*#__PURE__*/React.createElement(Table, {
+              value: {
+                data: sen,
+                width: width_table,
+                height: height_table
+              }
+            }), document.getElementById('id_nhan'));
+          });
+        }
+      });
+    });
+  }, []);
+  return /*#__PURE__*/React.createElement("div", {
+    className: `flex flex-col w-full h-full border bg-gray-100   border-sky-500 `
+  }, /*#__PURE__*/React.createElement("div", {
+    className: `ml-1 border-b border-sky-500 mr-1`
+  }, " Nh\u1EADp s\u1ED1 tai c\u1EA7n tra "), /*#__PURE__*/React.createElement("div", {
+    className: `text-sm flex flex-row h-full  grow  bg-gray-100 mt-2 `
+  }, /*#__PURE__*/React.createElement("div", {
+    id: "id_ds",
+    className: `pl-2 pr-2 flex flex-col flex-shrink-0 w-[125px] h-full  `
+  }, /*#__PURE__*/React.createElement("input", {
+    className: ` border  border-gray-400 w-full m-[1px]`,
+    id: "id1",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: ` border  border-gray-400 w-full m-[1px]`,
+    id: "id2",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: ` border  border-gray-400 w-full m-[1px]`,
+    id: "id3",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: ` border  border-gray-400 w-full m-[1px]`,
+    id: "id4",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: ` border  border-gray-400 w-full m-[1px]`,
+    id: "id5",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: ` border  border-gray-400 w-full m-[1px]`,
+    id: "id6",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: ` border  border-gray-400 w-full m-[1px]`,
+    id: "id7",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: ` border  border-gray-400 w-full m-[1px]`,
+    id: "id8",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: ` border  border-gray-400 w-full m-[1px]`,
+    id: "id9",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: ` border  border-gray-400 w-full m-[1px]`,
+    id: "id10",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: ` border  border-gray-400 w-full m-[1px]`,
+    id: "id11",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: ` border  border-gray-400 w-full m-[1px]`,
+    id: "id12",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: ` border  border-gray-400 w-full m-[1px]`,
+    id: "id13",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: ` border  border-gray-400 w-full m-[1px]`,
+    id: "id14",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: ` border  border-gray-400 w-full m-[1px]`,
+    id: "id15",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: ` border  border-gray-400 w-full m-[1px]`,
+    id: "id16",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: ` border  border-gray-400 w-full m-[1px]`,
+    id: "id17",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: ` border  border-gray-400 w-full m-[1px]`,
+    id: "id18",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: ` border  border-gray-400 w-full m-[1px]`,
+    id: "id19",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: ` border  border-gray-400 w-full m-[1px]`,
+    id: "id20",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    id: "id_gui",
+    type: "button",
+    className: ` mt-1   _shadow rounded w-full  bg-sky-500 hover:bg-sky-700 h-8 flex items-center justify-center pl-2  font-medium `,
+    value: "Tra"
+  }), /*#__PURE__*/React.createElement("input", {
+    id: "id_xoa",
+    type: "button",
+    className: ` mt-1  _shadow rounded w-full  bg-sky-500 hover:bg-sky-700 h-8 flex items-center justify-center pl-2  font-medium `,
+    value: "Clear"
+  }), /*#__PURE__*/React.createElement("input", {
+    id: "id_xoa_2",
+    type: "button",
+    className: ` mt-1   _shadow rounded w-full  bg-sky-500 hover:bg-sky-700 h-8 flex items-center justify-center pl-2  font-medium `,
+    value: "Clear table"
+  })), /*#__PURE__*/React.createElement("div", {
+    className: ` flex h-full grow  bg-gray-100  `,
+    id: "id_nhan"
+  })));
+}
+;
 const {
   useState,
   useRef,
@@ -3355,4 +7719,6 @@ function tb(string_pc, string_mobi) {
     return string_pc;
   }
 }
-Router();
+ReactDOM.render(React.createElement(App, null), document.getElementById('root'));
+
+// Router();

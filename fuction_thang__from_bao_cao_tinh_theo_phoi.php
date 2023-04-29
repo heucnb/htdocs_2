@@ -1,15 +1,4 @@
 
-
-<html>
-<body>
-
-<table id="table1" class="table_nhận_dữ_liệu table41ct" > 
-   
-</table>
-
-</body>
-</html>
-<script>
 <?php
 		
 $day_post_bat_dau = $_POST["post1"].'-01-01';
@@ -346,7 +335,7 @@ $o_dien_du_lieu_tu_array = "A2" ;
 // B. - lấy dữ liệu từ excel lên web html	
 // B.1 - lấy dữ liệu data từ excel vào mảng php
 $so_o_lay_du_lieu_array = $spreadsheet->getSheetByName('getdata')->rangeToArray(
-																				'A14:A14',     // The worksheet range that we want to retrieve
+																				'A1:A1',     // The worksheet range that we want to retrieve
 																				NULL,        // Value that should be returned for empty cells
 																				TRUE,        // Should formulas be calculated (the equivalent of getCalculatedValue() for each cell)
 																				TRUE,        // Should values be formatted (the equivalent of getFormattedValue() for each cell)
@@ -355,10 +344,9 @@ $so_o_lay_du_lieu_array = $spreadsheet->getSheetByName('getdata')->rangeToArray(
 
 $so_o_lay = $so_o_lay_du_lieu_array[0][0] +2;
 
-
-
-
-$mien_lay_du_lieu_excel = 'C1:AP'.$so_o_lay ;
+if ($so_o_lay === 0) {  echo ("Chưa có dữ liệu");}
+ else {
+  $mien_lay_du_lieu_excel = 'C1:AP'.$so_o_lay ;
 	$dataexcel = $spreadsheet->getSheetByName('getdata')
     ->rangeToArray(
        $mien_lay_du_lieu_excel,     // The worksheet range that we want to retrieve
@@ -369,44 +357,9 @@ $mien_lay_du_lieu_excel = 'C1:AP'.$so_o_lay ;
     );
 
 
+    echo json_encode($dataexcel);
+}
 
 
 
 ?>	
-
-// B.2 - lấy dữ liệu từ mảng php vào html tiếp
- var arrayjavascript = <?php echo json_encode($dataexcel); ?>; // ***** gán mảng 2 chiều từ php vào javácript
- var countjavascript = arrayjavascript.length ;
-  var coloumsjavascript = arrayjavascript[1].length ; 
- 
-// tạo bảng trên html chuyển dòng thành cột
-   for(var r=0;r<coloumsjavascript;r++)
-  {
-  var x= document.getElementById('table1').insertRow(r);
-    
-   for(var c=0;c<countjavascript;c++)  
-    {
-     x.insertCell(c);
-    }
-   }
-// điền dữ liệu vào bảng 
-
-   for(var r=0;r<countjavascript;r++)
-  {
-  
-    
-   for(var c=0;c<coloumsjavascript;c++)  
-    {
-    
-	  document.getElementById('table1').rows[c].cells[r].innerHTML =arrayjavascript[r][c]; 
-    }
-   }
-   
-
-
-
-	
-	
-</script>
-
-

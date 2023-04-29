@@ -122,15 +122,19 @@ function hover(event, object_style,object_style_leave, dom) {
  
 function _alert(componet_react) {
   let _div = document.createElement("_div");
-  document.getElementById("root").appendChild(_div);
-  document.getElementById("root").style.position = "absolute";
-  document.getElementById("root").style.zIndex = "100";
-  function Alert() {
+  // getElementsByTagName sẽ lấy ra một mảng tag name phù hợp không giống by id lấy ra 1 cái 
+  let body = document.getElementsByTagName("body");
+  body[0].appendChild(_div);
 
+  _div.style.zIndex = "10000";
+
+  function Alert() {
+    let ref_thoat =  useRef(null) ;
+    useEffect(() => {   ref_thoat.current.focus();       }, []);
     return ( <div className={'flex flex-wrap absolute rounded border border-solid border-slate-400 bg-amber-400  _shadow '}  style={  { top: '10%', left: '30%' }  } >
       <div className={`mx-5 mt-2 w-full`}  > {componet_react} </div>
       <div className={' my-2 w-full flex justify-end'} >  
-      <div  className={'mx-10  text-white rounded w-16 flex justify-center bg-sky-500 hover:bg-sky-700 _shadow'} onClick ={( )=>{ ReactDOM.unmountComponentAtNode( _div);  }} >Thoát</div>
+      <input type="button" value="Thoát"  ref={ref_thoat}   className={'mx-10  text-white rounded w-16 flex justify-center bg-sky-500 hover:bg-sky-700 _shadow'} onClick ={( )=>{ ReactDOM.unmountComponentAtNode( _div);  _div.remove(); }}/>
      </div>
        
         </div> 

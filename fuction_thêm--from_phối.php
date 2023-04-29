@@ -333,11 +333,23 @@ $result_8 = mysqli_query($conn, $sql_8);
 		$result_1 = mysqli_query($conn, $sql_1);
 		$cout_1 = mysqli_num_rows($result_1);
 		$arraymysql_1 = [];
-		for ($x = 0; $x < $cout_1; $x++) {
+
+		$arraymysql_1[0] = ["Số tai",
+		"Ngày phối",
+"Lần phối",
+"Đực phối",
+"Người phối",
+"Biểu hiện khi phối",
+"Loại nái phối",
+"Ngày cai lứa trước"
+
+
+];
+		for ($x = 1; $x < $cout_1 + 1; $x++) {
 		$arraymysql_1[$x] = mysqli_fetch_row($result_1) ;
 		}
 
-	echo $arraymysql_1;
+	echo json_encode( $arraymysql_1 );
 }
 
 

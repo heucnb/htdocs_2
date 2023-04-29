@@ -3,10 +3,33 @@
 
 
   function Table_hieu_2(props) {
- let col =200 ;   
- let row =100 ; 
- let limit_scroll = 45 ; 
- let limit_scroll_col = 45 ;
+
+
+
+if (props.value === undefined) {
+
+  console.log('Không có dữ liệu');
+
+ 
+} else {
+  var data_2d = props.value.data ;
+  var countjavascript = data_2d.length ;
+  var coloumsjavascript = data_2d[0].length ; 
+// ở zoom 100 % 1 click scroll ở chrome di chuyển 40 pixcel 
+// 20, 85 là chiều rộng và dài của ô excel lúc khởi tạo
+// chú ý phải để data_lenght , data_col_lenght lớn hơn limit_scroll*height cell,  limit_scroll_col*width cell
+// data_lenght = (row  ) *click_scroll_dichuyen ; 
+// data_col_lenght = (col  ) *click_scroll_dichuyen ; 
+
+ 
+ 
+
+ var limit_scroll = countjavascript ;
+ var limit_scroll_col = coloumsjavascript   ;
+
+ var row =Math.max(2*countjavascript, 300) ; 
+var col =Math.max(coloumsjavascript, 300) ;  
+
       // dùng fill chậm hơn một ít không đáng kể so với for 
   var Data = new Array(row).fill(null).map((i)=> i = new Array(col).fill(null)) ;
   var  text_formular = new Array(row).fill(null).map((i)=> i = new Array(col).fill(null)) ;
@@ -14,32 +37,47 @@
   var  formular = [];
   var  Data_show;
   var Data_show_0 ;
-    let limit = 50 ;
-  let limit_col = 50 ;
+  var limit = 50 ;
+  var limit_col = 50 ;
 
-
-
-if (props.value === undefined) {
-
-  
- 
-} else {
  
 
-  let Data_save = props.value.Data_save ;
-  let _len = Data_save.length ;
+// xem có chuyển dòng thành cột không
+  if (props.value.convert !== undefined) {
+   // không chuyển đổi
+    for(var r=0;r<countjavascript;r++)
+  {
 
-          for (let index = 0; index < _len ; index++) {
-            Data[Data_save[index][0]][Data_save[index][1]] = Data_save[index][2] ;
-            text_formular[Data_save[index][0]][Data_save[index][1]] = Data_save[index][3] ;
-            index_formular[Data_save[index][0]][Data_save[index][1]] = Data_save[index][4] ;
-            }
-  let len_formular = props.value.formular.length ;
+   for(var c=0;c<coloumsjavascript;c++)  
+    {
+      Data[r][c] = data_2d[r][c] ;
+      text_formular[r][c] = data_2d[r][c] ;
+    }
+
+
+   }
+
+    
+  } else {
+    
  
-let formular_save = props.value.formular ;
-for (let index = 0; index < len_formular ; index++) { formular.push( eval( formular_save[index]  )) ; }
+
+// chuyển dòng thành cột 
+
+  for(var c=0;c<coloumsjavascript;c++)
+  {
+
+   for(var r=0;r<countjavascript;r++)  
+    {
+      Data[c][r] = data_2d[r][c] ;
+      text_formular[c][r] = data_2d[r][c] ;
+    }
+   }
 
 
+    
+  }
+ 
 
 }
 
@@ -72,7 +110,23 @@ for (let index = 0; index < len_formular ; index++) { formular.push( eval( formu
      var canvas_ = useRef(null) ;
      var ref_0 = useRef(null) ;
    let  select_range_excel = false ;
+let paint_canvas ;
+let stop_fill ;
+let stop_document_move ;
+let stop_zoom ;
+let document_move_thumb ;
 
+   //-------------------------------------
+   Table_hieu_2.remove_EventListener = function () {
+  
+      try { document.removeEventListener("onmousemove", paint_canvas); } catch (error) { console.log(error); }
+      try {document.removeEventListener("onmouseup", stop_fill); } catch (error) { console.log(error); }
+      try { document.removeEventListener("mouseup", stop_document_move); } catch (error) { console.log(error); }
+      try {  document.body.removeEventListener("wheel", stop_zoom);} catch (error) { console.log(error); }
+      try { document.removeEventListener("mousemove", document_move_thumb); } catch (error) { console.log(error); }
+      
+  
+   }
    //-----------------------------------------------------------------
      var ref_track = useRef(null) ;
      var ref_thumb = useRef(null) ;
@@ -218,12 +272,12 @@ function button_bar_scroll_bottom_click(event) {
     
 // ngăn cản zoom bằng ctr
 // phải truyền thêm thuộc tính  {passive: false}  mới ngăn cản được
-        document.body.addEventListener(  "wheel",   (e )=>{ if(e.ctrlKey === true) { e.preventDefault(); } }   ,    {passive: false});
-        
-
+   
+        stop_zoom =  function (e) {if(e.ctrlKey === true) { e.preventDefault(); }  } 
+        document.body.addEventListener(  "wheel", stop_zoom  ,    {passive: false});
         width_bar_reference_col = a.current.children[0].children[0].clientWidth ;
         console.log(width_bar_reference_col);
-        document.body.style.margin  = "0px 20px 20px 20px" ;
+   
 
         console.log(table_excel.current.clientHeight);
 
@@ -291,12 +345,13 @@ function button_bar_scroll_bottom_click(event) {
 
      
      // thay đổi  move_thumb về false
-      document.addEventListener('mouseup', (event)=>{ select_range_excel = false;  move_thumb =  false;  move_thumb_col = false });
-
-      document.addEventListener('mousemove', function (event) {
+     
+      stop_document_move  =  function (event){ select_range_excel = false;  move_thumb =  false;  move_thumb_col = false }
+      document.addEventListener('mouseup', stop_document_move);
+      document_move_thumb =   function (event) {
       
         if ( move_thumb === true ) {
-         
+         console.log('truc xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
           let  move = event.clientX - x_thumb ;
           let rect_ref_track = ref_track.current.getBoundingClientRect() ;
           let width_ref_track = rect_ref_track.width ;
@@ -328,7 +383,7 @@ function button_bar_scroll_bottom_click(event) {
         //--------------------------------------------------------------------------------------
         
         if ( move_thumb_col === true ) {
-         
+          console.log('truc yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy');
           let  move = event.clientY - y_thumb ;
           let rect_ref_track_col = ref_track_col.current.getBoundingClientRect() ;
           let height_ref_track_col = rect_ref_track_col.height ;
@@ -360,7 +415,9 @@ function button_bar_scroll_bottom_click(event) {
 
 
 
-      });
+      }
+      document.addEventListener('mousemove', document_move_thumb);
+    
 
 
 
@@ -3022,8 +3079,8 @@ data_array_2d.push(data_array_col) ;
   // cố định scrollHeight thì mới scroll đến cuối được.
   // cố định scrollHeight bằng mã if ( Math.round(_table.scrollTop) >= data_lenght - 100*20 )
   // hoặc để chiều dài bar_scroll + scrollTop bé hơn scrollHeight (data.lenght  10000 trở lên thì được)
-  let table_excel_height = window.innerHeight - 87.742 -60 ;
-  let table_excel_width = window.innerWidth -350 ;
+  let table_excel_height = props.value.height  ;
+  let table_excel_width = props.value.width  ;
 
  // ở zoom 100 % 1 click scroll ở chrome di chuyển 40 pixcel 
  let zoom = window.devicePixelRatio;
@@ -3166,47 +3223,179 @@ let _table  = table_excel.current;
                            
 
                          // cập nhật lại dữ liệu khi scroll -- bước1
-                         for (let index = 0; index <= limit_view ; index++) {
+
+                                 //  nếu cố định dòng đầu thì  cật nhật sẽ không cộng  ---- vi_tri_cat  ------------------
+                                 for (let index = 0; index <= 0 ; index++) {
+                      
+                                  a.current.children[index + 1].children[0].innerHTML = index ;
+                                   //********************************* */
+                                   //  nếu cố định cột đầu thì  cật nhật sẽ không cộng  ---- vi_tri_cat_col  ------------------
+                                     for (let index_j = 0; index_j <= 0  ; index_j++) {
+                                    if (index === 0) { a.current.children[0].children[index_j+1].innerHTML = index_j ; }
+        
+                                        
+        
+                                      // với  cell hiện lên trang web bảng tính thì ta duyệt từ cuối tới đầu dòng đó để xác định zIndex cho cell đó
+                                      let max_zindex  = limit_col_view + 1;
+                                                
+                                      for (let x = limit_col_view ; x >= 0 ; x--) {
+        
+                                        if (Data[index ][x  ] === null) {
+        
+                                          a.current.children[index + 1].children[x+1].style.zIndex = x ;
+                                        
+                                        }else{
+                                          a.current.children[index + 1].children[x+1].style.zIndex = max_zindex ;
+                                          max_zindex = x ;
+                                        } 
+                                      }
+        
+        
+                    
+                                      if ( Data[index ][index_j ] === null) {
+                                                    
+                                              
+                                    a.current.children[index + 1].children[index_j+1].innerHTML = null ;
+                                
+                                      }else{
+        
+                                        
+                                    a.current.children[index + 1].children[index_j+1].innerHTML = ` <div    style="  position:absolute;      background: inherit;   height: inherit ;   white-space: nowrap;   pointer-events: none;   "> ${ Data[index   ][index_j ]  }  </div>`;
+                                
+                                            
+                                      }
+        
+                      
+                      }
+                                    // cập nhật dữ liệu khi scroll cột không cố định cột
+                                      for (let index_j = 1; index_j <= limit_col_view  ; index_j++) {
+                                                  if (index === 0) { a.current.children[0].children[index_j+1].innerHTML = index_j + vi_tri_cat_col; }
+        
+                                                      
+        
+                                                    // với  cell hiện lên trang web bảng tính thì ta duyệt từ cuối tới đầu dòng đó để xác định zIndex cho cell đó
+                                                    let max_zindex  = limit_col_view + 1;
+                                                              
+                                                    for (let x = limit_col_view ; x >= 0 ; x--) {
+        
+                                                      if (Data[index ][x  + vi_tri_cat_col] === null) {
+        
+                                                        a.current.children[index + 1].children[x+1].style.zIndex = x ;
+                                                      
+                                                      }else{
+                                                        a.current.children[index + 1].children[x+1].style.zIndex = max_zindex ;
+                                                        max_zindex = x ;
+                                                      } 
+                                                    }
+        
+        
+                                  
+                                                    if ( Data[index ][index_j + vi_tri_cat_col] === null) {
+                                                                  
+                                                            
+                                                  a.current.children[index + 1].children[index_j+1].innerHTML = null ;
+                                              
+                                                    }else{
+        
+                                                      
+                                                  a.current.children[index + 1].children[index_j+1].innerHTML = ` <div    style="  position:absolute;      background: inherit;   height: inherit ;   white-space: nowrap;   pointer-events: none;   "> ${ Data[index   ][index_j + vi_tri_cat_col]  }  </div>`;
+                                              
+                                                          
+                                                    }
+                  
+                                    
+                                    }
+        
+        
+        
+        
+                                } 
+                                 //  // cập nhật dữ liệu khi scroll  cột không cố định dòng từ dòng 1
+
+                         for (let index = 1; index <= limit_view ; index++) {
                       
                           a.current.children[index + 1].children[0].innerHTML = index + vi_tri_cat;
-                         
-                          for (let index_j = 0; index_j <= limit_col_view  ; index_j++) {
-                                      if (index === 0) { a.current.children[0].children[index_j+1].innerHTML = index_j + vi_tri_cat_col; }
+                           //********************************* */
+                           //  nếu cố định cột đầu thì  cật nhật sẽ không cộng  ---- vi_tri_cat_col  ------------------
+                             for (let index_j = 0; index_j <= 0  ; index_j++) {
+                            if (index === 0) { a.current.children[0].children[index_j+1].innerHTML = index_j ; }
 
-                                          
+                                
 
-                                        // với  cell hiện lên trang web bảng tính thì ta duyệt từ cuối tới đầu dòng đó để xác định zIndex cho cell đó
-                                        let max_zindex  = limit_col_view + 1;
-                                                  
-                                        for (let x = limit_col_view ; x >= 0 ; x--) {
+                              // với  cell hiện lên trang web bảng tính thì ta duyệt từ cuối tới đầu dòng đó để xác định zIndex cho cell đó
+                              let max_zindex  = limit_col_view + 1;
+                                        
+                              for (let x = limit_col_view ; x >= 0 ; x--) {
 
-                                          if (Data[index + vi_tri_cat][x  + vi_tri_cat_col] === null) {
+                                if (Data[index + vi_tri_cat][x  ] === null) {
 
-                                            a.current.children[index + 1].children[x+1].style.zIndex = x ;
-                                          
-                                          }else{
-                                            a.current.children[index + 1].children[x+1].style.zIndex = max_zindex ;
-                                            max_zindex = x ;
-                                          } 
-                                        }
+                                  a.current.children[index + 1].children[x+1].style.zIndex = x ;
+                                
+                                }else{
+                                  a.current.children[index + 1].children[x+1].style.zIndex = max_zindex ;
+                                  max_zindex = x ;
+                                } 
+                              }
 
 
-                      
-                                        if ( Data[index + vi_tri_cat][index_j + vi_tri_cat_col] === null) {
-                                                      
-                                                 
-                                      a.current.children[index + 1].children[index_j+1].innerHTML = null ;
-                                  
-                                        }else{
-
-                                          
-                                      a.current.children[index + 1].children[index_j+1].innerHTML = ` <div    style="  position:absolute;      background: inherit;   height: inherit ;   white-space: nowrap;   pointer-events: none;   "> ${ Data[index + vi_tri_cat  ][index_j + vi_tri_cat_col]  }  </div>`;
-                                  
-                                               
-                                        }
-       
+            
+                              if ( Data[index + vi_tri_cat][index_j ] === null) {
+                                            
+                                      
+                            a.current.children[index + 1].children[index_j+1].innerHTML = null ;
                         
-                        }
+                              }else{
+
+                                
+                            a.current.children[index + 1].children[index_j+1].innerHTML = ` <div    style="  position:absolute;      background: inherit;   height: inherit ;   white-space: nowrap;   pointer-events: none;   "> ${ Data[index + vi_tri_cat  ][index_j ]  }  </div>`;
+                        
+                                    
+                              }
+
+              
+              }
+                            // cập nhật dữ liệu khi scroll cột không cố định cột
+                              for (let index_j = 1; index_j <= limit_col_view  ; index_j++) {
+                                          if (index === 0) { a.current.children[0].children[index_j+1].innerHTML = index_j + vi_tri_cat_col; }
+
+                                              
+
+                                            // với  cell hiện lên trang web bảng tính thì ta duyệt từ cuối tới đầu dòng đó để xác định zIndex cho cell đó
+                                            let max_zindex  = limit_col_view + 1;
+                                                      
+                                            for (let x = limit_col_view ; x >= 0 ; x--) {
+
+                                              if (Data[index + vi_tri_cat][x  + vi_tri_cat_col] === null) {
+
+                                                a.current.children[index + 1].children[x+1].style.zIndex = x ;
+                                              
+                                              }else{
+                                                a.current.children[index + 1].children[x+1].style.zIndex = max_zindex ;
+                                                max_zindex = x ;
+                                              } 
+                                            }
+
+
+                          
+                                            if ( Data[index + vi_tri_cat][index_j + vi_tri_cat_col] === null) {
+                                                          
+                                                    
+                                          a.current.children[index + 1].children[index_j+1].innerHTML = null ;
+                                      
+                                            }else{
+
+                                              
+                                          a.current.children[index + 1].children[index_j+1].innerHTML = ` <div    style="  position:absolute;      background: inherit;   height: inherit ;   white-space: nowrap;   pointer-events: none;   "> ${ Data[index + vi_tri_cat  ][index_j + vi_tri_cat_col]  }  </div>`;
+                                      
+                                                  
+                                            }
+          
+                            
+                            }
+
+
+
+
                         }  
 
 
@@ -3408,7 +3597,7 @@ let _table  = table_excel.current;
 
 event.persist();
 
-        document.onmouseup = function () {
+stop_fill = function () {
           clearTimeout(myInterval_0);
           clearTimeout(myInterval);
           position_mouse_brower = undefined ;
@@ -3430,10 +3619,12 @@ event.persist();
 
 
         }
-
+document.onmouseup = stop_fill;
       
+       
+        paint_canvas  = function (event_window ) {
 
-        document.onmousemove = function (event_window ) {
+     if (event_window.buttons === 1 ) {
 
           // console.log('document++++++++++onmousemove');
           
@@ -3812,8 +4003,12 @@ event.persist();
         }
 
 
+      
+     }     
+        
             
           }
+          document.onmousemove = paint_canvas ;
 
 
 }
@@ -3848,7 +4043,7 @@ event.persist();
 
         bar_reference_col : {  position: 'relative', zIndex: 100,    width: "auto" , textAlign: "center",  paddingLeft : "4px" , paddingRight : "4px",  backgroundColor: "#d8dcd6", borderBottomStyle: "none", textAlign: "center" ,        border: "1px ridge #ccc",  height: "20px", display: "table-cell" ,  borderRightStyle: 'none', borderTopStyle: 'none', }  ,
         row_excel: { display: "table-row" },
-        col_excel: {    position: 'relative',  backgroundColor: "white" ,  border: "1px ridge #ccc", width: "35px", height: "20px", display: "table-cell", paddingLeft: "4px", paddingRight : "4px",  borderRightStyle: 'none', borderTopStyle: 'none', },
+        col_excel: {    position: 'relative',  backgroundColor: "white" ,  border: "1px ridge #ccc", height: "20px", display: "table-cell", paddingLeft: "4px", paddingRight : "4px",  borderRightStyle: 'none', borderTopStyle: 'none', },
 
        
         click: { backgroundColor: "moccasin" , outline: 'none', },
@@ -3896,7 +4091,7 @@ event.persist();
 
                             <div style={ css.bar_reference_col }  >{i }</div> {row.map((cell, j) => {   
 
-                      return <div style={ css.col_excel } 
+                      return <div style={ css.col_excel } className={ `  ${j === 0?'w-56 sticky':'w-32'}`}
                           
                       onMouseDown={(event)=>{var _this =  a.current.children[i + 1].children[j+1]; return _onMouseDown(_this, i, j, event)}} 
 
@@ -3920,7 +4115,7 @@ event.persist();
     </div>
 
     {/* bar_scroll_row */}
-    <div  style={ { border: "1px ridge #ccc", top: -17,  display: 'flex', position: 'relative', width: table_excel_width -17, }} > 
+    <div  style={ { border: "1px ridge #ccc", top: table_excel_height -17,  display: 'flex', position: 'absolute', width: table_excel_width -17, }} > 
                             <img  src = "/10/static/SVG/left-chevron-svgrepo-com.svg" style={ {  background: '#000', width: 20, height: 15,}}  onMouseDown={(event)=>{ return button_bar_scroll_left_click(event) }}  /> 
                             <div ref={ ref_thumb  } style={ {    width: 15, height: 15, background: '#5f88c1', position: 'absolute', left: 20,}}  onMouseDown={(event)=>{  if (event.buttons === 1) { move_thumb = true ; x_thumb = event.clientX ; left_thumb = ref_thumb.current.getBoundingClientRect().left - ref_track.current.getBoundingClientRect().left  ; } }}   onDragStart={(event)=> event.preventDefault()} > </div> 
                             <div  ref={ ref_track  } style={ {    width: '100%', height: 15,  backgroundImage: 'linear-gradient(#A9A9A9, #D3D3D3)',  }}  onDragStart={(event)=> event.preventDefault()}  > </div> 

@@ -1,15 +1,4 @@
 
-
-<table class="table_nhận_dữ_liệu" id="table2" > 
-   
-</table>
-
-<table class="table_nhận_dữ_liệu" id="table1" > 
-  <tr  > <td  >Số tai</td><td  >Ngày cai</td><td  >Lứa đẻ</td><td  >Số con cai</td><td  >Số ngày cai</td>	</tr>    
-</table>
-
-
-<script>
 <?php
 		
 $ma_the_nai =$_POST["post1"];
@@ -175,6 +164,9 @@ $result_3 = mysqli_query($conn, $sql_3);
 	
 a:
 
+  if (isset($kiem_tra_loi_1)) {echo $kiem_tra_loi_1;	}
+  else {
+
 // lấy dữ liệu lên html
 $sql_1 = "Select
     sheet1.`so tai`,
@@ -195,34 +187,21 @@ Where
 $result_1 = mysqli_query($conn, $sql_1);
 $cout_1 = mysqli_num_rows($result_1);
 $arraymysql_1 = [];
-for ($x = 0; $x < $cout_1; $x++) {
+$arraymysql_1[0] = ["Số tai",
+
+"Ngày Cai",
+"Lứa",
+"Số con cai",
+"Số ngày cai"
+
+
+
+];
+for ($x = 1; $x < $cout_1+1; $x++) {
     $arraymysql_1[$x] = mysqli_fetch_row($result_1) ;
   }
-  
+  echo json_encode($arraymysql_1);
 
+  }
 
 ?>	
-
-// tạo bảng trên html
-// điền dữ liệu vào bảng 
- var arrayjavascript = <?php echo json_encode($arraymysql_1); ?>; // ***** gán mảng 2 chiều từ php vào javácript
-  var countjavascript = <?php echo json_encode($cout_1); ?> ;
-  var coloumsjavascript ;
- if (countjavascript == 0) { coloumsjavascript = 0 ;} else {  coloumsjavascript = arrayjavascript[0].length ;} ;
- 
-   for(var r=0;r<countjavascript;r++)
-  {
-   var x= document.getElementById('table1').insertRow(r+1);
-    
-   for(var c=0;c<coloumsjavascript;c++)  
-    {
-     x.insertCell(c);
-	  document.getElementById('table1').rows[r+1].cells[c].innerHTML =arrayjavascript[r][c]; 
-    }
-   }
-   
-	document.getElementById('table2').innerHTML = <?php if (isset($kiem_tra_loi_1)) {echo json_encode($kiem_tra_loi_1);	} else {echo json_encode("");} ?>;		
-	
-</script>
-
-

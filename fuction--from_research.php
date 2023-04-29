@@ -1,27 +1,16 @@
 
 
-<table class="table_nhận_dữ_liệu" id="table2" > 
-   
-</table>
-
-
-<table class="table_nhận_dữ_liệu" id="table1" > 
-   
-</table>
-
-
-<script>
 <?php
 		
 
 $ma_so_tai =$_POST["post1"];
 
-$kiem_tra_legend =$_POST["post4"];
+$gobal_tim_kiem_sua_xoa =$_POST["post4"];
 
 $trai=$_POST["post8"];
 
 //** phối kết nối csdl	
-if ($kiem_tra_legend == "Sổ phối")
+if ($gobal_tim_kiem_sua_xoa == "phoi")
 {
 
 // kết nối csdl	
@@ -109,7 +98,7 @@ for ($x = 0+1; $x < $cout_1+1; $x++) {
 
 
 
-if ($kiem_tra_legend == "Sổ đẻ")
+if ($gobal_tim_kiem_sua_xoa == "de")
 {
 
 // kết nối csdl	
@@ -200,7 +189,7 @@ for ($x = 0+1; $x < $cout_1+1; $x++) {
 
 
 
-if ($kiem_tra_legend == "Sổ cai sữa")
+if ($gobal_tim_kiem_sua_xoa == "cai_sua")
 {
 
 // kết nối csdl	
@@ -288,7 +277,7 @@ for ($x = 0+1; $x < $cout_1+1; $x++) {
 
 
 
-if ($kiem_tra_legend == "Sổ heo vấn đề")
+if ($gobal_tim_kiem_sua_xoa == "van_de")
 {
 
 // kết nối csdl	
@@ -375,7 +364,7 @@ for ($x = 0+1; $x < $cout_1+1; $x++) {
 
 
 
-if ($kiem_tra_legend == "Sổ theo dõi heo nái chết loại")
+if ($gobal_tim_kiem_sua_xoa == "nai_chet_loai")
 {
 
 // kết nối csdl	
@@ -410,7 +399,7 @@ $sql_1 = "Select
 	  DATE_FORMAT(sheet1.`ngay cai`, '%d/%m/%Y'),
 	sheet1.`so con cai`,
 	  DATE_FORMAT( sheet1.`ngay ban loai chet`, '%d/%m/%Y') ,
-  if( sheet1.`nguyen nhan nai mat` = 'l', 'Bán loại','Chết') ,
+  if( sheet1.`nguyen nhan nai mat` = 'l', 'Bán loại',if( sheet1.`nguyen nhan nai mat` = 'c', 'Chết','')) ,
 	sheet1.`so luong heo con chet theo me`
 
 
@@ -463,7 +452,7 @@ for ($x = 0+1; $x < $cout_1+1; $x++) {
 
 
 
-if ($kiem_tra_legend == "Sổ heo con chết theo mẹ")
+if ($gobal_tim_kiem_sua_xoa == "con_chet_loai")
 {
 // kết nối csdl	
 include('setup/fuction_ket_noi_csdl.php');
@@ -547,7 +536,7 @@ for ($x = 0+1; $x < $cout_1+1; $x++) {
 
 
 
-if ($kiem_tra_legend == "Sổ theo dõi hậu bị")
+if ($gobal_tim_kiem_sua_xoa == "hau_bi")
 {
 // kết nối csdl	
 include('setup/fuction_ket_noi_csdl.php');
@@ -614,7 +603,7 @@ for ($x = 0+1; $x < $cout_1+1; $x++) {
 
 
 
-if ($kiem_tra_legend == "Sổ theo dõi heo đực")
+if ($gobal_tim_kiem_sua_xoa == "duc")
 {
 
 // kết nối csdl	
@@ -670,632 +659,11 @@ for ($x = 0+1; $x < $cout_1+1; $x++) {
 
 
 
-
+echo json_encode($arraymysql_1);
 
 
 
 
 
 ?>	
-
-
-
-// tạo bảng trên html
-// điền dữ liệu vào bảng 
- var arrayjavascript = <?php echo json_encode($arraymysql_1); ?>; // ***** gán mảng 2 chiều từ php vào javácript
- 
- var countjavascript = arrayjavascript.length ;
- var coloumsjavascript  ;
-  if (countjavascript == 1)
-   {
-	 document.getElementById('table2').innerHTML = "Không tìm thấy"  ;   
-   }
-   else
-   {
-	 document.getElementById('table2').innerHTML = ""  ;
-	   
-   }	
-   
-   
- if (countjavascript == 1) { coloumsjavascript = 0 ;countjavascript = 0 ;} else {  coloumsjavascript = arrayjavascript[0].length ;} ;
- 
-   
-   
-   
-    for(var r=0;r<countjavascript;r++)
-  {
-   var x= document.getElementById('table1').insertRow(r);
-    
-   for(var c=0;c<coloumsjavascript;c++)  
-    {
-     x.insertCell(c);
-	   document.getElementById('table1').rows[r].cells[c].innerHTML =arrayjavascript[r][c]; 
-    }
-	 x.insertCell(coloumsjavascript); // tạo thêm cột xóa
-	  document.getElementById('table1').rows[r].cells[coloumsjavascript].innerHTML ="Xóa"; // insert các dòng vào cột xóa
-	 
-   }
-   
-   
-			// Phần 2 : gán fuction khi click nút xóa
-			
-    var table = document.getElementById("table1"),rIndex;
-    var  mystyle_array =["mystyle_1", "mystyle_2"];
-	var click_xoa = 0 ;
-            // table rows
-            for(var i = 0; i < table.rows.length; i++)
-            {
-                // row cells
-                for(var j = 0; j < table.rows[i].cells.length; j++)
-                {
-                    table.rows[i].cells[coloumsjavascript].onclick = function() //  dùng for để gán sự kiện click cho tất cả các dòng i cột xóa tạo ở trên
-                    {
-                        rIndex = this.parentElement.rowIndex; // lấy địa chỉ dòng được click vào
-					
-					
-                        // - Sổ phối table xóa click
-						if (document.getElementById("id_chon_cot_in_csdl").value == "Sổ phối")
-						{
-						
-                        document.getElementById("id_1").value = document.getElementById('table1').rows[rIndex].cells[0].innerHTML;
-                      
-                     
-						var date_convert = document.getElementById('table1').rows[rIndex].cells[1].innerHTML;
-                        document.getElementById("id_2").value = date_convert.substr(6,4) + "-" + date_convert.substr(3,2)+"-" +date_convert.substr(0,2) ;
-																	
-						document.getElementById("id_3").value =  document.getElementById('table1').rows[rIndex].cells[3].innerHTML ;
-                        document.getElementById("id_4").value = document.getElementById('table1').rows[rIndex].cells[4].innerHTML;
-						document.getElementById("id_5").value = document.getElementById('table1').rows[rIndex].cells[5].innerHTML;
-                       
-					
-				
-					   // post to php with ajax
-					    var hr = new XMLHttpRequest();
-						hr.open("POST", "fuction_xoa--fuction_from_research_date_to_date.php", true);
-						hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-					    hr.send("post_1="+document.getElementById("id_1").value+ // số tai
-					            "&post_2="+document.getElementById("id_2").value+ // ngày
-								"&post_6="+ document.getElementById('table1').rows[rIndex].cells[2].innerHTML+ // lần phối
-								"&post_7="+document.getElementById("id_chon_cot_in_csdl").value+ // bảng post
-								"&post_8="+document.getElementById("id_8").value); // trại
-						hr.onload = function() {
-						// Do whatever with response
-					
-												var ket_qua_tra_ve = hr.responseText.length ;   
-										
-												if (ket_qua_tra_ve >= 71)
-												{
-												document.getElementById("id_1").value = "";
-						
-												document.getElementById("id_2").value = "" ;
-																	
-												document.getElementById("id_3").value =  "" ;
-												document.getElementById("id_4").value = "";
-												document.getElementById("id_5").value = "";
-												    if (ket_qua_tra_ve==71)
-												    {alert(hr.responseText);}
-												     if (ket_qua_tra_ve> 94)
-												    {alert(hr.responseText);}
-							
-												}
-												else
-												{
-							
-												//	hiệu ứng amation css				
-												if (click_xoa == 0){
-												document.getElementById('id_1').className = mystyle_array[click_xoa] ;
-												click_xoa = 1 ;
-												} 
-												else {
-												document.getElementById('id_1').className = mystyle_array[click_xoa];
-												click_xoa = 0 ;
-												} ;	
-												document.getElementById('table1').rows[rIndex].innerHTML = hr.responseText;	
-												document.getElementById('id_gui').value = 'Thêm lại hoặc sửa'; 
-												}
-												}
-					 
-						}
-						// - Sổ đẻ table xóa click
-						if (document.getElementById("id_chon_cot_in_csdl").value == "Sổ đẻ" )
-						{
-						    
-						if(document.getElementById('table1').rows[rIndex].cells[7].innerHTML !="")
-						{
-						document.getElementById("id_1").value = document.getElementById('table1').rows[rIndex].cells[0].innerHTML;
-						var date_convert = document.getElementById('table1').rows[rIndex].cells[7].innerHTML;
-                        document.getElementById("id_2").value = date_convert.substr(6,4) + "-" + date_convert.substr(3,2)+"-" +date_convert.substr(0,2) ;
-																	
-						document.getElementById("id_3").value =  document.getElementById('table1').rows[rIndex].cells[9].innerHTML ;
-                        document.getElementById("id_4").value = document.getElementById('table1').rows[rIndex].cells[10].innerHTML;
-						document.getElementById("id_5").value = document.getElementById('table1').rows[rIndex].cells[11].innerHTML;
-						document.getElementById("id_6").value =  document.getElementById('table1').rows[rIndex].cells[12].innerHTML ;
-                        document.getElementById("id_7").value = document.getElementById('table1').rows[rIndex].cells[13].innerHTML;
-						document.getElementById("id_9").value = document.getElementById('table1').rows[rIndex].cells[8].innerHTML ;
-					
-				
-					   // post to php with ajax
-					    var hr = new XMLHttpRequest();
-						hr.open("POST", "fuction_xoa--fuction_from_research_date_to_date.php", true);
-						hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-					    hr.send("post_1="+document.getElementById("id_1").value+ // số tai
-					           "&post_2="+document.getElementById("id_2").value+ // ngày
-								"&post_6="+ document.getElementById('table1').rows[rIndex].cells[2].innerHTML+ // lần phối
-								"&post_7="+document.getElementById("id_chon_cot_in_csdl").value+ // bảng post
-								"&post_8="+document.getElementById("id_8").value); // trại
-						hr.onload = function() {
-						// Do whatever with response
-					
-												var ket_qua_tra_ve = hr.responseText.length ;   
-												if (ket_qua_tra_ve >= 71)
-												{
-												document.getElementById("id_1").value = "";
-						
-												document.getElementById("id_2").value = "" ;
-																	
-												document.getElementById("id_3").value =  "" ;
-												document.getElementById("id_4").value = "";
-												document.getElementById("id_5").value = "";
-												document.getElementById("id_6").value =  "" ;
-												document.getElementById("id_7").value = "";
-												document.getElementById("id_9").value = "";
-												
-											  if (ket_qua_tra_ve==71)
-												    {alert(hr.responseText);}
-												     if (ket_qua_tra_ve> 94)
-												    {alert(hr.responseText);}
-							
-												}
-												else
-												{
-							
-												//	hiệu ứng amation css				
-												if (click_xoa == 0){
-												document.getElementById('id_1').className = mystyle_array[click_xoa] ;
-												click_xoa = 1 ;
-												} 
-												else {
-												document.getElementById('id_1').className = mystyle_array[click_xoa];
-												click_xoa = 0 ;
-												} ;	
-												document.getElementById('table1').rows[rIndex].cells[7].innerHTML = hr.responseText;
-												document.getElementById('table1').rows[rIndex].cells[8].innerHTML = hr.responseText ;
-												document.getElementById('table1').rows[rIndex].cells[9].innerHTML = hr.responseText;
-												document.getElementById('table1').rows[rIndex].cells[10].innerHTML = hr.responseText;
-												document.getElementById('table1').rows[rIndex].cells[11].innerHTML = hr.responseText ;
-												document.getElementById('table1').rows[rIndex].cells[12].innerHTML = hr.responseText;
-												document.getElementById('table1').rows[rIndex].cells[13].innerHTML = hr.responseText;
-												document.getElementById('table1').rows[rIndex].cells[14].innerHTML = hr.responseText;
-												document.getElementById('table1').rows[rIndex].cells[15].innerHTML = hr.responseText;
-												document.getElementById('table1').rows[rIndex].cells[16].innerHTML = hr.responseText;
-												document.getElementById('table1').rows[rIndex].cells[22].style.display= 'none';
-												document.getElementById('id_gui').value = 'Thêm lại hoặc sửa'; 
-												}
-												}	
-						}
-                        
-					 
-						}
-						// - Sổ cai sữa table xóa click
-						if (document.getElementById("id_chon_cot_in_csdl").value == "Sổ cai sữa" )
-						{
-						if(document.getElementById('table1').rows[rIndex].cells[14].innerHTML !="")
-						{
-						document.getElementById("id_1").value = document.getElementById('table1').rows[rIndex].cells[0].innerHTML;
-						var date_convert = document.getElementById('table1').rows[rIndex].cells[14].innerHTML;
-                        document.getElementById("id_2").value = date_convert.substr(6,4) + "-" + date_convert.substr(3,2)+"-" +date_convert.substr(0,2) ;
-																	
-						document.getElementById("id_3").value =  document.getElementById('table1').rows[rIndex].cells[15].innerHTML ;
-                     
-				
-					   // post to php with ajax
-					    var hr = new XMLHttpRequest();
-						hr.open("POST", "fuction_xoa--fuction_from_research_date_to_date.php", true);
-						hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");; 
-					    hr.send("post_1="+document.getElementById("id_1").value+ // số tai
-					            "&post_2="+document.getElementById("id_2").value+ // ngày
-								"&post_6="+ document.getElementById('table1').rows[rIndex].cells[2].innerHTML+ // lần phối
-								"&post_7="+document.getElementById("id_chon_cot_in_csdl").value+ // bảng post
-								"&post_8="+document.getElementById("id_8").value); // trại
-						hr.onload = function() {
-						// Do whatever with response
-					
-												var ket_qua_tra_ve = hr.responseText.length ;   
-												if (ket_qua_tra_ve >= 71)
-												{
-												document.getElementById("id_1").value = "";
-						
-												document.getElementById("id_2").value = "" ;
-																	
-												document.getElementById("id_3").value =  "" ;
-											  if (ket_qua_tra_ve==71)
-												    {alert(hr.responseText);}
-												     if (ket_qua_tra_ve> 94)
-												    {alert(hr.responseText);}
-							
-												}
-												else
-												{
-							
-												//	hiệu ứng amation css				
-												if (click_xoa == 0){
-												document.getElementById('id_1').className = mystyle_array[click_xoa] ;
-												click_xoa = 1 ;
-												} 
-												else {
-												document.getElementById('id_1').className = mystyle_array[click_xoa];
-												click_xoa = 0 ;
-												} ;	
-												document.getElementById('table1').rows[rIndex].cells[14].innerHTML = hr.responseText;
-												document.getElementById('table1').rows[rIndex].cells[15].innerHTML = hr.responseText ;
-												document.getElementById('table1').rows[rIndex].cells[19].style.display= 'none';
-												document.getElementById('id_gui').value = 'Thêm lại hoặc sửa'; 
-												}
-												}
-					 	
-						}
-                        
-						}
-						
-						// - Sổ heo vấn đề table xóa click
-							if (document.getElementById("id_chon_cot_in_csdl").value == "Sổ heo vấn đề"   )
-						{
-							if(document.getElementById('table1').rows[rIndex].cells[5].innerHTML !="")
-							{
-							document.getElementById("id_1").value = document.getElementById('table1').rows[rIndex].cells[0].innerHTML;
-						var date_convert = document.getElementById('table1').rows[rIndex].cells[5].innerHTML;
-                        document.getElementById("id_2").value = date_convert.substr(6,4) + "-" + date_convert.substr(3,2)+"-" +date_convert.substr(0,2) ;
-																	
-						document.getElementById("id_3").value =  document.getElementById('table1').rows[rIndex].cells[6].innerHTML ;
-                     
-				
-					   // post to php with ajax
-					    var hr = new XMLHttpRequest();
-						hr.open("POST", "fuction_xoa--fuction_from_research_date_to_date.php", true);
-						hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");; 
-					    hr.send("post_1="+document.getElementById("id_1").value+ // số tai
-					              "&post_2="+document.getElementById("id_2").value+ // ngày
-								"&post_6="+ document.getElementById('table1').rows[rIndex].cells[2].innerHTML+ // lần phối
-								"&post_7="+document.getElementById("id_chon_cot_in_csdl").value+ // bảng post
-								"&post_8="+document.getElementById("id_8").value); // trại
-						hr.onload = function() {
-						// Do whatever with response
-					
-												var ket_qua_tra_ve = hr.responseText.length ;   
-												if (ket_qua_tra_ve >= 71)
-												{
-												document.getElementById("id_1").value = "";
-						
-												document.getElementById("id_2").value = "" ;
-																	
-												document.getElementById("id_3").value =  "" ;
-											  if (ket_qua_tra_ve==71)
-												    {alert(hr.responseText);}
-												     if (ket_qua_tra_ve> 94)
-												    {alert(hr.responseText);}
-							
-												}
-												else
-												{
-							
-												//	hiệu ứng amation css				
-												if (click_xoa == 0){
-												document.getElementById('id_1').className = mystyle_array[click_xoa] ;
-												click_xoa = 1 ;
-												} 
-												else {
-												document.getElementById('id_1').className = mystyle_array[click_xoa];
-												click_xoa = 0 ;
-												} ;	
-												document.getElementById('table1').rows[rIndex].cells[5].innerHTML = hr.responseText;
-												document.getElementById('table1').rows[rIndex].cells[6].innerHTML = hr.responseText ;
-												 document.getElementById('table1').rows[rIndex].cells[18].style.display= 'none';
-												document.getElementById('id_gui').value = 'Thêm lại hoặc sửa'; 
-												}
-												}	
-							}
-						
-                        
-					 
-						}
-						
-						// - Sổ heo nái loại table xóa click
-							if (document.getElementById("id_chon_cot_in_csdl").value == "Sổ theo dõi heo nái chết loại"  )
-						{
-							if(document.getElementById('table1').rows[rIndex].cells[16].innerHTML !="")
-							{
-								document.getElementById("id_1").value = document.getElementById('table1').rows[rIndex].cells[0].innerHTML;
-						var date_convert = document.getElementById('table1').rows[rIndex].cells[16].innerHTML;
-                        document.getElementById("id_2").value = date_convert.substr(6,4) + "-" + date_convert.substr(3,2)+"-" +date_convert.substr(0,2) ;
-																	
-						document.getElementById("id_3").value =  document.getElementById('table1').rows[rIndex].cells[17].innerHTML ;
-                     
-				
-					   // post to php with ajax
-					    var hr = new XMLHttpRequest();
-						hr.open("POST", "fuction_xoa--fuction_from_research_date_to_date.php", true);
-						hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");; 
-					    hr.send("post_1="+document.getElementById("id_1").value+ // số tai
-					              "&post_2="+document.getElementById("id_2").value+ // ngày
-								"&post_6="+ document.getElementById('table1').rows[rIndex].cells[2].innerHTML+ // lần phối
-								"&post_7="+document.getElementById("id_chon_cot_in_csdl").value+ // bảng post
-								"&post_8="+document.getElementById("id_8").value); // trại
-						hr.onload = function() {
-						// Do whatever with response
-					
-												var ket_qua_tra_ve = hr.responseText.length ;   
-												if (ket_qua_tra_ve >= 71)
-												{
-												document.getElementById("id_1").value = "";
-						
-												document.getElementById("id_2").value = "" ;
-																	
-												document.getElementById("id_3").value =  "" ;
-											  if (ket_qua_tra_ve==71)
-												    {alert(hr.responseText);}
-												     if (ket_qua_tra_ve> 94)
-												    {alert(hr.responseText);}
-							
-												}
-												else
-												{
-							
-												//	hiệu ứng amation css				
-												if (click_xoa == 0){
-												document.getElementById('id_1').className = mystyle_array[click_xoa] ;
-												click_xoa = 1 ;
-												} 
-												else {
-												document.getElementById('id_1').className = mystyle_array[click_xoa];
-												click_xoa = 0 ;
-												} ;	
-													 for(var i=1;i<table.rows.length;i++)
-														{document.getElementById('table1').rows[i].cells[16].innerHTML = hr.responseText;
-														 document.getElementById('table1').rows[i].cells[17].innerHTML = hr.responseText ;
-														 document.getElementById('table1').rows[i].cells[19].style.display= 'none';
-														}
-												document.getElementById('id_gui').value = 'Thêm lại hoặc sửa'; 
-												}
-												}
-							}
-						
-                        
-					 
-						}
-						// - Sổ heo con chết table xóa click
-						if (document.getElementById("id_chon_cot_in_csdl").value == "Sổ heo con chết theo mẹ" )
-						{
-						if(document.getElementById('table1').rows[rIndex].cells[17].innerHTML !="")
-						{
-						document.getElementById("id_1").value = document.getElementById('table1').rows[rIndex].cells[0].innerHTML;
-						var date_convert = document.getElementById('table1').rows[rIndex].cells[17].innerHTML;
-                        document.getElementById("id_2").value = date_convert.substr(6,4) + "-" + date_convert.substr(3,2)+"-" +date_convert.substr(0,2) ;
-																	
-						document.getElementById("id_3").value =  document.getElementById('table1').rows[rIndex].cells[18].innerHTML ;
-						document.getElementById("id_4").value =  document.getElementById('table1').rows[rIndex].cells[19].innerHTML ;
-				
-					   // post to php with ajax
-					    var hr = new XMLHttpRequest();
-						hr.open("POST", "fuction_xoa--fuction_from_research_date_to_date.php", true);
-						hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");; 
-					    hr.send("post_1="+document.getElementById("id_1").value+ // số tai
-					              "&post_2="+document.getElementById("id_2").value+ // ngày
-								"&post_6="+ document.getElementById('table1').rows[rIndex].cells[2].innerHTML+ // lần phối
-								"&post_7="+document.getElementById("id_chon_cot_in_csdl").value+ // bảng post
-								"&post_8="+document.getElementById("id_8").value); // trại
-						hr.onload = function() {
-						// Do whatever with response
-					
-												var ket_qua_tra_ve = hr.responseText.length ;   
-												if (ket_qua_tra_ve >= 71)
-												{
-												document.getElementById("id_1").value = "";
-						
-												document.getElementById("id_2").value = "" ;
-																	
-												document.getElementById("id_3").value =  "" ;
-												document.getElementById("id_4").value =  "" ;
-											  if (ket_qua_tra_ve==71)
-												    {alert(hr.responseText);}
-												     if (ket_qua_tra_ve> 94)
-												    {alert(hr.responseText);}
-							
-												}
-												else
-												{
-							
-												//	hiệu ứng amation css				
-												if (click_xoa == 0){
-												document.getElementById('id_1').className = mystyle_array[click_xoa] ;
-												click_xoa = 1 ;
-												} 
-												else {
-												document.getElementById('id_1').className = mystyle_array[click_xoa];
-												click_xoa = 0 ;
-												} ;	
-												document.getElementById('table1').rows[rIndex].cells[17].innerHTML = hr.responseText;
-												document.getElementById('table1').rows[rIndex].cells[18].innerHTML = hr.responseText ;
-												document.getElementById('table1').rows[rIndex].cells[19].innerHTML = hr.responseText ;
-												document.getElementById('table1').rows[rIndex].cells[20].style.display= 'none';
-												document.getElementById('id_gui').value = 'Thêm lại hoặc sửa'; 
-												}
-												}	
-						}		
-						
-                        
-					 
-						}
-						// - Sổ heo hậu bị table xóa click
-						if (document.getElementById("id_chon_cot_in_csdl").value == "Sổ theo dõi hậu bị")
-						{
-						
-                        document.getElementById("id_1").value = document.getElementById('table1').rows[rIndex].cells[0].innerHTML;
-						var date_convert = document.getElementById('table1').rows[rIndex].cells[1].innerHTML;
-                        document.getElementById("id_2").value = date_convert.substr(6,4) + "-" + date_convert.substr(3,2)+"-" +date_convert.substr(0,2) ;
-																	
-						
-						
-						
-						
-						var date_convert_2 = document.getElementById('table1').rows[rIndex].cells[3].innerHTML;
-                        document.getElementById("id_3").value = date_convert_2.substr(6,4) + "-" + date_convert_2.substr(3,2)+"-" +date_convert_2.substr(0,2) ;
-						
-						document.getElementById("id_4").value =  document.getElementById('table1').rows[rIndex].cells[2].innerHTML ;
-					   // post to php with ajax
-					    var hr = new XMLHttpRequest();
-						hr.open("POST", "fuction_xoa--fuction_from_research_date_to_date.php", true);
-						hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");; 
-					    hr.send("post_1="+document.getElementById("id_1").value+ // số tai
-					              "&post_2="+document.getElementById("id_2").value+ // ngày
-								"&post_7="+document.getElementById("id_chon_cot_in_csdl").value+ // bảng post
-								"&post_8="+document.getElementById("id_8").value); // trại
-						hr.onload = function() {
-						// Do whatever with response
-					
-												var ket_qua_tra_ve = hr.responseText.length ; 
-											
-												if (ket_qua_tra_ve >= 71)
-												{
-												document.getElementById("id_1").value = "";
-						
-												document.getElementById("id_2").value = "" ;
-																	
-												document.getElementById("id_3").value =  "" ;
-												document.getElementById("id_4").value =  "" ;
-											  if (ket_qua_tra_ve==71)
-												    {alert(hr.responseText);}
-												     if (ket_qua_tra_ve> 94)
-												    {alert(hr.responseText);}
-							
-												}
-												else
-												{
-							
-												//	hiệu ứng amation css				
-												if (click_xoa == 0){
-												document.getElementById('id_1').className = mystyle_array[click_xoa] ;
-												click_xoa = 1 ;
-												} 
-												else {
-												document.getElementById('id_1').className = mystyle_array[click_xoa];
-												click_xoa = 0 ;
-												} ;	
-												document.getElementById('table1').rows[rIndex].innerHTML = hr.responseText;	
-												document.getElementById('id_gui').value = 'Thêm lại hoặc sửa'; 
-												}
-												}
-					 
-						}
-						
-						// - Sổ heo hậu đực table xóa click
-						if (document.getElementById("id_chon_cot_in_csdl").value == "Sổ theo dõi heo đực")
-						{
-						
-                        document.getElementById("id_1").value = document.getElementById('table1').rows[rIndex].cells[0].innerHTML;
-						var date_convert = document.getElementById('table1').rows[rIndex].cells[1].innerHTML;
-                        document.getElementById("id_2").value = date_convert.substr(6,4) + "-" + date_convert.substr(3,2)+"-" +date_convert.substr(0,2) ;
-																	
-						
-						
-						
-						
-						var date_convert_2 = document.getElementById('table1').rows[rIndex].cells[2].innerHTML;
-                        document.getElementById("id_3").value = date_convert_2.substr(6,4) + "-" + date_convert_2.substr(3,2)+"-" +date_convert_2.substr(0,2) ;
-						
-					
-					   // post to php with ajax
-					    var hr = new XMLHttpRequest();
-						hr.open("POST", "fuction_xoa--fuction_from_research_date_to_date.php", true);
-						hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");; 
-					    hr.send("post_1="+document.getElementById("id_1").value+ // số tai
-					      "&post_2="+document.getElementById("id_2").value+ // ngày
-								"&post_7="+document.getElementById("id_chon_cot_in_csdl").value+ // bảng post
-								"&post_8="+document.getElementById("id_8").value); // trại
-						hr.onload = function() {
-						// Do whatever with response
-					
-												var ket_qua_tra_ve = hr.responseText.length ;   
-												if (ket_qua_tra_ve >= 71)
-												{
-												document.getElementById("id_1").value = "";
-						
-												document.getElementById("id_2").value = "" ;
-																	
-												document.getElementById("id_3").value =  "" ;
-											
-											  if (ket_qua_tra_ve==71)
-												    {alert(hr.responseText);}
-												     if (ket_qua_tra_ve> 94)
-												    {alert(hr.responseText);}
-							
-												}
-												else
-												{
-							
-												//	hiệu ứng amation css				
-												if (click_xoa == 0){
-												document.getElementById('id_1').className = mystyle_array[click_xoa] ;
-												click_xoa = 1 ;
-												} 
-												else {
-												document.getElementById('id_1').className = mystyle_array[click_xoa];
-												click_xoa = 0 ;
-												} ;	
-												document.getElementById('table1').rows[rIndex].innerHTML = hr.responseText;	
-												document.getElementById('id_gui').value = 'Thêm lại hoặc sửa'; 
-												}
-												}
-					 
-						}
-						// - Kiểm tra có dữ liệu để xóa không
-						if (document.getElementById("id_chon_cot_in_csdl").value == "Sổ heo vấn đề" )
-						{
-							if(document.getElementById('table1').rows[rIndex].cells[5].innerHTML =="" )
-							{
-						return	alert("Ngày vấn đề không có dữ liệu");		
-							}
-							
-						}
-					   	
-						if (document.getElementById("id_chon_cot_in_csdl").value == "Sổ cai sữa" )
-						
-						{
-							if(document.getElementById('table1').rows[rIndex].cells[14].innerHTML =="")
-							{
-						return	alert("Ngày cai sữa không có dữ liệu");	
-							}	
-						}
-							
-						if (document.getElementById("id_chon_cot_in_csdl").value == "Sổ đẻ" )
-						{
-							if(document.getElementById('table1').rows[rIndex].cells[7].innerHTML =="")
-							{
-						return	alert("Ngày đẻ không có dữ liệu");	
-							}	
-						}
-							
-						if (document.getElementById("id_chon_cot_in_csdl").value == "Sổ theo dõi heo nái chết loại"  )
-						{
-							if(document.getElementById('table1').rows[rIndex].cells[16].innerHTML =="")
-							{
-						return	alert("Ngày chết(loại) chưa có dữ liệu");
-							}	
-						}
-							
-						if (document.getElementById("id_chon_cot_in_csdl").value == "Sổ heo con chết theo mẹ"  )
-						{
-							if(document.getElementById('table1').rows[rIndex].cells[17].innerHTML =="")
-							{
-				    	return		alert("Ngày heo con chết(loại) chưa có dữ liệu");	
-							}	
-						}
-							
-						
-                    };
-                }
-            }
-  
-
-</script>
-
 
