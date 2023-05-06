@@ -294,12 +294,13 @@ $(document).ready(function(){
               
 
         }, []);
+
     
   return (  <div  className={`flex h-full w-full flex-col border bg-gray-100   border-sky-500 `} > 
 <div className={`flex  border bg-orange-200  border-sky-500 `} > 
-        <input type="button" value="Theo dõi hậu bị nhập đàn"   id="id_gui_1" className={`  bg-orange-200 hover:bg-slate-300 hover:bg-opacity-50 h-6 flex items-end justify-center pl-2 pr-2 `}   /> 
+        <input type="button" value="Theo dõi hậu bị nhập đàn"   id="id_gui_1" className={`w-[220px]  bg-orange-200 hover:bg-slate-300 hover:bg-opacity-50 h-6 flex items-end  pl-2 pr-2 `}   /> 
             
-        <input type="button" value="Theo dõi hậu bị chết, loại"   id="id_gui_2" className={`  bg-orange-200 hover:bg-sky-700 h-6 flex items-end justify-center pr-2 `}   /> 
+        <input type="button" value="Theo dõi hậu bị chết, loại"   id="id_gui_2" className={`w-[220px]  bg-orange-200 hover:bg-sky-700 h-6 flex items-end  pr-2 `}   /> 
                 
 </div>
                           

@@ -467,12 +467,8 @@ function App(props) {
         else
         {
      
-        $.post("from_tra_ly_lich.php", {}, function(data){
             ReactDOM.unmountComponentAtNode(id_nhan_index);  
             ReactDOM.render(React.createElement(Tra_ly_lich, null), id_nhan_index);
-            
-            });
-                
                 
                 
         }
@@ -482,7 +478,7 @@ function App(props) {
         });
     });
     
-    /*chọn được phối*/
+    /*chọn đực phối*/
     
     $(document).ready(function(){
         $("#id_td_15").click(function(){
@@ -493,16 +489,10 @@ function App(props) {
         }
         else
         {
-    
-    //--------------------------- truyền biến sang app script theo phương pháp doGet	    
-    var select_id_8 = document.getElementById('id_8'); 
-    // lấy text của option của select html
-    var trai = select_id_8.options[select_id_8.selectedIndex].text;   
-    var ma_trai = select_id_8.value ;	    
-    const nextURL = 'https://script.google.com/macros/s/AKfycbwjx_VZLp4bGa_2jBdZCkEcNrbevvXzqfuSnEDoOk0/dev?'+ trai+'_-_' +ma_trai;
-    
-    // This will create a new entry in the browser's history, reloading afterwards
-    window.location.href = nextURL;
+            ReactDOM.unmountComponentAtNode(id_nhan_index);  
+            ReactDOM.render(React.createElement(Ghep_phoi, null), id_nhan_index);
+
+
         }
             
             

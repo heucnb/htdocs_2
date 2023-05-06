@@ -8,23 +8,27 @@ app = Flask(__name__)
 # CORS(app)
 
 
-@app.route("/")
+@app.route("/",methods = ['POST', 'GET'])
 def hello():
-    
+    trai = request.form['post_trai']
+    nai = request.form['post1']
+    sum_nai = request.form['sum']
     # chạy marco trong excel với 2 parameters
     # với excel có marco không thể có 2 file trùng tên mở cùng 1 lúc được
     # do vậy chạy marco ở đây đối với excel không cần đường dẫn
     # nó sẽ tham chiếu tới file excel đang mở, tới Module1.macro1
-    xl.Application.Run('1.xlsm!Module1.run_sql_1', "hieu", "35")
+    xl.Application.Run('1.xlsm!Module1.run_sql_1', trai , nai,sum_nai)
     # nếu ta mở sẵn file excel thì không cần save rồi quit tốc độ sẽ nhanh hơn
     # wb.Save()
     # xl.Application.Quit()
  
     # lựa chọn wb trên Application excel đang mở sẵn
     wb = xl.Workbooks('1.xlsm')
-    ws = wb.Worksheets('Sheet1')
+    ws = wb.Worksheets('data')
+    cell_end = str(ws.Range('Z2'))
+    
     # trả về giá trị đã tính toán từ file excel
-    return str(ws.Range('A1').Value) 
+    return str(ws.Range(cell_end))
 
 # @cross_origin("http://localhost:5000")
 # def get_10():

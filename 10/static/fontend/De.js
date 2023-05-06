@@ -2,13 +2,20 @@ function De() {
    
   let arrayjavascript_so_tai ;
   function handleChange(event) {
-      var gia_tri_tim = event.target.value ;			
-      var chuoi_ban_dau = "," + arrayjavascript_so_tai.join();
-      var gia_tri_tim =new RegExp("," + "[A-Z]*[0-9]*" +gia_tri_tim,'i');
-      var vi_tri_tim_thay = chuoi_ban_dau.search(gia_tri_tim);
-      var chuoi_cat_ra = chuoi_ban_dau.substr(vi_tri_tim_thay,20);
-      var mang_cat_ra_tu_chuoi = chuoi_cat_ra.split(",");
-       document.getElementById('id_tim_1').innerHTML = mang_cat_ra_tu_chuoi[1];	
+    var gia_tri_tim = event.target.value ;	
+  
+    let new_array = [] ;
+     for (let index = 0 , len = arrayjavascript_so_tai.length ; index < len ; index++) { 
+     
+      if (arrayjavascript_so_tai[index][0].includes(gia_tri_tim.toUpperCase())) {
+        new_array.push(arrayjavascript_so_tai[index][0])
+      }
+
+      }
+  
+   ReactDOM.render(<Input_find value={{data :  new_array , dom_1 : document.getElementById('id_1'), dom_2 : document.getElementById('id_2'),dom_3 : document.getElementById('id_tim_1') }} /> 
+           ,document.getElementById('id_tim_1'));
+   
     }
     useEffect(() => {  
       $.post("from_de.php", {post8:$("#id_8").val()}, function(data){ arrayjavascript_so_tai =JSON.parse(data) ; });
@@ -124,14 +131,17 @@ function De() {
      $('#id_1').keypress(function(){
      var x = event.keyCode;
    if (x == 13) {
-       if(document.getElementById("id_checkbox").checked == true)
-       { document.getElementById('id_1').value =  document.getElementById('id_tim_1').innerHTML ;}
+      
      
      document.getElementById("id_2").focus();
    }
      });
  });
- 
+ //-------------------------------------------------------
+ id_1.onblur   = function () {
+  ReactDOM.unmountComponentAtNode(document.getElementById('id_tim_1')); 
+}
+ //--------------------------------------------------------------
  $(document).ready(function(){
      $('#id_2').keypress(function(){
      var x = event.keyCode;
@@ -630,11 +640,12 @@ function De() {
      <div  className={` flex  grow  mt-2 `} >  
                 <div className={`shrink-0  ml-2 `} >
                     <div> Mã thẻ nái:  </div>
-                    <input  id="id_1" className={`  border border-sky-500 `}  onChange={handleChange}   /> <label  id="id_tim_1"  type="text" >Nhập theo số tai gợi ý</label><input type="checkbox" id="id_checkbox"  ></input>
+                    <input  id="id_1" className={`  border border-sky-500 `}  onChange={handleChange}   />
+                    <div  id="id_tim_1"  type="text" ></div>
                     <div> Ngày đẻ:  </div>
                     <input id="id_2" type="date"  className={`  border border-sky-500 `}    /> 
                     <div> Số con sinh ra: </div>
-                    <input  id="id_3"  className={`  border border-sky-500 `}    /> <label  id="id_tim_2"  type="text" >Nhập theo số tai gợi ý</label><input type="checkbox" id="id_checkbox2"  ></input>
+                    <input  id="id_3"  className={`  border border-sky-500 `}    /> 
                     <div> Chết trắng: </div>
                     <input id="id_4"  className={`  border border-sky-500 `}    /> 
                     <div> Khô:  </div>

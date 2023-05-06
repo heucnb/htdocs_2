@@ -116,7 +116,7 @@ function Tim_kiem() {
 
      <div  className={` flex grow  mt-2 `} >  
              <div className={` shrink-0 ml-2 `} >
-                 <div> Mã thẻ nái:  </div>
+                 <div> Số tai  </div>
                  <input  id="id_1_research" className={`  border border-sky-500 `}    /> 
                  <input type="button" value="Tìm kiếm"   id="id_gui_fuction_research" className={` mt-2 mb-2  _shadow rounded w-full  bg-sky-500 hover:bg-sky-700 h-8 flex items-center justify-center pl-2  font-medium `}   /> 
                

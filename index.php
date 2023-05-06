@@ -30,7 +30,7 @@ body{
 
 
 input {
- width: 125px;  
+ width: 180px;  
 }
 
 
@@ -96,34 +96,11 @@ input {
 
 </style>
  <link rel="stylesheet" href="/10/static/style_converted.css">
-<!-- tải xong chạy script xong mới load dom tiếp -->
+<!-- tải bất đồng bộ xong, eval() script xong mới load dom phía sau tiếp -->
 <script type="text/javascript" src="CDN/jquery-3.1.0.min.js"></script>
-<script id="script_root" >
-// load hết dom xong mới tải react
-   var newScript_1 = document.createElement("script");
-   var newScript_2 = document.createElement("script");
-   var newScript_3 = document.createElement("script");
-  
-
-   var newScript_end = document.createElement("script");
-   script_root.appendChild(newScript_1);
-   script_root.appendChild(newScript_2);
-   script_root.appendChild(newScript_3);
-
-   script_root.appendChild(newScript_end);
-let sum_script_dowload = 0;
-// các file này tải bất đồng bộ
- newScript_1.src ="CDN/tailwindcss.com3.2.4.js";
- newScript_2.src = "CDN/react.development.min.js";
- newScript_3.src = "CDN/react-dom.development.min.js";
-
-// // sau khi tải xong file trên mới tải file cuối index_ghep_file.js
- newScript_1.onload = function () { sum_script_dowload = sum_script_dowload + 1; if (sum_script_dowload === 3) { newScript_end.src = "10/static/index_ghep_file.js"; } };
- newScript_2.onload = function () { sum_script_dowload = sum_script_dowload + 1; if (sum_script_dowload === 3) { newScript_end.src = "10/static/index_ghep_file.js"; } };
- newScript_3.onload = function () { sum_script_dowload = sum_script_dowload + 1; if (sum_script_dowload === 3) { newScript_end.src = "10/static/index_ghep_file.js"; } };
- 
- 
-</script>
+<script type="text/javascript" src="CDN/tailwindcss.com3.2.4.js"></script>
+<script type="text/javascript" src="CDN/react.development.min.js"></script>
+<script type="text/javascript" src="CDN/react-dom.development.min.js"></script>
 
 </head>
 
@@ -133,6 +110,19 @@ let sum_script_dowload = 0;
 
 </body>
 </html>
+
+<script id="script_root" >
+
+// load hết dom xong mới tải 
+window.onload = function()
+{
+  var newScript_1 = document.createElement("script");
+   script_root.appendChild(newScript_1);
+ newScript_1.src ="10/static/index_ghep_file.js";
+ 
+};
+  
+</script>
 <script>
 	
 <?php

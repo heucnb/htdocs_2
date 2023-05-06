@@ -268,30 +268,21 @@ function App(props) {
         if (document.getElementById('id_td_1').innerHTML == "Đăng nhập") {
           _alert('Bạn phải đăng nhập trước đã');
         } else {
-          $.post("from_tra_ly_lich.php", {}, function (data) {
-            ReactDOM.unmountComponentAtNode(id_nhan_index);
-            ReactDOM.render(React.createElement(Tra_ly_lich, null), id_nhan_index);
-          });
+          ReactDOM.unmountComponentAtNode(id_nhan_index);
+          ReactDOM.render(React.createElement(Tra_ly_lich, null), id_nhan_index);
         }
       });
     });
 
-    /*chọn được phối*/
+    /*chọn đực phối*/
 
     $(document).ready(function () {
       $("#id_td_15").click(function () {
         if (document.getElementById('id_td_1').innerHTML == "Đăng nhập") {
           _alert('Bạn phải đăng nhập trước đã');
         } else {
-          //--------------------------- truyền biến sang app script theo phương pháp doGet	    
-          var select_id_8 = document.getElementById('id_8');
-          // lấy text của option của select html
-          var trai = select_id_8.options[select_id_8.selectedIndex].text;
-          var ma_trai = select_id_8.value;
-          const nextURL = 'https://script.google.com/macros/s/AKfycbwjx_VZLp4bGa_2jBdZCkEcNrbevvXzqfuSnEDoOk0/dev?' + trai + '_-_' + ma_trai;
-
-          // This will create a new entry in the browser's history, reloading afterwards
-          window.location.href = nextURL;
+          ReactDOM.unmountComponentAtNode(id_nhan_index);
+          ReactDOM.render(React.createElement(Ghep_phoi, null), id_nhan_index);
         }
       });
     });
@@ -545,12 +536,20 @@ function Cai_sua() {
   let arrayjavascript_so_tai;
   function handleChange(event) {
     var gia_tri_tim = event.target.value;
-    var chuoi_ban_dau = "," + arrayjavascript_so_tai.join();
-    var gia_tri_tim = new RegExp("," + "[A-Z]*[0-9]*" + gia_tri_tim, 'i');
-    var vi_tri_tim_thay = chuoi_ban_dau.search(gia_tri_tim);
-    var chuoi_cat_ra = chuoi_ban_dau.substr(vi_tri_tim_thay, 20);
-    var mang_cat_ra_tu_chuoi = chuoi_cat_ra.split(",");
-    document.getElementById('id_tim_1').innerHTML = mang_cat_ra_tu_chuoi[1];
+    let new_array = [];
+    for (let index = 0, len = arrayjavascript_so_tai.length; index < len; index++) {
+      if (arrayjavascript_so_tai[index][0].includes(gia_tri_tim.toUpperCase())) {
+        new_array.push(arrayjavascript_so_tai[index][0]);
+      }
+    }
+    ReactDOM.render( /*#__PURE__*/React.createElement(Input_find, {
+      value: {
+        data: new_array,
+        dom_1: document.getElementById('id_1'),
+        dom_2: document.getElementById('id_2'),
+        dom_3: document.getElementById('id_tim_1')
+      }
+    }), document.getElementById('id_tim_1'));
   }
   useEffect(() => {
     $.post("from_cai_sua.php", {
@@ -564,13 +563,16 @@ function Cai_sua() {
       $('#id_1').keypress(function () {
         var x = event.keyCode;
         if (x == 13) {
-          if (document.getElementById("id_checkbox").checked == true) {
-            document.getElementById('id_1').value = document.getElementById('id_tim_1').innerHTML;
-          }
           document.getElementById("id_2").focus();
         }
       });
     });
+    //-------------------------------------------------------
+    id_1.onblur = function () {
+      ReactDOM.unmountComponentAtNode(document.getElementById('id_tim_1'));
+    };
+    //--------------------------------------------------------------
+
     $(document).ready(function () {
       $('#id_2').keypress(function () {
         var x = event.keyCode;
@@ -646,12 +648,9 @@ function Cai_sua() {
     id: "id_1",
     className: `  border border-sky-500 `,
     onChange: handleChange
-  }), " ", /*#__PURE__*/React.createElement("label", {
+  }), /*#__PURE__*/React.createElement("div", {
     id: "id_tim_1",
     type: "text"
-  }, "Nh\u1EADp theo s\u1ED1 tai g\u1EE3i \xFD"), /*#__PURE__*/React.createElement("input", {
-    type: "checkbox",
-    id: "id_checkbox"
   }), /*#__PURE__*/React.createElement("div", null, " Ng\xE0y cai: "), /*#__PURE__*/React.createElement("input", {
     id: "id_2",
     type: "date",
@@ -1037,12 +1036,20 @@ function De() {
   let arrayjavascript_so_tai;
   function handleChange(event) {
     var gia_tri_tim = event.target.value;
-    var chuoi_ban_dau = "," + arrayjavascript_so_tai.join();
-    var gia_tri_tim = new RegExp("," + "[A-Z]*[0-9]*" + gia_tri_tim, 'i');
-    var vi_tri_tim_thay = chuoi_ban_dau.search(gia_tri_tim);
-    var chuoi_cat_ra = chuoi_ban_dau.substr(vi_tri_tim_thay, 20);
-    var mang_cat_ra_tu_chuoi = chuoi_cat_ra.split(",");
-    document.getElementById('id_tim_1').innerHTML = mang_cat_ra_tu_chuoi[1];
+    let new_array = [];
+    for (let index = 0, len = arrayjavascript_so_tai.length; index < len; index++) {
+      if (arrayjavascript_so_tai[index][0].includes(gia_tri_tim.toUpperCase())) {
+        new_array.push(arrayjavascript_so_tai[index][0]);
+      }
+    }
+    ReactDOM.render( /*#__PURE__*/React.createElement(Input_find, {
+      value: {
+        data: new_array,
+        dom_1: document.getElementById('id_1'),
+        dom_2: document.getElementById('id_2'),
+        dom_3: document.getElementById('id_tim_1')
+      }
+    }), document.getElementById('id_tim_1'));
   }
   useEffect(() => {
     $.post("from_de.php", {
@@ -1153,13 +1160,15 @@ function De() {
       $('#id_1').keypress(function () {
         var x = event.keyCode;
         if (x == 13) {
-          if (document.getElementById("id_checkbox").checked == true) {
-            document.getElementById('id_1').value = document.getElementById('id_tim_1').innerHTML;
-          }
           document.getElementById("id_2").focus();
         }
       });
     });
+    //-------------------------------------------------------
+    id_1.onblur = function () {
+      ReactDOM.unmountComponentAtNode(document.getElementById('id_tim_1'));
+    };
+    //--------------------------------------------------------------
     $(document).ready(function () {
       $('#id_2').keypress(function () {
         var x = event.keyCode;
@@ -1530,12 +1539,9 @@ function De() {
     id: "id_1",
     className: `  border border-sky-500 `,
     onChange: handleChange
-  }), " ", /*#__PURE__*/React.createElement("label", {
+  }), /*#__PURE__*/React.createElement("div", {
     id: "id_tim_1",
     type: "text"
-  }, "Nh\u1EADp theo s\u1ED1 tai g\u1EE3i \xFD"), /*#__PURE__*/React.createElement("input", {
-    type: "checkbox",
-    id: "id_checkbox"
   }), /*#__PURE__*/React.createElement("div", null, " Ng\xE0y \u0111\u1EBB:  "), /*#__PURE__*/React.createElement("input", {
     id: "id_2",
     type: "date",
@@ -1543,12 +1549,6 @@ function De() {
   }), /*#__PURE__*/React.createElement("div", null, " S\u1ED1 con sinh ra: "), /*#__PURE__*/React.createElement("input", {
     id: "id_3",
     className: `  border border-sky-500 `
-  }), " ", /*#__PURE__*/React.createElement("label", {
-    id: "id_tim_2",
-    type: "text"
-  }, "Nh\u1EADp theo s\u1ED1 tai g\u1EE3i \xFD"), /*#__PURE__*/React.createElement("input", {
-    type: "checkbox",
-    id: "id_checkbox2"
   }), /*#__PURE__*/React.createElement("div", null, " Ch\u1EBFt tr\u1EAFng: "), /*#__PURE__*/React.createElement("input", {
     id: "id_4",
     className: `  border border-sky-500 `
@@ -1877,12 +1877,12 @@ function Duc() {
     type: "button",
     value: "Theo d\xF5i heo \u0111\u1EF1c nh\u1EADp \u0111\xE0n",
     id: "id_gui_1",
-    className: `  bg-orange-200 hover:bg-sky-700 h-6 flex items-end justify-center pl-2 pr-2 `
+    className: ` w-[220px]  bg-orange-200 hover:bg-sky-700 h-6 flex  pl-2 pr-2 `
   }), /*#__PURE__*/React.createElement("input", {
     type: "button",
     value: "Theo d\xF5i heo \u0111\u1EF1c ch\u1EBFt, lo\u1EA1i",
     id: "id_gui_2",
-    className: `  bg-orange-200 hover:bg-sky-700 h-6 flex items-end justify-center pr-2 `
+    className: ` w-[220px]  bg-orange-200 hover:bg-sky-700 h-6 flex  pr-2 `
   })), /*#__PURE__*/React.createElement("div", {
     id: "id_nhan_hb",
     className: `flex grow w-full border bg-gray-100   border-sky-500 `
@@ -2187,6 +2187,307 @@ function google_login(client_id, in_dom) {
   });
 }
 
+function Ghep_phoi(props) {
+  useEffect(() => {
+    document.getElementById("id1").focus();
+    $(document).ready(function () {
+      $('#id1').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id2").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id2').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id3").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id3').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id4").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id4').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id5").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id5').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id6").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id6').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id7").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id7').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id8").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id8').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id9").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id9').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id10").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id10').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id11").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id11').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id12").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id12').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id13").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id13').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id14").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id14').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id15").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id15').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id16").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id16').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id17").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id17').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id18").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id18').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id19").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id19').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id20").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $('#id20').keypress(function () {
+        var x = event.keyCode;
+        if (x == 13) {
+          document.getElementById("id_gui").focus();
+        }
+      });
+    });
+    $(document).ready(function () {
+      $("#id_gui").click(function () {
+        let width_table = document.getElementById('id_nhan').getBoundingClientRect().width;
+        let height_table = document.getElementById('id_nhan').getBoundingClientRect().height;
+        var dem_string = $("#id_8").val();
+        var count_dem_string = dem_string.length;
+        if (count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
+          return _alert("Bạn phải điền đầy đủ thông tin hoặc lỗi chọn công ty có chứa *");
+        } else {
+          let so_tai_nhap = "";
+          let sum = 0;
+          const collection = id_ds.children;
+          for (let index = 0; index < 20; index++) {
+            if (collection[index].value !== "") {
+              so_tai_nhap = so_tai_nhap + collection[index].value.toUpperCase() + "|_|";
+              sum = sum + 1;
+            }
+          }
+          $.post("/python", {
+            post1: so_tai_nhap.slice(0, -3),
+            sum: sum,
+            post_trai: $("#id_8").val()
+          }, function (data) {
+            let string_array = data.replaceAll("(", "[").replaceAll(")", "]");
+            let array = eval(string_array);
+            ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
+            ReactDOM.render( /*#__PURE__*/React.createElement(Table, {
+              value: {
+                data: array,
+                width: width_table,
+                height: height_table
+              }
+            }), document.getElementById('id_nhan'));
+          });
+        }
+      });
+    });
+  }, []);
+  return /*#__PURE__*/React.createElement("div", {
+    className: `flex flex-col w-full h-full border bg-gray-100   border-sky-500 `
+  }, /*#__PURE__*/React.createElement("div", {
+    className: `ml-1 border-b border-sky-500 mr-1`
+  }, " Nh\u1EADp s\u1ED1 tai c\u1EA7n gh\xE9p ph\u1ED1i "), /*#__PURE__*/React.createElement("div", {
+    className: `text-sm flex flex-row h-full  grow  bg-gray-100 mt-2 `
+  }, /*#__PURE__*/React.createElement("div", {
+    id: "id_ds",
+    className: `pl-2 pr-2 flex flex-col flex-shrink-0 w-[110px] h-full  `
+  }, /*#__PURE__*/React.createElement("input", {
+    className: ` border  border-gray-400 w-full m-[1px]`,
+    id: "id1",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: ` border  border-gray-400 w-full m-[1px]`,
+    id: "id2",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: ` border  border-gray-400 w-full m-[1px]`,
+    id: "id3",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: ` border  border-gray-400 w-full m-[1px]`,
+    id: "id4",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: ` border  border-gray-400 w-full m-[1px]`,
+    id: "id5",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: ` border  border-gray-400 w-full m-[1px]`,
+    id: "id6",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: ` border  border-gray-400 w-full m-[1px]`,
+    id: "id7",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: ` border  border-gray-400 w-full m-[1px]`,
+    id: "id8",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: ` border  border-gray-400 w-full m-[1px]`,
+    id: "id9",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: ` border  border-gray-400 w-full m-[1px]`,
+    id: "id10",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: ` border  border-gray-400 w-full m-[1px]`,
+    id: "id11",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: ` border  border-gray-400 w-full m-[1px]`,
+    id: "id12",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: ` border  border-gray-400 w-full m-[1px]`,
+    id: "id13",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: ` border  border-gray-400 w-full m-[1px]`,
+    id: "id14",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: ` border  border-gray-400 w-full m-[1px]`,
+    id: "id15",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: ` border  border-gray-400 w-full m-[1px]`,
+    id: "id16",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: ` border  border-gray-400 w-full m-[1px]`,
+    id: "id17",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: ` border  border-gray-400 w-full m-[1px]`,
+    id: "id18",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: ` border  border-gray-400 w-full m-[1px]`,
+    id: "id19",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    className: ` border  border-gray-400 w-full m-[1px]`,
+    id: "id20",
+    type: "text"
+  }), /*#__PURE__*/React.createElement("input", {
+    id: "id_gui",
+    type: "button",
+    className: ` mt-1   _shadow rounded w-full  bg-sky-500 hover:bg-sky-700 h-8 flex items-center justify-center pl-2  font-medium `,
+    value: "Ghep Ph\u1ED1i"
+  })), /*#__PURE__*/React.createElement("div", {
+    className: ` flex h-full grow  bg-gray-100  `,
+    id: "id_nhan"
+  })));
+}
+;
 function Hau_bi() {
   function Hau_bi_nhap() {
     useEffect(() => {
@@ -2428,12 +2729,12 @@ function Hau_bi() {
     type: "button",
     value: "Theo d\xF5i h\u1EADu b\u1ECB nh\u1EADp \u0111\xE0n",
     id: "id_gui_1",
-    className: `  bg-orange-200 hover:bg-slate-300 hover:bg-opacity-50 h-6 flex items-end justify-center pl-2 pr-2 `
+    className: `w-[220px]  bg-orange-200 hover:bg-slate-300 hover:bg-opacity-50 h-6 flex items-end  pl-2 pr-2 `
   }), /*#__PURE__*/React.createElement("input", {
     type: "button",
     value: "Theo d\xF5i h\u1EADu b\u1ECB ch\u1EBFt, lo\u1EA1i",
     id: "id_gui_2",
-    className: `  bg-orange-200 hover:bg-sky-700 h-6 flex items-end justify-center pr-2 `
+    className: `w-[220px]  bg-orange-200 hover:bg-sky-700 h-6 flex items-end  pr-2 `
   })), /*#__PURE__*/React.createElement("div", {
     id: "id_nhan_hb",
     className: `text-sm flex grow w-full border bg-gray-100   border-sky-500 `
@@ -2444,12 +2745,20 @@ function Heo_con_chet() {
   let arrayjavascript_so_tai;
   function handleChange(event) {
     var gia_tri_tim = event.target.value;
-    var chuoi_ban_dau = "," + arrayjavascript_so_tai.join();
-    var gia_tri_tim = new RegExp("," + "[A-Z]*[0-9]*" + gia_tri_tim, 'i');
-    var vi_tri_tim_thay = chuoi_ban_dau.search(gia_tri_tim);
-    var chuoi_cat_ra = chuoi_ban_dau.substr(vi_tri_tim_thay, 20);
-    var mang_cat_ra_tu_chuoi = chuoi_cat_ra.split(",");
-    document.getElementById('id_tim_1').innerHTML = mang_cat_ra_tu_chuoi[1];
+    let new_array = [];
+    for (let index = 0, len = arrayjavascript_so_tai.length; index < len; index++) {
+      if (arrayjavascript_so_tai[index][0].includes(gia_tri_tim.toUpperCase())) {
+        new_array.push(arrayjavascript_so_tai[index][0]);
+      }
+    }
+    ReactDOM.render( /*#__PURE__*/React.createElement(Input_find, {
+      value: {
+        data: new_array,
+        dom_1: document.getElementById('id_1'),
+        dom_2: document.getElementById('id_2'),
+        dom_3: document.getElementById('id_tim_1')
+      }
+    }), document.getElementById('id_tim_1'));
   }
   useEffect(() => {
     $.post("from_heo_con_chet.php", {
@@ -2510,13 +2819,16 @@ function Heo_con_chet() {
       $('#id_1').keypress(function () {
         var x = event.keyCode;
         if (x == 13) {
-          if (document.getElementById("id_checkbox").checked == true) {
-            document.getElementById('id_1').value = document.getElementById('id_tim_1').innerHTML;
-          }
           document.getElementById("id_2").focus();
         }
       });
     });
+    //-------------------------------------------------------
+    id_1.onblur = function () {
+      ReactDOM.unmountComponentAtNode(document.getElementById('id_tim_1'));
+    };
+    //--------------------------------------------------------------
+
     $(document).ready(function () {
       $('#id_2').keypress(function () {
         var x = event.keyCode;
@@ -2559,12 +2871,9 @@ function Heo_con_chet() {
     id: "id_1",
     className: `  border border-sky-500 `,
     onChange: handleChange
-  }), " ", /*#__PURE__*/React.createElement("label", {
+  }), /*#__PURE__*/React.createElement("div", {
     id: "id_tim_1",
     type: "text"
-  }, "Nh\u1EADp theo s\u1ED1 tai g\u1EE3i \xFD"), /*#__PURE__*/React.createElement("input", {
-    type: "checkbox",
-    id: "id_checkbox"
   }), /*#__PURE__*/React.createElement("div", null, " Ng\xE0y heo con ch\u1EBFt: "), /*#__PURE__*/React.createElement("input", {
     id: "id_2",
     type: "date",
@@ -2603,12 +2912,20 @@ function Heo_van_de() {
   let arrayjavascript_so_tai;
   function handleChange(event) {
     var gia_tri_tim = event.target.value;
-    var chuoi_ban_dau = "," + arrayjavascript_so_tai.join();
-    var gia_tri_tim = new RegExp("," + "[A-Z]*[0-9]*" + gia_tri_tim, 'i');
-    var vi_tri_tim_thay = chuoi_ban_dau.search(gia_tri_tim);
-    var chuoi_cat_ra = chuoi_ban_dau.substr(vi_tri_tim_thay, 20);
-    var mang_cat_ra_tu_chuoi = chuoi_cat_ra.split(",");
-    document.getElementById('id_tim_1').innerHTML = mang_cat_ra_tu_chuoi[1];
+    let new_array = [];
+    for (let index = 0, len = arrayjavascript_so_tai.length; index < len; index++) {
+      if (arrayjavascript_so_tai[index][0].includes(gia_tri_tim.toUpperCase())) {
+        new_array.push(arrayjavascript_so_tai[index][0]);
+      }
+    }
+    ReactDOM.render( /*#__PURE__*/React.createElement(Input_find, {
+      value: {
+        data: new_array,
+        dom_1: document.getElementById('id_1'),
+        dom_2: document.getElementById('id_2'),
+        dom_3: document.getElementById('id_tim_1')
+      }
+    }), document.getElementById('id_tim_1'));
   }
   useEffect(() => {
     $.post("from_heo_van_de.php", {
@@ -2622,13 +2939,15 @@ function Heo_van_de() {
       $('#id_1').keypress(function () {
         var x = event.keyCode;
         if (x == 13) {
-          if (document.getElementById("id_checkbox").checked == true) {
-            document.getElementById('id_1').value = document.getElementById('id_tim_1').innerHTML;
-          }
           document.getElementById("id_2").focus();
         }
       });
     });
+    //-------------------------------------------------------
+    id_1.onblur = function () {
+      ReactDOM.unmountComponentAtNode(document.getElementById('id_tim_1'));
+    };
+    //--------------------------------------------------------------
     $(document).ready(function () {
       $('#id_2').keypress(function () {
         var x = event.keyCode;
@@ -2701,12 +3020,9 @@ function Heo_van_de() {
     id: "id_1",
     className: `  border border-sky-500 `,
     onChange: handleChange
-  }), " ", /*#__PURE__*/React.createElement("label", {
+  }), /*#__PURE__*/React.createElement("div", {
     id: "id_tim_1",
     type: "text"
-  }, "Nh\u1EADp theo s\u1ED1 tai g\u1EE3i \xFD"), /*#__PURE__*/React.createElement("input", {
-    type: "checkbox",
-    id: "id_checkbox"
   }), /*#__PURE__*/React.createElement("div", null, " Ng\xE0y v\u1EA5n \u0111\u1EC1: "), /*#__PURE__*/React.createElement("input", {
     id: "id_2",
     type: "date",
@@ -2733,6 +3049,26 @@ function Heo_van_de() {
     id: "id_nhan",
     className: `text-sm grow ml-1 `
   })));
+}
+;
+function Input_find(props) {
+  function select_click(event, dom_1, dom_2, dom_3) {
+    dom_1.value = event.target.textContent.trim();
+    ReactDOM.unmountComponentAtNode(dom_3);
+    dom_2.focus();
+  }
+  let data = props.value.data;
+  return /*#__PURE__*/React.createElement("div", {
+    className: ` flex flex-col absolute bg-orange-200 `
+  }, data.map((item, i) => {
+    if (i < 20) {
+      return /*#__PURE__*/React.createElement("div", {
+        onClick: event => {
+          select_click(event, props.value.dom_1, props.value.dom_2, props.value.dom_3);
+        }
+      }, "  ", item, " ");
+    }
+  }));
 }
 ;
 function Login() {
@@ -2857,12 +3193,20 @@ function Nai_chet() {
   let arrayjavascript_so_tai;
   function handleChange(event) {
     var gia_tri_tim = event.target.value;
-    var chuoi_ban_dau = "," + arrayjavascript_so_tai.join();
-    var gia_tri_tim = new RegExp("," + "[A-Z]*[0-9]*" + gia_tri_tim, 'i');
-    var vi_tri_tim_thay = chuoi_ban_dau.search(gia_tri_tim);
-    var chuoi_cat_ra = chuoi_ban_dau.substr(vi_tri_tim_thay, 20);
-    var mang_cat_ra_tu_chuoi = chuoi_cat_ra.split(",");
-    document.getElementById('id_tim_1').innerHTML = mang_cat_ra_tu_chuoi[1];
+    let new_array = [];
+    for (let index = 0, len = arrayjavascript_so_tai.length; index < len; index++) {
+      if (arrayjavascript_so_tai[index][0].includes(gia_tri_tim.toUpperCase())) {
+        new_array.push(arrayjavascript_so_tai[index][0]);
+      }
+    }
+    ReactDOM.render( /*#__PURE__*/React.createElement(Input_find, {
+      value: {
+        data: new_array,
+        dom_1: document.getElementById('id_1'),
+        dom_2: document.getElementById('id_2'),
+        dom_3: document.getElementById('id_tim_1')
+      }
+    }), document.getElementById('id_tim_1'));
   }
   useEffect(() => {
     $.post("from_heo_nai_chet_loai.php", {
@@ -2921,6 +3265,12 @@ function Nai_chet() {
         }
       });
     });
+    //-------------------------------------------------------
+    id_1.onblur = function () {
+      ReactDOM.unmountComponentAtNode(document.getElementById('id_tim_1'));
+    };
+    //--------------------------------------------------------------
+
     $(document).ready(function () {
       $('#id_2').keypress(function () {
         var x = event.keyCode;
@@ -2946,12 +3296,9 @@ function Nai_chet() {
     id: "id_1",
     className: `  border border-sky-500 `,
     onChange: handleChange
-  }), " ", /*#__PURE__*/React.createElement("label", {
+  }), /*#__PURE__*/React.createElement("div", {
     id: "id_tim_1",
     type: "text"
-  }, "Nh\u1EADp theo s\u1ED1 tai g\u1EE3i \xFD"), /*#__PURE__*/React.createElement("input", {
-    type: "checkbox",
-    id: "id_checkbox"
   }), /*#__PURE__*/React.createElement("div", null, " Ng\xE0y ch\u1EBFt (lo\u1EA1i): "), /*#__PURE__*/React.createElement("input", {
     id: "id_2",
     type: "date",
@@ -2982,21 +3329,37 @@ function Phoi() {
   let arrayjavascript_so_tai_duc;
   function handleChange_1(event) {
     var gia_tri_tim = event.target.value;
-    var chuoi_ban_dau = "," + arrayjavascript_so_tai_phoi.join();
-    var gia_tri_tim = new RegExp("," + "[A-Z]*[0-9]*" + gia_tri_tim, 'i');
-    var vi_tri_tim_thay = chuoi_ban_dau.search(gia_tri_tim);
-    var chuoi_cat_ra = chuoi_ban_dau.substr(vi_tri_tim_thay, 20);
-    var mang_cat_ra_tu_chuoi = chuoi_cat_ra.split(",");
-    document.getElementById('id_tim_1').innerHTML = mang_cat_ra_tu_chuoi[1];
+    let new_array = [];
+    for (let index = 0, len = arrayjavascript_so_tai_phoi.length; index < len; index++) {
+      if (arrayjavascript_so_tai_phoi[index][0].includes(gia_tri_tim.toUpperCase())) {
+        new_array.push(arrayjavascript_so_tai_phoi[index][0]);
+      }
+    }
+    ReactDOM.render( /*#__PURE__*/React.createElement(Input_find, {
+      value: {
+        data: new_array,
+        dom_1: document.getElementById('id_1'),
+        dom_2: document.getElementById('id_2'),
+        dom_3: document.getElementById('id_tim_1')
+      }
+    }), document.getElementById('id_tim_1'));
   }
   function handleChange_2(event) {
     var gia_tri_tim = event.target.value;
-    var chuoi_ban_dau = "," + arrayjavascript_so_tai_duc.join();
-    var gia_tri_tim = new RegExp("," + "[A-Z]*[0-9]*" + gia_tri_tim, 'i');
-    var vi_tri_tim_thay = chuoi_ban_dau.search(gia_tri_tim);
-    var chuoi_cat_ra = chuoi_ban_dau.substr(vi_tri_tim_thay, 20);
-    var mang_cat_ra_tu_chuoi = chuoi_cat_ra.split(",");
-    document.getElementById('id_tim_2').innerHTML = mang_cat_ra_tu_chuoi[1];
+    let new_array = [];
+    for (let index = 0, len = arrayjavascript_so_tai_duc.length; index < len; index++) {
+      if (arrayjavascript_so_tai_duc[index][0].includes(gia_tri_tim.toUpperCase())) {
+        new_array.push(arrayjavascript_so_tai_duc[index][0]);
+      }
+    }
+    ReactDOM.render( /*#__PURE__*/React.createElement(Input_find, {
+      value: {
+        data: new_array,
+        dom_1: document.getElementById('id_3'),
+        dom_2: document.getElementById('id_4'),
+        dom_3: document.getElementById('id_tim_2')
+      }
+    }), document.getElementById('id_tim_2'));
   }
   useEffect(() => {
     $.post("from_phoi.php", {
@@ -3011,12 +3374,14 @@ function Phoi() {
     $('#id_1').keypress(function () {
       var x = event.keyCode;
       if (x == 13) {
-        if (document.getElementById("id_checkbox").checked == true) {
-          document.getElementById('id_1').value = document.getElementById('id_tim_1').innerHTML;
-        }
+        ReactDOM.unmountComponentAtNode(document.getElementById('id_tim_1'));
         document.getElementById("id_2").focus();
       }
     });
+    //----------------------------------------------------
+    id_1.onblur = function () {
+      ReactDOM.unmountComponentAtNode(document.getElementById('id_tim_1'));
+    };
 
     //-------------------------------------------------------------------
     $('#id_2').keypress(function () {
@@ -3029,12 +3394,15 @@ function Phoi() {
     $('#id_3').keypress(function () {
       var x = event.keyCode;
       if (x == 13) {
-        if (document.getElementById("id_checkbox2").checked == true) {
-          document.getElementById('id_3').value = document.getElementById('id_tim_2').innerHTML;
-        }
+        ReactDOM.unmountComponentAtNode(document.getElementById('id_tim_2'));
         document.getElementById("id_4").focus();
       }
     });
+    //-------------------------------------------------------------------
+    id_3.onblur = function () {
+      ReactDOM.unmountComponentAtNode(document.getElementById('id_tim_2'));
+    };
+
     //------------------------------------------------------------------
     $('#id_4').keypress(function () {
       var x = event.keyCode;
@@ -3106,12 +3474,9 @@ function Phoi() {
     id: "id_1",
     className: `  border border-sky-500 `,
     onChange: handleChange_1
-  }), " ", /*#__PURE__*/React.createElement("label", {
+  }), /*#__PURE__*/React.createElement("div", {
     id: "id_tim_1",
     type: "text"
-  }, "Nh\u1EADp theo s\u1ED1 tai g\u1EE3i \xFD"), /*#__PURE__*/React.createElement("input", {
-    type: "checkbox",
-    id: "id_checkbox"
   }), /*#__PURE__*/React.createElement("div", null, " Ng\xE0y ph\u1ED1i:  "), /*#__PURE__*/React.createElement("input", {
     id: "id_2",
     type: "date",
@@ -3120,12 +3485,9 @@ function Phoi() {
     id: "id_3",
     className: `  border border-sky-500 `,
     onChange: handleChange_2
-  }), " ", /*#__PURE__*/React.createElement("label", {
+  }), /*#__PURE__*/React.createElement("div", {
     id: "id_tim_2",
     type: "text"
-  }, "Nh\u1EADp theo s\u1ED1 tai g\u1EE3i \xFD"), /*#__PURE__*/React.createElement("input", {
-    type: "checkbox",
-    id: "id_checkbox2"
   }), /*#__PURE__*/React.createElement("div", null, " Ng\u01B0\u1EDDi ph\u1ED1i: "), /*#__PURE__*/React.createElement("input", {
     id: "id_4",
     className: `  border border-sky-500 `
@@ -3140,7 +3502,7 @@ function Phoi() {
   })), /*#__PURE__*/React.createElement("div", {
     id: "id_nhan",
     className: `text-sm grow ml-1 `
-  }, "d\u1EEF li\u1EC7u tr\u1EA3 v\u1EC1")));
+  })));
 }
 ;
 function Router() {
@@ -7333,7 +7695,7 @@ function Tim_kiem() {
     className: ` flex grow  mt-2 `
   }, /*#__PURE__*/React.createElement("div", {
     className: ` shrink-0 ml-2 `
-  }, /*#__PURE__*/React.createElement("div", null, " M\xE3 th\u1EBB n\xE1i:  "), /*#__PURE__*/React.createElement("input", {
+  }, /*#__PURE__*/React.createElement("div", null, " S\u1ED1 tai  "), /*#__PURE__*/React.createElement("input", {
     id: "id_1_research",
     className: `  border border-sky-500 `
   }), /*#__PURE__*/React.createElement("input", {
