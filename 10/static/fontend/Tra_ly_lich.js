@@ -263,7 +263,7 @@ function Tra_ly_lich(props) {
     
 	
     return ( 
-<div  className={`flex flex-col w-full h-full border bg-gray-100   border-sky-500 `} >         
+<div  className={`flex flex-col w-full h-full  bg-gray-100   `} >         
 <div className={`ml-1 border-b border-sky-500 mr-1`}> Nhập số tai cần tra </div>
 <div  className={`text-sm flex flex-row h-full  grow  bg-gray-100 mt-2 `} >
 

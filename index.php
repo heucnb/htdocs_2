@@ -66,21 +66,21 @@ input {
 }
 
 
-.footer {
-	position: relative;
-   border: 0px solid black;	 
-  text-align: left;
-  font-size: 10px;
-  padding: 0px;
-  background-color: DarkGray;
-  color: black;
 
-  bottom: 0;
-  width: 100%;
-  height: 20px;
-  left: 0;
-
+@keyframes animate
+{
+  0%
+  {
+    transform:rotate(45deg);
+  }
+  100%
+  {
+    transform:rotate(405deg);
+  }
 }
+	
+
+
 
 
 #id_td_khoa_ngay_nhap_du_lieu {
@@ -125,7 +125,7 @@ window.onload = function()
 </script>
 <script>
 	
-<?php
+  let arrayjavascript_3 = <?php
 
 // kiểm tra đăng nhập
 // kết nối csdl	
@@ -134,6 +134,7 @@ include "setup/fuction_ket_noi_csdl.php";
 // header("Content-type: text/html; charset=utf-8"); // thêm tiếng việt mới lấy được câu lệnh sql đã chạy
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
+
 mysqli_set_charset($conn, 'UTF8'); // thêm tiếng việt mới lấy được câu lệnh sql đã chạy
 
 
@@ -144,37 +145,52 @@ if (isset($_COOKIE['username_cookie'])) {
 
 
 $result = mysqli_query($conn, $sql);
-$cout = mysqli_num_rows($result);
+$count = mysqli_num_rows($result);
 $arraymysql = [];
 
-for ($x = 0; $x < $cout; $x++) {
+for ($x = 0; $x < $count; $x++) {
     $arraymysql[$x] = mysqli_fetch_row($result) ;
   }
   
  
 
-		if($cout==1)
+		if($count==1)
 		{
 			//thêm kí tự @ vào trước dòng lệnh bị warning (để tắt warning đi).
 			@ setcookie("username_cookie",$_COOKIE['username_cookie'], time() + (86400 * 5), "/");
 			//thêm kí tự @ vào trước dòng lệnh bị warning (để tắt warning đi).
 			@ setcookie("password_cookie", $_COOKIE['password_cookie'], time() + (86400 * 5), "/");	
+
+      echo json_encode($arraymysql);
 	
 		}
+   
+    else{
+      echo json_encode(["Chưa đăng nhập"]);
+  
+    }
+
+
 	}
+  else{
+    echo json_encode(["Chưa đăng nhập"]);
 
-	
+  }
 
-?>
+ 
+
+?>;
 let gobal_post = "";
 let gobal_post_month = "";
 let gobal_tim_kiem_sua_xoa = "";
 let  mystyle_array =["mystyle_1", "mystyle_2"];
 let click_xoa = 0 ;
-var arrayjavascript_1 = <?php if (isset($cout)) {echo json_encode($cout);}?>;
- 
-var arrayjavascript_2 = <?php if (isset($_COOKIE['username_cookie'])) { echo json_encode($_COOKIE['username_cookie']);} else {echo json_encode("");}?>;
-var arrayjavascript_3 = <?php if (isset($arraymysql)) {echo json_encode($arraymysql);	} else {echo json_encode("");}?>;  
+let  array_chuong_thit ;
+
+if (arrayjavascript_3[0]!=="Chưa đăng nhập") {
+    array_chuong_thit = JSON.parse(arrayjavascript_3[0][6]) ;
+ }                                                     
+
 
 
 	

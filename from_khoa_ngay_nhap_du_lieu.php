@@ -95,7 +95,7 @@ if (!$conn) {
 }
 
 // láy dữ liệu lên
-$sql = "select if(`khoa_ngay_sua_du_lieu`=0,999999,`khoa_ngay_sua_du_lieu`),`trai_day_du` from login where `trai_value`='".$trai."' limit 1 ";
+$sql = "select if(`khoa_ngay_sua_du_lieu`=0,999999,`khoa_ngay_sua_du_lieu`),`trai_day_du` from login where `trai`='".$trai."' limit 1 ";
 $result = mysqli_query($conn, $sql);
 $cout = mysqli_num_rows($result);	
 $arraymysql = [];

@@ -13,7 +13,7 @@ function Login() {
     } else {
 
       var array_data_login = JSON.parse(data);
-	
+	console.log(array_data_login);
    var array_option = new Array();
    // This will return an array with strings "1", "2", etc.
    array_option = array_data_login[0][2].split(",");
@@ -21,16 +21,13 @@ function Login() {
 
 
     var select = document.getElementById("id_8") ;
+    select.innerHTML = '' ;
       for(var i = 0; i < array_option.length; i++)
             {
-                var option = document.createElement("OPTION"),
-                txt = document.createTextNode(array_option_ten_day_du[i]);
-                option.appendChild(txt);
-                
-               option.setAttribute("value",array_option[i]);
-         
-          
-                select.insertBefore(option,select.lastChild);
+                var option = document.createElement("OPTION")
+                option.text = array_option_ten_day_du[i];
+                option.value = array_option[i];
+                select.appendChild(option);
             }
             
          // kiểm tra xem có được quyền thêm người dùng và khóa dữ liệu không
@@ -51,7 +48,10 @@ function Login() {
     document.getElementById('id_td_1').innerHTML="Đăng nhập - " + id_1.textContent;
     _alert("Đăng nhập thành công");
     ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index')); 
-
+      
+      array_chuong_thit = JSON.parse(array_data_login[0][6]) ;
+         
+         
     }
       
 	 

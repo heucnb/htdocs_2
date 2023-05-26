@@ -5,23 +5,25 @@ function App(props) {
 
         for (let i = 0; i < collection.length; i++) {
         collection[i].style.color = "black";
-        document.getElementById(dom).style.borderLeft  = "thin solid rgb(14 165 233)";
-        document.getElementById(dom).style.borderTop  = "thin solid rgb(14 165 233)";
-        document.getElementById(dom).style.borderBottom   = "thin solid rgb(14 165 233)";
+        // document.getElementById(dom).style.borderLeft  = "thin solid rgb(14 165 233)";
+        // document.getElementById(dom).style.borderTop  = "thin solid rgb(14 165 233)";
+        // document.getElementById(dom).style.borderBottom   = "thin solid rgb(14 165 233)";
         }
   
     }
+
        useEffect(() => {  
 
         let	id_nhan_index  =  document.getElementById('id_nhan_index') ;
         
        
      
-        if( arrayjavascript_1 == 1)
+        if( arrayjavascript_3[0]!=="Chưa đăng nhập")
         {
-         document.getElementById('id_td_1').innerHTML="Đăng nhập - " + arrayjavascript_2;
+         document.getElementById('id_td_1').innerHTML="Đăng nhập - " + arrayjavascript_3[0][0];
         
         
+         console.log(arrayjavascript_3);
         var array_option = new Array();
         // This will return an array with strings "1", "2", etc.
         array_option = arrayjavascript_3[0][2].split(",");
@@ -31,16 +33,15 @@ function App(props) {
         console.log(array_option_ten_day_du);
     
            var select = document.getElementById("id_8") ;
+           select.innerHTML = '' ;
            for(var i = 0; i < array_option.length; i++)
                  {
-                     var option = document.createElement("OPTION"),
-                     txt = document.createTextNode(array_option_ten_day_du[i]);
-                     option.appendChild(txt);
-                     
-                    option.setAttribute("value",array_option[i]);
-              
-               
-                     select.insertBefore(option,select.lastChild);
+                     var option = document.createElement("OPTION");
+                 
+
+                    option.text = array_option_ten_day_du[i];
+                    option.value = array_option[i];
+                    select.appendChild(option);
                  }
          // kiểm tra xem có được quyền thêm người dùng và khóa dữ liệu không
                 var quyen_them_nguoi_dung_va_khoa_ngay_sua_du_lieu = arrayjavascript_3[0][4] ;
@@ -62,10 +63,7 @@ function App(props) {
     $(document).ready(function(){
         $("#id_td_0").click(function(){
        		
-    
-            $.post("from_dang_ky.php", {}, function(data){
-                $("#id_nhan_index").html(data);	});
-        
+            ReactDOM.render(<Dang_ky/>, id_nhan_index);
             
             
         
@@ -459,6 +457,8 @@ function App(props) {
     
     $(document).ready(function(){
         $("#id_td_14").click(function(){
+
+            
             
             if(document.getElementById('id_td_1').innerHTML=="Đăng nhập")
         {
@@ -466,6 +466,17 @@ function App(props) {
         }
         else
         {
+
+            var dem_string = $("#id_8").val();	
+            var count_dem_string = dem_string.length;
+        
+            if (
+            count_dem_string > 50 ||
+            $("#id_8").val() == null || $("#id_8").val() == ""
+                ) 
+            {
+            return     _alert('Bạn phải chọn công ty để nhập dữ liệu hoặc lỗi chọn công ty có chứa *') 
+            }
      
             ReactDOM.unmountComponentAtNode(id_nhan_index);  
             ReactDOM.render(React.createElement(Tra_ly_lich, null), id_nhan_index);
@@ -489,6 +500,19 @@ function App(props) {
         }
         else
         {
+
+            var dem_string = $("#id_8").val();	
+            var count_dem_string = dem_string.length;
+        
+            if (
+            count_dem_string > 50 ||
+            $("#id_8").val() == null || $("#id_8").val() == ""
+                ) 
+            {
+            return     _alert('Bạn phải chọn công ty để nhập dữ liệu hoặc lỗi chọn công ty có chứa *') 
+            }
+
+
             ReactDOM.unmountComponentAtNode(id_nhan_index);  
             ReactDOM.render(React.createElement(Ghep_phoi, null), id_nhan_index);
 
@@ -512,6 +536,17 @@ function App(props) {
         }
         else
         {
+
+            var dem_string = $("#id_8").val();	
+            var count_dem_string = dem_string.length;
+        
+            if (
+            count_dem_string > 50 ||
+            $("#id_8").val() == null || $("#id_8").val() == ""
+                ) 
+            {
+            return     _alert('Bạn phải chọn công ty để nhập dữ liệu hoặc lỗi chọn công ty có chứa *') 
+            }
          
         ReactDOM.render(React.createElement(Danh_sach_heo, null), id_nhan_index);
 
@@ -523,30 +558,109 @@ function App(props) {
         });
     });
     
-    // test
+    // Báo cáo đóng chuồng heo thịt
 
     $(document).ready(function(){
         $("#id_td_17").click(function(){
     
             
-            $.post("10.php", {}, function(data){ console.log(data); });
-    
+            if(document.getElementById('id_td_1').innerHTML=="Đăng nhập")
+            {
+                _alert('Bạn phải đăng nhập trước đã')
+            }
+            else
+            {
+
+                var dem_string = $("#id_8").val();	
+                var count_dem_string = dem_string.length;
             
+                if (
+                count_dem_string > 50 ||
+                $("#id_8").val() == null || $("#id_8").val() == ""
+                    ) 
+                {
+                return     _alert('Bạn phải chọn công ty để nhập dữ liệu hoặc lỗi chọn công ty có chứa *') 
+                }
+
+
+                ReactDOM.unmountComponentAtNode(id_nhan_index);  
+                ReactDOM.render(React.createElement(from_bao_cao_thang_thit, null), id_nhan_index);
+    
+    
+            }
+                
+                
             
         
         });
     });
     
-    // test
+    // Báo cáo diễn biến chuồng heo thịt
 
     $(document).ready(function(){
         $("#id_td_18").click(function(){
     
             
-            $.post("10.php", {}, function(data){ console.log(data); });
+            if(document.getElementById('id_td_1').innerHTML=="Đăng nhập")
+            {
+                _alert('Bạn phải đăng nhập trước đã')
+            }
+            else
+            {
+
+                var dem_string = $("#id_8").val();	
+                var count_dem_string = dem_string.length;
+            
+                if (
+                count_dem_string > 50 ||
+                $("#id_8").val() == null || $("#id_8").val() == ""
+                    ) 
+                {
+                return     _alert('Bạn phải chọn công ty để nhập dữ liệu hoặc lỗi chọn công ty có chứa *') 
+                }
+
+
+                ReactDOM.unmountComponentAtNode(id_nhan_index);  
+                ReactDOM.render(React.createElement(from_dien_bien_thit, null), id_nhan_index);
+    
+    
+            }
+                
+        
+        });
+    });
+
+    // Cấu hình danh mục chuồng
+
+    $(document).ready(function(){
+        $("#id_td_19").click(function(){
     
             
+            if(document.getElementById('id_td_1').innerHTML=="Đăng nhập")
+            {
+                _alert('Bạn phải đăng nhập trước đã')
+            }
+            else
+            {
+
+                var dem_string = $("#id_8").val();	
+                var count_dem_string = dem_string.length;
             
+                if (
+                count_dem_string > 50 ||
+                $("#id_8").val() == null || $("#id_8").val() == ""
+                    ) 
+                {
+                return     _alert('Bạn phải chọn công ty để nhập dữ liệu hoặc lỗi chọn công ty có chứa *') 
+                }
+
+
+                ReactDOM.unmountComponentAtNode(id_nhan_index); 
+
+              ReactDOM.render(<Setup_chuong value={{data :  false  ,   }} /> ,id_nhan_index);
+    
+            }
+                
         
         });
     });
@@ -563,9 +677,12 @@ function App(props) {
         else
         {
            
-        document.getElementById("id_nhan_index").innerHTML =  "<progress ></progress>"; 	
-        $.post("from_them_user.php", {}, function(data){
-                $("#id_nhan_index").html(data);	});	
+	
+            ReactDOM.unmountComponentAtNode(id_nhan_index); 
+
+            ReactDOM.render(<Add_user  /> ,id_nhan_index);
+
+
         }
             
             
@@ -594,7 +711,7 @@ function App(props) {
             } 
             
          
-        document.getElementById("id_nhan_index").innerHTML =  "<progress ></progress>"; 	
+
         $.post("from_khoa_ngay_nhap_du_lieu.php", {post8:$("#id_8").val() }, function(data){
                 $("#id_nhan_index").html(data);	});	
         }
@@ -631,11 +748,14 @@ function App(props) {
        }, []);
     
 	
-    return ( <div  className={`  flex  h-screen flex-col `} >  
-<div className={`  flex bg-green-400 justify-between `} > 
-                <div id="id_hide" > Hide  </div>
+    return ( <div  className={` text-base  flex  h-screen flex-col `} >  
+<div className={`  flex bg-green-400 justify-between p-1`} > 
+                <div className={` flex  `} >  
+                <img id="id_hide" src="logo2.jpg" alt=""  className={` h-6 `} />
                 <div  > Tập Đoàn DABACO Việt Nam  </div>
-                <select id="id_8" > 
+                </div>
+                
+                <select  id="id_8" className={` focus:outline-0  bg-green-400  `} > 
             
                 </select>
                 <input id="id_them_user" type="button" value="Thêm người dùng"/>
@@ -678,24 +798,14 @@ function App(props) {
 
                 <div  id="id_td_16" className={` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `} onClick={(event)=>{ remove_color_click('id_menu'); event.target.style.color =  "blue"; }} >Xem danh sách đàn heo</div>
 
-                <div  id="id_td_17" className={` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `} onClick={(event)=>{ remove_color_click('id_menu'); event.target.style.color =  "blue"; }}>test</div>
-                <div  id="id_td_18" className={` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `} onClick={(event)=>{ remove_color_click('id_menu'); event.target.style.color =  "blue"; }}>test</div>
-                     
+                <div  id="id_td_17" className={` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `} onClick={(event)=>{ remove_color_click('id_menu'); event.target.style.color =  "blue"; }}>Báo cáo đóng chuồng</div>
+                <div  id="id_td_18" className={` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `} onClick={(event)=>{ remove_color_click('id_menu'); event.target.style.color =  "blue"; }}>Báo cáo diễn biến đàn heo</div>
+                <div  id="id_td_19" className={` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `} onClick={(event)=>{ remove_color_click('id_menu'); event.target.style.color =  "blue"; }}>cấu hình chuồng</div>
+                       
             </div>
-            <div className={` flex h-full grow  bg-gray-100  `}  id="id_nhan_index"  >-------------------</div>	
+            <div className={` flex h-full grow  bg-gray-100 text-sm `}  id="id_nhan_index"  >-------------------</div>	
 
 </div>	
-
-<table class="footer"  > 	
- <tr >
- <td rowspan="2" width = "25" ><img src="logo2.jpg" alt=""  height="20"  /></td> <td  >35 Ly Thai To Street - Bac Ninh City - Bac Ninh Province - Viet Nam</td> 
- </tr>
- <tr>
-                                                                   <td  > Tel: +84 (241) 3826077 - 3895111. Fax: +84 (241) 3826095 - 3821377</td>                                        
- </tr>	
-</table>	
-
-
 
     </div>
      

@@ -48,6 +48,8 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 		for ($x = 1; $x < $cout_1 + 1; $x++) {
 		$arraymysql_1[$x] = mysqli_fetch_row($result_1) ;
 		}
+
+
         
         $time_end = microtime(true);
         $time = $time_end - $time_start;

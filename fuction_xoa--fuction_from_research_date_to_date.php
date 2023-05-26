@@ -28,7 +28,7 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 	}
 	
 // láy số ngày khóa dữ liệu
-$sql_lay_ngay_khoa_du_lieu = "select `khoa_ngay_sua_du_lieu` from login where `trai_value`='".$trai."' limit 1 ";
+$sql_lay_ngay_khoa_du_lieu = "select `khoa_ngay_sua_du_lieu` from login where `trai`='".$trai."' limit 1 ";
 $result_lay_ngay_khoa_du_lieu = mysqli_query($conn, $sql_lay_ngay_khoa_du_lieu);
 $cout_lay_ngay_khoa_du_lieu = mysqli_num_rows($result_lay_ngay_khoa_du_lieu);	
 $arraymysql_lay_ngay_khoa_du_lieu = [];
@@ -159,7 +159,7 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 	}
 	
 // láy số ngày khóa dữ liệu
-$sql_lay_ngay_khoa_du_lieu = "select `khoa_ngay_sua_du_lieu` from login where `trai_value`='".$trai."' limit 1 ";
+$sql_lay_ngay_khoa_du_lieu = "select `khoa_ngay_sua_du_lieu` from login where `trai`='".$trai."' limit 1 ";
 $result_lay_ngay_khoa_du_lieu = mysqli_query($conn, $sql_lay_ngay_khoa_du_lieu);
 $cout_lay_ngay_khoa_du_lieu = mysqli_num_rows($result_lay_ngay_khoa_du_lieu);	
 $arraymysql_lay_ngay_khoa_du_lieu = [];
@@ -268,7 +268,7 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 	}
 	
 	// láy số ngày khóa dữ liệu
-$sql_lay_ngay_khoa_du_lieu = "select `khoa_ngay_sua_du_lieu` from login where `trai_value`='".$trai."' limit 1 ";
+$sql_lay_ngay_khoa_du_lieu = "select `khoa_ngay_sua_du_lieu` from login where `trai`='".$trai."' limit 1 ";
 $result_lay_ngay_khoa_du_lieu = mysqli_query($conn, $sql_lay_ngay_khoa_du_lieu);
 $cout_lay_ngay_khoa_du_lieu = mysqli_num_rows($result_lay_ngay_khoa_du_lieu);	
 $arraymysql_lay_ngay_khoa_du_lieu = [];
@@ -388,7 +388,7 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 	}
 	
 // láy số ngày khóa dữ liệu
-$sql_lay_ngay_khoa_du_lieu = "select `khoa_ngay_sua_du_lieu` from login where `trai_value`='".$trai."' limit 1 ";
+$sql_lay_ngay_khoa_du_lieu = "select `khoa_ngay_sua_du_lieu` from login where `trai`='".$trai."' limit 1 ";
 $result_lay_ngay_khoa_du_lieu = mysqli_query($conn, $sql_lay_ngay_khoa_du_lieu);
 $cout_lay_ngay_khoa_du_lieu = mysqli_num_rows($result_lay_ngay_khoa_du_lieu);	
 $arraymysql_lay_ngay_khoa_du_lieu = [];
@@ -507,7 +507,7 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 	}
 	
 // láy số ngày khóa dữ liệu
-$sql_lay_ngay_khoa_du_lieu = "select `khoa_ngay_sua_du_lieu` from login where `trai_value`='".$trai."' limit 1 ";
+$sql_lay_ngay_khoa_du_lieu = "select `khoa_ngay_sua_du_lieu` from login where `trai`='".$trai."' limit 1 ";
 $result_lay_ngay_khoa_du_lieu = mysqli_query($conn, $sql_lay_ngay_khoa_du_lieu);
 $cout_lay_ngay_khoa_du_lieu = mysqli_num_rows($result_lay_ngay_khoa_du_lieu);	
 $arraymysql_lay_ngay_khoa_du_lieu = [];
@@ -572,7 +572,7 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 	}
 	
 // láy số ngày khóa dữ liệu
-$sql_lay_ngay_khoa_du_lieu = "select `khoa_ngay_sua_du_lieu` from login where `trai_value`='".$trai."' limit 1 ";
+$sql_lay_ngay_khoa_du_lieu = "select `khoa_ngay_sua_du_lieu` from login where `trai`='".$trai."' limit 1 ";
 $result_lay_ngay_khoa_du_lieu = mysqli_query($conn, $sql_lay_ngay_khoa_du_lieu);
 $cout_lay_ngay_khoa_du_lieu = mysqli_num_rows($result_lay_ngay_khoa_du_lieu);	
 $arraymysql_lay_ngay_khoa_du_lieu = [];
@@ -691,7 +691,7 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 	}
 	
 	// láy số ngày khóa dữ liệu
-$sql_lay_ngay_khoa_du_lieu = "select `khoa_ngay_sua_du_lieu` from login where `trai_value`='".$trai."' limit 1 ";
+$sql_lay_ngay_khoa_du_lieu = "select `khoa_ngay_sua_du_lieu` from login where `trai`='".$trai."' limit 1 ";
 $result_lay_ngay_khoa_du_lieu = mysqli_query($conn, $sql_lay_ngay_khoa_du_lieu);
 $cout_lay_ngay_khoa_du_lieu = mysqli_num_rows($result_lay_ngay_khoa_du_lieu);	
 $arraymysql_lay_ngay_khoa_du_lieu = [];
@@ -788,7 +788,7 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 	}
 	
 	// láy số ngày khóa dữ liệu
-$sql_lay_ngay_khoa_du_lieu = "select `khoa_ngay_sua_du_lieu` from login where `trai_value`='".$trai."' limit 1 ";
+$sql_lay_ngay_khoa_du_lieu = "select `khoa_ngay_sua_du_lieu` from login where `trai`='".$trai."' limit 1 ";
 $result_lay_ngay_khoa_du_lieu = mysqli_query($conn, $sql_lay_ngay_khoa_du_lieu);
 $cout_lay_ngay_khoa_du_lieu = mysqli_num_rows($result_lay_ngay_khoa_du_lieu);	
 $arraymysql_lay_ngay_khoa_du_lieu = [];

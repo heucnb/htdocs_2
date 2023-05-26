@@ -1,0 +1,48 @@
+
+<?php
+function safeSQL($INPUT){
+  $safe_input = trim($INPUT);
+  $safe_input = str_ireplace("'",    "|_|", $safe_input);
+  $safe_input = mysql_real_escape_string($safe_input);
+  return $safe_input;
+}
+
+$trai=$_POST["post8"];
+
+
+
+
+
+// kết nối csdl	
+include "setup/fuction_ket_noi_csdl.php";
+header("Content-type: text/html; charset=utf-8"); // thêm tiếng việt mới lấy được câu lệnh sql đã chạy
+// Create connection
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+
+mysqli_set_charset($conn, 'UTF8'); // thêm tiếng việt mới lấy được câu lệnh sql đã chạy
+// Check connection
+if (!$conn) {
+  die("Connection failed: " . mysqli_connect_error());
+}
+
+
+
+// láy ds dữ liệu lên
+$sql = "select `username`, `password`,`trai_day_du`, `duoc_quyen_them_user` from login where `trai`='".$trai."' ORDER BY `duoc_quyen_them_user` DESC ";
+$result = mysqli_query($conn, $sql);
+$cout = mysqli_num_rows($result);	
+$arraymysql = [];
+ $arraymysql[0] =["Tên đăng nhập",
+"Password",
+"Công ty",
+"Quyền quản trị user"
+];
+for ($x = 1; $x < $cout + 1; $x++) {
+    $arraymysql[$x] = mysqli_fetch_row($result) ;
+  }
+
+
+
+    // echo json_encode($arraymysql);
+
+?>

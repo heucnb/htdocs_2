@@ -117,7 +117,7 @@ $(document).ready(function(){
     
             }, []);
         
-      return (  <div  className={` flex grow h-full w-full  `} >  
+      return (  <div  className={`mt-2 flex grow h-full w-full  `} >  
        
       <div className={`shrink-0 ml-2 `} >
      
@@ -241,7 +241,7 @@ $(document).ready(function(){
     
             }, []);
         
-      return (  <div  className={` flex grow h-full w-full  `} >  
+      return (  <div  className={`mt-2 flex grow h-full w-full  `} >  
        
       <div className={`shrink-0 ml-2 `} >
       
@@ -296,15 +296,15 @@ $(document).ready(function(){
         }, []);
 
     
-  return (  <div  className={`flex h-full w-full flex-col border bg-gray-100   border-sky-500 `} > 
-<div className={`flex  border bg-orange-200  border-sky-500 `} > 
-        <input type="button" value="Theo dõi hậu bị nhập đàn"   id="id_gui_1" className={`w-[220px]  bg-orange-200 hover:bg-slate-300 hover:bg-opacity-50 h-6 flex items-end  pl-2 pr-2 `}   /> 
+  return (  <div  className={`flex h-full w-full flex-col  bg-gray-100  `} > 
+<div className={`flex   `} > 
+        <input type="button" value="Theo dõi hậu bị nhập đàn"   id="id_gui_1" className={`w-[220px]  hover:bg-slate-300 hover:bg-opacity-50 h-6 flex items-end  pl-2 pr-2 `}   /> 
             
-        <input type="button" value="Theo dõi hậu bị chết, loại"   id="id_gui_2" className={`w-[220px]  bg-orange-200 hover:bg-sky-700 h-6 flex items-end  pr-2 `}   /> 
+        <input type="button" value="Theo dõi hậu bị chết, loại"   id="id_gui_2" className={`w-[220px]  hover:bg-slate-300 hover:bg-opacity-50 h-6 flex items-end  pr-2 `}   /> 
                 
 </div>
                           
-<div  id="id_nhan_hb" className={`text-sm flex grow w-full border bg-gray-100   border-sky-500 `} >   </div>    
+<div  id="id_nhan_hb" className={`text-sm flex grow w-full  bg-gray-100   `} >   </div>    
     </div>
   );
 

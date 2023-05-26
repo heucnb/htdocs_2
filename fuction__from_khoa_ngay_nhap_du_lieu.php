@@ -26,11 +26,11 @@ if (!$conn) {
 $sql_3 = "UPDATE login SET 
 `khoa_ngay_sua_du_lieu` = '".$so_ngay_khoa_du_lieu."'
 
-WHERE `trai_value`='".$trai."' 
+WHERE `trai`='".$trai."' 
 ";
 $result_3 = mysqli_query($conn, $sql_3);	
 // láy dữ liệu lên
-$sql = "select `khoa_ngay_sua_du_lieu`,`trai_day_du` from login where `trai_value`='".$trai."' limit 1 ";
+$sql = "select `khoa_ngay_sua_du_lieu`,`trai_day_du` from login where `trai`='".$trai."' limit 1 ";
 $result = mysqli_query($conn, $sql);
 $cout = mysqli_num_rows($result);	
 $arraymysql = [];

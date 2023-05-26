@@ -20,7 +20,7 @@ if (!$conn) {
 }
 
 // láy dữ liệu lên
-$sql = "DELETE  FROM `login` WHERE `username` = '".$username_post."' AND `password` = '".$password_post."' AND `trai_value` = '".$trai."' ";
+$sql = "DELETE  FROM `login` WHERE `username` = '".$username_post."' AND `password` = '".$password_post."' AND `trai` = '".$trai."' ";
 $result = mysqli_query($conn, $sql);
 
 echo 'Đã xóa' ;

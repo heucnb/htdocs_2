@@ -476,13 +476,13 @@ function Table_xoa_date(props) {
       
       
        return (  
-          <div style={  {    height: `${table_excel_height}px`, width :  `${table_excel_width}px`,      overflow: 'scroll',  position: 'relative',} }  >
+          <div style={  {    height: `${table_excel_height}px`, width :  `${table_excel_width}px`,     overflow: 'scroll',  position: 'relative',} }  >
           {data_2d.map((row, i) => {
            
            return (
               <div   style={{  display: "table-row" } }   >
-                               <div  onClick={(event) => { xoa(event, i)    }} className={` ${((  )=>{ if (i===0) { } else { return " _shadow rounded w-full  bg-sky-500 hover:bg-sky-700"}  })()}  `} style={  {    position: 'relative',   border: "1px ridge #ccc", height: "20px", display: "table-cell", paddingLeft: "4px", paddingRight : "4px",  borderRightStyle: 'none', borderTopStyle: 'none', } }  >  Xoá </div>  
-                            {row.map((cell, j) => { return <div  style={  {    position: 'relative',   backgroundColor: "white" ,  border: "1px ridge #ccc", height: "20px", display: "table-cell", paddingLeft: "4px", paddingRight : "4px",  borderRightStyle: 'none', borderTopStyle: 'none', } }  > {cell}  </div> })} 
+                               <div  onClick={(event) => { xoa(event, i)    }} className={` ${((  )=>{ if (i===0) { } else { return "  w-full  bg-sky-500 hover:bg-sky-700"}  })()}  `} style={  {    position: 'relative',   border: "1px ridge #ccc", height: "20px", display: "table-cell", paddingLeft: "4px", paddingRight : "4px",  borderRightStyle: 'none',  borderTopStyle: (function(){    if (i===0 ) { return 'ridge'  } else { return 'none'  }         })(),  } }  >  Xoá </div>  
+                            {row.map((cell, j) => { return <div  style={  {    position: 'relative',   border: "1px ridge #ccc", height: "20px", display: "table-cell", paddingLeft: "4px", paddingRight : "4px",  borderRightStyle: (function(){    if (j===data_2d[0].length -1) { return 'ridge'  } else { return 'none'  }         })(), borderTopStyle:  (function(){    if (i===0 ) { return 'ridge'  } else { return 'none'  }         })(), } }  > {cell}  </div> })} 
               </div> 
   
             );

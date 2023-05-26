@@ -1,19 +1,105 @@
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function Add_user() {
+  useEffect(() => {
+    $.post("ds_user.php", {
+      post8: id_8.value
+    }, function (data) {
+      console.log(data);
+      let width_table = document.getElementById('id_nhan').getBoundingClientRect().width;
+      let height_table = document.getElementById('id_nhan').getBoundingClientRect().height;
+      if (data.trim().slice(0, 2) !== "[[") {
+        _alert(data);
+      } else {
+        ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
+        ReactDOM.render(React.createElement(Table_xoa_add_user, {
+          value: {
+            data: JSON.parse(data),
+            width: width_table,
+            height: height_table
+          }
+        }), document.getElementById('id_nhan'));
+      }
+    });
+    id_gui.onclick = function () {
+      let width_table = document.getElementById('id_nhan').getBoundingClientRect().width;
+      let height_table = document.getElementById('id_nhan').getBoundingClientRect().height;
+      let ten_dang_nhap = id_1.value;
+      let password = id_2.value;
+      let trai = id_8.value;
+      let trai_day_du = id_8.options[0].text;
+      let chuong = JSON.stringify(array_chuong_thit);
+      if (ten_dang_nhap == null || ten_dang_nhap == "" || password == null || password == "" || trai == null || trai == "") {
+        return _alert("Bạn phải điền đầy đủ thông tin");
+      } else {
+        $.post("Add_user.php", {
+          post1: ten_dang_nhap,
+          post2: password,
+          post8: trai,
+          post9: trai_day_du,
+          post10: chuong
+        }, function (data) {
+          console.log(data);
+          if (data.trim().slice(0, 2) !== "[[") {
+            _alert(data);
+          } else {
+            ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
+            ReactDOM.render(React.createElement(Table_xoa_add_user, {
+              value: {
+                data: JSON.parse(data),
+                width: width_table,
+                height: height_table
+              }
+            }), document.getElementById('id_nhan'));
+          }
+        });
+      }
+    };
+  }, []);
+  return /*#__PURE__*/React.createElement("div", {
+    className: `flex flex-col w-full h-full  bg-gray-100  `
+  }, /*#__PURE__*/React.createElement("div", {
+    className: `ml-1 border-b border-sky-500 mr-1`
+  }, " Th\xEAm user "), /*#__PURE__*/React.createElement("div", {
+    className: ` flex  grow  mt-2 `
+  }, /*#__PURE__*/React.createElement("div", {
+    className: ` flex flex-col gap-2 shrink-0 ml-2 `
+  }, /*#__PURE__*/React.createElement("input", {
+    id: "id_1",
+    placeholder: "T\xEAn \u0111\u0103ng nh\u1EADp",
+    className: `  border border-sky-500 `
+  }), /*#__PURE__*/React.createElement("input", {
+    id: "id_2",
+    type: "password",
+    placeholder: "Password",
+    className: `  border border-sky-500 `
+  }), /*#__PURE__*/React.createElement("input", {
+    type: "button",
+    value: "Th\xEAm",
+    id: "id_gui",
+    className: ` mt-2 mb-2  _shadow rounded w-full  bg-sky-500 hover:bg-sky-700 h-8 flex items-center justify-center pl-2  font-medium `
+  })), /*#__PURE__*/React.createElement("div", {
+    id: "id_nhan",
+    className: ` text-sm grow ml-1 `
+  })));
+}
+;
 function App(props) {
   function remove_color_click(dom) {
     const collection = document.getElementById(dom).children;
     for (let i = 0; i < collection.length; i++) {
       collection[i].style.color = "black";
-      document.getElementById(dom).style.borderLeft = "thin solid rgb(14 165 233)";
-      document.getElementById(dom).style.borderTop = "thin solid rgb(14 165 233)";
-      document.getElementById(dom).style.borderBottom = "thin solid rgb(14 165 233)";
+      // document.getElementById(dom).style.borderLeft  = "thin solid rgb(14 165 233)";
+      // document.getElementById(dom).style.borderTop  = "thin solid rgb(14 165 233)";
+      // document.getElementById(dom).style.borderBottom   = "thin solid rgb(14 165 233)";
     }
   }
+
   useEffect(() => {
     let id_nhan_index = document.getElementById('id_nhan_index');
-    if (arrayjavascript_1 == 1) {
-      document.getElementById('id_td_1').innerHTML = "Đăng nhập - " + arrayjavascript_2;
+    if (arrayjavascript_3[0] !== "Chưa đăng nhập") {
+      document.getElementById('id_td_1').innerHTML = "Đăng nhập - " + arrayjavascript_3[0][0];
+      console.log(arrayjavascript_3);
       var array_option = new Array();
       // This will return an array with strings "1", "2", etc.
       array_option = arrayjavascript_3[0][2].split(",");
@@ -21,12 +107,12 @@ function App(props) {
       array_option_ten_day_du = arrayjavascript_3[0][3].split(",");
       console.log(array_option_ten_day_du);
       var select = document.getElementById("id_8");
+      select.innerHTML = '';
       for (var i = 0; i < array_option.length; i++) {
-        var option = document.createElement("OPTION"),
-          txt = document.createTextNode(array_option_ten_day_du[i]);
-        option.appendChild(txt);
-        option.setAttribute("value", array_option[i]);
-        select.insertBefore(option, select.lastChild);
+        var option = document.createElement("OPTION");
+        option.text = array_option_ten_day_du[i];
+        option.value = array_option[i];
+        select.appendChild(option);
       }
       // kiểm tra xem có được quyền thêm người dùng và khóa dữ liệu không
       var quyen_them_nguoi_dung_va_khoa_ngay_sua_du_lieu = arrayjavascript_3[0][4];
@@ -42,9 +128,7 @@ function App(props) {
 
     $(document).ready(function () {
       $("#id_td_0").click(function () {
-        $.post("from_dang_ky.php", {}, function (data) {
-          $("#id_nhan_index").html(data);
-        });
+        ReactDOM.render( /*#__PURE__*/React.createElement(Dang_ky, null), id_nhan_index);
       });
     });
 
@@ -268,6 +352,11 @@ function App(props) {
         if (document.getElementById('id_td_1').innerHTML == "Đăng nhập") {
           _alert('Bạn phải đăng nhập trước đã');
         } else {
+          var dem_string = $("#id_8").val();
+          var count_dem_string = dem_string.length;
+          if (count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
+            return _alert('Bạn phải chọn công ty để nhập dữ liệu hoặc lỗi chọn công ty có chứa *');
+          }
           ReactDOM.unmountComponentAtNode(id_nhan_index);
           ReactDOM.render(React.createElement(Tra_ly_lich, null), id_nhan_index);
         }
@@ -281,6 +370,11 @@ function App(props) {
         if (document.getElementById('id_td_1').innerHTML == "Đăng nhập") {
           _alert('Bạn phải đăng nhập trước đã');
         } else {
+          var dem_string = $("#id_8").val();
+          var count_dem_string = dem_string.length;
+          if (count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
+            return _alert('Bạn phải chọn công ty để nhập dữ liệu hoặc lỗi chọn công ty có chứa *');
+          }
           ReactDOM.unmountComponentAtNode(id_nhan_index);
           ReactDOM.render(React.createElement(Ghep_phoi, null), id_nhan_index);
         }
@@ -294,28 +388,71 @@ function App(props) {
         if (document.getElementById('id_td_1').innerHTML == "Đăng nhập") {
           _alert('Bạn phải đăng nhập trước đã');
         } else {
+          var dem_string = $("#id_8").val();
+          var count_dem_string = dem_string.length;
+          if (count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
+            return _alert('Bạn phải chọn công ty để nhập dữ liệu hoặc lỗi chọn công ty có chứa *');
+          }
           ReactDOM.render(React.createElement(Danh_sach_heo, null), id_nhan_index);
         }
       });
     });
 
-    // test
+    // Báo cáo đóng chuồng heo thịt
 
     $(document).ready(function () {
       $("#id_td_17").click(function () {
-        $.post("10.php", {}, function (data) {
-          console.log(data);
-        });
+        if (document.getElementById('id_td_1').innerHTML == "Đăng nhập") {
+          _alert('Bạn phải đăng nhập trước đã');
+        } else {
+          var dem_string = $("#id_8").val();
+          var count_dem_string = dem_string.length;
+          if (count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
+            return _alert('Bạn phải chọn công ty để nhập dữ liệu hoặc lỗi chọn công ty có chứa *');
+          }
+          ReactDOM.unmountComponentAtNode(id_nhan_index);
+          ReactDOM.render(React.createElement(from_bao_cao_thang_thit, null), id_nhan_index);
+        }
       });
     });
 
-    // test
+    // Báo cáo diễn biến chuồng heo thịt
 
     $(document).ready(function () {
       $("#id_td_18").click(function () {
-        $.post("10.php", {}, function (data) {
-          console.log(data);
-        });
+        if (document.getElementById('id_td_1').innerHTML == "Đăng nhập") {
+          _alert('Bạn phải đăng nhập trước đã');
+        } else {
+          var dem_string = $("#id_8").val();
+          var count_dem_string = dem_string.length;
+          if (count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
+            return _alert('Bạn phải chọn công ty để nhập dữ liệu hoặc lỗi chọn công ty có chứa *');
+          }
+          ReactDOM.unmountComponentAtNode(id_nhan_index);
+          ReactDOM.render(React.createElement(from_dien_bien_thit, null), id_nhan_index);
+        }
+      });
+    });
+
+    // Cấu hình danh mục chuồng
+
+    $(document).ready(function () {
+      $("#id_td_19").click(function () {
+        if (document.getElementById('id_td_1').innerHTML == "Đăng nhập") {
+          _alert('Bạn phải đăng nhập trước đã');
+        } else {
+          var dem_string = $("#id_8").val();
+          var count_dem_string = dem_string.length;
+          if (count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
+            return _alert('Bạn phải chọn công ty để nhập dữ liệu hoặc lỗi chọn công ty có chứa *');
+          }
+          ReactDOM.unmountComponentAtNode(id_nhan_index);
+          ReactDOM.render( /*#__PURE__*/React.createElement(Setup_chuong, {
+            value: {
+              data: false
+            }
+          }), id_nhan_index);
+        }
       });
     });
 
@@ -326,10 +463,8 @@ function App(props) {
         if (document.getElementById('id_td_1').innerHTML == "Đăng nhập") {
           _alert('Bạn phải đăng nhập trước đã');
         } else {
-          document.getElementById("id_nhan_index").innerHTML = "<progress ></progress>";
-          $.post("from_them_user.php", {}, function (data) {
-            $("#id_nhan_index").html(data);
-          });
+          ReactDOM.unmountComponentAtNode(id_nhan_index);
+          ReactDOM.render( /*#__PURE__*/React.createElement(Add_user, null), id_nhan_index);
         }
       });
     });
@@ -346,7 +481,6 @@ function App(props) {
           if (count_dem_string > 50) {
             return _alert('Để khóa ngày sửa dữ liệu phải chọn từng công ty riêng. Không được chọn công ty có chứa * ');
           }
-          document.getElementById("id_nhan_index").innerHTML = "<progress ></progress>";
           $.post("from_khoa_ngay_nhap_du_lieu.php", {
             post8: $("#id_8").val()
           }, function (data) {
@@ -371,13 +505,19 @@ function App(props) {
     });
   }, []);
   return /*#__PURE__*/React.createElement("div", {
-    className: `  flex  h-screen flex-col `
+    className: ` text-base  flex  h-screen flex-col `
   }, /*#__PURE__*/React.createElement("div", {
-    className: `  flex bg-green-400 justify-between `
+    className: `  flex bg-green-400 justify-between p-1`
   }, /*#__PURE__*/React.createElement("div", {
-    id: "id_hide"
-  }, " Hide  "), /*#__PURE__*/React.createElement("div", null, " T\u1EADp \u0110o\xE0n DABACO Vi\u1EC7t Nam  "), /*#__PURE__*/React.createElement("select", {
-    id: "id_8"
+    className: ` flex  `
+  }, /*#__PURE__*/React.createElement("img", {
+    id: "id_hide",
+    src: "logo2.jpg",
+    alt: "",
+    className: ` h-6 `
+  }), /*#__PURE__*/React.createElement("div", null, " T\u1EADp \u0110o\xE0n DABACO Vi\u1EC7t Nam  ")), /*#__PURE__*/React.createElement("select", {
+    id: "id_8",
+    className: ` focus:outline-0  bg-green-400  `
   }), /*#__PURE__*/React.createElement("input", {
     id: "id_them_user",
     type: "button",
@@ -510,26 +650,62 @@ function App(props) {
       remove_color_click('id_menu');
       event.target.style.color = "blue";
     }
-  }, "test"), /*#__PURE__*/React.createElement("div", {
+  }, "B\xE1o c\xE1o \u0111\xF3ng chu\u1ED3ng"), /*#__PURE__*/React.createElement("div", {
     id: "id_td_18",
     className: ` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `,
     onClick: event => {
       remove_color_click('id_menu');
       event.target.style.color = "blue";
     }
-  }, "test")), /*#__PURE__*/React.createElement("div", {
-    className: ` flex h-full grow  bg-gray-100  `,
+  }, "B\xE1o c\xE1o di\u1EC5n bi\u1EBFn \u0111\xE0n heo"), /*#__PURE__*/React.createElement("div", {
+    id: "id_td_19",
+    className: ` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `,
+    onClick: event => {
+      remove_color_click('id_menu');
+      event.target.style.color = "blue";
+    }
+  }, "c\u1EA5u h\xECnh chu\u1ED3ng")), /*#__PURE__*/React.createElement("div", {
+    className: ` flex h-full grow  bg-gray-100 text-sm `,
     id: "id_nhan_index"
-  }, "-------------------")), /*#__PURE__*/React.createElement("table", {
-    class: "footer"
-  }, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", {
-    rowspan: "2",
-    width: "25"
-  }, /*#__PURE__*/React.createElement("img", {
-    src: "logo2.jpg",
-    alt: "",
-    height: "20"
-  })), " ", /*#__PURE__*/React.createElement("td", null, "35 Ly Thai To Street - Bac Ninh City - Bac Ninh Province - Viet Nam")), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, " Tel: +84 (241) 3826077 - 3895111. Fax: +84 (241) 3826095 - 3821377"))));
+  }, "-------------------")));
+}
+;
+function Button_detele() {
+  return /*#__PURE__*/React.createElement("button", {
+    class: "flex w-full h-full rounded justify-center _shadow bg-rose-500 hover:bg-rose-800 "
+  }, /*#__PURE__*/React.createElement("svg", {
+    preserveAspectRatio: "none",
+    class: "fill-white",
+    xmlns: "http://www.w3.org/2000/svg",
+    x: "0px",
+    y: "0px",
+    width: "20",
+    height: "20",
+    viewBox: "0 0 24 24"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M 10 2 L 9 3 L 3 3 L 3 5 L 21 5 L 21 3 L 15 3 L 14 2 L 10 2 z M 4.3652344 7 L 5.8925781 20.263672 C 6.0245781 21.253672 6.877 22 7.875 22 L 16.123047 22 C 17.121047 22 17.974422 21.254859 18.107422 20.255859 L 19.634766 7 L 4.3652344 7 z"
+  })), /*#__PURE__*/React.createElement("div", {
+    class: "text-white  h-full flex  items-start"
+  }, "  Delete "));
+}
+;
+function Button_edit() {
+  return /*#__PURE__*/React.createElement("button", {
+    class: "w-full h-full flex justify-center  bg-green-600 hover:bg-amber-600 "
+  }, /*#__PURE__*/React.createElement("svg", {
+    preserveAspectRatio: "none",
+    class: "fill-white",
+    xmlns: "http://www.w3.org/2000/svg",
+    x: "0px",
+    y: "0px",
+    width: "20",
+    height: "20",
+    viewBox: "0 0 50 50"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M 46.574219 3.425781 C 45.625 2.476563 44.378906 2 43.132813 2 C 41.886719 2 40.640625 2.476563 39.691406 3.425781 C 39.691406 3.425781 39.621094 3.492188 39.53125 3.585938 C 39.523438 3.59375 39.511719 3.597656 39.503906 3.605469 L 4.300781 38.804688 C 4.179688 38.929688 4.089844 39.082031 4.042969 39.253906 L 2.035156 46.742188 C 1.941406 47.085938 2.039063 47.453125 2.292969 47.707031 C 2.484375 47.898438 2.738281 48 3 48 C 3.085938 48 3.171875 47.988281 3.257813 47.964844 L 10.746094 45.957031 C 10.917969 45.910156 11.070313 45.820313 11.195313 45.695313 L 46.394531 10.5 C 46.40625 10.488281 46.410156 10.472656 46.417969 10.460938 C 46.507813 10.371094 46.570313 10.308594 46.570313 10.308594 C 48.476563 8.40625 48.476563 5.324219 46.574219 3.425781 Z M 45.160156 4.839844 C 46.277344 5.957031 46.277344 7.777344 45.160156 8.894531 C 44.828125 9.222656 44.546875 9.507813 44.304688 9.75 L 40.25 5.695313 C 40.710938 5.234375 41.105469 4.839844 41.105469 4.839844 C 41.644531 4.296875 42.367188 4 43.132813 4 C 43.898438 4 44.617188 4.300781 45.160156 4.839844 Z M 5.605469 41.152344 L 8.847656 44.394531 L 4.414063 45.585938 Z"
+  })), /*#__PURE__*/React.createElement("div", {
+    class: "text-white  h-full flex items-start"
+  }, "  Edit "));
 }
 ;
 function Cai_sua() {
@@ -633,7 +809,7 @@ function Cai_sua() {
     });
   }, []);
   return /*#__PURE__*/React.createElement("div", {
-    className: `flex flex-col w-full h-full border bg-gray-100   border-sky-500 `
+    className: `flex flex-col w-full h-full  bg-gray-100  `
   }, /*#__PURE__*/React.createElement("input", {
     id: "id_gui_research",
     type: "button",
@@ -659,6 +835,78 @@ function Cai_sua() {
     id: "id_3",
     className: `  border border-sky-500 `
   }), /*#__PURE__*/React.createElement("input", {
+    type: "button",
+    value: "Th\xEAm",
+    id: "id_gui",
+    className: ` mt-2 mb-2  _shadow rounded w-full  bg-sky-500 hover:bg-sky-700 h-8 flex items-center justify-center pl-2  font-medium `
+  })), /*#__PURE__*/React.createElement("div", {
+    id: "id_nhan",
+    className: ` text-sm grow ml-1 `
+  })));
+}
+;
+function Dang_ky() {
+  useEffect(() => {
+    id_gui.onclick = function () {
+      let ten_dang_nhap = id_1.value;
+      let password = id_2.value;
+      let ten_cong_ty = id_4.value;
+      if (ten_dang_nhap == null || ten_dang_nhap == "" || password == null || password == "" || ten_cong_ty == null || ten_cong_ty == "") {
+        return _alert("Bạn phải điền đầy đủ thông tin hoặc lỗi chọn công ty có chứa *");
+      } else {
+        $.post("dang_ky.php", {
+          post1: ten_dang_nhap,
+          post2: password,
+          post3: ten_cong_ty
+        }, function (data) {
+          if (data.trim() === "ok") {
+            _alert("Bạn đã đăng ký thành công");
+            ReactDOM.render( /*#__PURE__*/React.createElement(Login, null), id_nhan_index);
+            id_1.textContent = ten_dang_nhap;
+            id_2.value = password;
+          } else {
+            if (data.trim() === "Đã có người đăng ký tài khoản này rồi bạn thay đổi lại tên hoặc password") {
+              _alert("Đã có người đăng ký tài khoản này rồi bạn thay đổi lại tên hoặc password");
+            } else {
+              // lỗi kết nối mysql , hoặc biến php lỗi cú pháp
+
+              console.log(data);
+            }
+          }
+        });
+      }
+    };
+  }, []);
+  return /*#__PURE__*/React.createElement("div", {
+    className: `flex flex-col w-full h-full  bg-gray-100  `
+  }, /*#__PURE__*/React.createElement("div", {
+    className: `ml-1 border-b border-sky-500 mr-1`
+  }, " From \u0111\u0103ng k\xFD "), /*#__PURE__*/React.createElement("div", {
+    className: ` flex  grow  mt-2 `
+  }, /*#__PURE__*/React.createElement("div", {
+    className: ` flex flex-col gap-2 shrink-0 ml-2 `
+  }, /*#__PURE__*/React.createElement("input", {
+    id: "id_1",
+    placeholder: "T\xEAn \u0111\u0103ng nh\u1EADp",
+    className: `  border border-sky-500 `
+  }), /*#__PURE__*/React.createElement("input", {
+    id: "id_2",
+    type: "password",
+    placeholder: "Password",
+    className: `  border border-sky-500 `
+  }), /*#__PURE__*/React.createElement("select", {
+    id: "id_3"
+  }, /*#__PURE__*/React.createElement("option", {
+    value: "R"
+  }, "\u0110\u0103ng k\xFD cho 1 c\xF4ng ty"), /*#__PURE__*/React.createElement("option", {
+    value: "Rm"
+  }, "\u0110\u0103ng k\xFD cho t\u1EADp \u0111o\xE0n")), /*#__PURE__*/React.createElement("div", {
+    id: "id_cong_ty_dang_ky"
+  }, /*#__PURE__*/React.createElement("input", {
+    id: "id_4",
+    placeholder: "T\xEAn c\xF4ng ty",
+    className: `  border border-sky-500 `
+  })), /*#__PURE__*/React.createElement("input", {
     type: "button",
     value: "Th\xEAm",
     id: "id_gui",
@@ -945,7 +1193,7 @@ function Danh_sach_heo(props) {
     });
   }, []);
   return /*#__PURE__*/React.createElement("div", {
-    className: `text-sm flex flex-row h-full  grow border bg-gray-100   border-sky-500 `
+    className: `text-sm flex flex-row h-full  grow  bg-gray-100  `
   }, /*#__PURE__*/React.createElement("div", {
     id: "id_ds",
     className: `  flex-shrink-0 w-[225px] h-full  `
@@ -1524,7 +1772,7 @@ function De() {
     });
   }, []);
   return /*#__PURE__*/React.createElement("div", {
-    className: ` flex flex-col grow h-full w-full border bg-gray-100   border-sky-500 `
+    className: ` flex flex-col grow h-full w-full  bg-gray-100  `
   }, /*#__PURE__*/React.createElement("input", {
     id: "id_gui_research",
     type: "button",
@@ -1722,7 +1970,7 @@ function Duc() {
       });
     }, []);
     return /*#__PURE__*/React.createElement("div", {
-      className: ` flex grow h-full w-full `
+      className: `mt-2 flex grow h-full w-full `
     }, /*#__PURE__*/React.createElement("div", {
       className: `shrink-0 ml-2 `
     }, /*#__PURE__*/React.createElement("div", null, " M\xE3 th\u1EBB Tai:  "), /*#__PURE__*/React.createElement("input", {
@@ -1816,7 +2064,7 @@ function Duc() {
       });
     }, []);
     return /*#__PURE__*/React.createElement("div", {
-      className: ` flex grow h-full w-full   `
+      className: `mt-2 flex grow h-full w-full   `
     }, /*#__PURE__*/React.createElement("div", {
       className: `shrink-0 ml-2 `
     }, /*#__PURE__*/React.createElement("div", null, " M\xE3 th\u1EBB :  "), /*#__PURE__*/React.createElement("input", {
@@ -1870,22 +2118,22 @@ function Duc() {
     id_gui_1_click();
   }, []);
   return /*#__PURE__*/React.createElement("div", {
-    className: `flex h-full w-full flex-col border bg-gray-100   border-sky-500 `
+    className: `flex h-full w-full flex-col  bg-gray-100  `
   }, /*#__PURE__*/React.createElement("div", {
-    className: `flex  border bg-orange-200  border-sky-500 `
+    className: `flex  `
   }, /*#__PURE__*/React.createElement("input", {
     type: "button",
     value: "Theo d\xF5i heo \u0111\u1EF1c nh\u1EADp \u0111\xE0n",
     id: "id_gui_1",
-    className: ` w-[220px]  bg-orange-200 hover:bg-sky-700 h-6 flex  pl-2 pr-2 `
+    className: ` w-[220px]  hover:bg-slate-300 hover:bg-opacity-50 h-6 flex  pl-2 pr-2 `
   }), /*#__PURE__*/React.createElement("input", {
     type: "button",
     value: "Theo d\xF5i heo \u0111\u1EF1c ch\u1EBFt, lo\u1EA1i",
     id: "id_gui_2",
-    className: ` w-[220px]  bg-orange-200 hover:bg-sky-700 h-6 flex  pr-2 `
+    className: ` w-[220px]  hover:bg-slate-300 hover:bg-opacity-50 h-6 flex  pr-2 `
   })), /*#__PURE__*/React.createElement("div", {
     id: "id_nhan_hb",
-    className: `flex grow w-full border bg-gray-100   border-sky-500 `
+    className: `flex grow w-full  bg-gray-100   `
   }, "   "));
 }
 ;
@@ -1893,34 +2141,6 @@ function from_bao_cao_thang(props) {
   useEffect(() => {
     let width_table = document.getElementById('id_nhan').getBoundingClientRect().width;
     let height_table = document.getElementById('id_nhan').getBoundingClientRect().height;
-    var year = new Date().getFullYear();
-    document.getElementById("id_6_1").innerHTML = year;
-    document.getElementById('id_6_1').value = year;
-    $(document).ready(function () {
-      $("#id_6_year").click(function () {
-        var n = new Date().getFullYear();
-        document.getElementById("id_6_10").innerHTML = n - 9;
-        document.getElementById("id_6_10").value = n - 9;
-        document.getElementById("id_6_9").innerHTML = n - 8;
-        document.getElementById("id_6_9").value = n - 8;
-        document.getElementById("id_6_8").innerHTML = n - 7;
-        document.getElementById("id_6_8").value = n - 7;
-        document.getElementById("id_6_7").innerHTML = n - 6;
-        document.getElementById("id_6_7").value = n - 6;
-        document.getElementById("id_6_6").innerHTML = n - 5;
-        document.getElementById("id_6_6").value = n - 5;
-        document.getElementById("id_6_5").innerHTML = n - 4;
-        document.getElementById("id_6_5").value = n - 4;
-        document.getElementById("id_6_4").innerHTML = n - 3;
-        document.getElementById("id_6_4").value = n - 3;
-        document.getElementById("id_6_3").innerHTML = n - 2;
-        document.getElementById("id_6_3").value = n - 2;
-        document.getElementById("id_6_2").innerHTML = n - 1;
-        document.getElementById("id_6_2").value = n - 1;
-        document.getElementById("id_6_1").innerHTML = n;
-        document.getElementById("id_6_1").value = n;
-      });
-    });
     function bao_cao_thang() {
       id_gui.style.color = "blue";
       id_gui_1.style.color = "black";
@@ -1929,7 +2149,7 @@ function from_bao_cao_thang(props) {
       } catch (error) {}
       ReactDOM.unmountComponentAtNode(id_nhan);
       $.post(gobal_post_month, {
-        post1: $("#id_6_year").val(),
+        post1: id_year.children[0].value,
         post8: $("#id_8").val()
       }, function (data) {
         if (data.trim() === "Chưa có dữ liệu") {
@@ -1954,6 +2174,9 @@ function from_bao_cao_thang(props) {
       });
     }
     id_gui.onclick = bao_cao_thang;
+
+    //-----------------------------------------------------------------------------------------------------------------------------------------
+
     $(document).ready(function () {
       $("#id_gui_1").click(function () {
         id_gui_1.style.color = "blue";
@@ -1963,7 +2186,7 @@ function from_bao_cao_thang(props) {
         } catch (error) {}
         ReactDOM.unmountComponentAtNode(id_nhan);
         $.post(gobal_post, {
-          post1: $("#id_6_year").val(),
+          post1: id_year.children[0].value,
           post8: $("#id_8").val()
         }, function (data) {
           if (data.trim() === "Chưa có dữ liệu") {
@@ -1988,57 +2211,226 @@ function from_bao_cao_thang(props) {
         });
       });
     });
+    //---------------------------------------------------------------------------------------------------------------------------
+    id_year.children[0].style.background = 'rgb(236,252,203)';
   }, []);
   return /*#__PURE__*/React.createElement("div", {
     className: 'grow flex flex-col flex-wrap  '
   }, /*#__PURE__*/React.createElement("div", {
-    className: ' w-full  '
-  }, "  ", /*#__PURE__*/React.createElement("select", {
-    id: "id_6_year"
-  }, /*#__PURE__*/React.createElement("option", {
-    id: "id_6_1",
-    value: ""
-  }), /*#__PURE__*/React.createElement("option", {
-    id: "id_6_2",
-    value: ""
-  }), /*#__PURE__*/React.createElement("option", {
-    id: "id_6_3",
-    value: ""
-  }), /*#__PURE__*/React.createElement("option", {
-    id: "id_6_4",
-    value: ""
-  }), /*#__PURE__*/React.createElement("option", {
-    id: "id_6_5",
-    value: ""
-  }), /*#__PURE__*/React.createElement("option", {
-    id: "id_6_6",
-    value: ""
-  }), /*#__PURE__*/React.createElement("option", {
-    id: "id_6_7",
-    value: ""
-  }), /*#__PURE__*/React.createElement("option", {
-    id: "id_6_8",
-    value: ""
-  }), /*#__PURE__*/React.createElement("option", {
-    id: "id_6_9",
-    value: ""
-  }), /*#__PURE__*/React.createElement("option", {
-    id: "id_6_10",
-    value: ""
-  })), " ", /*#__PURE__*/React.createElement("input", {
+    className: ' w-full flex bg-lime-100 '
+  }, /*#__PURE__*/React.createElement("div", {
+    id: "id_year",
+    className: ` w-20  `
+  }, " ", /*#__PURE__*/React.createElement(Select_nam, null), " "), /*#__PURE__*/React.createElement("input", {
     id: "id_gui",
     type: "button",
-    value: "Tra theo th\xE1ng"
-  }), " ", /*#__PURE__*/React.createElement("input", {
+    value: "Tra theo th\xE1ng",
+    className: ` px-4 w-40  bg-lime-100`
+  }), /*#__PURE__*/React.createElement("input", {
     id: "id_gui_1",
     type: "button",
-    value: "Tra theo tu\u1EA7n"
+    value: "Tra theo tu\u1EA7n",
+    className: ` px-4 w-40  bg-lime-100`
   })), /*#__PURE__*/React.createElement("div", {
-    className: 'text-sm w-full grow ',
+    className: ' w-full grow ',
     id: "id_nhan"
   }, "   "));
 }
 ;
+function from_bao_cao_thang_thit(props) {
+  useEffect(() => {
+    function bao_cao_thang() {
+      let width_table = document.getElementById('id_nhan').getBoundingClientRect().width;
+      let height_table = document.getElementById('id_nhan').getBoundingClientRect().height;
+      id_gui.style.color = "blue";
+      //  id_gui_1.style.color = "black";
+
+      $.post("/python/thit_12", {
+        post1: id_year.children[0].value,
+        post8: $("#id_8").val()
+      }, function (data) {
+        let string_array = data.replaceAll("(", "[").replaceAll(")", "]");
+        let array = eval(string_array);
+        console.log(array);
+        ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
+        ReactDOM.render( /*#__PURE__*/React.createElement(Table_nguoc, {
+          value: {
+            data: array,
+            width: width_table,
+            height: height_table
+          }
+        }), document.getElementById('id_nhan'));
+      });
+    }
+    id_gui.onclick = bao_cao_thang;
+
+    //-------------------------------------------------------------------------------------------------------------------------
+    id_year.children[0].style.background = 'rgb(236,252,203)';
+  }, []);
+  return /*#__PURE__*/React.createElement("div", {
+    className: 'grow flex flex-col flex-wrap  '
+  }, /*#__PURE__*/React.createElement("div", {
+    className: ' w-full flex bg-lime-100'
+  }, /*#__PURE__*/React.createElement("div", {
+    id: "id_year",
+    className: ` w-24  `
+  }, " ", /*#__PURE__*/React.createElement(Select_nam, null), " "), /*#__PURE__*/React.createElement("input", {
+    id: "id_gui",
+    className: ` w-44  bg-lime-100`,
+    type: "button",
+    value: "Tra"
+  })), /*#__PURE__*/React.createElement("div", {
+    className: ' w-full grow ',
+    id: "id_nhan"
+  }, "   "));
+}
+;
+function from_dien_bien_thit(props) {
+  useEffect(() => {
+    function bao_cao_nam() {
+      let width_table = document.getElementById('id_nhan').getBoundingClientRect().width;
+      let height_table = document.getElementById('id_nhan').getBoundingClientRect().height;
+      id_gui.style.color = "blue";
+      id_gui_tuan.children[0].style.color = "black";
+      id_gui_tuan.children[0].options[0].text = "Tra theo tuần";
+      id_gui_thang.children[0].options[0].text = "Tra theo tháng";
+      id_gui_thang.children[0].style.color = "black";
+      $.post("/python/thit_dien_bien", {
+        post1: id_year.children[0].value,
+        post8: $("#id_8").val(),
+        post2: "00-00"
+      }, function (data) {
+        let string_array = data.replaceAll("(", "[").replaceAll(")", "]");
+        let array = eval(string_array);
+        console.log(array);
+        ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
+        ReactDOM.render( /*#__PURE__*/React.createElement(Table, {
+          value: {
+            data: array,
+            width: width_table,
+            height: height_table
+          }
+        }), document.getElementById('id_nhan'));
+      });
+    }
+    id_gui.onclick = bao_cao_nam;
+
+    //------------------------------------------------------------------------------------------------------------
+
+    function bao_cao_thang() {
+      let select_value = id_gui_thang.children[0].value;
+      if (select_value === "") {} else {
+        let width_table = document.getElementById('id_nhan').getBoundingClientRect().width;
+        let height_table = document.getElementById('id_nhan').getBoundingClientRect().height;
+        id_gui_thang.children[0].style.color = "blue";
+        id_gui.style.color = "black";
+        id_gui_tuan.children[0].style.color = "black";
+        id_gui_tuan.children[0].options[0].text = "Tra theo tuần";
+        $.post("/python/thit_dien_bien", {
+          post1: id_year.children[0].value,
+          post8: $("#id_8").val(),
+          post2: select_value
+        }, function (data) {
+          let string_array = data.replaceAll("(", "[").replaceAll(")", "]");
+          let array = eval(string_array);
+          console.log(array);
+          ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
+          ReactDOM.render( /*#__PURE__*/React.createElement(Table, {
+            value: {
+              data: array,
+              width: width_table,
+              height: height_table
+            }
+          }), document.getElementById('id_nhan'));
+          id_gui_thang.children[0].options[0].text = "Tháng " + Number(select_value.slice(-2));
+          id_gui_thang.children[0].value = '';
+        });
+      }
+    }
+    id_gui_thang.onclick = bao_cao_thang;
+    //---------------------------------------------------------------------------------------------------------------------------------------
+    function bao_cao_tuan() {
+      let select_value = id_gui_tuan.children[0].value;
+      if (select_value === "") {} else {
+        let width_table = document.getElementById('id_nhan').getBoundingClientRect().width;
+        let height_table = document.getElementById('id_nhan').getBoundingClientRect().height;
+        id_gui_tuan.children[0].style.color = "blue";
+        id_gui.style.color = "black";
+        id_gui_thang.children[0].style.color = "black";
+        id_gui_thang.children[0].options[0].text = "Tra theo tháng";
+        $.post("/python/thit_dien_bien", {
+          post1: id_year.children[0].value,
+          post8: $("#id_8").val(),
+          post2: select_value
+        }, function (data) {
+          let string_array = data.replaceAll("(", "[").replaceAll(")", "]");
+          let array = eval(string_array);
+          console.log(array);
+          ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
+          ReactDOM.render( /*#__PURE__*/React.createElement(Table, {
+            value: {
+              data: array,
+              width: width_table,
+              height: height_table
+            }
+          }), document.getElementById('id_nhan'));
+          id_gui_tuan.children[0].options[0].text = "Tuần " + Number(select_value.slice(0, 2));
+          id_gui_tuan.children[0].value = '';
+        });
+      }
+    }
+    id_gui_tuan.onclick = bao_cao_tuan;
+    //-----------------------------------------------------------------------------------------------------------------------
+
+    id_year.children[0].style.background = 'rgb(236,252,203)';
+    id_gui_thang.children[0].style.background = 'rgb(236,252,203)';
+    id_gui_tuan.children[0].style.background = 'rgb(236,252,203)';
+  }, []);
+  return /*#__PURE__*/React.createElement("div", {
+    className: 'grow flex flex-col flex-wrap  '
+  }, /*#__PURE__*/React.createElement("div", {
+    className: ' w-full flex bg-lime-100 '
+  }, /*#__PURE__*/React.createElement("div", {
+    id: "id_year",
+    className: ` w-20  bg-lime-100 `
+  }, " ", /*#__PURE__*/React.createElement(Select_nam, null), " "), /*#__PURE__*/React.createElement("input", {
+    id: "id_gui",
+    className: `px-4 w-40  bg-lime-100`,
+    type: "button",
+    value: "Tra theo n\u0103m"
+  }), /*#__PURE__*/React.createElement("div", {
+    id: "id_gui_thang",
+    className: `px-4 w-40  bg-lime-100 `
+  }, "  ", /*#__PURE__*/React.createElement(Select_thang, null), " "), /*#__PURE__*/React.createElement("div", {
+    id: "id_gui_tuan",
+    className: `px-4 w-40  bg-lime-100 `
+  }, " ", /*#__PURE__*/React.createElement(Select_tuan, null), " ")), /*#__PURE__*/React.createElement("div", {
+    className: ' w-full grow ',
+    id: "id_nhan"
+  }, "   "));
+}
+;
+function getCookie(name) {
+  // Split cookie string and get all individual name=value pairs in an array
+  var cookieArr = document.cookie.split(";");
+
+  // Loop through the array elements
+  for (var i = 0; i < cookieArr.length; i++) {
+    var cookiePair = cookieArr[i].split("=");
+
+    /* Removing whitespace at the beginning of the cookie name
+    and compare it with the given string */
+    if (name == cookiePair[0].trim()) {
+      // Decode the cookie value and return
+      return decodeURIComponent(cookiePair[1]);
+    }
+  }
+
+  // Return null if not found
+  return null;
+}
+
+//-------------------------------------------------------------------------------------------------------------
 function path_match(string) {
   if (string.slice(-1) === '/') {
     return string.slice(0, -1);
@@ -2117,6 +2509,8 @@ function _alert(componet_react) {
       ref_thoat.current.focus();
     }, []);
     return /*#__PURE__*/React.createElement("div", {
+      className: 'absolute flex  w-full h-full top-0 left-0 bg-slate-400 bg-opacity-50'
+    }, /*#__PURE__*/React.createElement("div", {
       className: 'flex flex-wrap absolute rounded border border-solid border-slate-400 bg-amber-400  _shadow ',
       style: {
         top: '10%',
@@ -2135,7 +2529,7 @@ function _alert(componet_react) {
         ReactDOM.unmountComponentAtNode(_div);
         _div.remove();
       }
-    })));
+    }))));
   }
   return ReactDOM.render( /*#__PURE__*/React.createElement(Alert, null), _div);
 }
@@ -2187,6 +2581,484 @@ function google_login(client_id, in_dom) {
   });
 }
 
+//-------------------------------------------------------------------------------------
+
+function Select_thang() {
+  return /*#__PURE__*/React.createElement("select", {
+    style: {
+      color: "black"
+    },
+    className: `focus:outline-0 w-full  `
+  }, /*#__PURE__*/React.createElement("option", {
+    style: {
+      color: "black"
+    },
+    value: ""
+  }, "Tra theo th\xE1ng"), /*#__PURE__*/React.createElement("option", {
+    style: {
+      color: "black"
+    },
+    value: "00-01"
+  }, "Th\xE1ng 1"), /*#__PURE__*/React.createElement("option", {
+    style: {
+      color: "black"
+    },
+    value: "00-02"
+  }, "Th\xE1ng 2"), /*#__PURE__*/React.createElement("option", {
+    style: {
+      color: "black"
+    },
+    value: "00-03"
+  }, "Th\xE1ng 3"), /*#__PURE__*/React.createElement("option", {
+    style: {
+      color: "black"
+    },
+    value: "00-04"
+  }, "Th\xE1ng 4"), /*#__PURE__*/React.createElement("option", {
+    style: {
+      color: "black"
+    },
+    value: "00-05"
+  }, "Th\xE1ng 5"), /*#__PURE__*/React.createElement("option", {
+    style: {
+      color: "black"
+    },
+    value: "00-06"
+  }, "Th\xE1ng 6"), /*#__PURE__*/React.createElement("option", {
+    style: {
+      color: "black"
+    },
+    value: "00-07"
+  }, "Th\xE1ng 7"), /*#__PURE__*/React.createElement("option", {
+    style: {
+      color: "black"
+    },
+    value: "00-08"
+  }, "Th\xE1ng 8"), /*#__PURE__*/React.createElement("option", {
+    style: {
+      color: "black"
+    },
+    value: "00-09"
+  }, "Th\xE1ng 9"), /*#__PURE__*/React.createElement("option", {
+    style: {
+      color: "black"
+    },
+    value: "00-10"
+  }, "Th\xE1ng 10"), /*#__PURE__*/React.createElement("option", {
+    style: {
+      color: "black"
+    },
+    value: "00-11"
+  }, "Th\xE1ng 11"), /*#__PURE__*/React.createElement("option", {
+    style: {
+      color: "black"
+    },
+    value: "00-12"
+  }, "Th\xE1ng 12"));
+}
+//-------------------------------------------------------------------------------------
+
+function Select_nam() {
+  let ref_select_year = useRef(null);
+  useEffect(() => {
+    let n = new Date().getFullYear();
+    ref_select_year.current.children[0].innerHTML = n;
+    ref_select_year.current.children[0].value = n;
+    ref_select_year.current.onclick = function () {
+      for (let index = 0; index < 20; index++) {
+        ref_select_year.current.children[index].innerHTML = n - index;
+        ref_select_year.current.children[index].value = n - index;
+      }
+    };
+  }, []);
+  return /*#__PURE__*/React.createElement("select", {
+    ref: ref_select_year,
+    style: {
+      color: "black"
+    },
+    className: `focus:outline-0 w-full  `
+  }, /*#__PURE__*/React.createElement("option", {
+    style: {
+      color: "black"
+    },
+    value: "1"
+  }, "11"), /*#__PURE__*/React.createElement("option", {
+    style: {
+      color: "black"
+    },
+    value: "2"
+  }, "12"), /*#__PURE__*/React.createElement("option", {
+    style: {
+      color: "black"
+    },
+    value: "3"
+  }, "13"), /*#__PURE__*/React.createElement("option", {
+    style: {
+      color: "black"
+    },
+    value: ""
+  }, "11"), /*#__PURE__*/React.createElement("option", {
+    style: {
+      color: "black"
+    },
+    value: ""
+  }, "11"), /*#__PURE__*/React.createElement("option", {
+    style: {
+      color: "black"
+    },
+    value: ""
+  }, "11"), /*#__PURE__*/React.createElement("option", {
+    style: {
+      color: "black"
+    },
+    value: ""
+  }, "11"), /*#__PURE__*/React.createElement("option", {
+    style: {
+      color: "black"
+    },
+    value: ""
+  }, "11"), /*#__PURE__*/React.createElement("option", {
+    style: {
+      color: "black"
+    },
+    value: ""
+  }, "11"), /*#__PURE__*/React.createElement("option", {
+    style: {
+      color: "black"
+    },
+    value: ""
+  }, "11"), /*#__PURE__*/React.createElement("option", {
+    style: {
+      color: "black"
+    },
+    value: ""
+  }, "11"), /*#__PURE__*/React.createElement("option", {
+    style: {
+      color: "black"
+    },
+    value: ""
+  }, "11"), /*#__PURE__*/React.createElement("option", {
+    style: {
+      color: "black"
+    },
+    value: ""
+  }, "11"), /*#__PURE__*/React.createElement("option", {
+    style: {
+      color: "black"
+    },
+    value: ""
+  }, "11"), /*#__PURE__*/React.createElement("option", {
+    style: {
+      color: "black"
+    },
+    value: ""
+  }, "11"), /*#__PURE__*/React.createElement("option", {
+    style: {
+      color: "black"
+    },
+    value: ""
+  }, "11"), /*#__PURE__*/React.createElement("option", {
+    style: {
+      color: "black"
+    },
+    value: ""
+  }, "11"), /*#__PURE__*/React.createElement("option", {
+    style: {
+      color: "black"
+    },
+    value: ""
+  }, "11"), /*#__PURE__*/React.createElement("option", {
+    style: {
+      color: "black"
+    },
+    value: ""
+  }, "11"), /*#__PURE__*/React.createElement("option", {
+    style: {
+      color: "black"
+    },
+    value: ""
+  }, "11"));
+}
+
+//--------------------------------------------------------------------------------------------------
+function Select_tuan() {
+  return /*#__PURE__*/React.createElement("select", {
+    style: {
+      color: "black"
+    },
+    className: ` w-full focus:outline-0 `
+  }, /*#__PURE__*/React.createElement("option", {
+    value: "",
+    style: {
+      color: "black"
+    }
+  }, "Tra theo tu\u1EA7n"), /*#__PURE__*/React.createElement("option", {
+    value: "01-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 1"), /*#__PURE__*/React.createElement("option", {
+    value: "02-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 2"), /*#__PURE__*/React.createElement("option", {
+    value: "03-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 3"), /*#__PURE__*/React.createElement("option", {
+    value: "04-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 4"), /*#__PURE__*/React.createElement("option", {
+    value: "05-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 5"), /*#__PURE__*/React.createElement("option", {
+    value: "06-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 6"), /*#__PURE__*/React.createElement("option", {
+    value: "07-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 7"), /*#__PURE__*/React.createElement("option", {
+    value: "08-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 8"), /*#__PURE__*/React.createElement("option", {
+    value: "09-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 9"), /*#__PURE__*/React.createElement("option", {
+    value: "10-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 10"), /*#__PURE__*/React.createElement("option", {
+    value: "11-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 11"), /*#__PURE__*/React.createElement("option", {
+    value: "12-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 12"), /*#__PURE__*/React.createElement("option", {
+    value: "13-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 13"), /*#__PURE__*/React.createElement("option", {
+    value: "14-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 14"), /*#__PURE__*/React.createElement("option", {
+    value: "15-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 15"), /*#__PURE__*/React.createElement("option", {
+    value: "16-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 16"), /*#__PURE__*/React.createElement("option", {
+    value: "17-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 17"), /*#__PURE__*/React.createElement("option", {
+    value: "18-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 18"), /*#__PURE__*/React.createElement("option", {
+    value: "19-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 19"), /*#__PURE__*/React.createElement("option", {
+    value: "20-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 20"), /*#__PURE__*/React.createElement("option", {
+    value: "21-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 21"), /*#__PURE__*/React.createElement("option", {
+    value: "22-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 22"), /*#__PURE__*/React.createElement("option", {
+    value: "23-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 23"), /*#__PURE__*/React.createElement("option", {
+    value: "24-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 24"), /*#__PURE__*/React.createElement("option", {
+    value: "25-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 25"), /*#__PURE__*/React.createElement("option", {
+    value: "26-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 26"), /*#__PURE__*/React.createElement("option", {
+    value: "27-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 27"), /*#__PURE__*/React.createElement("option", {
+    value: "28-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 28"), /*#__PURE__*/React.createElement("option", {
+    value: "29-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 29"), /*#__PURE__*/React.createElement("option", {
+    value: "30-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 30"), /*#__PURE__*/React.createElement("option", {
+    value: "31-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 31"), /*#__PURE__*/React.createElement("option", {
+    value: "32-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 32"), /*#__PURE__*/React.createElement("option", {
+    value: "33-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 33"), /*#__PURE__*/React.createElement("option", {
+    value: "34-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 34"), /*#__PURE__*/React.createElement("option", {
+    value: "35-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 35"), /*#__PURE__*/React.createElement("option", {
+    value: "36-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 36"), /*#__PURE__*/React.createElement("option", {
+    value: "37-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 37"), /*#__PURE__*/React.createElement("option", {
+    value: "38-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 38"), /*#__PURE__*/React.createElement("option", {
+    value: "39-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 39"), /*#__PURE__*/React.createElement("option", {
+    value: "40-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 40"), /*#__PURE__*/React.createElement("option", {
+    value: "41-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 41"), /*#__PURE__*/React.createElement("option", {
+    value: "42-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 42"), /*#__PURE__*/React.createElement("option", {
+    value: "43-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 43"), /*#__PURE__*/React.createElement("option", {
+    value: "44-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 44"), /*#__PURE__*/React.createElement("option", {
+    value: "45-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 45"), /*#__PURE__*/React.createElement("option", {
+    value: "46-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 46"), /*#__PURE__*/React.createElement("option", {
+    value: "47-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 47"), /*#__PURE__*/React.createElement("option", {
+    value: "48-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 48"), /*#__PURE__*/React.createElement("option", {
+    value: "49-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 49"), /*#__PURE__*/React.createElement("option", {
+    value: "50-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 50"), /*#__PURE__*/React.createElement("option", {
+    value: "51-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 51"), /*#__PURE__*/React.createElement("option", {
+    value: "52-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 52"), /*#__PURE__*/React.createElement("option", {
+    value: "53-00",
+    style: {
+      color: "black"
+    }
+  }, "Tu\u1EA7n 53"));
+}
 function Ghep_phoi(props) {
   useEffect(() => {
     document.getElementById("id1").focus();
@@ -2389,7 +3261,7 @@ function Ghep_phoi(props) {
     });
   }, []);
   return /*#__PURE__*/React.createElement("div", {
-    className: `flex flex-col w-full h-full border bg-gray-100   border-sky-500 `
+    className: `flex flex-col w-full h-full  bg-gray-100   `
   }, /*#__PURE__*/React.createElement("div", {
     className: `ml-1 border-b border-sky-500 mr-1`
   }, " Nh\u1EADp s\u1ED1 tai c\u1EA7n gh\xE9p ph\u1ED1i "), /*#__PURE__*/React.createElement("div", {
@@ -2571,7 +3443,7 @@ function Hau_bi() {
       });
     }, []);
     return /*#__PURE__*/React.createElement("div", {
-      className: ` flex grow h-full w-full  `
+      className: `mt-2 flex grow h-full w-full  `
     }, /*#__PURE__*/React.createElement("div", {
       className: `shrink-0 ml-2 `
     }, /*#__PURE__*/React.createElement("div", null, " M\xE3 th\u1EBB Tai:  "), /*#__PURE__*/React.createElement("input", {
@@ -2668,7 +3540,7 @@ function Hau_bi() {
       });
     }, []);
     return /*#__PURE__*/React.createElement("div", {
-      className: ` flex grow h-full w-full  `
+      className: `mt-2 flex grow h-full w-full  `
     }, /*#__PURE__*/React.createElement("div", {
       className: `shrink-0 ml-2 `
     }, /*#__PURE__*/React.createElement("div", null, " M\xE3 th\u1EBB n\xE1i:  "), /*#__PURE__*/React.createElement("input", {
@@ -2722,22 +3594,22 @@ function Hau_bi() {
     id_gui_1_click();
   }, []);
   return /*#__PURE__*/React.createElement("div", {
-    className: `flex h-full w-full flex-col border bg-gray-100   border-sky-500 `
+    className: `flex h-full w-full flex-col  bg-gray-100  `
   }, /*#__PURE__*/React.createElement("div", {
-    className: `flex  border bg-orange-200  border-sky-500 `
+    className: `flex   `
   }, /*#__PURE__*/React.createElement("input", {
     type: "button",
     value: "Theo d\xF5i h\u1EADu b\u1ECB nh\u1EADp \u0111\xE0n",
     id: "id_gui_1",
-    className: `w-[220px]  bg-orange-200 hover:bg-slate-300 hover:bg-opacity-50 h-6 flex items-end  pl-2 pr-2 `
+    className: `w-[220px]  hover:bg-slate-300 hover:bg-opacity-50 h-6 flex items-end  pl-2 pr-2 `
   }), /*#__PURE__*/React.createElement("input", {
     type: "button",
     value: "Theo d\xF5i h\u1EADu b\u1ECB ch\u1EBFt, lo\u1EA1i",
     id: "id_gui_2",
-    className: `w-[220px]  bg-orange-200 hover:bg-sky-700 h-6 flex items-end  pr-2 `
+    className: `w-[220px]  hover:bg-slate-300 hover:bg-opacity-50 h-6 flex items-end  pr-2 `
   })), /*#__PURE__*/React.createElement("div", {
     id: "id_nhan_hb",
-    className: `text-sm flex grow w-full border bg-gray-100   border-sky-500 `
+    className: `text-sm flex grow w-full  bg-gray-100   `
   }, "   "));
 }
 ;
@@ -2856,7 +3728,7 @@ function Heo_con_chet() {
     });
   }, []);
   return /*#__PURE__*/React.createElement("div", {
-    className: `flex flex-col h-full w-full border bg-gray-100   border-sky-500 `
+    className: `flex flex-col h-full w-full  bg-gray-100   `
   }, /*#__PURE__*/React.createElement("input", {
     id: "id_gui_research",
     type: "button",
@@ -3005,7 +3877,7 @@ function Heo_van_de() {
     });
   }, []);
   return /*#__PURE__*/React.createElement("div", {
-    className: `flex flex-col w-full h-full border bg-gray-100   border-sky-500 `
+    className: `flex flex-col w-full h-full  bg-gray-100   `
   }, /*#__PURE__*/React.createElement("input", {
     id: "id_gui_research",
     type: "button",
@@ -3085,17 +3957,18 @@ function Login() {
         _alert(data);
       } else {
         var array_data_login = JSON.parse(data);
+        console.log(array_data_login);
         var array_option = new Array();
         // This will return an array with strings "1", "2", etc.
         array_option = array_data_login[0][2].split(",");
         array_option_ten_day_du = array_data_login[0][3].split(",");
         var select = document.getElementById("id_8");
+        select.innerHTML = '';
         for (var i = 0; i < array_option.length; i++) {
-          var option = document.createElement("OPTION"),
-            txt = document.createTextNode(array_option_ten_day_du[i]);
-          option.appendChild(txt);
-          option.setAttribute("value", array_option[i]);
-          select.insertBefore(option, select.lastChild);
+          var option = document.createElement("OPTION");
+          option.text = array_option_ten_day_du[i];
+          option.value = array_option[i];
+          select.appendChild(option);
         }
 
         // kiểm tra xem có được quyền thêm người dùng và khóa dữ liệu không
@@ -3110,6 +3983,7 @@ function Login() {
         document.getElementById('id_td_1').innerHTML = "Đăng nhập - " + id_1.textContent;
         _alert("Đăng nhập thành công");
         ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+        array_chuong_thit = JSON.parse(array_data_login[0][6]);
       }
     });
   }
@@ -3281,7 +4155,7 @@ function Nai_chet() {
     });
   }, []);
   return /*#__PURE__*/React.createElement("div", {
-    className: `flex flex-col h-full w-full border bg-gray-100   border-sky-500 `
+    className: `flex flex-col h-full w-full  bg-gray-100   `
   }, /*#__PURE__*/React.createElement("input", {
     id: "id_gui_research",
     type: "button",
@@ -3459,7 +4333,7 @@ function Phoi() {
     });
   }, []);
   return /*#__PURE__*/React.createElement("div", {
-    className: `flex flex-col h-full w-full border bg-gray-100   border-sky-500 `
+    className: `flex flex-col h-full w-full  bg-gray-100  `
   }, /*#__PURE__*/React.createElement("input", {
     id: "id_gui_research",
     type: "button",
@@ -3514,6 +4388,95 @@ function Router() {
       break;
   }
 }
+function Setup_chuong(props) {
+  let data_them = props.value.data;
+  let data_2d = useRef(array_chuong_thit);
+  if (data_them !== false) {
+    data_2d.current = data_them;
+  }
+  console.log(data_2d.current);
+  let ref_them_chi_nhanh = useRef(null);
+  function them_chuong(index) {
+    let data_them = ["Thịt 1", "Thịt 2", "Thịt 3", "Thịt 4", "Thịt 5", "Thịt 6"];
+    data_2d.current[index][1].push(data_them);
+    ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+    ReactDOM.render( /*#__PURE__*/React.createElement(Setup_chuong, {
+      value: {
+        data: data_2d.current
+      }
+    }), document.getElementById('id_nhan_index'));
+  }
+  useEffect(() => {
+    ref_them_chi_nhanh.current.onclick = function () {
+      let data_them = [["Chi nhánh 2", [["Thịt 1", "Thịt 2", "Thịt 3", "Thịt 4", "Thịt 5", "Thịt 6"], ["Thịt 7", "Thịt 8", "Thịt 9", "Thịt 10", "", ""]]]];
+      let data_them_xong = data_2d.current.concat(data_them);
+      ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+      ReactDOM.render( /*#__PURE__*/React.createElement(Setup_chuong, {
+        value: {
+          data: data_them_xong
+        }
+      }), document.getElementById('id_nhan_index'));
+    };
+
+    //---------------------------------------------------------------------------------------------------
+  }, []);
+  return /*#__PURE__*/React.createElement("div", {
+    className: ` flex flex-col  `
+  }, data_2d.current.map((item, index) => {
+    return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+      className: ` flex justify-center bg-red-100 `
+    }, " ", item[0], "  "), /*#__PURE__*/React.createElement("div", {
+      className: ` bg-green-100 `,
+      style: {
+        position: 'relative'
+      }
+    }, item[1].map((row, i) => {
+      return /*#__PURE__*/React.createElement("div", {
+        style: {
+          display: "table-row"
+        }
+      }, row.map((cell, j) => {
+        return /*#__PURE__*/React.createElement("div", {
+          style: {
+            height: "20px",
+            width: "80px",
+            position: 'relative',
+            border: "1px ridge #ccc",
+            display: "table-cell",
+            paddingLeft: "4px",
+            paddingRight: "4px",
+            borderRightStyle: function () {
+              if (j === row.length - 1) {
+                return 'ridge';
+              } else {
+                return 'none';
+              }
+            }(),
+            borderTopStyle: function () {
+              if (i === 0) {
+                return 'ridge';
+              } else {
+                return 'none';
+              }
+            }()
+          },
+          onClick: event => {
+            _rename([cell, index, i, j]);
+          }
+        }, "  ", cell, "    ");
+      }));
+    })), /*#__PURE__*/React.createElement("div", {
+      className: ` bg-green-100 `,
+      onClick: event => {
+        them_chuong(index);
+      }
+    }, "  Th\xEAm chu\u1ED3ng "));
+  }), /*#__PURE__*/React.createElement("div", {
+    className: ` flex justify-center bg-red-100 `,
+    ref: ref_them_chi_nhanh
+  }, "  Th\xEAm chi nh\xE1nh "));
+}
+;
 function Table(props) {
   let table_excel_height = props.value.height;
   let table_excel_width = props.value.width;
@@ -3540,8 +4503,20 @@ function Table(props) {
           display: "table-cell",
           paddingLeft: "4px",
           paddingRight: "4px",
-          borderRightStyle: 'none',
-          borderTopStyle: 'none'
+          borderRightStyle: function () {
+            if (j === data_2d[0].length - 1) {
+              return 'ridge';
+            } else {
+              return 'none';
+            }
+          }(),
+          borderTopStyle: function () {
+            if (i === 0) {
+              return 'ridge';
+            } else {
+              return 'none';
+            }
+          }()
         }
       }, " ", cell, "  ");
     }));
@@ -6698,24 +7673,133 @@ function Table_hieu_2(props) {
 ;
 function Table_nguoc(props) {
   let data_2d = props.value.data;
+  let table_excel_height = props.value.height;
+  let table_excel_width = props.value.width;
   var countjavascript = data_2d.length;
-  var coloumsjavascript = data_2d[1].length;
+  var coloumsjavascript = data_2d[countjavascript - 1].length;
   let data_2d_nguoc = new Array(coloumsjavascript).fill(null).map(i => i = new Array(countjavascript).fill(null));
   for (var c = 0; c < coloumsjavascript; c++) {
     for (var r = 0; r < countjavascript; r++) {
       data_2d_nguoc[c][r] = data_2d[r][c];
     }
   }
+  function xem_chi_tiet(event, col) {
+    console.log("xem chi tiet", data_2d_nguoc[1][col]);
+    $.post("/python/thit", {
+      post1: id_year.children[0].value,
+      post2: data_2d_nguoc[1][col],
+      post8: $("#id_8").val()
+    }, function (data) {
+      let string_array = data.replaceAll("(", "[").replaceAll(")", "]");
+      let array = eval(string_array);
+      let len = array.length;
+      let len_col = array[0].length;
+      let array_nguoc = new Array(len_col).fill(null).map(i => i = new Array(len).fill(null));
+      for (let index = 0; index < len; index++) {
+        for (let index_col = 0; index_col < len_col; index_col++) {
+          array_nguoc[index_col][index] = array[index][index_col];
+        }
+      }
+      console.log(array_nguoc);
+
+      //--------------------------------------------------------------
+      let row_data_2d_nguoc = data_2d_nguoc.length;
+      for (let index = 0; index < row_data_2d_nguoc; index++) {
+        data_2d_nguoc[index] = data_2d_nguoc[index].slice(0, 1 + col).concat(array_nguoc[index], data_2d_nguoc[index].slice(1 + col));
+      }
+      console.log(data_2d_nguoc);
+      //----------------------------------------------------------
+      var countjavascript = data_2d_nguoc.length;
+      var coloumsjavascript = data_2d_nguoc[countjavascript - 1].length;
+      let data_2d_nguoc_nguoc_tiep = new Array(coloumsjavascript).fill(null).map(i => i = new Array(countjavascript).fill(null));
+      for (var c = 0; c < coloumsjavascript; c++) {
+        for (var r = 0; r < countjavascript; r++) {
+          data_2d_nguoc_nguoc_tiep[c][r] = data_2d_nguoc[r][c];
+        }
+      }
+      let width_table = document.getElementById('id_nhan').getBoundingClientRect().width;
+      let height_table = document.getElementById('id_nhan').getBoundingClientRect().height;
+
+      // remove onClick
+
+      for (let index = 0; index < len + 1; index++) {
+        data_2d_nguoc_nguoc_tiep[index + col][0] = "";
+      }
+      ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
+      ReactDOM.render( /*#__PURE__*/React.createElement(Table_nguoc, {
+        value: {
+          data: data_2d_nguoc_nguoc_tiep,
+          width: width_table,
+          height: height_table,
+          xem_chi_tiet_click: true
+        }
+      }), document.getElementById('id_nhan'));
+    });
+  }
+  useEffect(() => {
+    if (props.value.xem_chi_tiet_click) {} else {
+      for (let index_j = 0, len = data_2d_nguoc[0].length; index_j < len; index_j++) {
+        id_table_nguoc.children[2].children[index_j].style.display = "none";
+        id_table_nguoc.children[3].children[index_j].style.display = "none";
+      }
+    }
+  }, []);
   return /*#__PURE__*/React.createElement("div", {
-    className: '   '
+    id: "id_table_nguoc",
+    style: {
+      height: `${table_excel_height}px`,
+      width: `${table_excel_width}px`,
+      overflow: 'scroll',
+      position: 'relative'
+    }
   }, data_2d_nguoc.map((row, i) => {
     return /*#__PURE__*/React.createElement("div", {
-      className: ' flex w-full border border-sky-500  '
+      style: {
+        display: "table-row"
+      }
     }, row.map((cell, j) => {
       return /*#__PURE__*/React.createElement("div", {
-        className: `  ${j === 0 ? 'w-96 sticky' : 'w-16'}  border border-red-700 `
-      }, " ", cell, "  ");
-    }));
+        onClick: event => {
+          if (i === 0 && ["Xem chi tiết"].includes(data_2d_nguoc[0][j])) {
+            xem_chi_tiet(event, j);
+          }
+        },
+        className: ` ${(() => {
+          if (i === 0 && ["Xem chi tiết"].includes(data_2d_nguoc[0][j])) {
+            return " _shadow rounded bg-sky-500 hover:bg-sky-700";
+          }
+        })()}  `,
+        style: {
+          whiteSpace: function () {
+            if ([0, 2].includes(i) && j > 0) {
+              return 'normal';
+            } else {
+              return 'nowrap';
+            }
+          }(),
+          position: 'relative',
+          border: "1px ridge #ccc",
+          height: "20px",
+          display: "table-cell",
+          paddingLeft: "4px",
+          paddingRight: "4px",
+          borderRightStyle: function () {
+            if (j === data_2d_nguoc[0].length - 1) {
+              return 'ridge';
+            } else {
+              return 'none';
+            }
+          }(),
+          borderTopStyle: function () {
+            if (i === 0) {
+              return 'ridge';
+            } else {
+              return 'none';
+            }
+          }()
+        }
+      }, " ", cell.toLocaleString(), "  ");
+    }), " ");
   }));
 }
 ;
@@ -7157,20 +8241,126 @@ function Table_xoa(props) {
         paddingLeft: "4px",
         paddingRight: "4px",
         borderRightStyle: 'none',
-        borderTopStyle: 'none'
+        borderTopStyle: function () {
+          if (i === 0) {
+            return 'ridge';
+          } else {
+            return 'none';
+          }
+        }()
       }
     }, "  Xo\xE1 "), row.map((cell, j) => {
       return /*#__PURE__*/React.createElement("div", {
         style: {
           position: 'relative',
-          backgroundColor: "white",
           border: "1px ridge #ccc",
           height: "20px",
           display: "table-cell",
           paddingLeft: "4px",
           paddingRight: "4px",
-          borderRightStyle: 'none',
-          borderTopStyle: 'none'
+          borderRightStyle: function () {
+            if (j === data_2d[0].length - 1) {
+              return 'ridge';
+            } else {
+              return 'none';
+            }
+          }(),
+          borderTopStyle: function () {
+            if (i === 0) {
+              return 'ridge';
+            } else {
+              return 'none';
+            }
+          }()
+        }
+      }, " ", cell, "  ");
+    }));
+  }));
+}
+;
+function Table_xoa_add_user(props) {
+  let table_excel_height = props.value.height;
+  let table_excel_width = props.value.width;
+  let data_2d = props.value.data;
+  function xoa(event, rIndex) {
+    console.log('xoaaaaaaaaa');
+  }
+  return /*#__PURE__*/React.createElement("div", {
+    id: "id_table",
+    style: {
+      height: `${table_excel_height}px`,
+      width: `${table_excel_width}px`,
+      overflow: 'scroll',
+      position: 'relative'
+    }
+  }, data_2d.map((row, i) => {
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: "table-row"
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      onClick: event => {
+        (() => {
+          if ([0, 1].includes(i)) {} else {
+            xoa(event, i);
+          }
+        })();
+      },
+      className: ` ${(() => {
+        if ([0, 1].includes(i)) {} else {
+          return "     bg-sky-500 hover:bg-sky-700";
+        }
+      })()}  `,
+      style: {
+        position: 'relative',
+        border: "1px ridge #ccc",
+        height: "20px",
+        display: "table-cell",
+        paddingLeft: "4px",
+        paddingRight: "4px",
+        borderRightStyle: 'none',
+        borderTopStyle: function () {
+          if (i === 0) {
+            return 'ridge';
+          } else {
+            return 'none';
+          }
+        }()
+      }
+    }, " ", function () {
+      if ([0, 1].includes(i)) {
+        return '';
+      } else {
+        return 'Xoá';
+      }
+    }()), row.map((cell, j) => {
+      return /*#__PURE__*/React.createElement("div", {
+        style: {
+          position: 'relative',
+          border: "1px ridge #ccc",
+          height: "20px",
+          display: "table-cell",
+          paddingLeft: "4px",
+          paddingRight: "4px",
+          borderRightStyle: function () {
+            if (j === data_2d[0].length - 1) {
+              return 'ridge';
+            } else {
+              return 'none';
+            }
+          }(),
+          borderTopStyle: function () {
+            if (i === 0) {
+              return 'ridge';
+            } else {
+              return 'none';
+            }
+          }()
+        },
+        onClick: event => {
+          if (![0].includes(i) && j !== 3) {
+            _rename_user(j, row, i);
+          }
         }
       }, " ", cell, "  ");
     }));
@@ -7586,7 +8776,7 @@ function Table_xoa_date(props) {
       },
       className: ` ${(() => {
         if (i === 0) {} else {
-          return " _shadow rounded w-full  bg-sky-500 hover:bg-sky-700";
+          return "  w-full  bg-sky-500 hover:bg-sky-700";
         }
       })()}  `,
       style: {
@@ -7597,20 +8787,37 @@ function Table_xoa_date(props) {
         paddingLeft: "4px",
         paddingRight: "4px",
         borderRightStyle: 'none',
-        borderTopStyle: 'none'
+        borderTopStyle: function () {
+          if (i === 0) {
+            return 'ridge';
+          } else {
+            return 'none';
+          }
+        }()
       }
     }, "  Xo\xE1 "), row.map((cell, j) => {
       return /*#__PURE__*/React.createElement("div", {
         style: {
           position: 'relative',
-          backgroundColor: "white",
           border: "1px ridge #ccc",
           height: "20px",
           display: "table-cell",
           paddingLeft: "4px",
           paddingRight: "4px",
-          borderRightStyle: 'none',
-          borderTopStyle: 'none'
+          borderRightStyle: function () {
+            if (j === data_2d[0].length - 1) {
+              return 'ridge';
+            } else {
+              return 'none';
+            }
+          }(),
+          borderTopStyle: function () {
+            if (i === 0) {
+              return 'ridge';
+            } else {
+              return 'none';
+            }
+          }()
         }
       }, " ", cell, "  ");
     }));
@@ -7953,7 +9160,7 @@ function Tra_ly_lich(props) {
     });
   }, []);
   return /*#__PURE__*/React.createElement("div", {
-    className: `flex flex-col w-full h-full border bg-gray-100   border-sky-500 `
+    className: `flex flex-col w-full h-full  bg-gray-100   `
   }, /*#__PURE__*/React.createElement("div", {
     className: `ml-1 border-b border-sky-500 mr-1`
   }, " Nh\u1EADp s\u1ED1 tai c\u1EA7n tra "), /*#__PURE__*/React.createElement("div", {
@@ -8062,16 +9269,243 @@ function Tra_ly_lich(props) {
   })));
 }
 ;
+function _loading(x, y, width, height, key) {
+  let duong_kinh = Math.min(width, height);
+  let center = x + width / 2 - duong_kinh / 2;
+  let _div = document.createElement("_div");
+
+  // getElementsByTagName sẽ lấy ra một mảng tag name phù hợp không giống by id lấy ra 1 cái 
+  let body = document.getElementsByTagName("body");
+  body[0].appendChild(_div);
+  _div.style.zIndex = "10000";
+  document._loading = {};
+  document._loading[key] = _div;
+  function Loading() {
+    return /*#__PURE__*/React.createElement("div", {
+      className: ' absolute  rounded-full border-4 border-solid border-green-600 border-r-transparent align-[-0.125em]   ',
+      style: {
+        left: center,
+        top: y,
+        width: duong_kinh,
+        height: duong_kinh,
+        animation: 'animate 2s linear infinite'
+      }
+    }, " ");
+  }
+  return ReactDOM.render( /*#__PURE__*/React.createElement(Loading, null), _div);
+}
+function _rename(para) {
+  let _div = document.createElement("_div");
+  // getElementsByTagName sẽ lấy ra một mảng tag name phù hợp không giống by id lấy ra 1 cái 
+  let body = document.getElementsByTagName("body");
+  body[0].appendChild(_div);
+  _div.style.zIndex = "10000";
+  function Rename() {
+    let ref_0 = useRef(null);
+    let ref_cancel = useRef(null);
+    let ref_ok = useRef(null);
+    let ref_detele = useRef(null);
+    useEffect(() => {
+      let len = ref_0.current.textContent.length;
+      get_selection(ref_0.current, 0, len);
+      //------------------------------------------------------------------------------------
+      ref_0.current.onmousedown = function click_rename(event) {
+        document.getSelection().removeAllRanges();
+      };
+      ref_cancel.current.onclick = function click_cancel(event) {
+        ReactDOM.unmountComponentAtNode(_div);
+      };
+      ref_ok.current.onclick = function click_ok(event) {
+        let array_chuong_thit_truoc_sua = JSON.parse(JSON.stringify(array_chuong_thit));
+        array_chuong_thit[para[1]][1][para[2]][para[3]] = ref_0.current.textContent;
+        console.log(array_chuong_thit);
+        ReactDOM.unmountComponentAtNode(_div);
+        ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+        ReactDOM.render( /*#__PURE__*/React.createElement(Setup_chuong, {
+          value: {
+            data: array_chuong_thit
+          }
+        }), document.getElementById('id_nhan_index'));
+        let dom_array_chuong_thit = id_nhan_index.children[0];
+        let dom_vi_tri_rename = dom_array_chuong_thit.children[para[1]].children[1].children[para[2]].children[para[3]];
+        const rect = dom_vi_tri_rename.getBoundingClientRect();
+        let key = '' + para[1] + '_' + para[2] + '_' + para[3];
+        _loading(rect.left, rect.top, rect.width, rect.height, key);
+        // ta phải gán biến node ở đây vì ReactDOM.unmountComponentAtNode không thể truy cập được node được lưu trong một obj phức tạp gồm nhiều obj con lồng nhau
+        let node = document._loading[key];
+        $.post("sua_chuong_thit.php", {
+          post1: JSON.stringify(array_chuong_thit),
+          post8: $("#id_8").val()
+        }, function (data) {
+          if (data.trim() === "ok") {
+            ReactDOM.unmountComponentAtNode(node);
+            node.remove();
+          } else {
+            console.log(data);
+            ReactDOM.unmountComponentAtNode(node);
+            node.remove();
+            _alert("Có lỗi mạng");
+            ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+            ReactDOM.render( /*#__PURE__*/React.createElement(Setup_chuong, {
+              value: {
+                data: array_chuong_thit_truoc_sua
+              }
+            }), document.getElementById('id_nhan_index'));
+          }
+        });
+      };
+      ref_detele.current.onclick = function click_ok(event) {
+        ReactDOM.unmountComponentAtNode(_div);
+        console.log('detele click');
+      };
+    }, []);
+    return /*#__PURE__*/React.createElement("div", {
+      className: 'absolute flex justify-center items-center align-middle w-full h-full top-0 left-0 bg-slate-400 bg-opacity-50'
+    }, /*#__PURE__*/React.createElement("div", {
+      className: ' _shadow rounded w-1/2 bg-white  '
+    }, /*#__PURE__*/React.createElement("div", {
+      className: 'flex flex-wrap'
+    }, /*#__PURE__*/React.createElement("div", {
+      className: `mx-5 mt-2 w-full`
+    }, "  Ch\u1EC9nh s\u1EEDa th\xF4ng tin chu\u1ED3ng  "), /*#__PURE__*/React.createElement("div", {
+      ref: ref_0,
+      contentEditable: "true",
+      className: 'mx-5  mt-2 p-2 w-full border border-solid border-emerald-400  focus:border-2 focus:border-solid focus:border-emerald-600 outline-0  '
+    }, para[0]), /*#__PURE__*/React.createElement("div", {
+      className: ' my-2 w-full flex justify-end'
+    }, /*#__PURE__*/React.createElement("div", {
+      ref: ref_cancel,
+      className: `mx-10 rounded w-20 flex justify-center bg-stone-200 hover:bg-stone-400 _shadow`
+    }, "  Cancel "), /*#__PURE__*/React.createElement("div", {
+      ref: ref_ok,
+      className: 'mx-10 rounded w-20 flex justify-center bg-sky-500 hover:bg-sky-700 _shadow'
+    }, "  Rename "), /*#__PURE__*/React.createElement("div", {
+      ref: ref_detele,
+      className: 'mx-10 rounded w-20 flex justify-center _shadow'
+    }, "  ", /*#__PURE__*/React.createElement(Button_detele, null), " ")))));
+  }
+  return ReactDOM.render( /*#__PURE__*/React.createElement(Rename, null), _div);
+}
+function _rename_user(para, row, i) {
+  let _div = document.createElement("_div");
+  // getElementsByTagName sẽ lấy ra một mảng tag name phù hợp không giống by id lấy ra 1 cái 
+  let body = document.getElementsByTagName("body");
+  body[0].appendChild(_div);
+  _div.style.zIndex = "10000";
+  function Rename_user() {
+    let ref_0 = useRef(null);
+    let ref_cancel = useRef(null);
+    let ref_ok = useRef(null);
+    useEffect(() => {
+      let len = ref_0.current.textContent.length;
+      get_selection(ref_0.current, 0, len);
+      //------------------------------------------------------------------------------------
+      ref_0.current.onmousedown = function click_rename(event) {
+        document.getSelection().removeAllRanges();
+      };
+      ref_cancel.current.onclick = function click_cancel(event) {
+        ReactDOM.unmountComponentAtNode(_div);
+      };
+      ref_ok.current.onclick = function click_ok(event) {
+        let row_old = row.concat();
+        row[para] = ref_0.current.textContent;
+        $.post("edit_user.php", {
+          post1: JSON.stringify(row_old),
+          post2: JSON.stringify(row),
+          post8: $("#id_8").val()
+        }, function (data) {
+          if (data.trim() === "ok") {
+            ReactDOM.unmountComponentAtNode(_div);
+            _div.remove();
+            id_table.children[i].children[para + 1].textContent = row[para];
+            let len = id_table.children.length;
+            if (para === 2) {
+              for (let index = 1; index < len; index++) {
+                id_table.children[index].children[para + 1].textContent = row[para];
+              }
+              id_8.options[0].text = row[para];
+            }
+            if (para === 0 && i === 1) {
+              document.getElementById('id_td_1').innerHTML = "Đăng nhập - " + row[para];
+            }
+          } else {
+            ReactDOM.unmountComponentAtNode(_div);
+            _div.remove();
+            _alert("Có lỗi");
+          }
+        });
+
+        //   let array_chuong_thit_truoc_sua = JSON.parse(JSON.stringify(array_chuong_thit));
+        //   array_chuong_thit[para[1]][1][para[2]][para[3]] = ref_0.current.textContent ;
+        //   console.log(array_chuong_thit);
+
+        //   ReactDOM.unmountComponentAtNode(_div);
+
+        //   ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  
+        //   ReactDOM.render(<Setup_chuong value={{data :  array_chuong_thit   }} /> 
+        //   ,document.getElementById('id_nhan_index'));
+
+        //   let dom_array_chuong_thit = id_nhan_index.children[0];
+
+        //   let dom_vi_tri_rename = dom_array_chuong_thit.children[para[1]].children[1].children[para[2]].children[para[3]] ;
+
+        //   const rect = dom_vi_tri_rename.getBoundingClientRect();
+
+        //   let key = '' +para[1] + '_'+ para[2]+ '_'+ para[3] ;
+
+        //   _loading(rect.left, rect.top, rect.width,rect.height, key);
+        //   // ta phải gán biến node ở đây vì ReactDOM.unmountComponentAtNode không thể truy cập được node được lưu trong một obj phức tạp gồm nhiều obj con lồng nhau
+        //   let node = document._loading[key] ;
+
+        //       $.post("sua_chuong_thit.php",  {post1:JSON.stringify(array_chuong_thit) , post8:$("#id_8").val()}, function(data){
+
+        //         if (data.trim() === "ok") { ReactDOM.unmountComponentAtNode( node);  node.remove(); } else {
+        //           console.log(data);
+        //           ReactDOM.unmountComponentAtNode( node);  node.remove();
+        //            _alert("Có lỗi mạng");
+        //            ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  
+        //            ReactDOM.render(<Setup_chuong value={{data :  array_chuong_thit_truoc_sua   }} /> 
+        //            ,document.getElementById('id_nhan_index'));
+
+        //        }
+
+        //      });
+      };
+    }, []);
+    return /*#__PURE__*/React.createElement("div", {
+      className: 'absolute flex justify-center items-center align-middle w-full h-full top-0 left-0 bg-slate-400 bg-opacity-50'
+    }, /*#__PURE__*/React.createElement("div", {
+      className: ' _shadow rounded w-1/2 bg-white  '
+    }, /*#__PURE__*/React.createElement("div", {
+      className: 'flex flex-wrap'
+    }, /*#__PURE__*/React.createElement("div", {
+      className: `mx-5 mt-2 w-full`
+    }, "  Ch\u1EC9nh s\u1EEDa th\xF4ng tin  "), /*#__PURE__*/React.createElement("div", {
+      ref: ref_0,
+      contentEditable: "true",
+      className: 'mx-5  mt-2 p-2 w-full border border-solid border-emerald-400  focus:border-2 focus:border-solid focus:border-emerald-600 outline-0  '
+    }, row[para]), /*#__PURE__*/React.createElement("div", {
+      className: ' my-2 w-full flex justify-end'
+    }, /*#__PURE__*/React.createElement("div", {
+      ref: ref_cancel,
+      className: `mx-10 rounded w-20 flex justify-center bg-stone-200 hover:bg-stone-400 _shadow`
+    }, "  Cancel "), /*#__PURE__*/React.createElement("div", {
+      ref: ref_ok,
+      className: 'mx-10 rounded w-20 flex justify-center bg-sky-500 hover:bg-sky-700 _shadow'
+    }, "  OK ")))));
+  }
+  return ReactDOM.render( /*#__PURE__*/React.createElement(Rename_user, null), _div);
+}
 const {
   useState,
   useRef,
   useEffect
 } = React;
 let path_name = window.location.pathname;
-let font_size = 16;
+let font_size = 14;
 let isMobile = window.matchMedia("only screen and (max-width: 480px)").matches;
 if (isMobile) {
-  font_size = 14;
+  font_size = 12;
 }
 ;
 function tb(string_pc, string_mobi) {

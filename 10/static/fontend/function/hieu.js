@@ -1,4 +1,24 @@
+function getCookie(name) {
+  // Split cookie string and get all individual name=value pairs in an array
+  var cookieArr = document.cookie.split(";");
+  
+  // Loop through the array elements
+  for(var i = 0; i < cookieArr.length; i++) {
+      var cookiePair = cookieArr[i].split("=");
+      
+      /* Removing whitespace at the beginning of the cookie name
+      and compare it with the given string */
+      if(name == cookiePair[0].trim()) {
+          // Decode the cookie value and return
+          return decodeURIComponent(cookiePair[1]);
+      }
+  }
+  
+  // Return null if not found
+  return null;
+}
 
+//-------------------------------------------------------------------------------------------------------------
   function path_match(string) {
     if (string.slice(-1) === '/') {
       return string.slice(0,-1) ;
@@ -131,13 +151,18 @@ function _alert(componet_react) {
   function Alert() {
     let ref_thoat =  useRef(null) ;
     useEffect(() => {   ref_thoat.current.focus();       }, []);
-    return ( <div className={'flex flex-wrap absolute rounded border border-solid border-slate-400 bg-amber-400  _shadow '}  style={  { top: '10%', left: '30%' }  } >
-      <div className={`mx-5 mt-2 w-full`}  > {componet_react} </div>
-      <div className={' my-2 w-full flex justify-end'} >  
-      <input type="button" value="Thoát"  ref={ref_thoat}   className={'mx-10  text-white rounded w-16 flex justify-center bg-sky-500 hover:bg-sky-700 _shadow'} onClick ={( )=>{ ReactDOM.unmountComponentAtNode( _div);  _div.remove(); }}/>
-     </div>
-       
-        </div> 
+    return (  <div className={'absolute flex  w-full h-full top-0 left-0 bg-slate-400 bg-opacity-50'}  >  
+
+      
+                  <div className={'flex flex-wrap absolute rounded border border-solid border-slate-400 bg-amber-400  _shadow '}  style={  { top: '10%', left: '30%' }  } >
+                  <div className={`mx-5 mt-2 w-full`}  > {componet_react} </div>
+                  <div className={' my-2 w-full flex justify-end'} >  
+                  <input type="button" value="Thoát"  ref={ref_thoat}   className={'mx-10  text-white rounded w-16 flex justify-center bg-sky-500 hover:bg-sky-700 _shadow'} onClick ={( )=>{ ReactDOM.unmountComponentAtNode( _div);  _div.remove(); }}/>
+                </div>
+                  
+                  </div> 
+      
+       </div> 
     )
     
   }
@@ -205,3 +230,139 @@ function _alert(componet_react) {
     
     
    }
+
+   //-------------------------------------------------------------------------------------
+   
+  function Select_thang() {
+   
+    return (   <select style={{color : "black" ,  }} className={`focus:outline-0 w-full  `}  > 
+    <option style={{color : "black" ,  }} value=''>Tra theo tháng</option>
+    <option style={{color : "black" ,  }} value='00-01'>Tháng 1</option>
+    <option style={{color : "black" ,  }} value='00-02'>Tháng 2</option>
+    <option style={{color : "black" ,  }} value='00-03'>Tháng 3</option>
+    <option style={{color : "black" ,  }} value='00-04'>Tháng 4</option>
+    <option style={{color : "black" ,  }} value='00-05'>Tháng 5</option>
+    <option style={{color : "black" ,  }} value='00-06'>Tháng 6</option>
+    <option style={{color : "black" ,  }} value='00-07'>Tháng 7</option>
+    <option style={{color : "black" ,  }} value='00-08'>Tháng 8</option>
+    <option style={{color : "black" ,  }} value='00-09'>Tháng 9</option>
+    <option style={{color : "black" ,  }} value='00-10'>Tháng 10</option>
+    <option style={{color : "black" ,  }} value='00-11'>Tháng 11</option>
+    <option style={{color : "black" ,  }} value='00-12'>Tháng 12</option>
+    </select> 
+    )
+    
+  }
+  //-------------------------------------------------------------------------------------
+   
+  function Select_nam() {
+    let ref_select_year =  useRef(null) ;
+       useEffect(() => {        
+        let n = new Date().getFullYear();
+        ref_select_year.current.children[0].innerHTML = n;
+        ref_select_year.current.children[0].value = n ;
+        ref_select_year.current.onclick = function(){
+               
+                 for (let index = 0  ; index < 20 ; index++) { 
+  
+                  ref_select_year.current.children[index].innerHTML = n-index;
+                  ref_select_year.current.children[index].value = n -index;
+
+                  }
+            };
+       
+
+
+
+        }, []);
+   
+    return (   <select ref={ref_select_year}  style={{color : "black" ,  }} className={`focus:outline-0 w-full  `}  > 
+    <option style={{color : "black" ,  }} value='1'>11</option>
+    <option style={{color : "black" ,  }} value='2'>12</option>
+    <option style={{color : "black" ,  }} value='3'>13</option>
+    <option style={{color : "black" ,  }} value=''>11</option>
+    <option style={{color : "black" ,  }} value=''>11</option>
+    <option style={{color : "black" ,  }} value=''>11</option>
+    <option style={{color : "black" ,  }} value=''>11</option>
+    <option style={{color : "black" ,  }} value=''>11</option>
+    <option style={{color : "black" ,  }} value=''>11</option>
+    <option style={{color : "black" ,  }} value=''>11</option>
+    <option style={{color : "black" ,  }} value=''>11</option>
+    <option style={{color : "black" ,  }} value=''>11</option>
+    <option style={{color : "black" ,  }} value=''>11</option>
+    <option style={{color : "black" ,  }} value=''>11</option>
+    <option style={{color : "black" ,  }} value=''>11</option>
+    <option style={{color : "black" ,  }} value=''>11</option>
+    <option style={{color : "black" ,  }} value=''>11</option>
+    <option style={{color : "black" ,  }} value=''>11</option>
+    <option style={{color : "black" ,  }} value=''>11</option>
+    <option style={{color : "black" ,  }} value=''>11</option>
+    </select> 
+    )
+    
+  }
+
+  //--------------------------------------------------------------------------------------------------
+  function Select_tuan() {
+   
+    return (    <select style={{color : "black" ,  }}  className={` w-full focus:outline-0 `} >
+    <option value='' style={{color : "black" ,  }} >Tra theo tuần</option>
+    <option value='01-00' style={{color : "black" ,  }} >Tuần 1</option>
+    <option value='02-00' style={{color : "black" ,  }} >Tuần 2</option>
+    <option value='03-00' style={{color : "black" ,  }} >Tuần 3</option>
+    <option value='04-00' style={{color : "black" ,  }} >Tuần 4</option>
+    <option value='05-00' style={{color : "black" ,  }} >Tuần 5</option>
+    <option value='06-00' style={{color : "black" ,  }} >Tuần 6</option>
+    <option value='07-00' style={{color : "black" ,  }} >Tuần 7</option>
+    <option value='08-00' style={{color : "black" ,  }} >Tuần 8</option>
+    <option value='09-00' style={{color : "black" ,  }} >Tuần 9</option>
+    <option value='10-00' style={{color : "black" ,  }} >Tuần 10</option>
+    <option value='11-00' style={{color : "black" ,  }} >Tuần 11</option>
+    <option value='12-00' style={{color : "black" ,  }} >Tuần 12</option>
+    <option value='13-00' style={{color : "black" ,  }} >Tuần 13</option>
+    <option value='14-00' style={{color : "black" ,  }} >Tuần 14</option>
+    <option value='15-00' style={{color : "black" ,  }} >Tuần 15</option>
+    <option value='16-00' style={{color : "black" ,  }} >Tuần 16</option>
+    <option value='17-00' style={{color : "black" ,  }} >Tuần 17</option>
+    <option value='18-00' style={{color : "black" ,  }} >Tuần 18</option>
+    <option value='19-00' style={{color : "black" ,  }} >Tuần 19</option>
+    <option value='20-00' style={{color : "black" ,  }} >Tuần 20</option>
+    <option value='21-00' style={{color : "black" ,  }} >Tuần 21</option>
+    <option value='22-00' style={{color : "black" ,  }} >Tuần 22</option>
+    <option value='23-00' style={{color : "black" ,  }} >Tuần 23</option>
+    <option value='24-00' style={{color : "black" ,  }} >Tuần 24</option>
+    <option value='25-00' style={{color : "black" ,  }} >Tuần 25</option>
+    <option value='26-00' style={{color : "black" ,  }} >Tuần 26</option>
+    <option value='27-00' style={{color : "black" ,  }} >Tuần 27</option>
+    <option value='28-00' style={{color : "black" ,  }} >Tuần 28</option>
+    <option value='29-00' style={{color : "black" ,  }} >Tuần 29</option>
+    <option value='30-00' style={{color : "black" ,  }} >Tuần 30</option>
+    <option value='31-00' style={{color : "black" ,  }} >Tuần 31</option>
+    <option value='32-00' style={{color : "black" ,  }} >Tuần 32</option>
+    <option value='33-00' style={{color : "black" ,  }} >Tuần 33</option>
+    <option value='34-00' style={{color : "black" ,  }} >Tuần 34</option>
+    <option value='35-00' style={{color : "black" ,  }} >Tuần 35</option>
+    <option value='36-00' style={{color : "black" ,  }} >Tuần 36</option>
+    <option value='37-00' style={{color : "black" ,  }} >Tuần 37</option>
+    <option value='38-00' style={{color : "black" ,  }} >Tuần 38</option>
+    <option value='39-00' style={{color : "black" ,  }} >Tuần 39</option>
+    <option value='40-00' style={{color : "black" ,  }} >Tuần 40</option>
+    <option value='41-00' style={{color : "black" ,  }} >Tuần 41</option>
+    <option value='42-00' style={{color : "black" ,  }} >Tuần 42</option>
+    <option value='43-00' style={{color : "black" ,  }} >Tuần 43</option>
+    <option value='44-00' style={{color : "black" ,  }} >Tuần 44</option>
+    <option value='45-00' style={{color : "black" ,  }} >Tuần 45</option>
+    <option value='46-00' style={{color : "black" ,  }} >Tuần 46</option>
+    <option value='47-00' style={{color : "black" ,  }} >Tuần 47</option>
+    <option value='48-00' style={{color : "black" ,  }} >Tuần 48</option>
+    <option value='49-00' style={{color : "black" ,  }} >Tuần 49</option>
+    <option value='50-00' style={{color : "black" ,  }} >Tuần 50</option>
+    <option value='51-00' style={{color : "black" ,  }} >Tuần 51</option>
+    <option value='52-00' style={{color : "black" ,  }} >Tuần 52</option>
+    <option value='53-00' style={{color : "black" ,  }} >Tuần 53</option>
+
+
+    </select> 
+    )
+    
+  }

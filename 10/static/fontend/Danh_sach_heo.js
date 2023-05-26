@@ -237,7 +237,7 @@ $(document).ready(function(){
 	
     return ( 
 
-<div  className={`text-sm flex flex-row h-full  grow border bg-gray-100   border-sky-500 `} >
+<div  className={`text-sm flex flex-row h-full  grow  bg-gray-100  `} >
 
 
             <div id="id_ds"  className={`  flex-shrink-0 w-[225px] h-full  `}  >

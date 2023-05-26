@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 
 @app.route("/",methods = ['POST', 'GET'])
-def hello():
+def ghep_phoi():
     trai = request.form['post_trai']
     nai = request.form['post1']
     sum_nai = request.form['sum']
@@ -30,12 +30,48 @@ def hello():
     # trả về giá trị đã tính toán từ file excel
     return str(ws.Range(cell_end))
 
-# @cross_origin("http://localhost:5000")
-# def get_10():
-     
+
+
+@app.route("/thit_12",methods = ['POST', 'GET'])
+def thit_12():
+    cong_ty = request.form['post8']
+    year = request.form['post1']
+    xl.Application.Run('1.xlsm!Module1.thit_12_thang', cong_ty , year)
+
+    wb = xl.Workbooks('1.xlsm')
+    ws = wb.Worksheets('thit_12_thang')
+   
+    return str(ws.Range('AC4:AT17'))
+
+@app.route("/thit",methods = ['POST', 'GET'])
+def thit():
+    cong_ty = request.form['post8']
+    year = request.form['post1']
+    thang = request.form['post2']
+    xl.Application.Run('1.xlsm!Module1.thit_chuong', cong_ty , year, thang)
+
+    wb = xl.Workbooks('1.xlsm')
+    ws = wb.Worksheets('thit_chuong')
+    cell_end = str(ws.Range('AF3'))
     
-#     id = request.args.get('id')
-#     return (id) 
+    # trả về giá trị đã tính toán từ file excel
+    return str(ws.Range(cell_end))
+@app.route("/thit_dien_bien",methods = ['POST', 'GET'])
+def thit_dien_bien():
+    cong_ty = request.form['post8']
+    year = request.form['post1']
+    dieu_kien = request.form['post2']
+    xl.Application.Run('1.xlsm!Module1.thit_dien_bien', cong_ty , year, dieu_kien)
+
+    wb = xl.Workbooks('1.xlsm')
+    ws = wb.Worksheets('thit_dien_bien')
+    cell_end = str(ws.Range('AA1'))
+    
+    # trả về giá trị đã tính toán từ file excel
+    return str(ws.Range(cell_end))
+    
+# @cross_origin("http://localhost:5000")
+
 
 if __name__ == "__main__":
 #   win32com là tác vụ nặng ta phải tắt đa nhiệm bằng lệnh threaded=False thì mới chạy được  

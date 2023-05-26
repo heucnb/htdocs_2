@@ -53,7 +53,7 @@ $sql_2 = "INSERT INTO
 `login` 
 (`username`, 
 `password`, 
-`trai_value`,
+`trai`,
 `trai_day_du`, 
 `duoc_quyen_them_user`
 ) SELECT
@@ -67,7 +67,7 @@ $result_2 = mysqli_query($conn, $sql_2);
 
 
 // láy dữ liệu lên
-$sql = "select `username`, `password`, if(`duoc_quyen_them_user`= 1, 'Cấp quyền','Không cấp quyền'),`trai_day_du` from login where `trai_value`='".$trai."' ";
+$sql = "select `username`, `password`, if(`duoc_quyen_them_user`= 1, 'Cấp quyền','Không cấp quyền'),`trai_day_du` from login where `trai`='".$trai."' ";
 $result = mysqli_query($conn, $sql);
 $cout = mysqli_num_rows($result);	
 $arraymysql = [];
@@ -108,7 +108,7 @@ if (!$conn) {
   die("Connection failed: " . mysqli_connect_error());
 }
 // láy dữ liệu lên
-$sql = "select `username`, `password`, if(`duoc_quyen_them_user`= 1, 'Cấp quyền','Không cấp quyền'),`trai_day_du` from login where `trai_value`='".$trai."' ";
+$sql = "select `username`, `password`, if(`duoc_quyen_them_user`= 1, 'Cấp quyền','Không cấp quyền'),`trai_day_du` from login where `trai`='".$trai."' ";
 $result = mysqli_query($conn, $sql);
 $cout = mysqli_num_rows($result);	
 $arraymysql = [];
