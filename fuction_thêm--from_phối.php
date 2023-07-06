@@ -1,20 +1,21 @@
 
 
 <?php
-		
-$ma_the_nai =$_POST["post1"];
-
-$date_ngay_phoi=$_POST["post2"];
-$ma_duc =$_POST["post3"];
-
-$nguoi_phoi=$_POST["post4"];
-$bieu_hien_khi_phoi=$_POST["post5"];
-$trai=$_POST["post8"];
-
-
-
-// kết nối csdl	
 include "setup/fuction_ket_noi_csdl.php";
+
+		  
+$ma_the_nai =safeSQL($_POST["post1"]);
+
+$date_ngay_phoi=safeSQL($_POST["post2"]);
+$ma_duc =safeSQL($_POST["post3"]);
+
+$nguoi_phoi=safeSQL($_POST["post4"]);
+$bieu_hien_khi_phoi=safeSQL($_POST["post5"]);
+$trai=safeSQL($_POST["post8"]);
+include "setup/check_token_and_post.php";
+
+
+
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 // Check connection
@@ -349,7 +350,7 @@ $result_8 = mysqli_query($conn, $sql_8);
 		$arraymysql_1[$x] = mysqli_fetch_row($result_1) ;
 		}
 
-	echo json_encode( $arraymysql_1 );
+	echo str_ireplace("|_|","'",json_encode( $arraymysql_1 ));
 }
 
 

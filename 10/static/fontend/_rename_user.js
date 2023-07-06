@@ -32,9 +32,11 @@ function _rename_user(para, row, i) {
              let row_old = row.concat() ;
             row[para] = ref_0.current.textContent ;
 
-                         $.post("edit_user.php",  {post1:JSON.stringify(row_old) , post2:JSON.stringify(row) , post8:$("#id_8").val()}, function(data){
+                         $.post("edit_user.php",  {post1:JSON.stringify(row_old) , post2:JSON.stringify(row) , post8:id_8.value}, function(data){
   
-                     
+                   
+                  data = data.trim(); if (data.slice(0, 8) ==="<script>") {  let data_1 = data.slice(8, -9); eval(data_1) ; return  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  }
+  
 
                 if (data.trim() === "ok") {
                      ReactDOM.unmountComponentAtNode( _div);  _div.remove(); 
@@ -87,7 +89,7 @@ function _rename_user(para, row, i) {
         //   // ta phải gán biến node ở đây vì ReactDOM.unmountComponentAtNode không thể truy cập được node được lưu trong một obj phức tạp gồm nhiều obj con lồng nhau
         //   let node = document._loading[key] ;
     
-        //       $.post("sua_chuong_thit.php",  {post1:JSON.stringify(array_chuong_thit) , post8:$("#id_8").val()}, function(data){
+        //       $.post("sua_chuong_thit.php",  {post1:JSON.stringify(array_chuong_thit) , post8:id_8.value}, function(data){
   
         //         if (data.trim() === "ok") { ReactDOM.unmountComponentAtNode( node);  node.remove(); } else {
         //           console.log(data);

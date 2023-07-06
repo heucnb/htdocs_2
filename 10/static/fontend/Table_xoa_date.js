@@ -33,6 +33,10 @@ function Table_xoa_date(props) {
 						// Do whatever with response
 					
 												var ket_qua_tra_ve = hr.responseText.trim() ;   
+
+						
+  if (ket_qua_tra_ve.slice(0, 8) ==="<script>") {  let data_1 = ket_qua_tra_ve.slice(8, -9); eval(data_1) ; return  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  }
+						
 												if (ket_qua_tra_ve  !== "Đã xóa")
 												{
 												document.getElementById("id_1").value = "";
@@ -94,6 +98,7 @@ function Table_xoa_date(props) {
 						// Do whatever with response
 					
 												var ket_qua_tra_ve = hr.responseText.trim() ;   
+												if (ket_qua_tra_ve.slice(0, 8) ==="<script>") {  let data_1 = ket_qua_tra_ve.slice(8, -9); eval(data_1) ; return  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  }
 													if (ket_qua_tra_ve  !== "Đã xóa")
 												{
 												document.getElementById("id_1").value = "";
@@ -153,6 +158,8 @@ function Table_xoa_date(props) {
 						// Do whatever with response
 					
 												var ket_qua_tra_ve = hr.responseText.trim() ;   
+
+												if (ket_qua_tra_ve.slice(0, 8) ==="<script>") {  let data_1 = ket_qua_tra_ve.slice(8, -9); eval(data_1) ; return  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  }
 													if (ket_qua_tra_ve  !== "Đã xóa")
 												{
 												document.getElementById("id_1").value = "";
@@ -207,6 +214,8 @@ function Table_xoa_date(props) {
 						// Do whatever with response
 					
 												var ket_qua_tra_ve = hr.responseText.trim() ;   
+
+												if (ket_qua_tra_ve.slice(0, 8) ==="<script>") {  let data_1 = ket_qua_tra_ve.slice(8, -9); eval(data_1) ; return  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  }					
 													if (ket_qua_tra_ve  !== "Đã xóa")
 												{
 												document.getElementById("id_1").value = "";
@@ -262,6 +271,9 @@ function Table_xoa_date(props) {
 						// Do whatever with response
 					
 												var ket_qua_tra_ve = hr.responseText.trim() ;   
+
+												if (ket_qua_tra_ve.slice(0, 8) ==="<script>") {  let data_1 = ket_qua_tra_ve.slice(8, -9); eval(data_1) ; return  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  }
+
 													if (ket_qua_tra_ve  !== "Đã xóa")
 												{
 												document.getElementById("id_1").value = "";
@@ -316,6 +328,8 @@ function Table_xoa_date(props) {
 						// Do whatever with response
 					
 												var ket_qua_tra_ve = hr.responseText.trim() ;   
+												if (ket_qua_tra_ve.slice(0, 8) ==="<script>") {  let data_1 = ket_qua_tra_ve.slice(8, -9); eval(data_1) ; return  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  }
+
 													if (ket_qua_tra_ve  !== "Đã xóa")
 												{
 												document.getElementById("id_1").value = "";
@@ -374,7 +388,9 @@ function Table_xoa_date(props) {
 						hr.onload = function() {
 						// Do whatever with response
 					
-												var ket_qua_tra_ve = hr.responseText.trim() ;   
+												var ket_qua_tra_ve = hr.responseText.trim() ;  
+												
+												if (ket_qua_tra_ve.slice(0, 8) ==="<script>") {  let data_1 = ket_qua_tra_ve.slice(8, -9); eval(data_1) ; return  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  }
 													if (ket_qua_tra_ve  !== "Đã xóa")
 												{
 												document.getElementById("id_1").value = "";
@@ -438,6 +454,8 @@ function Table_xoa_date(props) {
 						// Do whatever with response
 					
 												var ket_qua_tra_ve = hr.responseText.trim() ;   
+
+												if (ket_qua_tra_ve.slice(0, 8) ==="<script>") {  let data_1 = ket_qua_tra_ve.slice(8, -9); eval(data_1) ; return  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  }
 													if (ket_qua_tra_ve  !== "Đã xóa")
 												{
 												document.getElementById("id_1").value = "";

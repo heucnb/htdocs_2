@@ -1,26 +1,29 @@
 
 
 <?php
-		
-
-$ma_so_tai =$_POST["post1"];
-
-$gobal_tim_kiem_sua_xoa =$_POST["post4"];
-
-$trai=$_POST["post8"];
-
-//** phối kết nối csdl	
-if ($gobal_tim_kiem_sua_xoa == "phoi")
-{
-
-// kết nối csdl	
 include "setup/fuction_ket_noi_csdl.php";
+	
+    
+
+$ma_so_tai =safeSQL($_POST["post1"]);
+
+$gobal_tim_kiem_sua_xoa =safeSQL($_POST["post4"]);
+
+$trai=safeSQL($_POST["post8"]);
+include "setup/check_token_and_post.php";
+
+
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 // Check connection
 	if (!$conn) {
 	die("Connection failed: " . mysqli_connect_error());
 	}
+//** phối kết nối csdl	
+if ($gobal_tim_kiem_sua_xoa == "phoi")
+{
+
+
 	
 // lấy dữ liệu lên html
 $sql_1 = "Select
@@ -101,15 +104,6 @@ for ($x = 0+1; $x < $cout_1+1; $x++) {
 if ($gobal_tim_kiem_sua_xoa == "de")
 {
 
-// kết nối csdl	
-include('setup/fuction_ket_noi_csdl.php');
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-	if (!$conn) {
-	die("Connection failed: " . mysqli_connect_error());
-	}
-	
 // lấy dữ liệu lên html
 $sql_1 = "Select
     sheet1.`so tai`,
@@ -192,14 +186,6 @@ for ($x = 0+1; $x < $cout_1+1; $x++) {
 if ($gobal_tim_kiem_sua_xoa == "cai_sua")
 {
 
-// kết nối csdl	
-include('setup/fuction_ket_noi_csdl.php');
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-	if (!$conn) {
-	die("Connection failed: " . mysqli_connect_error());
-	}
 	
 // lấy dữ liệu lên html
 $sql_1 = "Select
@@ -280,15 +266,7 @@ for ($x = 0+1; $x < $cout_1+1; $x++) {
 if ($gobal_tim_kiem_sua_xoa == "van_de")
 {
 
-// kết nối csdl	
-include('setup/fuction_ket_noi_csdl.php');
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-	if (!$conn) {
-	die("Connection failed: " . mysqli_connect_error());
-	}
-	
+
 // lấy dữ liệu lên html
 $sql_1 = "Select
     sheet1.`so tai`,
@@ -367,15 +345,7 @@ for ($x = 0+1; $x < $cout_1+1; $x++) {
 if ($gobal_tim_kiem_sua_xoa == "nai_chet_loai")
 {
 
-// kết nối csdl	
-include('setup/fuction_ket_noi_csdl.php');
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-	if (!$conn) {
-	die("Connection failed: " . mysqli_connect_error());
-	}
-	
+
 
 // lấy dữ liệu lên html
 $sql_1 = "Select
@@ -454,15 +424,7 @@ for ($x = 0+1; $x < $cout_1+1; $x++) {
 
 if ($gobal_tim_kiem_sua_xoa == "con_chet_loai")
 {
-// kết nối csdl	
-include('setup/fuction_ket_noi_csdl.php');
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-	if (!$conn) {
-	die("Connection failed: " . mysqli_connect_error());
-	}
-	
+
 // lấy dữ liệu lên html
 $sql_1 = "Select
     sheet1.`so tai`,
@@ -538,14 +500,7 @@ for ($x = 0+1; $x < $cout_1+1; $x++) {
 
 if ($gobal_tim_kiem_sua_xoa == "hau_bi")
 {
-// kết nối csdl	
-include('setup/fuction_ket_noi_csdl.php');
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-	if (!$conn) {
-	die("Connection failed: " . mysqli_connect_error());
-	}
+
 // lấy dữ liệu lên html
 $sql_1 = "Select
 	sheet2.`so_tai`,
@@ -606,14 +561,7 @@ for ($x = 0+1; $x < $cout_1+1; $x++) {
 if ($gobal_tim_kiem_sua_xoa == "duc")
 {
 
-// kết nối csdl	
-include('setup/fuction_ket_noi_csdl.php');
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-	if (!$conn) {
-	die("Connection failed: " . mysqli_connect_error());
-	}
+
 // lấy dữ liệu lên html
 $sql_1 = "Select
 	sheet2.`so_tai`,
@@ -659,7 +607,7 @@ for ($x = 0+1; $x < $cout_1+1; $x++) {
 
 
 
-echo json_encode($arraymysql_1);
+echo str_ireplace("|_|","'",json_encode($arraymysql_1));
 
 
 

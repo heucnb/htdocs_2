@@ -1,8 +1,10 @@
 
 <?php
-		
-$day_post_bat_dau = $_POST["post1"].'-01-01';
-$year_them_1 = $_POST["post1"] +1 ;
+include "setup/fuction_ket_noi_csdl.php";
+	
+    
+$day_post_bat_dau = safeSQL($_POST["post1"]).'-01-01';
+$year_them_1 = safeSQL($_POST["post1"]) +1 ;
 $day_year_them_1 = $year_them_1.'-01-01' ;
 
 $day_post_ket_thuc =  date('Y-m-d', strtotime($day_year_them_1. ' - 0 days')) ;
@@ -11,10 +13,9 @@ $day_post_ket_thuc =  date('Y-m-d', strtotime($day_year_them_1. ' - 0 days')) ;
 $date_batdau =  $day_post_bat_dau ;
 
 $date_ketthuc = $day_post_ket_thuc;
-$trai=$_POST["post8"];
+$trai=safeSQL($_POST["post8"]);
+include "setup/check_token_and_post.php";
 
-// kết nối csdl	
-include "setup/fuction_ket_noi_csdl.php";
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 // Check connection
@@ -51,7 +52,7 @@ $arraymysql_4 = [];
 // sql tính các chỉ tiêu
 	$sql_6 = "SELECT *
 FROM
-(SELECT stt as stt_xap_sep, CONCAT('". $_POST["post1"]."',	'-' ,`thang`) as thanghb FROM `sheet6`) as banghb1
+(SELECT stt as stt_xap_sep, CONCAT('". safeSQL($_POST["post1"])."',	'-' ,`thang`) as thanghb FROM `sheet6`) as banghb1
 
 
 LEFT JOIN
@@ -357,7 +358,7 @@ if ($so_o_lay === 0) {  echo ("Chưa có dữ liệu");}
     );
 
 
-    echo json_encode($dataexcel);
+    echo str_ireplace("|_|","'",json_encode($dataexcel));
 }
 
 

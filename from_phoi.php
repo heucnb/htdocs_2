@@ -1,11 +1,12 @@
 
 <?php
-		
-
-$trai=$_POST["post8"];
-
-// kết nối csdl	
 include "setup/fuction_ket_noi_csdl.php";
+		
+		
+		  
+$trai=safeSQL($_POST["post8"]);
+include "setup/check_token_and_post.php";
+
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 // Check connection
@@ -52,7 +53,7 @@ for ($x = 0; $x < $cout_4_2; $x++) {
     $arraymysql_4_2[$x] = mysqli_fetch_row($result_4_2) ;
   } 
    
-  echo json_encode( [$arraymysql_sum , $arraymysql_4_2 ]);
+  echo str_ireplace("|_|","'",json_encode( [$arraymysql_sum , $arraymysql_4_2 ]));
  
 ?>	
 

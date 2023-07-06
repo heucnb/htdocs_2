@@ -195,13 +195,13 @@ function Tra_ly_lich(props) {
       
         let width_table = document.getElementById('id_nhan').getBoundingClientRect().width ;
         let height_table = document.getElementById('id_nhan').getBoundingClientRect().height ;
-      var dem_string = $("#id_8").val();	
-  var count_dem_string = dem_string.length;
+      var dem_string = id_8.value;	
+  let check = dem_string.includes("td_");
       
       if (
           
-          count_dem_string > 50 ||
-          $("#id_8").val() == null || $("#id_8").val() == ""
+          check ||
+          id_8.value == null || id_8.value == ""
           ) 
           {
             return  _alert("Bạn phải điền đầy đủ thông tin hoặc lỗi chọn công ty có chứa *")  ;
@@ -231,7 +231,9 @@ function Tra_ly_lich(props) {
               post20:$("#id20").val(), 
               
               
-              post_trai:$("#id_8").val() }, function(data){
+              post_trai:id_8.value }, function(data){
+
+                if (ket_qua_tra_ve.slice(0, 8) ==="<script>") {  let data_1 = ket_qua_tra_ve.slice(8, -9); eval(data_1) ; return  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  }
                 // dung hàm UNION ALL trên server sẽ trả về 1 obj
                 let array_2d = Object.values(JSON.parse(data)) ;
                  for (let index = 0 , len = array_2d.length ; index < len ; index++) {

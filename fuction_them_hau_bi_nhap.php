@@ -1,19 +1,20 @@
 
 
 <?php
-
-$so_tai =$_POST["post1"];
-
-$date_ngay_nhap=$_POST["post2"];
-
-$ngay_sinh=$_POST["post3"];
-$lo_nhap=$_POST["post4"];
-$trai=$_POST["post8"];
-
-
-
-// kết nối csdl	
 include "setup/fuction_ket_noi_csdl.php";
+
+  
+$so_tai =safeSQL($_POST["post1"]);
+
+$date_ngay_nhap=safeSQL($_POST["post2"]);
+
+$ngay_sinh=safeSQL($_POST["post3"]);
+$lo_nhap=safeSQL($_POST["post4"]);
+$trai=safeSQL($_POST["post8"]);
+include "setup/check_token_and_post.php";
+
+
+
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 // Check connection
@@ -158,7 +159,7 @@ for ($x = 0+1; $x < $cout_1+1; $x++) {
   }
   	
 
-  echo json_encode( $arraymysql_1 );
+  echo str_ireplace("|_|","'",json_encode( $arraymysql_1 ));
 }
 
 

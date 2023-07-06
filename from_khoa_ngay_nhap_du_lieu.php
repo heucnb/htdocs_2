@@ -76,14 +76,14 @@
 
 
 <?php
+include "setup/fuction_ket_noi_csdl.php";
 
 
  
-$trai=$_POST["post8"];
+$trai=safeSQL($_POST["post8"]);
 
 	
-// kết nối csdl	
-include "setup/fuction_ket_noi_csdl.php";
+
 header("Content-type: text/html; charset=utf-8"); // thêm tiếng việt mới lấy được câu lệnh sql đã chạy
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
@@ -120,7 +120,8 @@ a:
 
 
 
- var arrayjavascript = <?php echo json_encode($arraymysql);	?>;
+ var arrayjavascript = <?php
+include "setup/fuction_ket_noi_csdl.php"; echo str_ireplace("|_|","'",json_encode($arraymysql));	?>
 var countjavascript = arrayjavascript.length ;	
  
     for(var r=0;r<countjavascript;r++)

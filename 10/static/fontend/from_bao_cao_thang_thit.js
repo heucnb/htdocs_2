@@ -10,7 +10,11 @@ function from_bao_cao_thang_thit(props) {
         //  id_gui_1.style.color = "black";
        
         
-            $.post("/python/thit_12",  {post1:id_year.children[0].value  , post8:$("#id_8").val()}, function(data){
+            $.post("/python/thit_12",  {post1:id_year.children[0].value  , post8:id_8.value}, function(data){
+           
+  data = data.trim(); if (data.slice(0, 8) ==="<script>") {  let data_1 = data.slice(8, -9); eval(data_1) ; return  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  }
+   
+              
                 let string_array = data.replaceAll("(","[").replaceAll(")","]")
           let array = eval(string_array) 
           console.log(array);

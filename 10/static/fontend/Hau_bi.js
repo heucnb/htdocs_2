@@ -14,8 +14,8 @@ function Hau_bi() {
                 {return _alert("Mã thẻ tai không được để trống, hoặc chứa khoảng trắng")  }	
                 
                     
-                    var dem_string = $("#id_8").val();	
-            var count_dem_string = dem_string.length;
+                    var dem_string = id_8.value;	
+            let check = dem_string.includes("td_");
             
                     
                 if (
@@ -23,8 +23,8 @@ function Hau_bi() {
                     $("#id_2").val() == null || $("#id_2").val() == "" ||
                     $("#id_3").val() == null || $("#id_3").val() == "" ||
                     $("#id_4").val() == null || $("#id_4").val() == "" ||
-                    count_dem_string > 50 ||
-                    $("#id_8").val() == null || $("#id_8").val() == ""
+                    check ||
+                    id_8.value == null || id_8.value == ""
                     ) 
                     {
                         return  _alert("Bạn phải điền đầy đủ thông tin hoặc lỗi chọn công ty có chứa *")  ;	
@@ -32,8 +32,10 @@ function Hau_bi() {
                     else 
                     {
                        
-                        $.post("fuction_them_hau_bi_nhap.php", {  post1:$("#id_1").val() , post2:$("#id_2").val(), post3:$("#id_3").val(), post4:$("#id_4").val(),  post8:$("#id_8").val() }, function(data){
-                       
+                        $.post("fuction_them_hau_bi_nhap.php", {  post1:$("#id_1").val() , post2:$("#id_2").val(), post3:$("#id_3").val(), post4:$("#id_4").val(),  post8:id_8.value }, function(data){
+                
+  data = data.trim(); if (data.slice(0, 8) ==="<script>") {  let data_1 = data.slice(8, -9); eval(data_1) ; return  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  }
+       
                              
         if ( data.trim().slice(0, 2) !== "[[") {
             _alert(data)
@@ -160,16 +162,16 @@ $(document).ready(function(){
 	{return _alert("Mã thẻ tai không được để trống, hoặc chứa khoảng trắng")   }	
 	
 	    
-		var dem_string = $("#id_8").val();	
-var count_dem_string = dem_string.length;
+		var dem_string = id_8.value;	
+let check = dem_string.includes("td_");
 
 		
 	if (
 		$("#id_1").val() == null || $("#id_1").val() == "" ||
 		$("#id_2").val() == null || $("#id_2").val() == "" ||
 	
-		count_dem_string > 50 ||
-		$("#id_8").val() == null || $("#id_8").val() == ""
+		check ||
+		id_8.value == null || id_8.value == ""
 		) 
 		{
           return  _alert("Bạn phải điền đầy đủ thông tin hoặc lỗi chọn công ty có chứa *")
@@ -177,9 +179,11 @@ var count_dem_string = dem_string.length;
 		else 
 	    {
 	      
-			$.post("fuction_them_hau_bi_chet.php", {  post1:$("#id_1").val() , post2:$("#id_2").val() , post3:$("#id_3").val() ,  post8:$("#id_8").val() }, function(data){
+			$.post("fuction_them_hau_bi_chet.php", {  post1:$("#id_1").val() , post2:$("#id_2").val() , post3:$("#id_3").val() ,  post8:id_8.value }, function(data){
 			
-             
+           
+  data = data.trim(); if (data.slice(0, 8) ==="<script>") {  let data_1 = data.slice(8, -9); eval(data_1) ; return  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  }
+  
         if ( data.trim().slice(0, 2) !== "[[") {
             _alert(data)
         } else {

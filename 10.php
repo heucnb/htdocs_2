@@ -1,4 +1,5 @@
 <?php
+include "setup/fuction_ket_noi_csdl.php";
 		
         $time_start = microtime(true);
 
@@ -10,8 +11,7 @@
 // } 
 
  // câu lệnh này chạy mất khoảng 9 giây
-// kết nối csdl	
-include "setup/fuction_ket_noi_csdl.php";
+
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 // Check connection

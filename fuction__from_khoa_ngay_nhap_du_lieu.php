@@ -3,14 +3,14 @@
 
 
 <?php
-
-
-$so_ngay_khoa_du_lieu=$_POST["post1"];
-$trai=$_POST["post8"];
-
-	
-// kết nối csdl	
 include "setup/fuction_ket_noi_csdl.php";
+
+
+$so_ngay_khoa_du_lieu=safeSQL($_POST["post1"]);
+$trai=safeSQL($_POST["post8"]);
+include "setup/check_token_and_post.php";
+	
+
 header("Content-type: text/html; charset=utf-8"); // thêm tiếng việt mới lấy được câu lệnh sql đã chạy
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
@@ -55,7 +55,8 @@ a:
 
 document.getElementById('table1').innerHTML = "";
 
- var arrayjavascript = <?php echo json_encode($arraymysql);	?>;
+ var arrayjavascript = <?php
+include "setup/fuction_ket_noi_csdl.php"; echo str_ireplace("|_|","'",json_encode($arraymysql));	?>
 var countjavascript = arrayjavascript.length ;	
  
     for(var r=0;r<countjavascript;r++)

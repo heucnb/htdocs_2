@@ -3,13 +3,12 @@
 
 <?php
 
+include "setup/connect_mysql.php";
+include "setup/Token.php";
+$username_post =safeSQL($_POST["post1"]);
+$password_post=safeSQL($_POST["post2"]);
 
 
-$username_post =$_POST["post1"];
-$password_post=$_POST["post2"];
-
-// kết nối csdl	
-include "setup/fuction_ket_noi_csdl.php";
 header("Content-type: text/html; charset=utf-8"); // thêm tiếng việt mới lấy được câu lệnh sql đã chạy
 // Create connection
 
@@ -32,9 +31,14 @@ for ($x = 0; $x < $cout; $x++) {
 
 if($cout==1)
 	{
-	setcookie("username_cookie",$username_post, time() + (86400 * 5), "/");
-	setcookie("password_cookie", $password_post, time() + (86400 * 5), "/");	
-	echo json_encode($arraymysql);
+
+		
+
+// Generate token
+$token = Token::Sign(['username' => $username_post ,'password' => $password_post , 'trai'=> $arraymysql[0][2] , 'trai_day_du'=> $arraymysql[0][3] ] ,  $KEY , (60*10) );
+@ setcookie("token_cookie",$token, time() + (86400 * 5), "/");
+
+	echo str_ireplace("|_|","'",json_encode($arraymysql));
 	}else{
 		echo "Sai username hoặc pasword";
 		

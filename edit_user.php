@@ -1,15 +1,17 @@
 
 <?php
-$array_old =json_decode($_POST["post1"]);
-$array_new =json_decode($_POST["post2"]);
+include "setup/fuction_ket_noi_csdl.php";
+
+
+$array_old =json_decode(safeSQL($_POST["post1"]));
+$array_new =json_decode(safeSQL($_POST["post2"]));
 $username_post = $array_old[0];
 $password_post= $array_old[1];
 $username_post_new = $array_new[0];
 $password_post_new= $array_new[1];
-$trai=$_POST["post8"];
+$trai=safeSQL($_POST["post8"]);
+include "setup/check_token_and_post.php";
 
-// kết nối csdl	
-include "setup/fuction_ket_noi_csdl.php";
 header("Content-type: text/html; charset=utf-8"); // thêm tiếng việt mới lấy được câu lệnh sql đã chạy
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);

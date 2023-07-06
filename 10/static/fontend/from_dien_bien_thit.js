@@ -13,7 +13,11 @@ function from_dien_bien_thit(props) {
          id_gui_thang.children[0].options[0].text = "Tra theo tháng"
         id_gui_thang.children[0].style.color  = "black";
         
-            $.post("/python/thit_dien_bien",  {post1: id_year.children[0].value  , post8:$("#id_8").val(),post2:"00-00"  }, function(data){
+            $.post("/python/thit_dien_bien",  {post1: id_year.children[0].value  , post8:id_8.value,post2:"00-00"  }, function(data){
+               
+             
+  data = data.trim(); if (data.slice(0, 8) ==="<script>") {  let data_1 = data.slice(8, -9); eval(data_1) ; return  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  }
+  
                 let string_array = data.replaceAll("(","[").replaceAll(")","]")
           let array = eval(string_array) 
           console.log(array);
@@ -43,7 +47,12 @@ function from_dien_bien_thit(props) {
         id_gui_tuan.children[0].style.color  = "black";
         id_gui_tuan.children[0].options[0].text = "Tra theo tuần"
        
-            $.post("/python/thit_dien_bien",  {post1:id_year.children[0].value  , post8:$("#id_8").val(),post2: select_value }, function(data){
+            $.post("/python/thit_dien_bien",  {post1:id_year.children[0].value  , post8:id_8.value,post2: select_value }, function(data){
+              
+             
+  data = data.trim(); if (data.slice(0, 8) ==="<script>") {  let data_1 = data.slice(8, -9); eval(data_1) ; return  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  }
+ 
+              
                 let string_array = data.replaceAll("(","[").replaceAll(")","]")
           let array = eval(string_array) 
           console.log(array);
@@ -79,7 +88,11 @@ function from_dien_bien_thit(props) {
         id_gui_thang.children[0].style.color  = "black";
         id_gui_thang.children[0].options[0].text = "Tra theo tháng"    
 
-            $.post("/python/thit_dien_bien",  {post1:id_year.children[0].value  , post8:$("#id_8").val(),post2: select_value }, function(data){
+            $.post("/python/thit_dien_bien",  {post1:id_year.children[0].value  , post8:id_8.value,post2: select_value }, function(data){
+              
+            
+  data = data.trim(); if (data.slice(0, 8) ==="<script>") {  let data_1 = data.slice(8, -9); eval(data_1) ; return  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  }
+  
                 let string_array = data.replaceAll("(","[").replaceAll(")","]")
           let array = eval(string_array) 
           console.log(array);

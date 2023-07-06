@@ -1,13 +1,14 @@
 
 <?php
-		
-$data_chuong_new =$_POST["post1"];
-$trai=$_POST["post8"];
-
-
-
-// kết nối csdl	
 include "setup/fuction_ket_noi_csdl.php";
+
+		  
+$data_chuong_new =safeSQL($_POST["post1"]);
+$trai=safeSQL($_POST["post8"]);
+include "setup/check_token_and_post.php";
+
+
+
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 // Check connection

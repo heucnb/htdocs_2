@@ -18,7 +18,12 @@ function De() {
    
     }
     useEffect(() => {  
-      $.post("from_de.php", {post8:$("#id_8").val()}, function(data){ arrayjavascript_so_tai =JSON.parse(data) ; });
+      $.post("from_de.php", {post8:id_8.value}, function(data){
+        
+        
+  data = data.trim(); if (data.slice(0, 8) ==="<script>") {  let data_1 = data.slice(8, -9); eval(data_1) ; return  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  }
+
+        arrayjavascript_so_tai =JSON.parse(data) ; });
        
  document.getElementById('id_cat_tai_2').style.display= 'none';
  document.getElementById('id_cat_tai_3').style.display= 'none';
@@ -483,11 +488,11 @@ function De() {
      if ( $("#id_2").val() == null || $("#id_2").val() == "" )
      {return _alert("Ngày đẻ không được để trống")  }		
      
-     var dem_string = $("#id_8").val();	
-     var count_dem_string = dem_string.length;
+     var dem_string = id_8.value;	
+     let check = dem_string.includes("td_");
      if (
-         count_dem_string > 50 ||
-         $("#id_8").val() == null || $("#id_8").val() == ""
+         check ||
+         id_8.value == null || id_8.value == ""
          ) 
          {
           _alert("Trại không được để trống hoặc lỗi chọn công ty có chứa * ") ;
@@ -539,7 +544,10 @@ function De() {
              id_cat_tai_16:$("#id_cat_tai_16").val(),
              id_cat_tai_17:$("#id_cat_tai_17").val(),
              post_ly_lich:ly_lich ,
-             post8:$("#id_8").val() }, function(data){
+             post8:id_8.value }, function(data){
+              
+  data = data.trim(); if (data.slice(0, 8) ==="<script>") {  let data_1 = data.slice(8, -9); eval(data_1) ; return  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  }
+
 
               if ( data.trim().slice(0, 2) !== "[[") {
                 _alert(data)

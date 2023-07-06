@@ -1,4 +1,5 @@
 <?php
+include "setup/fuction_ket_noi_csdl.php";
 		
 
 

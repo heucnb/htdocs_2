@@ -1,25 +1,27 @@
 
 <?php
-$day_post_bat_dau = $_POST["post1"].'-01-01';
-$year_them_1 = $_POST["post1"] +1 ;
+include "setup/fuction_ket_noi_csdl.php";
+
+  
+$day_post_bat_dau = safeSQL($_POST["post1"]).'-01-01';
+$year_them_1 = safeSQL($_POST["post1"]) +1 ;
 $day_year_them_1 = $year_them_1.'-01-01' ;
-$year_tru_1 = $_POST["post1"] -1 ;
+$year_tru_1 = safeSQL($_POST["post1"]) -1 ;
 $day_post_ket_thuc =  date('Y-m-d', strtotime($day_year_them_1. ' - 0 days')) ;
 
 
 $date_batdau =  $day_post_bat_dau ;
 
 $date_ketthuc = $day_post_ket_thuc;
-$trai=$_POST["post8"];
-
+$trai=safeSQL($_POST["post8"]);
+include "setup/check_token_and_post.php";
 		
 
 
 
 $date_tru_140 =  date('Y-m-d', strtotime($date_batdau. ' - 140 days')) ;
 
-// kết nối csdl	
-include "setup/fuction_ket_noi_csdl.php";
+
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 // Check connection
@@ -29,7 +31,7 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 
 $sql_7 = "SELECT  *
  FROM 
- (SELECT stt as stt_xap_sep, CONCAT('". $_POST["post1"]."',	'-' ,`thang`) as thanghb FROM `sheet7`) as bang_sheet7
+ (SELECT stt as stt_xap_sep, CONCAT('". safeSQL($_POST["post1"])."',	'-' ,`thang`) as thanghb FROM `sheet7`) as bang_sheet7
 
 
 LEFT JOIN
@@ -486,6 +488,7 @@ stt_xap_sep ASC
 
 
 		 ";
+    
 $result_7 = mysqli_query($conn, $sql_7);
 $cout_7 = mysqli_num_rows($result_7);
 $arraymysql_7 = [];
@@ -615,8 +618,7 @@ if ($so_o_lay === 0) { echo ("Chưa có dữ liệu"); }
         false       // Should the array be indexed by cell row and cell column
     );
 
-
-echo json_encode($dataexcel);
+echo str_ireplace("|_|","'",json_encode($dataexcel));
 
   }
 

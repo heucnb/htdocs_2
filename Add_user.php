@@ -1,13 +1,14 @@
 
 <?php
-$username_post =$_POST["post1"];
-$password_post=$_POST["post2"];
-
-$trai=$_POST["post8"];
-$ten_trai_day_du=$_POST["post9"];
-$chuong=$_POST["post10"];	
-// kết nối csdl	
 include "setup/fuction_ket_noi_csdl.php";
+$username_post =safeSQL($_POST["post1"]);
+$password_post=safeSQL($_POST["post2"]);
+
+$trai=safeSQL($_POST["post8"]);
+include "setup/check_token_and_post.php";
+$ten_trai_day_du=safeSQL($_POST["post9"]);
+$chuong=safeSQL($_POST["post10"]);	
+
 header("Content-type: text/html; charset=utf-8"); // thêm tiếng việt mới lấy được câu lệnh sql đã chạy
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
@@ -31,41 +32,83 @@ if($cout_1==1)
 
     else{
 
-// thêm user
-$sql_2 = "INSERT INTO
-`login` 
-(`username`, 
-`password`, 
-`trai`,
-`trai_day_du`, 
-`duoc_quyen_them_user`,
-`chuong`
-) SELECT
-'".$username_post."',
-'".$password_post."',
-".$trai.",
-'".$ten_trai_day_du."',
-'0',
-'".$chuong."'";
+      if (substr($_POST["post8"],0,3) != "td_") {
+            
 
+            $sql_2 =  "INSERT INTO
+            `login` 
+            (`username`, 
+            `password`, 
+            `trai`,
+            `trai_day_du`, 
+            `duoc_quyen_them_user`,
+            `chuong`
+            )VALUES (
+              '".$username_post."', 
+              '".$password_post."', 
+              '".$trai."', 
+              '".$ten_trai_day_du."', 
+            0, 
+              '".$chuong."'
+
+              )";
+
+
+       
+      } else {
+
+          
+
+            $sql_2 =  "INSERT INTO
+            `login` 
+            (`username`, 
+            `password`, 
+            `trai`,
+            `trai_day_du`, 
+            `duoc_quyen_them_user`,
+            `chuong`
+            )VALUES (
+              '".$username_post."', 
+              '".$password_post."', 
+              '".$payload[1]['trai']."', 
+              '".$payload[1]['trai_day_du']."', 
+            0, 
+              '".$chuong."'
+
+              )";
+
+
+      }
+      
+
+      
+
+   
 $result_2 = mysqli_query($conn, $sql_2);
 
 
 // láy dữ liệu lên
-$sql = "select `username`, `password`,`trai_day_du` from login where `trai`='".$trai."' ";
+
+$sql = "select `username`, `password`,`trai_day_du`, `duoc_quyen_them_user` from login where `trai`='".$payload[1]['trai']."' or `trai`='".$trai."' ORDER BY `duoc_quyen_them_user` DESC ";
+
+
+
 $result = mysqli_query($conn, $sql);
 $cout = mysqli_num_rows($result);	
 $arraymysql = [];
  $arraymysql[0] =["Tên đăng nhập",
 "Password",
-"Công ty"
+"Công ty",
+"Quyền quản trị user"
 ];
 for ($x = 1; $x < $cout + 1; $x++) {
     $arraymysql[$x] = mysqli_fetch_row($result) ;
   }
+
+
  
     }
 
-    echo json_encode($arraymysql);
+    echo str_ireplace("|_|","'",json_encode($arraymysql));
 
 ?>

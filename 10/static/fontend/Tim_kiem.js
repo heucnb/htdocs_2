@@ -8,11 +8,11 @@ function Tim_kiem() {
             $("#id_gui_fuction_research").click(function(){
                 let width_table = document.getElementById('id_nhan_research').getBoundingClientRect().width ;
                 let height_table = document.getElementById('id_nhan_research').getBoundingClientRect().height ;
-            var dem_string = $("#id_8").val();	
-        var count_dem_string = dem_string.length;
+            var dem_string = id_8.value;	
+        let check = dem_string.includes("td_");
             
             if (
-                $("#id_1_research").val() == null   ||  count_dem_string > 50 ||  $("#id_1_research").val() == "" 
+                $("#id_1_research").val() == null   ||  check ||  $("#id_1_research").val() == "" 
                 ) 
                 {
                     _alert("Bạn phải điền đầy đủ thông tin hoặc lỗi chọn công ty có chứa *") ;
@@ -20,9 +20,10 @@ function Tim_kiem() {
                 else 
                 {
                
-                    $.post("fuction--from_research.php", {post1:$("#id_1_research").val() ,post4: gobal_tim_kiem_sua_xoa ,  post8:$("#id_8").val() }, function(data){
-                  
-
+                    $.post("fuction--from_research.php", {post1:$("#id_1_research").val() ,post4: gobal_tim_kiem_sua_xoa ,  post8:id_8.value }, function(data){
+                        data = data.trim(); if (data.slice(0, 8) ==="<script>") {  let data_1 = data.slice(8, -9); eval(data_1) ; return  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  }
+       
+   
  var arrayjavascript = JSON.parse(data) // ***** gán mảng 2 chiều từ php vào javácript
  
  var countjavascript = arrayjavascript.length ;
@@ -59,12 +60,12 @@ function Tim_kiem() {
             $("#id_gui_fuction_research_date").click(function(){
                 let width_table = document.getElementById('id_nhan_research').getBoundingClientRect().width ;
                 let height_table = document.getElementById('id_nhan_research').getBoundingClientRect().height ;
-                var dem_string = $("#id_8").val();	
-        var count_dem_string = dem_string.length;
+                var dem_string = id_8.value;	
+        let check = dem_string.includes("td_");
                 
             if (
                 $("#id_2_research").val() == null || $("#id_2_research").val() == "" ||
-                $("#id_3_research").val() == null  ||  count_dem_string > 50  || $("#id_3_research").val() == "" 
+                $("#id_3_research").val() == null  ||  check  || $("#id_3_research").val() == "" 
                 ) 
                 {
                     _alert("Bạn phải điền đầy đủ thông tin hoặc lỗi chọn công ty có chứa *") ;
@@ -72,9 +73,12 @@ function Tim_kiem() {
                 else 
                 {
                 
-                    $.post("fuction--from_research_date_to_date.php", { post2:$("#id_2_research").val(), post3:$("#id_3_research").val(), post8:$("#id_8").val(), post4: gobal_tim_kiem_sua_xoa }, function(data){
+                    $.post("fuction--from_research_date_to_date.php", { post2:$("#id_2_research").val(), post3:$("#id_3_research").val(), post8:id_8.value, post4: gobal_tim_kiem_sua_xoa }, function(data){
                   
-                        
+                        data = data.trim(); if (data.slice(0, 8) ==="<script>") {  let data_1 = data.slice(8, -9); eval(data_1) ; return  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  }
+       
+                  
+ 
  var arrayjavascript = JSON.parse(data) // ***** gán mảng 2 chiều từ php vào javácript
  
  var countjavascript = arrayjavascript.length ;

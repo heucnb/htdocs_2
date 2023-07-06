@@ -5,16 +5,32 @@ function Add_user() {
     $.post("ds_user.php", {
       post8: id_8.value
     }, function (data) {
-      console.log(data);
+      data = data.trim();
+      if (data.slice(0, 8) === "<script>") {
+        let data_1 = data.slice(8, -9);
+        eval(data_1);
+        return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+      }
       let width_table = document.getElementById('id_nhan').getBoundingClientRect().width;
       let height_table = document.getElementById('id_nhan').getBoundingClientRect().height;
       if (data.trim().slice(0, 2) !== "[[") {
         _alert(data);
       } else {
+        let data_goc = JSON.parse(data);
+        let data_change_tap_doan = data_goc.map((i, index) => {
+          if (i[2].includes(",*")) {
+            let array = i[2].split(",*");
+            i[2] = "* " + array[array.length - 1];
+            return i;
+          } else {
+            i[2] = i[2];
+            return i;
+          }
+        });
         ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
         ReactDOM.render(React.createElement(Table_xoa_add_user, {
           value: {
-            data: JSON.parse(data),
+            data: data_change_tap_doan,
             width: width_table,
             height: height_table
           }
@@ -27,7 +43,7 @@ function Add_user() {
       let ten_dang_nhap = id_1.value;
       let password = id_2.value;
       let trai = id_8.value;
-      let trai_day_du = id_8.options[0].text;
+      let trai_day_du = id_8.children[0].textContent.trim();
       let chuong = JSON.stringify(array_chuong_thit);
       if (ten_dang_nhap == null || ten_dang_nhap == "" || password == null || password == "" || trai == null || trai == "") {
         return _alert("Bạn phải điền đầy đủ thông tin");
@@ -39,14 +55,31 @@ function Add_user() {
           post9: trai_day_du,
           post10: chuong
         }, function (data) {
+          data = data.trim();
+          if (data.slice(0, 8) === "<script>") {
+            let data_1 = data.slice(8, -9);
+            eval(data_1);
+            return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+          }
           console.log(data);
           if (data.trim().slice(0, 2) !== "[[") {
             _alert(data);
           } else {
+            let data_goc = JSON.parse(data);
+            let data_change_tap_doan = data_goc.map((i, index) => {
+              if (i[2].includes(",*")) {
+                let array = i[2].split(",*");
+                i[2] = "* " + array[array.length - 1];
+                return i;
+              } else {
+                i[2] = i[2];
+                return i;
+              }
+            });
             ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
             ReactDOM.render(React.createElement(Table_xoa_add_user, {
               value: {
-                data: JSON.parse(data),
+                data: data_change_tap_doan,
                 width: width_table,
                 height: height_table
               }
@@ -95,419 +128,11 @@ function App(props) {
     }
   }
 
-  useEffect(() => {
-    let id_nhan_index = document.getElementById('id_nhan_index');
-    if (arrayjavascript_3[0] !== "Chưa đăng nhập") {
-      document.getElementById('id_td_1').innerHTML = "Đăng nhập - " + arrayjavascript_3[0][0];
-      console.log(arrayjavascript_3);
-      var array_option = new Array();
-      // This will return an array with strings "1", "2", etc.
-      array_option = arrayjavascript_3[0][2].split(",");
-      console.log(array_option);
-      array_option_ten_day_du = arrayjavascript_3[0][3].split(",");
-      console.log(array_option_ten_day_du);
-      var select = document.getElementById("id_8");
-      select.innerHTML = '';
-      for (var i = 0; i < array_option.length; i++) {
-        var option = document.createElement("OPTION");
-        option.text = array_option_ten_day_du[i];
-        option.value = array_option[i];
-        select.appendChild(option);
-      }
-      // kiểm tra xem có được quyền thêm người dùng và khóa dữ liệu không
-      var quyen_them_nguoi_dung_va_khoa_ngay_sua_du_lieu = arrayjavascript_3[0][4];
-      if (quyen_them_nguoi_dung_va_khoa_ngay_sua_du_lieu == 1) {
-        document.getElementById('id_them_user').style.display = 'inline';
-        document.getElementById('id_khoa_ngay_nhap_du_lieu').style.display = 'inline';
-      } else {
-        document.getElementById('id_them_user').style.display = 'none';
-        document.getElementById('id_khoa_ngay_nhap_du_lieu').style.display = 'none';
-      }
-    }
-    /*đăng ký*/
-
-    $(document).ready(function () {
-      $("#id_td_0").click(function () {
-        ReactDOM.render( /*#__PURE__*/React.createElement(Dang_ky, null), id_nhan_index);
-      });
-    });
-
-    /*đăng nhập*/
-
-    $(document).ready(function () {
-      $("#id_td_1").click(function () {
-        if (document.getElementById('id_td_1').innerHTML == "Đăng nhập") {
-          ReactDOM.render( /*#__PURE__*/React.createElement(Login, null), id_nhan_index);
-        } else {
-          ReactDOM.render( /*#__PURE__*/React.createElement(Logout, null), id_nhan_index);
-        }
-      });
-    });
-
-    /*phối*/
-
-    $(document).ready(function () {
-      $("#id_td_2").click(function () {
-        ReactDOM.unmountComponentAtNode(id_nhan_index);
-        if (document.getElementById('id_td_1').innerHTML == "Đăng nhập") {
-          _alert("Bạn phải đăng nhập trước đã");
-        } else {
-          var dem_string = $("#id_8").val();
-          var count_dem_string = dem_string.length;
-          if (count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
-            return _alert('Bạn phải chọn công ty để nhập dữ liệu hoặc lỗi chọn công ty có chứa *');
-          }
-          ReactDOM.render(React.createElement(Phoi, null), id_nhan_index);
-          gobal_tim_kiem_sua_xoa = "phoi";
-        }
-      });
-    });
-
-    /* đẻ*/
-
-    $(document).ready(function () {
-      $("#id_td_13").click(function () {
-        if (document.getElementById('id_td_1').innerHTML == "Đăng nhập") {
-          _alert('Bạn phải đăng nhập trước đã');
-        } else {
-          var dem_string = $("#id_8").val();
-          var count_dem_string = dem_string.length;
-          if (count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
-            return _alert('Bạn phải chọn công ty để nhập dữ liệu hoặc lỗi chọn công ty có chứa *');
-          }
-          ReactDOM.render(React.createElement(De, null), id_nhan_index);
-          gobal_tim_kiem_sua_xoa = "de";
-        }
-      });
-    });
-
-    /* cai sữa*/
-
-    $(document).ready(function () {
-      $("#id_td_3").click(function () {
-        if (document.getElementById('id_td_1').innerHTML == "Đăng nhập") {
-          _alert('Bạn phải đăng nhập trước đã');
-        } else {
-          var dem_string = $("#id_8").val();
-          var count_dem_string = dem_string.length;
-          if (count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
-            return _alert('Bạn phải chọn công ty để nhập dữ liệu hoặc lỗi chọn công ty có chứa *');
-          }
-          ReactDOM.render(React.createElement(Cai_sua, null), id_nhan_index);
-          gobal_tim_kiem_sua_xoa = "cai_sua";
-        }
-      });
-    });
-
-    /* heo vấn đề*/
-
-    $(document).ready(function () {
-      $("#id_td_4").click(function () {
-        if (document.getElementById('id_td_1').innerHTML == "Đăng nhập") {
-          _alert('Bạn phải đăng nhập trước đã');
-        } else {
-          var dem_string = $("#id_8").val();
-          var count_dem_string = dem_string.length;
-          if (count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
-            return _alert('Bạn phải chọn công ty để nhập dữ liệu hoặc lỗi chọn công ty có chứa *');
-          }
-          ReactDOM.render(React.createElement(Heo_van_de, null), id_nhan_index);
-          gobal_tim_kiem_sua_xoa = "van_de";
-        }
-      });
-    });
-
-    /* heo nái chết loại*/
-
-    $(document).ready(function () {
-      $("#id_td_5").click(function () {
-        if (document.getElementById('id_td_1').innerHTML == "Đăng nhập") {
-          _alert('Bạn phải đăng nhập trước đã');
-        } else {
-          var dem_string = $("#id_8").val();
-          var count_dem_string = dem_string.length;
-          if (count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
-            return _alert('Bạn phải chọn công ty để nhập dữ liệu hoặc lỗi chọn công ty có chứa *');
-          }
-          ReactDOM.render(React.createElement(Nai_chet, null), id_nhan_index);
-          gobal_tim_kiem_sua_xoa = "nai_chet_loai";
-        }
-      });
-    });
-
-    /* heo con chết loại*/
-
-    $(document).ready(function () {
-      $("#id_td_6").click(function () {
-        if (document.getElementById('id_td_1').innerHTML == "Đăng nhập") {
-          _alert('Bạn phải đăng nhập trước đã');
-        } else {
-          var dem_string = $("#id_8").val();
-          var count_dem_string = dem_string.length;
-          if (count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
-            return _alert('Bạn phải chọn công ty để nhập dữ liệu hoặc lỗi chọn công ty có chứa *');
-          }
-          ReactDOM.render(React.createElement(Heo_con_chet, null), id_nhan_index);
-          gobal_tim_kiem_sua_xoa = "con_chet_loai";
-        }
-      });
-    });
-
-    /* hậu bị*/
-
-    $(document).ready(function () {
-      $("#id_td_7").click(function () {
-        if (document.getElementById('id_td_1').innerHTML == "Đăng nhập") {
-          _alert('Bạn phải đăng nhập trước đã');
-        } else {
-          var dem_string = $("#id_8").val();
-          var count_dem_string = dem_string.length;
-          if (count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
-            return _alert('Bạn phải chọn công ty để nhập dữ liệu hoặc lỗi chọn công ty có chứa *');
-          }
-          ReactDOM.unmountComponentAtNode(id_nhan_index);
-          ReactDOM.render(React.createElement(Hau_bi, null), id_nhan_index);
-          gobal_tim_kiem_sua_xoa = "hau_bi";
-        }
-      });
-    });
-
-    /* đực */
-
-    $(document).ready(function () {
-      $("#id_td_8").click(function () {
-        if (document.getElementById('id_td_1').innerHTML == "Đăng nhập") {
-          _alert('Bạn phải đăng nhập trước đã');
-        } else {
-          var dem_string = $("#id_8").val();
-          var count_dem_string = dem_string.length;
-          if (count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
-            return _alert('Bạn phải chọn công ty để nhập dữ liệu hoặc lỗi chọn công ty có chứa *');
-          }
-          ReactDOM.unmountComponentAtNode(id_nhan_index);
-          ReactDOM.render(React.createElement(Duc, null), id_nhan_index);
-          gobal_tim_kiem_sua_xoa = "duc";
-        }
-      });
-    });
-
-    /*báo cáo tháng*/
-
-    $(document).ready(function () {
-      $("#id_td_10").click(function () {
-        if (document.getElementById('id_td_1').innerHTML == "Đăng nhập") {
-          _alert('Bạn phải đăng nhập trước đã');
-        } else {
-          try {
-            Table_hieu_2.remove_EventListener();
-          } catch (error) {}
-          ReactDOM.unmountComponentAtNode(id_nhan_index);
-          gobal_post_month = "fuction_thang__from_bao_cao_thang.php";
-          gobal_post = "fuction_tuan__from_bao_cao_thang.php";
-          ReactDOM.render(React.createElement(from_bao_cao_thang, null), id_nhan_index);
-        }
-      });
-    });
-
-    /*báo cáo tháng phối*/
-
-    $(document).ready(function () {
-      $("#id_td_12").click(function () {
-        if (document.getElementById('id_td_1').innerHTML == "Đăng nhập") {
-          _alert('Bạn phải đăng nhập trước đã');
-        } else {
-          try {
-            Table_hieu_2.remove_EventListener();
-          } catch (error) {}
-          ReactDOM.unmountComponentAtNode(id_nhan_index);
-          gobal_post_month = "fuction_thang__from_bao_cao_tinh_theo_phoi.php";
-          gobal_post = "fuction_tuan__from_bao_cao_tinh_theo_phoi.php";
-          ReactDOM.render(React.createElement(from_bao_cao_thang, null), id_nhan_index);
-        }
-      });
-    });
-
-    /*theo dõi tỷ lệ phối*/
-
-    $(document).ready(function () {
-      $("#id_td_9").click(function () {
-        if (document.getElementById('id_td_1').innerHTML == "Đăng nhập") {
-          _alert('Bạn phải đăng nhập trước đã');
-        } else {
-          try {
-            Table_hieu_2.remove_EventListener();
-          } catch (error) {}
-          ReactDOM.unmountComponentAtNode(id_nhan_index);
-          gobal_post_month = "fuction_thang--from_theo_doi_ty_le_phoi.php";
-          gobal_post = "fuction_tuan--from_theo_doi_ty_le_phoi.php";
-          ReactDOM.render(React.createElement(from_bao_cao_thang, null), id_nhan_index);
-        }
-      });
-    });
-
-    /*tra lý lịch*/
-
-    $(document).ready(function () {
-      $("#id_td_14").click(function () {
-        if (document.getElementById('id_td_1').innerHTML == "Đăng nhập") {
-          _alert('Bạn phải đăng nhập trước đã');
-        } else {
-          var dem_string = $("#id_8").val();
-          var count_dem_string = dem_string.length;
-          if (count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
-            return _alert('Bạn phải chọn công ty để nhập dữ liệu hoặc lỗi chọn công ty có chứa *');
-          }
-          ReactDOM.unmountComponentAtNode(id_nhan_index);
-          ReactDOM.render(React.createElement(Tra_ly_lich, null), id_nhan_index);
-        }
-      });
-    });
-
-    /*chọn đực phối*/
-
-    $(document).ready(function () {
-      $("#id_td_15").click(function () {
-        if (document.getElementById('id_td_1').innerHTML == "Đăng nhập") {
-          _alert('Bạn phải đăng nhập trước đã');
-        } else {
-          var dem_string = $("#id_8").val();
-          var count_dem_string = dem_string.length;
-          if (count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
-            return _alert('Bạn phải chọn công ty để nhập dữ liệu hoặc lỗi chọn công ty có chứa *');
-          }
-          ReactDOM.unmountComponentAtNode(id_nhan_index);
-          ReactDOM.render(React.createElement(Ghep_phoi, null), id_nhan_index);
-        }
-      });
-    });
-
-    /*Xem danh sách đàn nái, đực*/
-
-    $(document).ready(function () {
-      $("#id_td_16").click(function () {
-        if (document.getElementById('id_td_1').innerHTML == "Đăng nhập") {
-          _alert('Bạn phải đăng nhập trước đã');
-        } else {
-          var dem_string = $("#id_8").val();
-          var count_dem_string = dem_string.length;
-          if (count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
-            return _alert('Bạn phải chọn công ty để nhập dữ liệu hoặc lỗi chọn công ty có chứa *');
-          }
-          ReactDOM.render(React.createElement(Danh_sach_heo, null), id_nhan_index);
-        }
-      });
-    });
-
-    // Báo cáo đóng chuồng heo thịt
-
-    $(document).ready(function () {
-      $("#id_td_17").click(function () {
-        if (document.getElementById('id_td_1').innerHTML == "Đăng nhập") {
-          _alert('Bạn phải đăng nhập trước đã');
-        } else {
-          var dem_string = $("#id_8").val();
-          var count_dem_string = dem_string.length;
-          if (count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
-            return _alert('Bạn phải chọn công ty để nhập dữ liệu hoặc lỗi chọn công ty có chứa *');
-          }
-          ReactDOM.unmountComponentAtNode(id_nhan_index);
-          ReactDOM.render(React.createElement(from_bao_cao_thang_thit, null), id_nhan_index);
-        }
-      });
-    });
-
-    // Báo cáo diễn biến chuồng heo thịt
-
-    $(document).ready(function () {
-      $("#id_td_18").click(function () {
-        if (document.getElementById('id_td_1').innerHTML == "Đăng nhập") {
-          _alert('Bạn phải đăng nhập trước đã');
-        } else {
-          var dem_string = $("#id_8").val();
-          var count_dem_string = dem_string.length;
-          if (count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
-            return _alert('Bạn phải chọn công ty để nhập dữ liệu hoặc lỗi chọn công ty có chứa *');
-          }
-          ReactDOM.unmountComponentAtNode(id_nhan_index);
-          ReactDOM.render(React.createElement(from_dien_bien_thit, null), id_nhan_index);
-        }
-      });
-    });
-
-    // Cấu hình danh mục chuồng
-
-    $(document).ready(function () {
-      $("#id_td_19").click(function () {
-        if (document.getElementById('id_td_1').innerHTML == "Đăng nhập") {
-          _alert('Bạn phải đăng nhập trước đã');
-        } else {
-          var dem_string = $("#id_8").val();
-          var count_dem_string = dem_string.length;
-          if (count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
-            return _alert('Bạn phải chọn công ty để nhập dữ liệu hoặc lỗi chọn công ty có chứa *');
-          }
-          ReactDOM.unmountComponentAtNode(id_nhan_index);
-          ReactDOM.render( /*#__PURE__*/React.createElement(Setup_chuong, {
-            value: {
-              data: false
-            }
-          }), id_nhan_index);
-        }
-      });
-    });
-
-    /*Thêm user*/
-
-    $(document).ready(function () {
-      $("#id_them_user").click(function () {
-        if (document.getElementById('id_td_1').innerHTML == "Đăng nhập") {
-          _alert('Bạn phải đăng nhập trước đã');
-        } else {
-          ReactDOM.unmountComponentAtNode(id_nhan_index);
-          ReactDOM.render( /*#__PURE__*/React.createElement(Add_user, null), id_nhan_index);
-        }
-      });
-    });
-
-    /*Khóa ngày sửa dữ liệu*/
-
-    $(document).ready(function () {
-      $("#id_khoa_ngay_nhap_du_lieu").click(function () {
-        if (document.getElementById('id_td_1').innerHTML == "Đăng nhập") {
-          _alert('Bạn phải đăng nhập trước đã');
-        } else {
-          var dem_string = $("#id_8").val();
-          var count_dem_string = dem_string.length;
-          if (count_dem_string > 50) {
-            return _alert('Để khóa ngày sửa dữ liệu phải chọn từng công ty riêng. Không được chọn công ty có chứa * ');
-          }
-          $.post("from_khoa_ngay_nhap_du_lieu.php", {
-            post8: $("#id_8").val()
-          }, function (data) {
-            $("#id_nhan_index").html(data);
-          });
-        }
-      });
-    });
-
-    /*show_hide thanh menu web*/
-    var show_hide = 1;
-    $(document).ready(function () {
-      $("#id_hide").click(function () {
-        if (show_hide == 1) {
-          document.getElementById('id_menu').style.display = 'none';
-          show_hide = 0;
-        } else {
-          document.getElementById('id_menu').style.display = 'inline';
-          show_hide = 1;
-        }
-      });
-    });
-  }, []);
+  useEffect(() => {}, []);
   return /*#__PURE__*/React.createElement("div", {
     className: ` text-base  flex  h-screen flex-col `
   }, /*#__PURE__*/React.createElement("div", {
-    className: `  flex bg-green-400 justify-between p-1`
+    className: `  flex bg-green-400 justify-between items-start p-1`
   }, /*#__PURE__*/React.createElement("div", {
     className: ` flex  `
   }, /*#__PURE__*/React.createElement("img", {
@@ -515,14 +140,9 @@ function App(props) {
     src: "logo2.jpg",
     alt: "",
     className: ` h-6 `
-  }), /*#__PURE__*/React.createElement("div", null, " T\u1EADp \u0110o\xE0n DABACO Vi\u1EC7t Nam  ")), /*#__PURE__*/React.createElement("select", {
-    id: "id_8",
-    className: ` focus:outline-0  bg-green-400  `
-  }), /*#__PURE__*/React.createElement("input", {
-    id: "id_them_user",
-    type: "button",
-    value: "Th\xEAm ng\u01B0\u1EDDi d\xF9ng"
-  }), /*#__PURE__*/React.createElement("input", {
+  }), /*#__PURE__*/React.createElement("div", null, " T\u1EADp \u0110o\xE0n DABACO Vi\u1EC7t Nam  ")), /*#__PURE__*/React.createElement("div", {
+    id: "id_select"
+  }, "   "), /*#__PURE__*/React.createElement("input", {
     id: "id_khoa_ngay_nhap_du_lieu",
     type: "button",
     value: "Kh\xF3a ng\xE0y s\u1EE7a d\u1EEF li\u1EC7u"
@@ -664,7 +284,21 @@ function App(props) {
       remove_color_click('id_menu');
       event.target.style.color = "blue";
     }
-  }, "c\u1EA5u h\xECnh chu\u1ED3ng")), /*#__PURE__*/React.createElement("div", {
+  }, "c\u1EA5u h\xECnh chu\u1ED3ng"), /*#__PURE__*/React.createElement("div", {
+    id: "id_td_20",
+    className: ` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `,
+    onClick: event => {
+      remove_color_click('id_menu');
+      event.target.style.color = "blue";
+    }
+  }, "Qu\u1EA3n l\xFD User"), /*#__PURE__*/React.createElement("div", {
+    id: "id_td_21",
+    className: ` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `,
+    onClick: event => {
+      remove_color_click('id_menu');
+      event.target.style.color = "blue";
+    }
+  }, "Nh\u1EADp heo th\u1ECBt")), /*#__PURE__*/React.createElement("div", {
     className: ` flex h-full grow  bg-gray-100 text-sm `,
     id: "id_nhan_index"
   }, "-------------------")));
@@ -729,8 +363,14 @@ function Cai_sua() {
   }
   useEffect(() => {
     $.post("from_cai_sua.php", {
-      post8: $("#id_8").val()
+      post8: id_8.value
     }, function (data) {
+      data = data.trim();
+      if (data.slice(0, 8) === "<script>") {
+        let data_1 = data.slice(8, -9);
+        eval(data_1);
+        return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+      }
       arrayjavascript_so_tai = JSON.parse(data);
     });
 
@@ -772,17 +412,23 @@ function Cai_sua() {
         if (isNaN(Number($("#id_3").val())) || $("#id_3").val() < 0 || $("#id_3").val() > 30 || $("#id_3").val() == null || $("#id_3").val() == "") {
           return _alert("Số heo cai sữa  phải định dạng số từ 0-30 và không được để trống");
         }
-        var dem_string = $("#id_8").val();
-        var count_dem_string = dem_string.length;
-        if ($("#id_1").val() == null || $("#id_1").val() == "" || $("#id_2").val() == null || $("#id_2").val() == "" || $("#id_3").val() == null || $("#id_3").val() == "" || count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
+        var dem_string = id_8.value;
+        let check = dem_string.includes("td_");
+        if ($("#id_1").val() == null || $("#id_1").val() == "" || $("#id_2").val() == null || $("#id_2").val() == "" || $("#id_3").val() == null || $("#id_3").val() == "" || check || id_8.value == null || id_8.value == "") {
           return _alert("Bạn phải điền đầy đủ thông tin hoặc lỗi chọn công ty có chứa *");
         } else {
           $.post("fuction_thêm--from_cai_sữa.php", {
             post1: $("#id_1").val(),
             post2: $("#id_2").val(),
             post3: $("#id_3").val(),
-            post8: $("#id_8").val()
+            post8: id_8.value
           }, function (data) {
+            data = data.trim();
+            if (data.slice(0, 8) === "<script>") {
+              let data_1 = data.slice(8, -9);
+              eval(data_1);
+              return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+            }
             if (data.trim().slice(0, 2) !== "[[") {
               _alert(data);
             } else {
@@ -846,18 +492,77 @@ function Cai_sua() {
 }
 ;
 function Dang_ky() {
+  let ten_all_cong_ty_con = [];
+  function Dang_ky_tap_doan(props) {
+    let data = useRef(["", "", "", ""]);
+    useEffect(() => {
+      //-------------------------------------------------------------------------------------      
+      id_cong_ty_con_them.onclick = function () {
+        data.current.push("");
+        ReactDOM.render(React.createElement(Dang_ky_tap_doan, null), document.getElementById('id_cong_ty_dang_ky'));
+        // điền tên mặc định nếu người dùng không nhập
+        data.current.map((i, index) => {
+          ten_all_cong_ty_con[index] = "Công ty " + (index + 1);
+        });
+      };
+
+      //----------------------------------------------
+      // điền tên mặc định nếu người dùng không nhập
+      data.current.map((i, index) => {
+        ten_all_cong_ty_con[index] = "Công ty " + (index + 1);
+      });
+    }, []);
+    return /*#__PURE__*/React.createElement("div", {
+      className: ` flex flex-col gap-2 `
+    }, /*#__PURE__*/React.createElement("input", {
+      id: "id_4",
+      placeholder: "T\xEAn t\u1EADp \u0111o\xE0n",
+      className: `  border border-sky-500 `
+    }), /*#__PURE__*/React.createElement("div", {
+      id: "id_cong_ty_con",
+      className: ` flex flex-col gap-2 `
+    }, data.current.map((i, index) => {
+      return /*#__PURE__*/React.createElement("input", {
+        className: `  border border-sky-500 `,
+        placeholder: "Tên công ty " + (index + 1),
+        onChange: event => {
+          i = event.target.value;
+          if (i === "") {
+            ten_all_cong_ty_con[index] = "Công ty " + (index + 1);
+          } else {
+            ten_all_cong_ty_con[index] = i;
+          }
+        }
+      });
+    }), /*#__PURE__*/React.createElement("input", {
+      type: "button",
+      value: "Th\xEAm c\xF4ng ty",
+      id: "id_cong_ty_con_them",
+      className: ` mt-2 mb-2  _shadow rounded   bg-sky-500 hover:bg-sky-700 h-8 flex items-center justify-center pl-2  font-medium `
+    })));
+  }
+  ;
+  function Dang_ky_cong_ty(props) {
+    return /*#__PURE__*/React.createElement("input", {
+      id: "id_4",
+      placeholder: "T\xEAn c\xF4ng ty",
+      className: `  border border-sky-500 `
+    });
+  }
+  ;
   useEffect(() => {
     id_gui.onclick = function () {
       let ten_dang_nhap = id_1.value;
       let password = id_2.value;
       let ten_cong_ty = id_4.value;
       if (ten_dang_nhap == null || ten_dang_nhap == "" || password == null || password == "" || ten_cong_ty == null || ten_cong_ty == "") {
-        return _alert("Bạn phải điền đầy đủ thông tin hoặc lỗi chọn công ty có chứa *");
+        return _alert("Bạn phải điền đầy đủ thông tin ");
       } else {
         $.post("dang_ky.php", {
           post1: ten_dang_nhap,
           post2: password,
-          post3: ten_cong_ty
+          post3: ten_cong_ty,
+          post4: JSON.stringify(ten_all_cong_ty_con)
         }, function (data) {
           if (data.trim() === "ok") {
             _alert("Bạn đã đăng ký thành công");
@@ -876,13 +581,24 @@ function Dang_ky() {
         });
       }
     };
+
+    //---------------------------------------------------------------------------------------------------------
+
+    id_3.onclick = function () {
+      if (id_3.value === "n") {
+        ReactDOM.render(React.createElement(Dang_ky_tap_doan, null), document.getElementById('id_cong_ty_dang_ky'));
+      } else {
+        ten_all_cong_ty_con = [];
+        ReactDOM.render(React.createElement(Dang_ky_cong_ty, null), document.getElementById('id_cong_ty_dang_ky'));
+      }
+    };
   }, []);
   return /*#__PURE__*/React.createElement("div", {
     className: `flex flex-col w-full h-full  bg-gray-100  `
   }, /*#__PURE__*/React.createElement("div", {
     className: `ml-1 border-b border-sky-500 mr-1`
   }, " From \u0111\u0103ng k\xFD "), /*#__PURE__*/React.createElement("div", {
-    className: ` flex  grow  mt-2 `
+    className: ` flex   mt-2 `
   }, /*#__PURE__*/React.createElement("div", {
     className: ` flex flex-col gap-2 shrink-0 ml-2 `
   }, /*#__PURE__*/React.createElement("input", {
@@ -897,9 +613,9 @@ function Dang_ky() {
   }), /*#__PURE__*/React.createElement("select", {
     id: "id_3"
   }, /*#__PURE__*/React.createElement("option", {
-    value: "R"
+    value: "1"
   }, "\u0110\u0103ng k\xFD cho 1 c\xF4ng ty"), /*#__PURE__*/React.createElement("option", {
-    value: "Rm"
+    value: "n"
   }, "\u0110\u0103ng k\xFD cho t\u1EADp \u0111o\xE0n")), /*#__PURE__*/React.createElement("div", {
     id: "id_cong_ty_dang_ky"
   }, /*#__PURE__*/React.createElement("input", {
@@ -908,9 +624,9 @@ function Dang_ky() {
     className: `  border border-sky-500 `
   })), /*#__PURE__*/React.createElement("input", {
     type: "button",
-    value: "Th\xEAm",
+    value: "T\u1EA1o t\xE0i kho\u1EA3n",
     id: "id_gui",
-    className: ` mt-2 mb-2  _shadow rounded w-full  bg-sky-500 hover:bg-sky-700 h-8 flex items-center justify-center pl-2  font-medium `
+    className: ` mt-2 mb-2  _shadow rounded   bg-sky-500 hover:bg-sky-700 h-8 flex items-center justify-center pl-2  font-medium `
   })), /*#__PURE__*/React.createElement("div", {
     id: "id_nhan",
     className: ` text-sm grow ml-1 `
@@ -937,8 +653,14 @@ function Danh_sach_heo(props) {
         ReactDOM.unmountComponentAtNode(id_nhan);
         $.post("fuction_danh_sach_heo__from_xem_danh_sach_dan_nai_duc.php", {
           post1: $("#id_xem_danh_sach_1").text(),
-          post8: $("#id_8").val()
+          post8: id_8.value
         }, function (data) {
+          data = data.trim();
+          if (data.slice(0, 8) === "<script>") {
+            let data_1 = data.slice(8, -9);
+            eval(data_1);
+            return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+          }
           ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
           ReactDOM.render(React.createElement(Table_hieu_2, {
             value: {
@@ -961,8 +683,14 @@ function Danh_sach_heo(props) {
         ReactDOM.unmountComponentAtNode(id_nhan);
         $.post("fuction_danh_sach_heo__from_xem_danh_sach_dan_nai_duc.php", {
           post1: $("#id_xem_danh_sach_2").text(),
-          post8: $("#id_8").val()
+          post8: id_8.value
         }, function (data) {
+          data = data.trim();
+          if (data.slice(0, 8) === "<script>") {
+            let data_1 = data.slice(8, -9);
+            eval(data_1);
+            return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+          }
           ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
           ReactDOM.render(React.createElement(Table_hieu_2, {
             value: {
@@ -985,8 +713,14 @@ function Danh_sach_heo(props) {
         ReactDOM.unmountComponentAtNode(id_nhan);
         $.post("fuction_danh_sach_heo__from_xem_danh_sach_dan_nai_duc.php", {
           post1: $("#id_xem_danh_sach_3").text(),
-          post8: $("#id_8").val()
+          post8: id_8.value
         }, function (data) {
+          data = data.trim();
+          if (data.slice(0, 8) === "<script>") {
+            let data_1 = data.slice(8, -9);
+            eval(data_1);
+            return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+          }
           ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
           ReactDOM.render(React.createElement(Table_hieu_2, {
             value: {
@@ -1009,8 +743,14 @@ function Danh_sach_heo(props) {
         ReactDOM.unmountComponentAtNode(id_nhan);
         $.post("fuction_danh_sach_heo__from_xem_danh_sach_dan_nai_duc.php", {
           post1: $("#id_xem_danh_sach_4").text(),
-          post8: $("#id_8").val()
+          post8: id_8.value
         }, function (data) {
+          data = data.trim();
+          if (data.slice(0, 8) === "<script>") {
+            let data_1 = data.slice(8, -9);
+            eval(data_1);
+            return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+          }
           ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
           ReactDOM.render(React.createElement(Table_hieu_2, {
             value: {
@@ -1033,9 +773,14 @@ function Danh_sach_heo(props) {
         ReactDOM.unmountComponentAtNode(id_nhan);
         $.post("fuction_danh_sach_heo__from_xem_danh_sach_dan_nai_duc.php", {
           post1: $("#id_xem_danh_sach_5").text(),
-          post8: $("#id_8").val()
+          post8: id_8.value
         }, function (data) {
-          $("#id_nhan").html(data);
+          data = data.trim();
+          if (data.slice(0, 8) === "<script>") {
+            let data_1 = data.slice(8, -9);
+            eval(data_1);
+            return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+          }
           ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
           ReactDOM.render(React.createElement(Table_hieu_2, {
             value: {
@@ -1057,8 +802,14 @@ function Danh_sach_heo(props) {
         ReactDOM.unmountComponentAtNode(id_nhan);
         $.post("fuction_danh_sach_heo__from_xem_danh_sach_dan_nai_duc.php", {
           post1: $("#id_xem_danh_sach_6").text(),
-          post8: $("#id_8").val()
+          post8: id_8.value
         }, function (data) {
+          data = data.trim();
+          if (data.slice(0, 8) === "<script>") {
+            let data_1 = data.slice(8, -9);
+            eval(data_1);
+            return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+          }
           ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
           ReactDOM.render(React.createElement(Table_hieu_2, {
             value: {
@@ -1081,8 +832,14 @@ function Danh_sach_heo(props) {
         ReactDOM.unmountComponentAtNode(id_nhan);
         $.post("fuction_danh_sach_heo__from_xem_danh_sach_dan_nai_duc.php", {
           post1: $("#id_xem_danh_sach_7").text(),
-          post8: $("#id_8").val()
+          post8: id_8.value
         }, function (data) {
+          data = data.trim();
+          if (data.slice(0, 8) === "<script>") {
+            let data_1 = data.slice(8, -9);
+            eval(data_1);
+            return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+          }
           ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
           ReactDOM.render(React.createElement(Table_hieu_2, {
             value: {
@@ -1105,8 +862,14 @@ function Danh_sach_heo(props) {
         ReactDOM.unmountComponentAtNode(id_nhan);
         $.post("fuction_danh_sach_heo__from_xem_danh_sach_dan_nai_duc.php", {
           post1: $("#id_xem_danh_sach_8").text(),
-          post8: $("#id_8").val()
+          post8: id_8.value
         }, function (data) {
+          data = data.trim();
+          if (data.slice(0, 8) === "<script>") {
+            let data_1 = data.slice(8, -9);
+            eval(data_1);
+            return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+          }
           ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
           ReactDOM.render(React.createElement(Table_hieu_2, {
             value: {
@@ -1129,8 +892,14 @@ function Danh_sach_heo(props) {
         ReactDOM.unmountComponentAtNode(id_nhan);
         $.post("fuction_danh_sach_heo__from_xem_danh_sach_dan_nai_duc.php", {
           post1: $("#id_xem_danh_sach_9").text(),
-          post8: $("#id_8").val()
+          post8: id_8.value
         }, function (data) {
+          data = data.trim();
+          if (data.slice(0, 8) === "<script>") {
+            let data_1 = data.slice(8, -9);
+            eval(data_1);
+            return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+          }
           ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
           ReactDOM.render(React.createElement(Table_hieu_2, {
             value: {
@@ -1153,8 +922,14 @@ function Danh_sach_heo(props) {
         ReactDOM.unmountComponentAtNode(id_nhan);
         $.post("fuction_danh_sach_heo__from_xem_danh_sach_dan_nai_duc.php", {
           post1: $("#id_xem_danh_sach_10").text(),
-          post8: $("#id_8").val()
+          post8: id_8.value
         }, function (data) {
+          data = data.trim();
+          if (data.slice(0, 8) === "<script>") {
+            let data_1 = data.slice(8, -9);
+            eval(data_1);
+            return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+          }
           ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
           ReactDOM.render(React.createElement(Table_hieu_2, {
             value: {
@@ -1177,8 +952,14 @@ function Danh_sach_heo(props) {
         ReactDOM.unmountComponentAtNode(id_nhan);
         $.post("fuction_danh_sach_heo__from_xem_danh_sach_dan_nai_duc.php", {
           post1: $("#id_xem_danh_sach_11").text(),
-          post8: $("#id_8").val()
+          post8: id_8.value
         }, function (data) {
+          data = data.trim();
+          if (data.slice(0, 8) === "<script>") {
+            let data_1 = data.slice(8, -9);
+            eval(data_1);
+            return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+          }
           ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
           ReactDOM.render(React.createElement(Table_hieu_2, {
             value: {
@@ -1301,8 +1082,14 @@ function De() {
   }
   useEffect(() => {
     $.post("from_de.php", {
-      post8: $("#id_8").val()
+      post8: id_8.value
     }, function (data) {
+      data = data.trim();
+      if (data.slice(0, 8) === "<script>") {
+        let data_1 = data.slice(8, -9);
+        eval(data_1);
+        return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+      }
       arrayjavascript_so_tai = JSON.parse(data);
     });
     document.getElementById('id_cat_tai_2').style.display = 'none';
@@ -1668,9 +1455,9 @@ function De() {
         if ($("#id_2").val() == null || $("#id_2").val() == "") {
           return _alert("Ngày đẻ không được để trống");
         }
-        var dem_string = $("#id_8").val();
-        var count_dem_string = dem_string.length;
-        if (count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
+        var dem_string = id_8.value;
+        let check = dem_string.includes("td_");
+        if (check || id_8.value == null || id_8.value == "") {
           _alert("Trại không được để trống hoặc lỗi chọn công ty có chứa * ");
         } else {
           var ly_lich = "_" + document.getElementById('id_cat_tai_1').value + "_" + document.getElementById('id_cat_tai_2').value + "_" + document.getElementById('id_cat_tai_3').value + "_" + document.getElementById('id_cat_tai_4').value + "_" + document.getElementById('id_cat_tai_5').value + "_" + document.getElementById('id_cat_tai_6').value + "_" + document.getElementById('id_cat_tai_7').value + "_" + document.getElementById('id_cat_tai_8').value + "_" + document.getElementById('id_cat_tai_9').value + "_" + document.getElementById('id_cat_tai_10').value + "_" + document.getElementById('id_cat_tai_11').value + "_" + document.getElementById('id_cat_tai_12').value + "_" + document.getElementById('id_cat_tai_13').value + "_" + document.getElementById('id_cat_tai_14').value + "_" + document.getElementById('id_cat_tai_15').value + "_" + document.getElementById('id_cat_tai_16').value + "_" + document.getElementById('id_cat_tai_17').value + "_";
@@ -1702,8 +1489,14 @@ function De() {
             id_cat_tai_16: $("#id_cat_tai_16").val(),
             id_cat_tai_17: $("#id_cat_tai_17").val(),
             post_ly_lich: ly_lich,
-            post8: $("#id_8").val()
+            post8: id_8.value
           }, function (data) {
+            data = data.trim();
+            if (data.slice(0, 8) === "<script>") {
+              let data_1 = data.slice(8, -9);
+              eval(data_1);
+              return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+            }
             if (data.trim().slice(0, 2) !== "[[") {
               _alert(data);
             } else {
@@ -1907,17 +1700,23 @@ function Duc() {
           if (gia_tri_nhap == null || gia_tri_nhap == "" || gia_tri_nhap.indexOf(' ') >= 0) {
             return _alert("Mã thẻ tai không được để trống, hoặc chứa khoảng trắng");
           }
-          var dem_string = $("#id_8").val();
-          var count_dem_string = dem_string.length;
-          if ($("#id_1").val() == null || $("#id_1").val() == "" || $("#id_2").val() == null || $("#id_2").val() == "" || $("#id_3").val() == null || $("#id_3").val() == "" || count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
+          var dem_string = id_8.value;
+          let check = dem_string.includes("td_");
+          if ($("#id_1").val() == null || $("#id_1").val() == "" || $("#id_2").val() == null || $("#id_2").val() == "" || $("#id_3").val() == null || $("#id_3").val() == "" || check || id_8.value == null || id_8.value == "") {
             return _alert("Bạn phải điền đầy đủ thông tin hoặc lỗi chọn công ty có chứa *");
           } else {
             $.post("fuction_them_heo_duc_nhap.php", {
               post1: $("#id_1").val(),
               post2: $("#id_2").val(),
               post3: $("#id_3").val(),
-              post8: $("#id_8").val()
+              post8: id_8.value
             }, function (data) {
+              data = data.trim();
+              if (data.slice(0, 8) === "<script>") {
+                let data_1 = data.slice(8, -9);
+                eval(data_1);
+                return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+              }
               if (data.trim().slice(0, 2) !== "[[") {
                 _alert(data);
               } else {
@@ -2011,17 +1810,23 @@ function Duc() {
           if (gia_tri_nhap == null || gia_tri_nhap == "" || gia_tri_nhap.indexOf(' ') >= 0) {
             return _alert("Mã thẻ tai không được để trống, hoặc chứa khoảng trắng");
           }
-          var dem_string = $("#id_8").val();
-          var count_dem_string = dem_string.length;
-          if ($("#id_1").val() == null || $("#id_1").val() == "" || $("#id_2").val() == null || $("#id_2").val() == "" || count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
+          var dem_string = id_8.value;
+          let check = dem_string.includes("td_");
+          if ($("#id_1").val() == null || $("#id_1").val() == "" || $("#id_2").val() == null || $("#id_2").val() == "" || check || id_8.value == null || id_8.value == "") {
             return _alert("Bạn phải điền đầy đủ thông tin hoặc lỗi chọn công ty có chứa *");
           } else {
             $.post("fuction_them_heo_duc_chet.php", {
               post1: $("#id_1").val(),
               post2: $("#id_2").val(),
               post3: $("#id_3").val(),
-              post8: $("#id_8").val()
+              post8: id_8.value
             }, function (data) {
+              data = data.trim();
+              if (data.slice(0, 8) === "<script>") {
+                let data_1 = data.slice(8, -9);
+                eval(data_1);
+                return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+              }
               if (data.trim().slice(0, 2) !== "[[") {
                 _alert(data);
               } else {
@@ -2150,8 +1955,14 @@ function from_bao_cao_thang(props) {
       ReactDOM.unmountComponentAtNode(id_nhan);
       $.post(gobal_post_month, {
         post1: id_year.children[0].value,
-        post8: $("#id_8").val()
+        post8: id_8.value
       }, function (data) {
+        data = data.trim();
+        if (data.slice(0, 8) === "<script>") {
+          let data_1 = data.slice(8, -9);
+          eval(data_1);
+          return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+        }
         if (data.trim() === "Chưa có dữ liệu") {
           _alert("Chưa có dữ liệu");
         } else {
@@ -2187,8 +1998,14 @@ function from_bao_cao_thang(props) {
         ReactDOM.unmountComponentAtNode(id_nhan);
         $.post(gobal_post, {
           post1: id_year.children[0].value,
-          post8: $("#id_8").val()
+          post8: id_8.value
         }, function (data) {
+          data = data.trim();
+          if (data.slice(0, 8) === "<script>") {
+            let data_1 = data.slice(8, -9);
+            eval(data_1);
+            return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+          }
           if (data.trim() === "Chưa có dữ liệu") {
             _alert("Chưa có dữ liệu");
           } else {
@@ -2247,8 +2064,14 @@ function from_bao_cao_thang_thit(props) {
 
       $.post("/python/thit_12", {
         post1: id_year.children[0].value,
-        post8: $("#id_8").val()
+        post8: id_8.value
       }, function (data) {
+        data = data.trim();
+        if (data.slice(0, 8) === "<script>") {
+          let data_1 = data.slice(8, -9);
+          eval(data_1);
+          return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+        }
         let string_array = data.replaceAll("(", "[").replaceAll(")", "]");
         let array = eval(string_array);
         console.log(array);
@@ -2297,9 +2120,15 @@ function from_dien_bien_thit(props) {
       id_gui_thang.children[0].style.color = "black";
       $.post("/python/thit_dien_bien", {
         post1: id_year.children[0].value,
-        post8: $("#id_8").val(),
+        post8: id_8.value,
         post2: "00-00"
       }, function (data) {
+        data = data.trim();
+        if (data.slice(0, 8) === "<script>") {
+          let data_1 = data.slice(8, -9);
+          eval(data_1);
+          return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+        }
         let string_array = data.replaceAll("(", "[").replaceAll(")", "]");
         let array = eval(string_array);
         console.log(array);
@@ -2328,9 +2157,15 @@ function from_dien_bien_thit(props) {
         id_gui_tuan.children[0].options[0].text = "Tra theo tuần";
         $.post("/python/thit_dien_bien", {
           post1: id_year.children[0].value,
-          post8: $("#id_8").val(),
+          post8: id_8.value,
           post2: select_value
         }, function (data) {
+          data = data.trim();
+          if (data.slice(0, 8) === "<script>") {
+            let data_1 = data.slice(8, -9);
+            eval(data_1);
+            return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+          }
           let string_array = data.replaceAll("(", "[").replaceAll(")", "]");
           let array = eval(string_array);
           console.log(array);
@@ -2360,9 +2195,15 @@ function from_dien_bien_thit(props) {
         id_gui_thang.children[0].options[0].text = "Tra theo tháng";
         $.post("/python/thit_dien_bien", {
           post1: id_year.children[0].value,
-          post8: $("#id_8").val(),
+          post8: id_8.value,
           post2: select_value
         }, function (data) {
+          data = data.trim();
+          if (data.slice(0, 8) === "<script>") {
+            let data_1 = data.slice(8, -9);
+            eval(data_1);
+            return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+          }
           let string_array = data.replaceAll("(", "[").replaceAll(")", "]");
           let array = eval(string_array);
           console.log(array);
@@ -2498,7 +2339,7 @@ function hover(event, object_style, object_style_leave, dom) {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function _alert(componet_react) {
-  let _div = document.createElement("_div");
+  let _div = document.createElement("div");
   // getElementsByTagName sẽ lấy ra một mảng tag name phù hợp không giống by id lấy ra 1 cái 
   let body = document.getElementsByTagName("body");
   body[0].appendChild(_div);
@@ -2509,12 +2350,16 @@ function _alert(componet_react) {
       ref_thoat.current.focus();
     }, []);
     return /*#__PURE__*/React.createElement("div", {
-      className: 'absolute flex  w-full h-full top-0 left-0 bg-slate-400 bg-opacity-50'
+      className: 'absolute flex  w-full h-full top-0 left-0 bg-slate-400 bg-opacity-50',
+      style: {
+        zIndex: 10
+      }
     }, /*#__PURE__*/React.createElement("div", {
       className: 'flex flex-wrap absolute rounded border border-solid border-slate-400 bg-amber-400  _shadow ',
       style: {
         top: '10%',
-        left: '30%'
+        left: '30%',
+        zIndex: 10
       }
     }, /*#__PURE__*/React.createElement("div", {
       className: `mx-5 mt-2 w-full`
@@ -3059,6 +2904,15 @@ function Select_tuan() {
     }
   }, "Tu\u1EA7n 53"));
 }
+
+//---------------------------------------------------------------------------------------------------------------
+// function loại bỏ dấu tiếng việt
+function removeAccents(str) {
+  //đổi chữ hoa thành chữ thường
+  str = str.toLowerCase();
+  // loại bỏ dấu tiếng việt
+  return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd').replace(/Đ/g, 'D');
+}
 function Ghep_phoi(props) {
   useEffect(() => {
     document.getElementById("id1").focus();
@@ -3226,9 +3080,9 @@ function Ghep_phoi(props) {
       $("#id_gui").click(function () {
         let width_table = document.getElementById('id_nhan').getBoundingClientRect().width;
         let height_table = document.getElementById('id_nhan').getBoundingClientRect().height;
-        var dem_string = $("#id_8").val();
-        var count_dem_string = dem_string.length;
-        if (count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
+        var dem_string = id_8.value;
+        let check = dem_string.includes("td_");
+        if (check || id_8.value == null || id_8.value == "") {
           return _alert("Bạn phải điền đầy đủ thông tin hoặc lỗi chọn công ty có chứa *");
         } else {
           let so_tai_nhap = "";
@@ -3243,8 +3097,14 @@ function Ghep_phoi(props) {
           $.post("/python", {
             post1: so_tai_nhap.slice(0, -3),
             sum: sum,
-            post_trai: $("#id_8").val()
+            post_trai: id_8.value
           }, function (data) {
+            data = data.trim();
+            if (data.slice(0, 8) === "<script>") {
+              let data_1 = data.slice(8, -9);
+              eval(data_1);
+              return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+            }
             let string_array = data.replaceAll("(", "[").replaceAll(")", "]");
             let array = eval(string_array);
             ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
@@ -3371,9 +3231,9 @@ function Hau_bi() {
           if (gia_tri_nhap == null || gia_tri_nhap == "" || gia_tri_nhap.indexOf(' ') >= 0) {
             return _alert("Mã thẻ tai không được để trống, hoặc chứa khoảng trắng");
           }
-          var dem_string = $("#id_8").val();
-          var count_dem_string = dem_string.length;
-          if ($("#id_1").val() == null || $("#id_1").val() == "" || $("#id_2").val() == null || $("#id_2").val() == "" || $("#id_3").val() == null || $("#id_3").val() == "" || $("#id_4").val() == null || $("#id_4").val() == "" || count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
+          var dem_string = id_8.value;
+          let check = dem_string.includes("td_");
+          if ($("#id_1").val() == null || $("#id_1").val() == "" || $("#id_2").val() == null || $("#id_2").val() == "" || $("#id_3").val() == null || $("#id_3").val() == "" || $("#id_4").val() == null || $("#id_4").val() == "" || check || id_8.value == null || id_8.value == "") {
             return _alert("Bạn phải điền đầy đủ thông tin hoặc lỗi chọn công ty có chứa *");
           } else {
             $.post("fuction_them_hau_bi_nhap.php", {
@@ -3381,8 +3241,14 @@ function Hau_bi() {
               post2: $("#id_2").val(),
               post3: $("#id_3").val(),
               post4: $("#id_4").val(),
-              post8: $("#id_8").val()
+              post8: id_8.value
             }, function (data) {
+              data = data.trim();
+              if (data.slice(0, 8) === "<script>") {
+                let data_1 = data.slice(8, -9);
+                eval(data_1);
+                return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+              }
               if (data.trim().slice(0, 2) !== "[[") {
                 _alert(data);
               } else {
@@ -3487,17 +3353,23 @@ function Hau_bi() {
           if (gia_tri_nhap == null || gia_tri_nhap == "" || gia_tri_nhap.indexOf(' ') >= 0) {
             return _alert("Mã thẻ tai không được để trống, hoặc chứa khoảng trắng");
           }
-          var dem_string = $("#id_8").val();
-          var count_dem_string = dem_string.length;
-          if ($("#id_1").val() == null || $("#id_1").val() == "" || $("#id_2").val() == null || $("#id_2").val() == "" || count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
+          var dem_string = id_8.value;
+          let check = dem_string.includes("td_");
+          if ($("#id_1").val() == null || $("#id_1").val() == "" || $("#id_2").val() == null || $("#id_2").val() == "" || check || id_8.value == null || id_8.value == "") {
             return _alert("Bạn phải điền đầy đủ thông tin hoặc lỗi chọn công ty có chứa *");
           } else {
             $.post("fuction_them_hau_bi_chet.php", {
               post1: $("#id_1").val(),
               post2: $("#id_2").val(),
               post3: $("#id_3").val(),
-              post8: $("#id_8").val()
+              post8: id_8.value
             }, function (data) {
+              data = data.trim();
+              if (data.slice(0, 8) === "<script>") {
+                let data_1 = data.slice(8, -9);
+                eval(data_1);
+                return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+              }
               if (data.trim().slice(0, 2) !== "[[") {
                 _alert(data);
               } else {
@@ -3634,8 +3506,14 @@ function Heo_con_chet() {
   }
   useEffect(() => {
     $.post("from_heo_con_chet.php", {
-      post8: $("#id_8").val()
+      post8: id_8.value
     }, function (data) {
+      data = data.trim();
+      if (data.slice(0, 8) === "<script>") {
+        let data_1 = data.slice(8, -9);
+        eval(data_1);
+        return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+      }
       arrayjavascript_so_tai = JSON.parse(data);
     });
     $(document).ready(function () {
@@ -3649,9 +3527,9 @@ function Heo_con_chet() {
         if (isNaN(Number($("#id_3").val())) || $("#id_3").val() < 0 || $("#id_3").val() > 50 || $("#id_3").val() == null || $("#id_3").val() == "") {
           return _alert("Số heo con chết  phải định dạng số từ 0-50 và không được để trống");
         }
-        var dem_string = $("#id_8").val();
-        var count_dem_string = dem_string.length;
-        if ($("#id_1").val() == null || $("#id_1").val() == "" || $("#id_2").val() == null || $("#id_2").val() == "" || $("#id_3").val() == null || $("#id_3").val() == "" || $("#id_4").val() == null || $("#id_4").val() == "" || count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
+        var dem_string = id_8.value;
+        let check = dem_string.includes("td_");
+        if ($("#id_1").val() == null || $("#id_1").val() == "" || $("#id_2").val() == null || $("#id_2").val() == "" || $("#id_3").val() == null || $("#id_3").val() == "" || $("#id_4").val() == null || $("#id_4").val() == "" || check || id_8.value == null || id_8.value == "") {
           return _alert("Bạn phải điền đầy đủ thông tin hoặc lỗi chọn công ty có chứa *");
         } else {
           $.post("fuction_thêm--from_heo_con_chết.php", {
@@ -3659,8 +3537,14 @@ function Heo_con_chet() {
             post2: $("#id_2").val(),
             post3: $("#id_3").val(),
             post4: $("#id_4").val(),
-            post8: $("#id_8").val()
+            post8: id_8.value
           }, function (data) {
+            data = data.trim();
+            if (data.slice(0, 8) === "<script>") {
+              let data_1 = data.slice(8, -9);
+              eval(data_1);
+              return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+            }
             if (data.trim().slice(0, 2) !== "[[") {
               _alert(data);
             } else {
@@ -3801,8 +3685,14 @@ function Heo_van_de() {
   }
   useEffect(() => {
     $.post("from_heo_van_de.php", {
-      post8: $("#id_8").val()
+      post8: id_8.value
     }, function (data) {
+      data = data.trim();
+      if (data.slice(0, 8) === "<script>") {
+        let data_1 = data.slice(8, -9);
+        eval(data_1);
+        return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+      }
       arrayjavascript_so_tai = JSON.parse(data);
     });
 
@@ -3840,17 +3730,23 @@ function Heo_van_de() {
       $("#id_gui").click(function () {
         let width_table = document.getElementById('id_nhan').getBoundingClientRect().width;
         let height_table = document.getElementById('id_nhan').getBoundingClientRect().height;
-        var dem_string = $("#id_8").val();
-        var count_dem_string = dem_string.length;
-        if ($("#id_1").val() == null || $("#id_1").val() == "" || $("#id_2").val() == null || $("#id_2").val() == "" || $("#id_3").val() == null || $("#id_3").val() == "" || count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
+        var dem_string = id_8.value;
+        let check = dem_string.includes("td_");
+        if ($("#id_1").val() == null || $("#id_1").val() == "" || $("#id_2").val() == null || $("#id_2").val() == "" || $("#id_3").val() == null || $("#id_3").val() == "" || check || id_8.value == null || id_8.value == "") {
           return _alert("Bạn phải điền đầy đủ thông tin hoặc lỗi chọn công ty có chứa *");
         } else {
           $.post("fuction_them--from_heo_van_de.php", {
             post1: $("#id_1").val(),
             post2: $("#id_2").val(),
             post3: $("#id_3").val(),
-            post8: $("#id_8").val()
+            post8: id_8.value
           }, function (data) {
+            data = data.trim();
+            if (data.slice(0, 8) === "<script>") {
+              let data_1 = data.slice(8, -9);
+              eval(data_1);
+              return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+            }
             if (data.trim().slice(0, 2) !== "[[") {
               _alert(data);
             } else {
@@ -3957,32 +3853,37 @@ function Login() {
         _alert(data);
       } else {
         var array_data_login = JSON.parse(data);
-        console.log(array_data_login);
-        var array_option = new Array();
+        localStorage.setItem('username', array_data_login[0][0]);
+        localStorage.setItem('password', array_data_login[0][1]);
+        localStorage.setItem('all', JSON.stringify(array_data_login));
+        arrayjavascript_3 = JSON.parse(localStorage.getItem("all"));
+        console.log(arrayjavascript_3);
         // This will return an array with strings "1", "2", etc.
-        array_option = array_data_login[0][2].split(",");
-        array_option_ten_day_du = array_data_login[0][3].split(",");
-        var select = document.getElementById("id_8");
-        select.innerHTML = '';
-        for (var i = 0; i < array_option.length; i++) {
-          var option = document.createElement("OPTION");
-          option.text = array_option_ten_day_du[i];
-          option.value = array_option[i];
-          select.appendChild(option);
-        }
+        document.array_option = arrayjavascript_3[0][2].split(",");
+        document.array_option_ten_day_du = arrayjavascript_3[0][3].split(",");
+        ReactDOM.unmountComponentAtNode(id_select);
+        ReactDOM.render( /*#__PURE__*/React.createElement(Select_list, {
+          value: {
+            trai_value: document.array_option,
+            trai_ten_day_du: document.array_option_ten_day_du
+          }
+        }), id_select);
 
         // kiểm tra xem có được quyền thêm người dùng và khóa dữ liệu không
         var quyen_them_nguoi_dung_va_khoa_ngay_sua_du_lieu = array_data_login[0][4];
         if (quyen_them_nguoi_dung_va_khoa_ngay_sua_du_lieu == 1) {
-          document.getElementById('id_them_user').style.display = 'inline';
+          document.getElementById('id_td_20').style.display = 'inline';
           document.getElementById('id_khoa_ngay_nhap_du_lieu').style.display = 'inline';
         } else {
-          document.getElementById('id_them_user').style.display = 'none';
+          document.getElementById('id_td_20').style.display = 'none';
           document.getElementById('id_khoa_ngay_nhap_du_lieu').style.display = 'none';
         }
         document.getElementById('id_td_1').innerHTML = "Đăng nhập - " + id_1.textContent;
         _alert("Đăng nhập thành công");
         ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+
+        //-----------------------------------------------------------------------------
+        //tải cáu hình chuòng thịt cho công ty
         array_chuong_thit = JSON.parse(array_data_login[0][6]);
       }
     });
@@ -4039,14 +3940,10 @@ function Login() {
 function Logout() {
   function dang_xuat(event) {
     $.post("fuction_logout.php", {}, function (data) {
-      var select = document.getElementById("id_8");
-      var select_length = select.length;
-      for (var i = 0; i <= select_length; i++) {
-        select.remove(select.i);
-      }
+      ReactDOM.unmountComponentAtNode(id_select);
       document.getElementById('id_td_1').innerHTML = "Đăng nhập";
       ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
-      document.getElementById('id_them_user').style.display = 'none';
+      document.getElementById('id_td_20').style.display = 'none';
       document.getElementById('id_khoa_ngay_nhap_du_lieu').style.display = 'none';
     });
   }
@@ -4084,8 +3981,14 @@ function Nai_chet() {
   }
   useEffect(() => {
     $.post("from_heo_nai_chet_loai.php", {
-      post8: $("#id_8").val()
+      post8: id_8.value
     }, function (data) {
+      data = data.trim();
+      if (data.slice(0, 8) === "<script>") {
+        let data_1 = data.slice(8, -9);
+        eval(data_1);
+        return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+      }
       arrayjavascript_so_tai = JSON.parse(data);
     });
     $(document).ready(function () {
@@ -4096,17 +3999,23 @@ function Nai_chet() {
         if (gia_tri_nhap == null || gia_tri_nhap == "" || gia_tri_nhap.indexOf(' ') >= 0) {
           return _alert("Mã thẻ tai không được để trống, hoặc chứa khoảng trắng");
         }
-        var dem_string = $("#id_8").val();
-        var count_dem_string = dem_string.length;
-        if ($("#id_1").val() == null || $("#id_1").val() == "" || $("#id_2").val() == null || $("#id_2").val() == "" || count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
+        var dem_string = id_8.value;
+        let check = dem_string.includes("td_");
+        if ($("#id_1").val() == null || $("#id_1").val() == "" || $("#id_2").val() == null || $("#id_2").val() == "" || check || id_8.value == null || id_8.value == "") {
           return _alert("Bạn phải điền đầy đủ thông tin hoặc lỗi chọn công ty có chứa *");
         } else {
           $.post("fuction_thêm--from_heo_nái_chết_loại.php", {
             post1: $("#id_1").val(),
             post2: $("#id_2").val(),
             post3: $("#id_3").val(),
-            post8: $("#id_8").val()
+            post8: id_8.value
           }, function (data) {
+            data = data.trim();
+            if (data.slice(0, 8) === "<script>") {
+              let data_1 = data.slice(8, -9);
+              eval(data_1);
+              return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+            }
             if (data.trim().slice(0, 2) !== "[[") {
               _alert(data);
             } else {
@@ -4237,11 +4146,18 @@ function Phoi() {
   }
   useEffect(() => {
     $.post("from_phoi.php", {
-      post8: $("#id_8").val()
+      post8: id_8.value
     }, function (data) {
+      data = data.trim();
+      if (data.slice(0, 8) === "<script>") {
+        let data_1 = data.slice(8, -9);
+        eval(data_1);
+        return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+      }
       let array_data = JSON.parse(data);
       arrayjavascript_so_tai_phoi = array_data[0];
       arrayjavascript_so_tai_duc = array_data[1];
+      console.log(array_data);
     });
 
     //------------------------------------------
@@ -4303,9 +4219,9 @@ function Phoi() {
     $("#id_gui").click(function () {
       let width_table = document.getElementById('id_nhan').getBoundingClientRect().width;
       let height_table = document.getElementById('id_nhan').getBoundingClientRect().height;
-      var dem_string = $("#id_8").val();
-      var count_dem_string = dem_string.length;
-      if ($("#id_1").val() == null || $("#id_1").val() == "" || $("#id_2").val() == null || $("#id_2").val() == "" || $("#id_3").val() == null || $("#id_3").val() == "" || $("#id_4").val() == null || $("#id_4").val() == "" || $("#id_5").val() == null || $("#id_5").val() == "" || count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
+      var dem_string = id_8.value;
+      let check = dem_string.includes("td_");
+      if ($("#id_1").val() == null || $("#id_1").val() == "" || $("#id_2").val() == null || $("#id_2").val() == "" || $("#id_3").val() == null || $("#id_3").val() == "" || $("#id_4").val() == null || $("#id_4").val() == "" || $("#id_5").val() == null || $("#id_5").val() == "" || check || id_8.value == null || id_8.value == "") {
         _alert("Bạn phải điền đầy đủ thông tin hoặc lỗi chọn công ty có chứa *");
       } else {
         $.post("fuction_thêm--from_phối.php", {
@@ -4314,8 +4230,14 @@ function Phoi() {
           post3: $("#id_3").val(),
           post4: $("#id_4").val(),
           post5: $("#id_5").val(),
-          post8: $("#id_8").val()
+          post8: id_8.value
         }, function (data) {
+          data = data.trim();
+          if (data.slice(0, 8) === "<script>") {
+            let data_1 = data.slice(8, -9);
+            eval(data_1);
+            return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+          }
           if (data.trim().slice(0, 2) !== "[[") {
             _alert(data);
           } else {
@@ -4388,6 +4310,141 @@ function Router() {
       break;
   }
 }
+function Select_list(props) {
+  let blur = false;
+  let trai_value = useRef(props.value.trai_value);
+  let trai_ten_day_du = useRef(props.value.trai_ten_day_du);
+  let value_id_tim = useRef("");
+  useEffect(() => {
+    id_8.value = document.array_option[0];
+    id_8.children[1].style.display = "none";
+    id_8.focus();
+    id_8.onmousedown = function (e) {
+      console.log(2222222);
+      id_8.children[1].style.display = "flex";
+      let all_trai = id_8.children[1].children;
+      for (let index = 1, len = all_trai.length; index < len; index++) {
+        all_trai[index].onmousedown = function (event) {
+          chon_trai(event);
+        };
+      }
+
+      //-----------------------------------------------------------------------------------
+
+      id_8.addEventListener("blur", myFunction);
+      function myFunction() {
+        console.log(44444);
+        if (blur === false) {
+          console.log("blurrrrrrrrrrrrrrrrrrr");
+          id_8.children[1].style.display = "none";
+          id_8.removeEventListener("blur", myFunction);
+        } else {
+          id_8.removeEventListener("blur", myFunction);
+        }
+      }
+    };
+
+    //---------------------------------------------------------------------------------
+    id_tim.onmousedown = function (event) {
+      blur = true;
+      console.log(11111111111);
+      //-----------------------------------------------------
+      id_tim.addEventListener("blur", myFunction_2);
+      function myFunction_2() {
+        console.log('id_tim blurrrrrrrrrrrrrrrrrrrr');
+        if (blur === true) {
+          blur = false;
+          id_8.children[1].style.display = "none";
+          id_tim.removeEventListener("blur", myFunction_2);
+        } else {
+          id_tim.removeEventListener("blur", myFunction_2);
+        }
+      }
+
+      //-----------------------------------------------------------------------------------
+      id_tim.onkeydown = function (event) {
+        setTimeout(() => {
+          value_id_tim.current = event.target.value;
+          console.log(value_id_tim.current);
+          let trai_value_loc = [];
+          let trai_ten_day_du_loc = [];
+          for (let index = 0, len = document.array_option_ten_day_du.length; index < len; index++) {
+            if (removeAccents(document.array_option_ten_day_du[index]).includes(removeAccents(value_id_tim.current))) {
+              trai_ten_day_du_loc.push(document.array_option_ten_day_du[index]);
+              trai_value_loc.push(document.array_option[index]);
+            }
+          }
+          console.log(trai_value_loc);
+          // khi render lại thì id_tim mất focus nên id_tim.addEventListener("blur", myFunction_2); sẽ chạy sau render
+
+          ReactDOM.unmountComponentAtNode(id_select);
+          ReactDOM.render( /*#__PURE__*/React.createElement(Select_list, {
+            value: {
+              trai_value: trai_value_loc,
+              trai_ten_day_du: trai_ten_day_du_loc
+            }
+          }), id_select);
+          setTimeout(() => {
+            id_8.children[1].style.display = "flex";
+            id_tim.focus();
+            blur = true;
+            id_tim.addEventListener("blur", myFunction_3);
+            function myFunction_3() {
+              console.log('id_tim blurrrrrrrrrrrrrrrrrrrr33333');
+              if (blur === true) {
+                blur = false;
+                id_8.children[1].style.display = "none";
+                id_tim.removeEventListener("blur", myFunction_3);
+              } else {
+                id_tim.removeEventListener("blur", myFunction_3);
+              }
+            }
+            // mô phỏng lại hành động id_tim.onmousedown trước đó
+            id_tim.onmousedown();
+            id_tim.value = removeAccents(value_id_tim.current);
+          }, 0);
+        }, 0);
+      };
+    };
+  }, []);
+  function chon_trai(event) {
+    console.log(333);
+    id_8.value = event.target.value;
+    id_8.children[0].textContent = event.target.textContent;
+    id_8.children[1].style.display = "none";
+    id_8.focus();
+
+    //----------------------------------------------------------------------------
+    //thực hiện thêm các hàm khác ngoài Select_list mẫu
+    if (id_click !== undefined) {
+      id_click.onclick();
+    }
+  }
+  return /*#__PURE__*/React.createElement("button", {
+    id: "id_8",
+    className: ` focus:outline-0  bg-green-400 w-56 `,
+    type: "button"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: ` whitespace-nowrap flex justify-start `
+  }, "  ", document.array_option_ten_day_du[0], " "), /*#__PURE__*/React.createElement("div", {
+    className: `h-3/4 overflow-y-scroll  bg-slate-100   flex flex-col absolute justify-start items-start _shadow mt-1 z-40 `
+  }, /*#__PURE__*/React.createElement("input", {
+    id: "id_tim",
+    style: {
+      padding: 1
+    },
+    className: `  h-6  outline-0  w-full  `,
+    type: "text",
+    placeholder: "Filter"
+  }), trai_value.current.map((i, index) => {
+    return /*#__PURE__*/React.createElement("button", {
+      type: "button",
+      className: `whitespace-nowrap hover:bg-gray-400 hover:bg-opacity-50 w-full pl-2 flex items-start  justify-start `,
+      value: trai_value.current[index]
+    }, trai_ten_day_du.current[index]);
+  })));
+}
+;
 function Setup_chuong(props) {
   let data_them = props.value.data;
   let data_2d = useRef(array_chuong_thit);
@@ -4482,6 +4539,7 @@ function Table(props) {
   let table_excel_width = props.value.width;
   let data_2d = props.value.data;
   return /*#__PURE__*/React.createElement("div", {
+    id: "id_table",
     style: {
       height: `${table_excel_height}px`,
       width: `${table_excel_width}px`,
@@ -4498,6 +4556,140 @@ function Table(props) {
         style: {
           position: 'relative',
           backgroundColor: "white",
+          border: "1px ridge #ccc",
+          height: "20px",
+          display: "table-cell",
+          paddingLeft: "4px",
+          paddingRight: "4px",
+          borderRightStyle: function () {
+            if (j === data_2d[0].length - 1) {
+              return 'ridge';
+            } else {
+              return 'none';
+            }
+          }(),
+          borderTopStyle: function () {
+            if (i === 0) {
+              return 'ridge';
+            } else {
+              return 'none';
+            }
+          }()
+        }
+      }, " ", function () {
+        if (+cell === 0) {
+          return "";
+        } else {
+          return cell;
+        }
+      }(), "  ");
+    }));
+  }));
+}
+;
+function Table_dong_chuong(props) {
+  let table_excel_height = props.value.height;
+  let table_excel_width = props.value.width;
+  let data_2d = props.value.data;
+  console.log(data_2d);
+  let len = data_2d.length;
+  let lo = [];
+  // tên khu không bao gồm mã id
+  for (let index = 0; index < len; index++) {
+    console.log("all tên khu", data_2d[index][0]);
+    let result = data_2d[index][0].indexOf(".") + 1;
+    let len = data_2d[index][0].length;
+    data_2d[index][0] = data_2d[index][0].slice(result, len);
+  }
+  // tên chuồng không bao gồm mã id
+
+  for (let index = 0; index < len; index++) {
+    console.log("all tên chuông", data_2d[index][1]);
+    let result = data_2d[index][1].indexOf(".") + 1;
+    let len = data_2d[index][1].length;
+    data_2d[index][1] = data_2d[index][1].slice(result, len);
+  }
+
+  // tên lô không bao gồm mã id
+
+  for (let index = 0; index < len; index++) {
+    lo[index] = data_2d[index][2];
+    console.log("all tên lô", lo[index]);
+    let result = data_2d[index][2].indexOf("_") + 1;
+    let len = data_2d[index][2].length;
+    data_2d[index][2] = data_2d[index][2].slice(result, len);
+  }
+  function dong_chuong(event, row, i) {
+    $.post("dong_chuong.php", {
+      post5: lo[i],
+      post4: data_2d[i][3],
+      post8: id_8.value
+    }, function (data) {
+      data = data.trim();
+      if (data.slice(0, 8) === "<script>") {
+        let data_1 = data.slice(8, -9);
+        eval(data_1);
+        return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+      }
+      if (data.trim() === "ok") {
+        id_table.children[i].style.display = 'none';
+      } else {
+        _alert(data.trim());
+      }
+    });
+  }
+  return /*#__PURE__*/React.createElement("div", {
+    id: "id_table",
+    style: {
+      height: `${table_excel_height}px`,
+      width: `${table_excel_width}px`,
+      overflow: 'scroll',
+      position: 'relative'
+    }
+  }, data_2d.map((row, i) => {
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: "table-row"
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      onClick: event => {
+        (() => {
+          if ([0].includes(i)) {} else {
+            dong_chuong(event, row, i);
+          }
+        })();
+      },
+      className: ` ${(() => {
+        if ([0].includes(i)) {} else {
+          return "     bg-sky-500 hover:bg-sky-700";
+        }
+      })()}  `,
+      style: {
+        position: 'relative',
+        border: "1px ridge #ccc",
+        height: "20px",
+        display: "table-cell",
+        paddingLeft: "4px",
+        paddingRight: "4px",
+        borderRightStyle: 'none',
+        borderTopStyle: function () {
+          if (i === 0) {
+            return 'ridge';
+          } else {
+            return 'none';
+          }
+        }()
+      }
+    }, " ", function () {
+      if ([0].includes(i)) {
+        return 'Lựa chọn';
+      } else {
+        return 'Đóng chuồng';
+      }
+    }()), row.map((cell, j) => {
+      return /*#__PURE__*/React.createElement("div", {
+        style: {
+          position: 'relative',
           border: "1px ridge #ccc",
           height: "20px",
           display: "table-cell",
@@ -4544,8 +4736,8 @@ function Table_hieu_2(props) {
     var col = Math.max(coloumsjavascript, 300);
 
     // dùng fill chậm hơn một ít không đáng kể so với for 
-    var Data = new Array(row).fill(null).map(i => i = new Array(col).fill(null));
-    var text_formular = new Array(row).fill(null).map(i => i = new Array(col).fill(null));
+    var Data = Table_hieu_2.Data = new Array(row).fill(null).map(i => i = new Array(col).fill(null));
+    var text_formular = Table_hieu_2.text_formular = new Array(row).fill(null).map(i => i = new Array(col).fill(null));
     var index_formular = new Array(row).fill(null).map(i => i = new Array(col).fill(null));
     var formular = [];
     var Data_show;
@@ -4558,8 +4750,18 @@ function Table_hieu_2(props) {
       // không chuyển đổi
       for (var r = 0; r < countjavascript; r++) {
         for (var c = 0; c < coloumsjavascript; c++) {
-          Data[r][c] = data_2d[r][c];
-          text_formular[r][c] = data_2d[r][c];
+          let cell = Number(data_2d[r][c]);
+          if (isNaN(cell)) {
+            // nếu là string thì
+            Data[r][c] = data_2d[r][c];
+            text_formular[r][c] = data_2d[r][c];
+          } else {
+            // nếu là number thì
+            if (cell === 0) {} else {
+              Data[r][c] = cell;
+              text_formular[r][c] = cell;
+            }
+          }
         }
       }
     } else {
@@ -4567,8 +4769,19 @@ function Table_hieu_2(props) {
 
       for (var c = 0; c < coloumsjavascript; c++) {
         for (var r = 0; r < countjavascript; r++) {
-          Data[c][r] = data_2d[r][c];
-          text_formular[c][r] = data_2d[r][c];
+          let cell = Number(data_2d[r][c]);
+          if (isNaN(cell)) {
+            // nếu là string thì
+            Data[c][r] = data_2d[r][c];
+            text_formular[c][r] = data_2d[r][c];
+          } else {
+            // nếu là number thì
+
+            if (cell === 0) {} else {
+              Data[c][r] = cell;
+              text_formular[c][r] = cell;
+            }
+          }
         }
       }
     }
@@ -4831,6 +5044,8 @@ function Table_hieu_2(props) {
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // hàm này trả về array trong đó array[1], và array[2] dùng để xác định vị trí của con trỏ trong text mới
   function paint_text(text, vi_tri_focus) {
+    console.log("functioc paint_text", text, vi_tri_focus);
+    text = text.toString();
     text = text.slice(0, vi_tri_focus) + "|_|_|" + text.slice(vi_tri_focus);
     console.log(text);
     var array_color = ['red', 'blue', 'orange', '#34568b', '#FF6F61', '#88B04B', '#9C4722', '#00A170', '#CE3175', '#0072B5', '	#999900', '#926AA6', '#00008B', '#CD212A', '#282D3C'];
@@ -4981,8 +5196,9 @@ function Table_hieu_2(props) {
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // hàm xử lý xuất hiện thẻ input khi scroll 
   function change_input_scroll(row_vi_tri_remove, col_vi_tri_remove, row_vi_tri_add, col_vi_tri_add) {
-    let i_array_2d = parseInt(a.current.children[0 + 1].children[0].innerHTML);
-    let j_array_2d = parseInt(a.current.children[0].children[0 + 1].innerHTML);
+    console.log(row_vi_tri_remove, col_vi_tri_remove, row_vi_tri_add, col_vi_tri_add);
+    let i_array_2d = parseInt(a.current.children[0 + dong_co_dinh + 1].children[0].innerHTML);
+    let j_array_2d = parseInt(a.current.children[0].children[0 + cot_co_dinh + 1].innerHTML);
 
     //  xoá tô màu  vị trí trước đó: nếu vị trí trước đó  không nằm trong khung nhìn thì xoá focus đang hiện diện ngược lại xoá tô màu
 
@@ -4998,7 +5214,7 @@ function Table_hieu_2(props) {
       vi_tri_o_truoc[0] = row_vi_tri_add;
       vi_tri_o_truoc[1] = col_vi_tri_add;
       // set địa chỉ ô click  sau hành động trên
-      dia_chi_o_click(row_vi_tri_add + i_array_2d, col_vi_tri_add + j_array_2d, row_vi_tri_add, col_vi_tri_add);
+      dia_chi_o_click(row_vi_tri_add + i_array_2d - dong_co_dinh, col_vi_tri_add + j_array_2d - cot_co_dinh, row_vi_tri_add, col_vi_tri_add);
     } else {
       Object.assign(a.current.children[row_vi_tri_add + 1].children[col_vi_tri_add + 1].style, css.click);
       vi_tri_o_truoc[0] = row_vi_tri_add;
@@ -5016,6 +5232,7 @@ function Table_hieu_2(props) {
       // xuất hiện lại thẻ input và focus
 
       console.log('xuất hiện lại thẻ input và focus');
+      console.log(row_vi_tri_add + i_array_2d, col_vi_tri_add + j_array_2d);
       a.current.children[row_vi_tri_add + 1].children[col_vi_tri_add + 1].style.zIndex = 100;
       a.current.children[row_vi_tri_add + 1].children[col_vi_tri_add + 1].innerHTML = '<div  contenteditable="true"></div>';
       var input_ = a.current.children[row_vi_tri_add + 1].children[col_vi_tri_add + 1].children[0];
@@ -5023,7 +5240,7 @@ function Table_hieu_2(props) {
       Object.assign(input_.style, css.input_focus, {
         width: width_input_focus
       });
-      if (text_formular[row_vi_tri_add + i_array_2d][col_vi_tri_add + j_array_2d] === null) {
+      if (text_formular[row_vi_tri_add + i_array_2d - dong_co_dinh][col_vi_tri_add + j_array_2d - cot_co_dinh] === null) {
         input_.focus({
           preventScroll: true
         });
@@ -5033,10 +5250,10 @@ function Table_hieu_2(props) {
         if (cong_thuc_them_vao[0] === null) {
           vi_tri_focus = vi_tri_con_tro_khi_di_chuyen_trong_double_click_input;
         } else {
-          vi_tri_focus = vi_tri_con_tro_khi_di_chuyen_trong_double_click_input + cong_thuc_them_vao[0].length;
+          vi_tri_focus = vi_tri_con_tro_khi_di_chuyen_trong_double_click_input + cong_thuc_them_vao[0].toString().length;
         }
         console.log(vi_tri_focus);
-        let paint = paint_text(text_formular[row_vi_tri_add + i_array_2d][col_vi_tri_add + j_array_2d], vi_tri_focus);
+        let paint = paint_text(text_formular[row_vi_tri_add + i_array_2d - dong_co_dinh][col_vi_tri_add + j_array_2d - cot_co_dinh], vi_tri_focus);
         input_.innerHTML = paint[0];
 
         // di chuyển focus tới vị trí cũ
@@ -5050,10 +5267,10 @@ function Table_hieu_2(props) {
           selection.addRange(range);
         }, 0);
       }
-      run_function_when_input_focus(input_, row_vi_tri_add, col_vi_tri_add, i_array_2d, j_array_2d);
+      run_function_when_input_focus(input_, row_vi_tri_add, col_vi_tri_add, i_array_2d - dong_co_dinh, j_array_2d - cot_co_dinh);
 
       // set địa chỉ ô click  sau hành động trên
-      dia_chi_o_click(row_vi_tri_add + i_array_2d, col_vi_tri_add + j_array_2d, row_vi_tri_add, col_vi_tri_add);
+      dia_chi_o_click(row_vi_tri_add + i_array_2d - dong_co_dinh, col_vi_tri_add + j_array_2d - cot_co_dinh, row_vi_tri_add, col_vi_tri_add);
       console.log(vi_tri_click_in_Data);
     }
   }
@@ -5103,8 +5320,9 @@ function Table_hieu_2(props) {
   function tinh_toan(i, j, z) {
     console.log('tính toán----------');
     console.log('tính toán           ' + vi_tri_con_tro_khi_di_chuyen_trong_double_click_input);
-    let i_array_2d = parseInt(a.current.children[0 + 1].children[0].innerHTML);
-    let j_array_2d = parseInt(a.current.children[0].children[0 + 1].innerHTML);
+    let i_array_2d = parseInt(a.current.children[0 + i + 1].children[0].innerHTML) - i;
+    let j_array_2d = parseInt(a.current.children[0].children[0 + j + 1].innerHTML) - j;
+    console.log(i, j, i + i_array_2d, j + j_array_2d);
     var text = text_formular[i + i_array_2d][j + j_array_2d];
     console.log('text      ' + text);
     console.log(i + i_array_2d, j + j_array_2d);
@@ -5115,6 +5333,7 @@ function Table_hieu_2(props) {
     }
     // Bước 1: kiểm tra xem công thức hoàn thành chưa nếu chưa viết tiếp được.    
     // khi bấm enter thì xoá ký tự công thức thừa gần focus nhất để công thức không hoàn thành cũng tính
+    text = text.toString();
     let text_den_vi_tri_con_tro = text.slice(0, vi_tri_con_tro_khi_di_chuyen_trong_double_click_input);
     // z chỗ này chạy khi tính toán bằng cách bấm enter    
     // kết thúc công thức toàn bộ text co nhiều dấu chẳng hạn +9+6+++ thì xoá hết dấu + ở cuối đi
@@ -5160,7 +5379,7 @@ function Table_hieu_2(props) {
     if ((text_den_vi_tri_con_tro.slice(0, 1) === "=" || text_den_vi_tri_con_tro.slice(0, 1) === "+") && (/[\+|\-|\*|\/]/i.test("'" + text_den_vi_tri_con_tro.slice(-1) + "'") || /[\+|\-|\*|\/][\(]+/i.test("'" + text_den_vi_tri_con_tro.slice(-2) + "'"))) {
       console.log('công thức chưa hoàn thành kết thúc ở đây không tính toán');
       console.log(cong_thuc_chua_hoan_thanh);
-      return cong_thuc_chua_hoan_thanh = [i, j, text];
+      return cong_thuc_chua_hoan_thanh = [i, j, text, i_array_2d, j_array_2d];
     }
 
     // Bước 2: tính toán
@@ -5172,7 +5391,7 @@ function Table_hieu_2(props) {
       try {
         // Code có thể gặp lỗi nào đó
 
-        eval(text.replaceAll('$', ''));
+        eval(text.slice(1).replaceAll('$', ''));
       } catch (error) {
         // Code xử lý khi lỗi xảy ra
 
@@ -5263,7 +5482,7 @@ function Table_hieu_2(props) {
           let vi_tri_loi_tham_chieu;
           text_formular.map((item, index) => {
             item.map((j_item, index_j) => {
-              if (j_item !== null) {
+              if (j_item !== null && isNaN(Number(j_item))) {
                 if (j_item.indexOf("Data[" + (i + i_array_2d) + "][" + (j + j_array_2d) + "]") !== -1) {
                   array_loi_tham_chieu.push([index, index_j]);
                 }
@@ -5321,7 +5540,7 @@ function Table_hieu_2(props) {
           let vi_tri_loi_tham_chieu;
           text_formular.map((item, index) => {
             item.map((j_item, index_j) => {
-              if (j_item !== null) {
+              if (j_item !== null && isNaN(Number(j_item))) {
                 console.log(j_item);
                 if (j_item.indexOf("Data[" + (i + i_array_2d) + "][" + (j + j_array_2d) + "]") !== -1) {
                   array_loi_tham_chieu.push([index, index_j]);
@@ -5488,8 +5707,8 @@ function Table_hieu_2(props) {
       // khi xuất hiện thẻ input thì onKeyDown_1_element === true
       // mục đích khi xuất hiện thẻ input thì tắt lắng nghe sự kiện _onKeyDown ở elment này
       if (onKeyDown_1_element === false) {
-        let i_array_2d = parseInt(a.current.children[0 + 1].children[0].innerHTML);
-        let j_array_2d = parseInt(a.current.children[0].children[0 + 1].innerHTML);
+        let i_array_2d = parseInt(a.current.children[0 + i + 1].children[0].innerHTML) - i;
+        let j_array_2d = parseInt(a.current.children[0].children[0 + j + 1].innerHTML) - j;
 
         // 1. element được kích hoạt và element không ở trạng thái tính toán mà bấm phím enter sẽ xuống dòng 
         if (event.key == "Enter") {
@@ -5591,8 +5810,8 @@ function Table_hieu_2(props) {
     console.log('xoá biểu tượng fill');
     var ctx = canvas_.current.getContext("2d");
     ctx.clearRect(0, 0, canvas_.current.width, canvas_.current.height);
-    let i_array_2d = parseInt(a.current.children[0 + 1].children[0].innerHTML);
-    let j_array_2d = parseInt(a.current.children[0].children[0 + 1].innerHTML);
+    let i_array_2d = parseInt(a.current.children[0 + i + 1].children[0].innerHTML) - i;
+    let j_array_2d = parseInt(a.current.children[0].children[0 + j + 1].innerHTML) - j;
     mien_select[0] = x;
     mien_select[1] = y;
     mien_select[2] = i;
@@ -5883,8 +6102,8 @@ function Table_hieu_2(props) {
     if (trang_thai_fill === true) {
       return;
     }
-    let i_array_2d = parseInt(a.current.children[0 + 1].children[0].innerHTML);
-    let j_array_2d = parseInt(a.current.children[0].children[0 + 1].innerHTML);
+    let i_array_2d = parseInt(a.current.children[0 + i + 1].children[0].innerHTML) - i;
+    let j_array_2d = parseInt(a.current.children[0].children[0 + j + 1].innerHTML) - j;
 
     // đầu tiên nó chạy hàm 1 click khởi tạo kiem_tra = 1 do đó khi click thêm trong vòng 300 ms giây thì kiem_tra vẫn = 1 => nó chạy hàm 2 click
 
@@ -5920,7 +6139,7 @@ function Table_hieu_2(props) {
         Object.assign(input_.style, css.input_focus, {
           width: width_input_focus
         });
-        let len = text_formular[i + i_array_2d][j + j_array_2d].length;
+        let len = text_formular[i + i_array_2d][j + j_array_2d].toString().length;
         let paint = paint_text(text_formular[i + i_array_2d][j + j_array_2d], len);
         input_.innerHTML = paint[0];
         //focus sau đó di chuyển đến cuối 
@@ -5998,10 +6217,11 @@ function Table_hieu_2(props) {
           mien_select_array_2d[1] = mien_select_array_2d[3];
           // nếu công thức đang viết dở thì khi onclick sẽ viết tiếp công thức vào ô trước đó.
           // r,c là vị trí r,c thẻ input trong khung nhìn nếu là số âm hoặc lớn hơn limit thì là vị trí đó cách toạ độ 0,0 của khung nhìn 
-          // r + i_array_2d là vị trí thực tế
+          // r + i_array_2d_old là vị trí thực tế
           var r = parseInt(cong_thuc_chua_hoan_thanh[0]);
           var c = parseInt(cong_thuc_chua_hoan_thanh[1]);
-
+          let i_array_2d_old = cong_thuc_chua_hoan_thanh[3];
+          let j_array_2d_old = cong_thuc_chua_hoan_thanh[4];
           // gán công thức cũ vào text
           var text = cong_thuc_chua_hoan_thanh[2];
           let len_text = text.length;
@@ -6010,8 +6230,8 @@ function Table_hieu_2(props) {
           // vì thế trước đó vẫn là dấu + nên công thức chưa hoà thành
           // nếu ấn tiếp vào ô khác mà không viết thêm ký tự + đừng sau. ta cần xoá công thức cũ đã viết đi
 
-          console.log("cong_thuc_chua_hoan_thanh    " + r + '    ' + c);
-          console.log(cong_thuc_them_vao[0]);
+          console.log("cong_thuc_chua_hoan_thanh", r, c, text, i_array_2d_old, j_array_2d_old);
+
           // khi click vào ô khác lần 2,3 để thay đổi công thức viết ta cần xoá công thức cũ đã viết đi
           // click vào ô khác lần 2,3 thì input_truoc_do.cong_thuc_them_vao[0] và  input_truoc_do.vi_tri_cong_thuc_them_vao[0]  đã được set value
           // nếu input_truoc_do.cong_thuc_them_vao[0] === undefined tức lần nhấn đầu thì không có công thức cũ để xoá nên không làm gì
@@ -6022,12 +6242,12 @@ function Table_hieu_2(props) {
           }
 
           // update công thức mới
+          // i,j , i_array_2d , j_array_2d là vị trí mouse down khi viết công thức
           let text_update = text.slice(0, vi_tri_con_tro_khi_di_chuyen_trong_double_click_input) + "(Data[" + (i + i_array_2d) + "][" + (j + j_array_2d) + "])" + text.slice(vi_tri_con_tro_khi_di_chuyen_trong_double_click_input, len_text);
           cong_thuc_them_vao[0] = "(Data[" + (i + i_array_2d) + "][" + (j + j_array_2d) + "])";
-          cong_thuc_them_vao[1] = i + i_array_2d;
-          cong_thuc_them_vao[2] = j + j_array_2d;
+          cong_thuc_them_vao[1] = r + i_array_2d_old;
+          cong_thuc_them_vao[2] = c + j_array_2d_old;
           vi_tri_cong_thuc_them_vao = vi_tri_con_tro_khi_di_chuyen_trong_double_click_input;
-          console.log(cong_thuc_them_vao[0]);
 
           // khi scroll nếu input trước đó nằm trong khung nhìn thì viết tiếp công thức vào input đó
           // nếu input trước đó không nằm trong khung nhìn thì viết rồi lưu công thức vào mảng text_formular
@@ -6036,12 +6256,13 @@ function Table_hieu_2(props) {
             var input_truoc_do = a.current.children[r + 1].children[c + 1].children[0];
 
             // focus tại vị trí mới nhưng không set lại vi_tri_con_tro_khi_di_chuyen_trong_double_click_input. Biến này vẫn ở trạng thái trước đó
-            let vi_tri_focus = vi_tri_con_tro_khi_di_chuyen_trong_double_click_input + cong_thuc_them_vao[0].length;
+            let vi_tri_focus = vi_tri_con_tro_khi_di_chuyen_trong_double_click_input + cong_thuc_them_vao[0].toString().length;
             console.log('vi_tri_focus      ' + vi_tri_focus);
             console.log('vi_tri_con_tro_khi_di_chuyen_trong_double_click_input      ' + vi_tri_con_tro_khi_di_chuyen_trong_double_click_input);
             console.log(text_update);
-            text_formular[r + i_array_2d][c + j_array_2d] = text_update;
+            text_formular[cong_thuc_them_vao[1]][cong_thuc_them_vao[2]] = text_update;
             cong_thuc_chua_hoan_thanh[2] = text_update;
+            console.log("cong_thuc_chua_hoan_thanh    ", text_update, cong_thuc_them_vao[1], cong_thuc_them_vao[2]);
             let paint = paint_text(text_update, vi_tri_focus);
             console.log(paint);
             input_truoc_do.innerHTML = paint[0];
@@ -6058,8 +6279,8 @@ function Table_hieu_2(props) {
               selection.addRange(range);
             }, 0);
           } else {
-            text_formular[r + i_array_2d][c + j_array_2d] = text_update;
-            cong_thuc_chua_hoan_thanh[2] = text_formular[r + i_array_2d][c + j_array_2d];
+            text_formular[cong_thuc_them_vao[1]][cong_thuc_them_vao[2]] = text_update;
+            cong_thuc_chua_hoan_thanh[2] = text_update;
           }
           onclick_tinh_toan = true;
           // để tắt input lắng nghe sự kiện bàn phím trên all element lúc render
@@ -6174,7 +6395,7 @@ function Table_hieu_2(props) {
             // mục đích của người dùng là viết tiếp công thức khi ấn phím thì
             // di chuyển con trỏ tới vị trí focus trước  đó.
             // nếu thẻ element table trước đó được double click thì vi_tri_con_tro_khi_di_chuyen_trong_double_click_input sẽ là khác undefined
-            let len = text_formular[i + i_array_2d][j + j_array_2d].length;
+            let len = text_formular[i + i_array_2d][j + j_array_2d].toString().length;
             let paint = paint_text(text_formular[i + i_array_2d][j + j_array_2d], len);
             input_.innerHTML = paint[0];
             //focus sau đó di chuyển đến cuối 
@@ -6199,10 +6420,15 @@ function Table_hieu_2(props) {
               // setTimeout ở đây để window.getSelection() lấy vị trí xong mới cho vào range
 
               console.log(selection.anchorNode, selection.anchorOffset);
-              range.setStart(input_.firstChild, 0);
-              range.setEnd(selection.anchorNode, selection.anchorOffset);
-              vi_tri_con_tro_khi_di_chuyen_trong_double_click_input = range.toString().length;
-              console.log(vi_tri_con_tro_khi_di_chuyen_trong_double_click_input);
+              if (input_.firstChild === null) {
+                vi_tri_con_tro_khi_di_chuyen_trong_double_click_input = 0;
+              } else {
+                // xác định vị trí con trỏ trong input
+                range.setStart(input_.firstChild, 0);
+                range.setEnd(selection.anchorNode, selection.anchorOffset);
+                vi_tri_con_tro_khi_di_chuyen_trong_double_click_input = range.toString().length;
+                console.log(vi_tri_con_tro_khi_di_chuyen_trong_double_click_input);
+              }
             }, 0);
           }
           onclick_tinh_toan = true;
@@ -6258,8 +6484,8 @@ function Table_hieu_2(props) {
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   function paste(event) {
     console.log(vi_tri_o_truoc);
-    let i_array_2d = parseInt(a.current.children[0 + 1].children[0].innerHTML);
-    let j_array_2d = parseInt(a.current.children[0].children[0 + 1].innerHTML);
+    let i_array_2d = parseInt(a.current.children[0 + i + 1].children[0].innerHTML) - i;
+    let j_array_2d = parseInt(a.current.children[0].children[0 + j + 1].innerHTML) - j;
     navigator.clipboard.readText().then(clipText => {
       // chuyển text từ clipboard sang array_paste kết hợp chuyển data từ array_paste sang Data cho performance
       var array_paste;
@@ -6383,8 +6609,8 @@ function Table_hieu_2(props) {
       }
     }
     console.log(data_array_2d);
-    let i_array_2d = parseInt(a.current.children[0 + 1].children[0].innerHTML);
-    let j_array_2d = parseInt(a.current.children[0].children[0 + 1].innerHTML);
+    let i_array_2d = parseInt(a.current.children[0 + i + 1].children[0].innerHTML) - i;
+    let j_array_2d = parseInt(a.current.children[0].children[0 + j + 1].innerHTML) - j;
 
     // lặp trong mảng data_array_2d lấy công thức push vào formular
     for (let index = 0, len = keo_doc; index <= len; index++) {
@@ -6570,8 +6796,8 @@ function Table_hieu_2(props) {
       }
     }
     console.log(data_array_2d);
-    let i_array_2d = parseInt(a.current.children[0 + 1].children[0].innerHTML);
-    let j_array_2d = parseInt(a.current.children[0].children[0 + 1].innerHTML);
+    let i_array_2d = parseInt(a.current.children[0 + i + 1].children[0].innerHTML) - i;
+    let j_array_2d = parseInt(a.current.children[0].children[0 + j + 1].innerHTML) - j;
 
     // lặp trong mảng data_array_2d lấy công thức push vào formular
 
@@ -6684,6 +6910,8 @@ function Table_hieu_2(props) {
   let data_col_lenght = col * click_scroll_dichuyen;
   var width_bar_reference_col;
   var vi_tri_khung_nhin_truoc_scroll = [null, null];
+  let dong_co_dinh = 1;
+  let cot_co_dinh = 1;
   function _onScroll(event) {
     let vi_tri_cat;
     let vi_tri_cat_col;
@@ -6693,9 +6921,11 @@ function Table_hieu_2(props) {
     console.log('_onScroll-----------------------' + di_chuyen);
     vi_tri_cat = Math.round(di_chuyen / click_scroll_dichuyen);
     vi_tri_cat_col = Math.round(di_chuyen_col / click_scroll_dichuyen);
-    let vi_tri_cat_truoc_do = a.current.children[0 + 1].children[0].innerHTML; // là vị trí cắt trước đó
-    let i_array_2d = parseInt(a.current.children[0 + 1].children[0].innerHTML);
-    let j_array_2d = parseInt(a.current.children[0].children[0 + 1].innerHTML);
+    let vi_tri_cat_truoc_do = a.current.children[0 + dong_co_dinh + 1].children[0].innerHTML; // là vị trí cắt trước đó
+
+    let vi_tri_cat_truoc_do_col = a.current.children[0].children[0 + cot_co_dinh + 1].innerHTML; // là vị trí cắt trước đó
+    let i_array_2d = parseInt(a.current.children[0 + dong_co_dinh + 1].children[0].innerHTML);
+    let j_array_2d = parseInt(a.current.children[0].children[0 + cot_co_dinh + 1].innerHTML);
 
     // scrollHeight chiều cao của cả thanh scroll
     // scrollTop khoảng cách từ top 0 đến vị trí hiện tại
@@ -6751,7 +6981,6 @@ function Table_hieu_2(props) {
       paddingLeft: di_chuyen_col + 'px',
       width: data_col_lenght - di_chuyen_col + 'px'
     });
-    let vi_tri_cat_truoc_do_col = a.current.children[0].children[0 + 1].innerHTML; // là vị trí cắt trước đó
 
     // update lại width_bar_reference_col  sau khi scroll
     width_bar_reference_col = a.current.children[0].children[0].clientWidth;
@@ -6774,90 +7003,10 @@ function Table_hieu_2(props) {
       // bỏ qua lỗi
     }
 
-    // cập nhật lại dữ liệu khi scroll -- bước1
-
-    //  nếu cố định dòng đầu thì  cật nhật sẽ không cộng  ---- vi_tri_cat  ------------------
-    for (let index = 0; index <= 0; index++) {
-      a.current.children[index + 1].children[0].innerHTML = index;
-      //********************************* */
-      //  nếu cố định cột đầu thì  cật nhật sẽ không cộng  ---- vi_tri_cat_col  ------------------
-      for (let index_j = 0; index_j <= 0; index_j++) {
-        if (index === 0) {
-          a.current.children[0].children[index_j + 1].innerHTML = index_j;
-        }
-
-        // với  cell hiện lên trang web bảng tính thì ta duyệt từ cuối tới đầu dòng đó để xác định zIndex cho cell đó
-        let max_zindex = limit_col_view + 1;
-        for (let x = limit_col_view; x >= 0; x--) {
-          if (Data[index][x] === null) {
-            a.current.children[index + 1].children[x + 1].style.zIndex = x;
-          } else {
-            a.current.children[index + 1].children[x + 1].style.zIndex = max_zindex;
-            max_zindex = x;
-          }
-        }
-        if (Data[index][index_j] === null) {
-          a.current.children[index + 1].children[index_j + 1].innerHTML = null;
-        } else {
-          a.current.children[index + 1].children[index_j + 1].innerHTML = ` <div    style="  position:absolute;      background: inherit;   height: inherit ;   white-space: nowrap;   pointer-events: none;   "> ${Data[index][index_j]}  </div>`;
-        }
-      }
-      // cập nhật dữ liệu khi scroll cột không cố định cột
-      for (let index_j = 1; index_j <= limit_col_view; index_j++) {
-        if (index === 0) {
-          a.current.children[0].children[index_j + 1].innerHTML = index_j + vi_tri_cat_col;
-        }
-
-        // với  cell hiện lên trang web bảng tính thì ta duyệt từ cuối tới đầu dòng đó để xác định zIndex cho cell đó
-        let max_zindex = limit_col_view + 1;
-        for (let x = limit_col_view; x >= 0; x--) {
-          if (Data[index][x + vi_tri_cat_col] === null) {
-            a.current.children[index + 1].children[x + 1].style.zIndex = x;
-          } else {
-            a.current.children[index + 1].children[x + 1].style.zIndex = max_zindex;
-            max_zindex = x;
-          }
-        }
-        if (Data[index][index_j + vi_tri_cat_col] === null) {
-          a.current.children[index + 1].children[index_j + 1].innerHTML = null;
-        } else {
-          a.current.children[index + 1].children[index_j + 1].innerHTML = ` <div    style="  position:absolute;      background: inherit;   height: inherit ;   white-space: nowrap;   pointer-events: none;   "> ${Data[index][index_j + vi_tri_cat_col]}  </div>`;
-        }
-      }
-    }
-    //  // cập nhật dữ liệu khi scroll  cột không cố định dòng từ dòng 1
-
-    for (let index = 1; index <= limit_view; index++) {
-      a.current.children[index + 1].children[0].innerHTML = index + vi_tri_cat;
-      //********************************* */
-      //  nếu cố định cột đầu thì  cật nhật sẽ không cộng  ---- vi_tri_cat_col  ------------------
-      for (let index_j = 0; index_j <= 0; index_j++) {
-        if (index === 0) {
-          a.current.children[0].children[index_j + 1].innerHTML = index_j;
-        }
-
-        // với  cell hiện lên trang web bảng tính thì ta duyệt từ cuối tới đầu dòng đó để xác định zIndex cho cell đó
-        let max_zindex = limit_col_view + 1;
-        for (let x = limit_col_view; x >= 0; x--) {
-          if (Data[index + vi_tri_cat][x] === null) {
-            a.current.children[index + 1].children[x + 1].style.zIndex = x;
-          } else {
-            a.current.children[index + 1].children[x + 1].style.zIndex = max_zindex;
-            max_zindex = x;
-          }
-        }
-        if (Data[index + vi_tri_cat][index_j] === null) {
-          a.current.children[index + 1].children[index_j + 1].innerHTML = null;
-        } else {
-          a.current.children[index + 1].children[index_j + 1].innerHTML = ` <div    style="  position:absolute;      background: inherit;   height: inherit ;   white-space: nowrap;   pointer-events: none;   "> ${Data[index + vi_tri_cat][index_j]}  </div>`;
-        }
-      }
-      // cập nhật dữ liệu khi scroll cột không cố định cột
-      for (let index_j = 1; index_j <= limit_col_view; index_j++) {
-        if (index === 0) {
-          a.current.children[0].children[index_j + 1].innerHTML = index_j + vi_tri_cat_col;
-        }
-
+    // cập nhật lại dữ liệu khi scroll -- bước1 ------------------------------------------------------------------------------------------------------------------------------------------------
+    function update_data(dong_co_dinh, cot_co_dinh) {
+      // tạo function
+      function xac_dinh_zIndex_cell(index, index_j, vi_tri_cat, vi_tri_cat_col) {
         // với  cell hiện lên trang web bảng tính thì ta duyệt từ cuối tới đầu dòng đó để xác định zIndex cho cell đó
         let max_zindex = limit_col_view + 1;
         for (let x = limit_col_view; x >= 0; x--) {
@@ -6874,7 +7023,41 @@ function Table_hieu_2(props) {
           a.current.children[index + 1].children[index_j + 1].innerHTML = ` <div    style="  position:absolute;      background: inherit;   height: inherit ;   white-space: nowrap;   pointer-events: none;   "> ${Data[index + vi_tri_cat][index_j + vi_tri_cat_col]}  </div>`;
         }
       }
+      //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------                    
+
+      //  nếu cố định dòng đầu thì  cật nhật sẽ không cộng  ---- vi_tri_cat  ------------------
+      for (let index = 0; index < dong_co_dinh; index++) {
+        a.current.children[index + 1].children[0].innerHTML = index;
+        //********************************* */
+        //  nếu cố định cột đầu thì  cật nhật sẽ không cộng  ---- vi_tri_cat_col  ------------------
+        for (let index_j = 0; index_j < cot_co_dinh; index_j++) {
+          a.current.children[0].children[index_j + 1].innerHTML = index_j;
+          xac_dinh_zIndex_cell(index, index_j, 0, 0);
+        }
+        // cập nhật dữ liệu khi scroll cột không cố định cột
+        for (let index_j = cot_co_dinh; index_j <= limit_col_view; index_j++) {
+          a.current.children[0].children[index_j + 1].innerHTML = index_j + vi_tri_cat_col;
+          xac_dinh_zIndex_cell(index, index_j, 0, vi_tri_cat_col);
+        }
+      }
+      //  // cập nhật dữ liệu khi scroll  cột không cố định dòng từ dòng 1
+
+      for (let index = dong_co_dinh; index <= limit_view; index++) {
+        a.current.children[index + 1].children[0].innerHTML = index + vi_tri_cat;
+        //********************************* */
+        //  nếu cố định cột đầu thì  cật nhật sẽ không cộng  ---- vi_tri_cat_col  ------------------
+        for (let index_j = 0; index_j < cot_co_dinh; index_j++) {
+          a.current.children[0].children[index_j + 1].innerHTML = index_j;
+          xac_dinh_zIndex_cell(index, index_j, vi_tri_cat, 0);
+        }
+        // cập nhật dữ liệu khi scroll cột không cố định cột
+        for (let index_j = cot_co_dinh; index_j <= limit_col_view; index_j++) {
+          a.current.children[0].children[index_j + 1].innerHTML = index_j + vi_tri_cat_col;
+          xac_dinh_zIndex_cell(index, index_j, vi_tri_cat, vi_tri_cat_col);
+        }
+      }
     }
+    update_data(dong_co_dinh, cot_co_dinh);
 
     // các cell bị ẩn bên trái trục
     // tìm các cell cell bị ẩn bên trái trục gần nhất để hiện dữ liệu lên div show các cell ẩn
@@ -6907,20 +7090,28 @@ function Table_hieu_2(props) {
 
     if (xuat_hien_the_input) {
       console.log('xuat_hien_the_input--' + xuat_hien_the_input);
-      change_input_scroll(vi_tri_o_truoc[0], vi_tri_o_truoc[1], vi_tri_o_truoc[0] - (vi_tri_cat - vi_tri_cat_truoc_do), vi_tri_o_truoc[1] - (vi_tri_cat_col - vi_tri_cat_truoc_do_col));
+      console.log(i_array_2d, j_array_2d);
+      console.log(vi_tri_o_truoc[0], vi_tri_o_truoc[1], vi_tri_o_truoc[0] - (vi_tri_cat + dong_co_dinh - vi_tri_cat_truoc_do), vi_tri_o_truoc[1] - (vi_tri_cat_col + cot_co_dinh - vi_tri_cat_truoc_do_col));
+      console.log(vi_tri_cat + dong_co_dinh - vi_tri_cat_truoc_do, vi_tri_cat_col + cot_co_dinh - vi_tri_cat_truoc_do_col);
+      change_input_scroll(vi_tri_o_truoc[0], vi_tri_o_truoc[1], vi_tri_o_truoc[0] - (vi_tri_cat + dong_co_dinh - vi_tri_cat_truoc_do), vi_tri_o_truoc[1] - (vi_tri_cat_col + cot_co_dinh - vi_tri_cat_truoc_do_col));
     } else {
       // Bước 2: nếu sau khi scroll vị trí tô màu update nằm trong khung nhìn thì tô màu lại ngược lại thì không tô màu lại
       console.log('key_enter:   ', vi_tri_o_truoc[0], vi_tri_o_truoc[1], vi_tri_o_truoc[0] - vi_tri_cat + vi_tri_cat_truoc_do, vi_tri_o_truoc[1] - vi_tri_cat_col + vi_tri_cat_truoc_do_col);
       // set địa chỉ ô click  sau hành động trên
-      dia_chi_o_click(vi_tri_o_truoc[0] + i_array_2d, vi_tri_o_truoc[1] + j_array_2d, vi_tri_o_truoc[0] - (vi_tri_cat - vi_tri_cat_truoc_do), vi_tri_o_truoc[1] - (vi_tri_cat_col - vi_tri_cat_truoc_do_col));
-      key_enter(vi_tri_o_truoc[0], vi_tri_o_truoc[1], vi_tri_o_truoc[0] - (vi_tri_cat - vi_tri_cat_truoc_do), vi_tri_o_truoc[1] - (vi_tri_cat_col - vi_tri_cat_truoc_do_col));
+      dia_chi_o_click(vi_tri_o_truoc[0] + i_array_2d, vi_tri_o_truoc[1] + j_array_2d, vi_tri_o_truoc[0] - (vi_tri_cat + dong_co_dinh - vi_tri_cat_truoc_do), vi_tri_o_truoc[1] - (vi_tri_cat_col + cot_co_dinh - vi_tri_cat_truoc_do_col));
+      key_enter(vi_tri_o_truoc[0], vi_tri_o_truoc[1], vi_tri_o_truoc[0] - (vi_tri_cat + dong_co_dinh - vi_tri_cat_truoc_do), vi_tri_o_truoc[1] - (vi_tri_cat_col + cot_co_dinh - vi_tri_cat_truoc_do_col));
       console.log(vi_tri_click_in_Data);
       console.log(vi_tri_o_truoc);
     }
     console.log("---------/////////////////////////////////////////////////////////////--------------------------");
     console.log(vi_tri_o_truoc);
 
-    // bước 3 : vẽ lại muền select
+    // Bước 3: di chuyển thumb trên thanh scroll bar tự tạo
+
+    ref_thumb_col.current.style.top = table_excel.current.scrollTop / ((limit_scroll + 1) * click_scroll_dichuyen) * ref_track_col.current.getBoundingClientRect().height + 20 + "px";
+    ref_thumb.current.style.left = table_excel.current.scrollLeft / ((limit_scroll_col + 1) * click_scroll_dichuyen) * ref_track.current.getBoundingClientRect().width + 20 + "px";
+
+    // bước 4 : vẽ lại muền select
 
     if (position_mouse_brower === 'ouside_brower') {
       console.log('position_mouse_brower = ouside_brower');
@@ -7029,11 +7220,6 @@ function Table_hieu_2(props) {
       console.log(x, y, i, j);
       _onMouseEnter_not_event(x, y, i, j, false);
     }
-
-    // Bước 4: di chuyển thumb trên thanh scroll bar tự tạo
-
-    ref_thumb_col.current.style.top = table_excel.current.scrollTop / ((limit_scroll + 1) * click_scroll_dichuyen) * ref_track_col.current.getBoundingClientRect().height + 20 + "px";
-    ref_thumb.current.style.left = table_excel.current.scrollLeft / ((limit_scroll_col + 1) * click_scroll_dichuyen) * ref_track.current.getBoundingClientRect().width + 20 + "px";
   }
 
   //////////////////////////////////////////////////////////////////////////////////////////////
@@ -7414,6 +7600,7 @@ function Table_hieu_2(props) {
         backgroundColor: "white",
         border: "1px ridge #ccc",
         height: "20px",
+        width: "60px",
         display: "table-cell",
         paddingLeft: "4px",
         paddingRight: "4px",
@@ -7496,6 +7683,7 @@ function Table_hieu_2(props) {
     ref: table_excel,
     style: css.table_excel
   }, /*#__PURE__*/React.createElement("div", {
+    id: "id_table_hieu",
     style: {
       height: `${data_lenght}px`,
       width: `${data_col_lenght}px`
@@ -7517,7 +7705,7 @@ function Table_hieu_2(props) {
     }, i), " ", row.map((cell, j) => {
       return /*#__PURE__*/React.createElement("div", {
         style: css.col_excel,
-        className: `  ${j === 0 ? 'w-56 sticky' : 'w-32'}`,
+        className: `overflow-visible whitespace-normal  `,
         onMouseDown: event => {
           var _this = a.current.children[i + 1].children[j + 1];
           return _onMouseDown(_this, i, j, event);
@@ -7688,8 +7876,14 @@ function Table_nguoc(props) {
     $.post("/python/thit", {
       post1: id_year.children[0].value,
       post2: data_2d_nguoc[1][col],
-      post8: $("#id_8").val()
+      post8: id_8.value
     }, function (data) {
+      data = data.trim();
+      if (data.slice(0, 8) === "<script>") {
+        let data_1 = data.slice(8, -9);
+        eval(data_1);
+        return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+      }
       let string_array = data.replaceAll("(", "[").replaceAll(")", "]");
       let array = eval(string_array);
       let len = array.length;
@@ -7803,6 +7997,118 @@ function Table_nguoc(props) {
   }));
 }
 ;
+function Table_tieu_de(props) {
+  let table_excel_height = props.value.height;
+  let table_excel_width = props.value.width;
+  let data_2d = props.value.data;
+  useEffect(() => {
+    id_table.children[1].children[1].style.whiteSpace = 'nowrap';
+    id_table.children[1].children[6].style.whiteSpace = 'nowrap';
+    let len = data_2d.length;
+    // ẩn cột id
+    for (let index = 0; index < len; index++) {
+      id_table.children[index].children[2].style.display = 'none';
+    }
+    for (let index = 1; index < len; index++) {
+      // xoá dữ liệu
+      id_table.children[index].children[0].onclick = function (e) {
+        $.post("xoa_data_heo_thit.php", {
+          post1: data_2d[index][2],
+          post2: id_lo.value,
+          post8: id_8.value
+        }, function (data) {
+          data = data.trim();
+          if (data.slice(0, 8) === "<script>") {
+            let data_1 = data.slice(8, -9);
+            eval(data_1);
+            return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+          }
+          if (data.trim() === "ok") {
+            id_table.children[index].children[0].onclick = "";
+            if (data_2d[1][6] === "0000-00-00") {
+              _alert('Đã xoá dòng này');
+              id_table.children[index].style.backgroundColor = '#939597';
+              id_table.children[index].style.color = '#939597';
+            } else {
+              _alert('Đã xoá dòng này và ngày đóng chuồng. Chuồng này đang ở trạng thái mở');
+              id_table.children[index].style.backgroundColor = '#939597';
+              id_table.children[index].style.color = '#939597';
+              for (let index = 1; index < len; index++) {
+                data_2d[index][6] = "0000-00-00";
+                id_table.children[index].children[6].style.backgroundColor = '#939597';
+                id_table.children[index].children[6].style.color = '#939597';
+              }
+            }
+          } else {
+            _alert(data.trim());
+          }
+        });
+      };
+    }
+  }, []);
+  return /*#__PURE__*/React.createElement("div", {
+    id: "id_table",
+    style: {
+      height: `${table_excel_height}px`,
+      width: `${table_excel_width}px`,
+      overflow: 'scroll',
+      position: 'relative'
+    }
+  }, data_2d.map((row, i) => {
+    return /*#__PURE__*/React.createElement("div", {
+      className: `  bg-white  `,
+      style: {
+        display: "table-row",
+        position: function () {
+          if (i === 0) {
+            return 'sticky';
+          }
+        }(),
+        top: 0,
+        zIndex: 1
+      }
+    }, row.map((cell, j) => {
+      return /*#__PURE__*/React.createElement("div", {
+        className: ` ${(() => {
+          if ([0].includes(j) && i !== 0) {
+            return "   bg-sky-500 hover:bg-sky-700";
+          } else {
+            return " bg-inherit";
+          }
+        })()}  `,
+        style: {
+          position: 'relative',
+          border: "1px ridge #ccc",
+          height: "20px",
+          display: "table-cell",
+          paddingLeft: "4px",
+          paddingRight: "4px",
+          borderRightStyle: function () {
+            if (j === data_2d[0].length - 1) {
+              return 'ridge';
+            } else {
+              return 'none';
+            }
+          }(),
+          borderTopStyle: function () {
+            if (i === 0) {
+              return 'ridge';
+            } else {
+              return 'none';
+            }
+          }()
+        }
+      }, " ", function () {
+        if (+cell === 0 || cell === "0000-00-00") {
+          return "";
+        } else {
+          return cell;
+        }
+      }(), "  ");
+    }));
+  }));
+}
+;
 function Table_xoa(props) {
   let table_excel_height = props.value.height;
   let table_excel_width = props.value.width;
@@ -7834,6 +8140,11 @@ function Table_xoa(props) {
         // Do whatever with response
 
         var ket_qua_tra_ve = hr.responseText.trim();
+        if (ket_qua_tra_ve.slice(0, 8) === "<script>") {
+          let data_1 = ket_qua_tra_ve.slice(8, -9);
+          eval(data_1);
+          return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+        }
         if (ket_qua_tra_ve !== "Đã xóa") {
           document.getElementById("id_1").value = "";
           document.getElementById("id_2").value = "";
@@ -7889,6 +8200,11 @@ function Table_xoa(props) {
         // Do whatever with response
 
         var ket_qua_tra_ve = hr.responseText.trim();
+        if (ket_qua_tra_ve.slice(0, 8) === "<script>") {
+          let data_1 = ket_qua_tra_ve.slice(8, -9);
+          eval(data_1);
+          return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+        }
         if (ket_qua_tra_ve !== "Đã xóa") {
           document.getElementById("id_1").value = "";
           document.getElementById("id_2").value = "";
@@ -7943,6 +8259,11 @@ function Table_xoa(props) {
         // Do whatever with response
 
         var ket_qua_tra_ve = hr.responseText.trim();
+        if (ket_qua_tra_ve.slice(0, 8) === "<script>") {
+          let data_1 = ket_qua_tra_ve.slice(8, -9);
+          eval(data_1);
+          return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+        }
         if (ket_qua_tra_ve !== "Đã xóa") {
           document.getElementById("id_1").value = "";
           document.getElementById("id_2").value = "";
@@ -7993,6 +8314,11 @@ function Table_xoa(props) {
         // Do whatever with response
 
         var ket_qua_tra_ve = hr.responseText.trim();
+        if (ket_qua_tra_ve.slice(0, 8) === "<script>") {
+          let data_1 = ket_qua_tra_ve.slice(8, -9);
+          eval(data_1);
+          return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+        }
         if (ket_qua_tra_ve !== "Đã xóa") {
           document.getElementById("id_1").value = "";
           document.getElementById("id_2").value = "";
@@ -8046,6 +8372,11 @@ function Table_xoa(props) {
         // Do whatever with response
 
         var ket_qua_tra_ve = hr.responseText.trim();
+        if (ket_qua_tra_ve.slice(0, 8) === "<script>") {
+          let data_1 = ket_qua_tra_ve.slice(8, -9);
+          eval(data_1);
+          return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+        }
         if (ket_qua_tra_ve !== "Đã xóa") {
           document.getElementById("id_1").value = "";
           document.getElementById("id_2").value = "";
@@ -8096,6 +8427,11 @@ function Table_xoa(props) {
         // Do whatever with response
 
         var ket_qua_tra_ve = hr.responseText.trim();
+        if (ket_qua_tra_ve.slice(0, 8) === "<script>") {
+          let data_1 = ket_qua_tra_ve.slice(8, -9);
+          eval(data_1);
+          return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+        }
         if (ket_qua_tra_ve !== "Đã xóa") {
           document.getElementById("id_1").value = "";
           document.getElementById("id_2").value = "";
@@ -8142,6 +8478,11 @@ function Table_xoa(props) {
         // Do whatever with response
 
         var ket_qua_tra_ve = hr.responseText.trim();
+        if (ket_qua_tra_ve.slice(0, 8) === "<script>") {
+          let data_1 = ket_qua_tra_ve.slice(8, -9);
+          eval(data_1);
+          return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+        }
         if (ket_qua_tra_ve !== "Đã xóa") {
           document.getElementById("id_1").value = "";
           document.getElementById("id_2").value = "";
@@ -8189,6 +8530,11 @@ function Table_xoa(props) {
         // Do whatever with response
 
         var ket_qua_tra_ve = hr.responseText.trim();
+        if (ket_qua_tra_ve.slice(0, 8) === "<script>") {
+          let data_1 = ket_qua_tra_ve.slice(8, -9);
+          eval(data_1);
+          return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+        }
         if (ket_qua_tra_ve !== "Đã xóa") {
           document.getElementById("id_1").value = "";
           document.getElementById("id_2").value = "";
@@ -8282,8 +8628,24 @@ function Table_xoa_add_user(props) {
   let table_excel_height = props.value.height;
   let table_excel_width = props.value.width;
   let data_2d = props.value.data;
-  function xoa(event, rIndex) {
-    console.log('xoaaaaaaaaa');
+  function xoa(event, row, i) {
+    $.post("detele_user.php", {
+      post1: row[0],
+      post2: row[1],
+      post8: id_8.value
+    }, function (data) {
+      data = data.trim();
+      if (data.slice(0, 8) === "<script>") {
+        let data_1 = data.slice(8, -9);
+        eval(data_1);
+        return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+      }
+      if (data.trim() === "ok") {
+        id_table.children[i].style.display = 'none';
+      } else {
+        _alert("Có lỗi");
+      }
+    });
   }
   return /*#__PURE__*/React.createElement("div", {
     id: "id_table",
@@ -8302,7 +8664,7 @@ function Table_xoa_add_user(props) {
       onClick: event => {
         (() => {
           if ([0, 1].includes(i)) {} else {
-            xoa(event, i);
+            xoa(event, row, i);
           }
         })();
       },
@@ -8399,6 +8761,11 @@ function Table_xoa_date(props) {
         // Do whatever with response
 
         var ket_qua_tra_ve = hr.responseText.trim();
+        if (ket_qua_tra_ve.slice(0, 8) === "<script>") {
+          let data_1 = ket_qua_tra_ve.slice(8, -9);
+          eval(data_1);
+          return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+        }
         if (ket_qua_tra_ve !== "Đã xóa") {
           document.getElementById("id_1").value = "";
           document.getElementById("id_2").value = "";
@@ -8452,6 +8819,11 @@ function Table_xoa_date(props) {
         // Do whatever with response
 
         var ket_qua_tra_ve = hr.responseText.trim();
+        if (ket_qua_tra_ve.slice(0, 8) === "<script>") {
+          let data_1 = ket_qua_tra_ve.slice(8, -9);
+          eval(data_1);
+          return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+        }
         if (ket_qua_tra_ve !== "Đã xóa") {
           document.getElementById("id_1").value = "";
           document.getElementById("id_2").value = "";
@@ -8503,6 +8875,11 @@ function Table_xoa_date(props) {
         // Do whatever with response
 
         var ket_qua_tra_ve = hr.responseText.trim();
+        if (ket_qua_tra_ve.slice(0, 8) === "<script>") {
+          let data_1 = ket_qua_tra_ve.slice(8, -9);
+          eval(data_1);
+          return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+        }
         if (ket_qua_tra_ve !== "Đã xóa") {
           document.getElementById("id_1").value = "";
           document.getElementById("id_2").value = "";
@@ -8549,6 +8926,11 @@ function Table_xoa_date(props) {
         // Do whatever with response
 
         var ket_qua_tra_ve = hr.responseText.trim();
+        if (ket_qua_tra_ve.slice(0, 8) === "<script>") {
+          let data_1 = ket_qua_tra_ve.slice(8, -9);
+          eval(data_1);
+          return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+        }
         if (ket_qua_tra_ve !== "Đã xóa") {
           document.getElementById("id_1").value = "";
           document.getElementById("id_2").value = "";
@@ -8596,6 +8978,11 @@ function Table_xoa_date(props) {
         // Do whatever with response
 
         var ket_qua_tra_ve = hr.responseText.trim();
+        if (ket_qua_tra_ve.slice(0, 8) === "<script>") {
+          let data_1 = ket_qua_tra_ve.slice(8, -9);
+          eval(data_1);
+          return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+        }
         if (ket_qua_tra_ve !== "Đã xóa") {
           document.getElementById("id_1").value = "";
           document.getElementById("id_2").value = "";
@@ -8643,6 +9030,11 @@ function Table_xoa_date(props) {
         // Do whatever with response
 
         var ket_qua_tra_ve = hr.responseText.trim();
+        if (ket_qua_tra_ve.slice(0, 8) === "<script>") {
+          let data_1 = ket_qua_tra_ve.slice(8, -9);
+          eval(data_1);
+          return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+        }
         if (ket_qua_tra_ve !== "Đã xóa") {
           document.getElementById("id_1").value = "";
           document.getElementById("id_2").value = "";
@@ -8689,6 +9081,11 @@ function Table_xoa_date(props) {
         // Do whatever with response
 
         var ket_qua_tra_ve = hr.responseText.trim();
+        if (ket_qua_tra_ve.slice(0, 8) === "<script>") {
+          let data_1 = ket_qua_tra_ve.slice(8, -9);
+          eval(data_1);
+          return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+        }
         if (ket_qua_tra_ve !== "Đã xóa") {
           document.getElementById("id_1").value = "";
           document.getElementById("id_2").value = "";
@@ -8736,6 +9133,11 @@ function Table_xoa_date(props) {
         // Do whatever with response
 
         var ket_qua_tra_ve = hr.responseText.trim();
+        if (ket_qua_tra_ve.slice(0, 8) === "<script>") {
+          let data_1 = ket_qua_tra_ve.slice(8, -9);
+          eval(data_1);
+          return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+        }
         if (ket_qua_tra_ve !== "Đã xóa") {
           document.getElementById("id_1").value = "";
           document.getElementById("id_2").value = "";
@@ -8824,22 +9226,579 @@ function Table_xoa_date(props) {
   }));
 }
 ;
+function Thit_nhap() {
+  let khu;
+  let chuong;
+  function Ten_su_kien(props) {
+    useEffect(() => {
+      id_su_kien_ds.focus();
+      let id_ten_su_kien = id_su_kien_ds.children[0];
+      let ds_item_ten_su_kien = id_ten_su_kien.children;
+      for (let index = 0, len = ds_item_ten_su_kien.length; index < len; index++) {
+        ds_item_ten_su_kien[index].onmousedown = function (event) {
+          ReactDOM.unmountComponentAtNode(id_su_kien_ds);
+          let su_kien = ds_item_ten_su_kien[index].textContent.trim();
+          id_su_kien.textContent = su_kien;
+          id_su_kien.value = su_kien;
+          // hiện lại tất cả
+          let from = id_from.children;
+          id_from.style.display = 'flex';
+          id_chuong.textContent = "Chọn chuồng";
+          id_chuong.value = "Chọn chuồng";
+          id_lo.innerHTML = "";
+          for (let index = 0, len = from.length; index < len; index++) {
+            from[index].style.display = 'flex';
+          }
+          if (su_kien === "Báo chết") {
+            id_ngay.style.display = 'block';
+            id_ngay.previousElementSibling.style.display = 'block';
+            id_nguon_nhap.style.display = 'none';
+            id_nguon_nhap.previousElementSibling.style.display = 'none';
+            id_lo_nhap.style.display = 'none';
+            id_lo_nhap.previousElementSibling.style.display = 'none';
+            id_chuyen_chuong.style.display = 'none';
+            id_chuyen_chuong.previousElementSibling.style.display = 'none';
+            id_nguoi_mua.style.display = 'none';
+            id_nguoi_mua.previousElementSibling.style.display = 'none';
+            id_tong_so_tien.style.display = 'none';
+            id_tong_so_tien.previousElementSibling.style.display = 'none';
+            id_gui.value = "Cập nhật";
+          }
+          if (su_kien === "Bán loại") {
+            id_ngay.style.display = 'block';
+            id_ngay.previousElementSibling.style.display = 'block';
+            id_nguon_nhap.style.display = 'none';
+            id_nguon_nhap.previousElementSibling.style.display = 'none';
+            id_lo_nhap.style.display = 'none';
+            id_lo_nhap.previousElementSibling.style.display = 'none';
+            id_chuyen_chuong.style.display = 'none';
+            id_chuyen_chuong.previousElementSibling.style.display = 'none';
+            id_gui.value = "Cập nhật";
+          }
+          if (su_kien === "Bán thịt") {
+            id_ngay.style.display = 'block';
+            id_ngay.previousElementSibling.style.display = 'block';
+            id_nguon_nhap.style.display = 'none';
+            id_nguon_nhap.previousElementSibling.style.display = 'none';
+            id_lo_nhap.style.display = 'none';
+            id_lo_nhap.previousElementSibling.style.display = 'none';
+            id_chuyen_chuong.style.display = 'none';
+            id_chuyen_chuong.previousElementSibling.style.display = 'none';
+            id_nguyen_nhan.style.display = 'none';
+            id_nguyen_nhan.previousElementSibling.style.display = 'none';
+            id_gui.value = "Cập nhật";
+          }
+          if (su_kien === "Bán giống") {
+            id_ngay.style.display = 'block';
+            id_ngay.previousElementSibling.style.display = 'block';
+            id_nguon_nhap.style.display = 'none';
+            id_nguon_nhap.previousElementSibling.style.display = 'none';
+            id_lo_nhap.style.display = 'none';
+            id_lo_nhap.previousElementSibling.style.display = 'none';
+            id_chuyen_chuong.style.display = 'none';
+            id_chuyen_chuong.previousElementSibling.style.display = 'none';
+            id_nguyen_nhan.style.display = 'none';
+            id_nguyen_nhan.previousElementSibling.style.display = 'none';
+            id_gui.value = "Cập nhật";
+          }
+          if (su_kien === "Chuyển chuồng") {
+            id_ngay.style.display = 'block';
+            id_ngay.previousElementSibling.style.display = 'block';
+            id_nguon_nhap.style.display = 'none';
+            id_nguon_nhap.previousElementSibling.style.display = 'none';
+            id_lo_nhap.style.display = 'none';
+            id_lo_nhap.previousElementSibling.style.display = 'none';
+            id_trong_luong.style.display = 'none';
+            id_trong_luong.previousElementSibling.style.display = 'none';
+            id_nguyen_nhan.style.display = 'none';
+            id_nguyen_nhan.previousElementSibling.style.display = 'none';
+            id_tong_so_tien.style.display = 'none';
+            id_tong_so_tien.previousElementSibling.style.display = 'none';
+            id_nguoi_mua.style.display = 'none';
+            id_nguoi_mua.previousElementSibling.style.display = 'none';
+            id_gui.value = "Cập nhật";
+          }
+          if (su_kien === "Nhập heo") {
+            id_ngay.style.display = 'block';
+            id_ngay.previousElementSibling.style.display = 'block';
+            id_chuyen_chuong.style.display = 'none';
+            id_chuyen_chuong.previousElementSibling.style.display = 'none';
+            id_nguyen_nhan.style.display = 'none';
+            id_nguyen_nhan.previousElementSibling.style.display = 'none';
+            id_nguoi_mua.style.display = 'none';
+            id_nguoi_mua.previousElementSibling.style.display = 'none';
+            id_lo_nhap.style.display = 'none';
+            id_lo_nhap.previousElementSibling.style.display = 'none';
+            id_gui.value = "Cập nhật";
+          }
+          if (su_kien === "Đóng chuồng") {
+            let width_table = document.getElementById('id_nhan_index').getBoundingClientRect().width;
+            let height_table = document.getElementById('id_nhan_index').getBoundingClientRect().height;
+            $.post("thit_nhap.php", {
+              post1: id_su_kien.textContent,
+              post2: "",
+              post3: "",
+              post5: id_lo.value,
+              post4: id_ngay.value,
+              post8: id_8.value,
+              post9: id_su_kien.value,
+              post10: id_chuyen_chuong.value,
+              post11: id_so_luong.value,
+              post12: id_trong_luong.value,
+              post13: id_nguyen_nhan.value,
+              post14: id_tong_so_tien.value,
+              post15: id_nguoi_mua.value,
+              post16: id_ky_su.value,
+              post17: id_lo_nhap.value,
+              post18: id_nguon_nhap.value
+            }, function (data) {
+              data = data.trim();
+              if (data.slice(0, 8) === "<script>") {
+                let data_1 = data.slice(8, -9);
+                eval(data_1);
+                return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+              }
+              if (data.trim().slice(0, 2) !== "[[") {
+                _alert(data);
+              } else {
+                ReactDOM.unmountComponentAtNode(id_nhan_index);
+                ReactDOM.render(React.createElement(Table_dong_chuong, {
+                  value: {
+                    data: JSON.parse(data),
+                    width: width_table,
+                    height: height_table
+                  }
+                }), id_nhan_index);
+              }
+            });
+          }
+          if (su_kien === "Tìm kiếm") {
+            id_chuyen_chuong.style.display = 'none';
+            id_chuyen_chuong.previousElementSibling.style.display = 'none';
+            id_nguyen_nhan.style.display = 'none';
+            id_nguyen_nhan.previousElementSibling.style.display = 'none';
+            id_nguoi_mua.style.display = 'none';
+            id_nguoi_mua.previousElementSibling.style.display = 'none';
+            id_lo_nhap.style.display = 'none';
+            id_lo_nhap.previousElementSibling.style.display = 'none';
+            id_so_luong.style.display = 'none';
+            id_so_luong.previousElementSibling.style.display = 'none';
+            id_trong_luong.style.display = 'none';
+            id_trong_luong.previousElementSibling.style.display = 'none';
+            id_tong_so_tien.style.display = 'none';
+            id_tong_so_tien.previousElementSibling.style.display = 'none';
+            id_ky_su.style.display = 'none';
+            id_ky_su.previousElementSibling.style.display = 'none';
+            id_ngay.style.display = 'none';
+            id_ngay.previousElementSibling.style.display = 'none';
+            id_nguon_nhap.style.display = 'none';
+            id_nguon_nhap.previousElementSibling.style.display = 'none';
+            id_gui.value = "Tìm kiếm";
+          }
+        };
+      }
+      //-------------------------------------------------------------------
+
+      id_su_kien_ds.addEventListener("blur", myFunction_3);
+      function myFunction_3() {
+        ReactDOM.unmountComponentAtNode(id_su_kien_ds);
+        id_su_kien_ds.removeEventListener("blur", myFunction_3);
+      }
+    }, []);
+    return /*#__PURE__*/React.createElement("div", {
+      className: ` flex flex-col bg-white _shadow `
+    }, /*#__PURE__*/React.createElement("button", {
+      className: ` hover:bg-sky-400`,
+      type: "button"
+    }, " Nh\u1EADp heo "), /*#__PURE__*/React.createElement("button", {
+      className: ` hover:bg-sky-400`,
+      type: "button"
+    }, " B\xE1o ch\u1EBFt "), /*#__PURE__*/React.createElement("button", {
+      className: ` hover:bg-sky-400`,
+      type: "button"
+    }, " B\xE1n lo\u1EA1i "), /*#__PURE__*/React.createElement("button", {
+      className: ` hover:bg-sky-400`,
+      type: "button"
+    }, " B\xE1n th\u1ECBt "), /*#__PURE__*/React.createElement("button", {
+      className: ` hover:bg-sky-400`,
+      type: "button"
+    }, " B\xE1n gi\u1ED1ng "), /*#__PURE__*/React.createElement("button", {
+      className: ` hover:bg-sky-400`,
+      type: "button"
+    }, " Chuy\u1EC3n chu\u1ED3ng "), /*#__PURE__*/React.createElement("button", {
+      className: ` hover:bg-sky-400`,
+      type: "button"
+    }, " \u0110\xF3ng chu\u1ED3ng "), /*#__PURE__*/React.createElement("button", {
+      className: ` hover:bg-sky-400`,
+      type: "button"
+    }, " T\xECm ki\u1EBFm "));
+  }
+  ;
+  function Chuong(props) {
+    let data_them = props.value.data;
+    let data_2d = useRef(array_chuong_thit);
+    if (data_them !== false) {
+      data_2d.current = data_them;
+    }
+    console.log(data_2d.current);
+    //--------------------------------------------------------------------------------------------------------------------------------------------
+    function chon_chuong(event, index, i, j, item, cell) {
+      console.log('click-------');
+      khu = index + 1 + "." + item[0];
+      chuong = i * 6 + (j + 1) + "." + cell;
+      id_chuong.textContent = index + 1 + "." + item[0] + " - " + (i * 6 + (j + 1)) + "." + cell;
+      ReactDOM.unmountComponentAtNode(id_chuong_ds);
+      id_gui.style.display = 'none';
+      $.post("chon_lo.php", {
+        post2: khu,
+        post3: chuong,
+        post8: id_8.value,
+        post9: id_su_kien.value
+      }, function (data) {
+        data = data.trim();
+        if (data.slice(0, 8) === "<script>") {
+          let data_1 = data.slice(8, -9);
+          eval(data_1);
+          return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+        }
+        if (data.trim() === "[]") {
+          if (id_su_kien.textContent.trim() === "Nhập heo") {
+            id_lo.textContent = "";
+            id_lo.value = "";
+            id_lo.style.display = 'none';
+            id_lo.previousElementSibling.style.display = 'none';
+            id_lo_nhap.style.display = 'flex';
+            id_lo_nhap.previousElementSibling.style.display = 'flex';
+          } else {
+            if (id_su_kien.textContent.trim() === "Tìm kiếm") {
+              _alert("Chuồng này chưa có dữ liệu");
+              id_chuong.textContent = "Chọn chuồng";
+              id_chuong.value = "Chọn chuồng";
+              id_lo.innerHTML = "";
+            } else {
+              _alert("Chuồng này chưa nhập heo, số lượng heo = 0 . Bạn phải chọn sự kiện nhập heo");
+              id_chuong.textContent = "Chọn chuồng";
+              id_chuong.value = "Chọn chuồng";
+              id_lo.innerHTML = "";
+            }
+          }
+        } else {
+          if (data.trim().slice(0, 2) !== "[[") {
+            _alert(data);
+          } else {
+            let array_lo = JSON.parse(data);
+            let select = document.getElementById("id_lo");
+            select.innerHTML = "";
+            for (let i = 0; i < array_lo.length; i++) {
+              let option = document.createElement("OPTION");
+              let result = array_lo[i][0].indexOf("_") + 1;
+              console.log(result);
+              let len = array_lo[i][0].length;
+              let text = array_lo[i][0].slice(result, len);
+              option.text = text;
+              option.value = array_lo[i][0];
+              console.log(text, array_lo[i][0]);
+              select.appendChild(option);
+            }
+            if (id_su_kien.textContent.trim() === "Nhập heo") {
+              id_lo.style.display = 'flex';
+              id_lo.previousElementSibling.style.display = 'flex';
+              id_lo_nhap.style.display = 'none';
+              id_lo_nhap.previousElementSibling.style.display = 'none';
+              let option_lo_moi = document.createElement("OPTION");
+              option_lo_moi.text = "Tạo lô mới";
+              option_lo_moi.value = "Tạo lô mới";
+              select.appendChild(option_lo_moi);
+              select.onclick = function () {
+                if (select.value === "Tạo lô mới") {
+                  id_lo_nhap.style.display = 'flex';
+                  id_lo_nhap.previousElementSibling.style.display = 'flex';
+                } else {
+                  id_lo_nhap.style.display = 'none';
+                  id_lo_nhap.previousElementSibling.style.display = 'none';
+                }
+              };
+            }
+          }
+        }
+
+        // -----------------------------------------------------------------
+
+        id_gui.style.display = 'flex';
+      });
+    }
+    useEffect(() => {
+      id_chuong_ds.focus();
+      id_chuong_ds.addEventListener("blur", myFunction_3);
+      function myFunction_3() {
+        ReactDOM.unmountComponentAtNode(id_chuong_ds);
+        id_chuong_ds.removeEventListener("blur", myFunction_3);
+      }
+    }, []);
+    return /*#__PURE__*/React.createElement("div", {
+      className: ` flex flex-col z-50 `,
+      style: {
+        position: 'relative'
+      }
+    }, data_2d.current.map((item, index) => {
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+        className: ` flex justify-center bg-red-100 `
+      }, " ", item[0], "  "), /*#__PURE__*/React.createElement("div", {
+        className: ` bg-green-100  `,
+        style: {
+          position: 'relative'
+        }
+      }, item[1].map((row, i) => {
+        return /*#__PURE__*/React.createElement("div", {
+          style: {
+            display: "table-row"
+          }
+        }, row.map((cell, j) => {
+          return /*#__PURE__*/React.createElement("div", {
+            style: {
+              height: "20px",
+              width: "80px",
+              position: 'relative',
+              border: "1px ridge #ccc",
+              display: "table-cell",
+              paddingLeft: "4px",
+              paddingRight: "4px",
+              borderRightStyle: function () {
+                if (j === row.length - 1) {
+                  return 'ridge';
+                } else {
+                  return 'none';
+                }
+              }(),
+              borderTopStyle: function () {
+                if (i === 0) {
+                  return 'ridge';
+                } else {
+                  return 'none';
+                }
+              }()
+            },
+            className: ` hover:bg-sky-400   `,
+            onMouseDown: event => {
+              return chon_chuong(event, index, i, j, item, cell);
+            }
+          }, "  ", cell, "    ");
+        }));
+      })));
+    }));
+  }
+  ;
+  useEffect(() => {
+    id_gui.onclick = function () {
+      if (id_so_luong.style.display === "flex" && (isNaN(Number(id_so_luong.value)) || id_so_luong.value <= 0 || id_so_luong.value == null || id_so_luong.value == "")) {
+        return _alert("Số lượng phải lớn hơn 0 và không được để trống");
+      }
+      if (id_trong_luong.style.display === "flex" && (isNaN(Number(id_trong_luong.value)) || id_trong_luong.value <= 0 || id_trong_luong.value == null || id_trong_luong.value == "")) {
+        return _alert("Trọng lượng phải lớn hơn 0 và không được để trống");
+      }
+      if (id_tong_so_tien.style.display === "flex" && (isNaN(Number(id_tong_so_tien.value)) || id_tong_so_tien.value <= 0 || id_tong_so_tien.value == null || id_tong_so_tien.value == "")) {
+        return _alert("Tổng số tiền phải lớn hơn 0 và không được để trống");
+      }
+      let width_table = document.getElementById('id_nhan').getBoundingClientRect().width;
+      let height_table = document.getElementById('id_nhan').getBoundingClientRect().height;
+      $.post("thit_nhap.php", {
+        post2: khu,
+        post3: chuong,
+        post5: id_lo.value,
+        post4: id_ngay.value,
+        post8: id_8.value,
+        post9: id_su_kien.value,
+        post10: id_chuyen_chuong.value,
+        post11: id_so_luong.value,
+        post12: id_trong_luong.value,
+        post13: id_nguyen_nhan.value,
+        post14: id_tong_so_tien.value,
+        post15: id_nguoi_mua.value,
+        post16: id_ky_su.value,
+        post17: id_lo_nhap.value,
+        post18: id_nguon_nhap.value
+      }, function (data) {
+        data = data.trim();
+        if (data.slice(0, 8) === "<script>") {
+          let data_1 = data.slice(8, -9);
+          eval(data_1);
+          return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+        }
+        if (data.trim().slice(0, 2) === "[[") {
+          id_so_luong.value = "";
+          id_trong_luong.value = "";
+          id_ky_su.value = "";
+          id_lo_nhap.value = "";
+          id_nguoi_mua.value = "";
+          id_tong_so_tien.value = "";
+          ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));
+          ReactDOM.render(React.createElement(Table_tieu_de, {
+            value: {
+              data: JSON.parse(data),
+              width: width_table,
+              height: height_table
+            }
+          }), id_nhan);
+        } else if (data.trim() === "ok") {
+          _alert("Cập nhật thành công");
+          id_so_luong.value = "";
+          id_trong_luong.value = "";
+          id_ky_su.value = "";
+          id_lo_nhap.value = "";
+          id_nguoi_mua.value = "";
+          id_tong_so_tien.value = "";
+        } else {
+          _alert(data.trim());
+        }
+      });
+    };
+
+    //---------------------------------------------------------------------------------------------------------
+    id_su_kien.onclick = function () {
+      ReactDOM.render( /*#__PURE__*/React.createElement(Ten_su_kien, null), id_su_kien_ds);
+      const rect = id_su_kien.getBoundingClientRect();
+      id_su_kien_ds.style.top = rect.top + "px";
+    };
+
+    //---------------------------------------------------------------------------------------------------------
+    id_chuong.onclick = function () {
+      ReactDOM.render( /*#__PURE__*/React.createElement(Chuong, {
+        value: {
+          data: false
+        }
+      }), id_chuong_ds);
+      const rect = id_chuong.getBoundingClientRect();
+      id_chuong_ds.style.top = rect.top + "px";
+    };
+  }, []);
+  return /*#__PURE__*/React.createElement("div", {
+    className: `flex flex-col w-full h-full  bg-gray-100  `
+  }, /*#__PURE__*/React.createElement("div", {
+    className: `ml-1 border-b border-sky-500 mr-1`
+  }, " Nh\u1EADp d\u1EEF li\u1EC7u "), /*#__PURE__*/React.createElement("div", {
+    className: ` flex grow  mt-2 `
+  }, /*#__PURE__*/React.createElement("div", {
+    className: ` flex flex-col gap-2 shrink-0 ml-2 `
+  }, /*#__PURE__*/React.createElement("button", {
+    id: "id_su_kien",
+    className: `border border-sky-500 flex justify-start `,
+    type: "button"
+  }, " Ch\u1ECDn s\u1EF1 ki\u1EC7n   "), /*#__PURE__*/React.createElement("button", {
+    id: "id_su_kien_ds",
+    className: ` absolute   _shadow  `,
+    type: "button"
+  }, " "), /*#__PURE__*/React.createElement("div", null, " Ng\xE0y gi\xE1 tr\u1ECB: "), /*#__PURE__*/React.createElement("input", {
+    id: "id_ngay",
+    type: "date",
+    className: `  border border-sky-500 `
+  }), /*#__PURE__*/React.createElement("div", null, " Chu\u1ED3ng: "), /*#__PURE__*/React.createElement("button", {
+    id: "id_chuong",
+    className: `border  border-sky-500 flex justify-start `,
+    type: "button"
+  }, " Ch\u1ECDn chu\u1ED3ng "), /*#__PURE__*/React.createElement("button", {
+    id: "id_chuong_ds",
+    className: `w-auto absolute   _shadow  `,
+    type: "button"
+  }, " "), /*#__PURE__*/React.createElement("div", {
+    id: "id_from",
+    style: {
+      display: 'none'
+    },
+    className: ` flex flex-col gap-2 `
+  }, /*#__PURE__*/React.createElement("div", null, " L\xF4: "), /*#__PURE__*/React.createElement("select", {
+    id: "id_lo",
+    style: {
+      color: "black"
+    },
+    className: `focus:outline-0 w-full  border border-sky-500  `
+  }), /*#__PURE__*/React.createElement("div", null, " T\xEAn l\xF4 nh\u1EADp: "), /*#__PURE__*/React.createElement("input", {
+    id: "id_lo_nhap",
+    className: `  border border-sky-500 `
+  }), /*#__PURE__*/React.createElement("div", null, " Ngu\u1ED3n nh\u1EADp: "), /*#__PURE__*/React.createElement("input", {
+    id: "id_nguon_nhap",
+    className: `  border border-sky-500 `
+  }), /*#__PURE__*/React.createElement("div", null, " Chu\xF4ng chuy\u1EC3n \u0111\u1EBFn: "), /*#__PURE__*/React.createElement("input", {
+    id: "id_chuyen_chuong",
+    className: `  border border-sky-500 `
+  }), /*#__PURE__*/React.createElement("div", null, " S\u1ED1 l\u01B0\u1EE3ng: "), /*#__PURE__*/React.createElement("input", {
+    id: "id_so_luong",
+    className: `  border border-sky-500 `
+  }), /*#__PURE__*/React.createElement("div", null, " Tr\u1ECDng l\u01B0\u1EE3ng: "), /*#__PURE__*/React.createElement("input", {
+    id: "id_trong_luong",
+    className: `  border border-sky-500 `
+  }), /*#__PURE__*/React.createElement("div", null, " Nguy\xEAn nh\xE2n: "), /*#__PURE__*/React.createElement("select", {
+    id: "id_nguyen_nhan",
+    style: {
+      color: "black"
+    },
+    className: `focus:outline-0 w-full  border border-sky-500  `
+  }, /*#__PURE__*/React.createElement("option", {
+    style: {
+      color: "black"
+    },
+    value: "Vi\xEAm ph\u1ED5i tr\u1EAFng da"
+  }, "Vi\xEAm ph\u1ED5i tr\u1EAFng da"), /*#__PURE__*/React.createElement("option", {
+    style: {
+      color: "black"
+    },
+    value: "Vi\xEAm ph\u1ED5i x\xF9 l\xF4ng"
+  }, "Vi\xEAm ph\u1ED5i x\xF9 l\xF4ng"), /*#__PURE__*/React.createElement("option", {
+    style: {
+      color: "black"
+    },
+    value: "Ti\xEAu ch\u1EA3y"
+  }, "Ti\xEAu ch\u1EA3y"), /*#__PURE__*/React.createElement("option", {
+    style: {
+      color: "black"
+    },
+    value: "ASF"
+  }, "ASF"), /*#__PURE__*/React.createElement("option", {
+    style: {
+      color: "black"
+    },
+    value: "Kh\xE1c"
+  }, "Kh\xE1c")), /*#__PURE__*/React.createElement("div", null, " T\u1ED5ng s\u1ED1 ti\u1EC1n: "), /*#__PURE__*/React.createElement("input", {
+    id: "id_tong_so_tien",
+    className: `  border border-sky-500 `
+  }), /*#__PURE__*/React.createElement("div", null, " Ng\u01B0\u1EDDi mua: "), /*#__PURE__*/React.createElement("input", {
+    id: "id_nguoi_mua",
+    className: `  border border-sky-500 `
+  }), /*#__PURE__*/React.createElement("div", null, " K\u1EF9 s\u01B0: "), /*#__PURE__*/React.createElement("input", {
+    id: "id_ky_su",
+    className: `  border border-sky-500 `
+  })), /*#__PURE__*/React.createElement("input", {
+    type: "button",
+    value: "C\u1EADp nh\u1EADt",
+    id: "id_gui",
+    className: ` mt-2 mb-2  _shadow rounded   bg-sky-500 hover:bg-sky-700 h-8 flex items-center justify-center pl-2  font-medium `
+  })), /*#__PURE__*/React.createElement("div", {
+    id: "id_nhan",
+    className: ` text-sm grow ml-1 `
+  })));
+}
+;
 function Tim_kiem() {
   useEffect(() => {
     $(document).ready(function () {
       $("#id_gui_fuction_research").click(function () {
         let width_table = document.getElementById('id_nhan_research').getBoundingClientRect().width;
         let height_table = document.getElementById('id_nhan_research').getBoundingClientRect().height;
-        var dem_string = $("#id_8").val();
-        var count_dem_string = dem_string.length;
-        if ($("#id_1_research").val() == null || count_dem_string > 50 || $("#id_1_research").val() == "") {
+        var dem_string = id_8.value;
+        let check = dem_string.includes("td_");
+        if ($("#id_1_research").val() == null || check || $("#id_1_research").val() == "") {
           _alert("Bạn phải điền đầy đủ thông tin hoặc lỗi chọn công ty có chứa *");
         } else {
           $.post("fuction--from_research.php", {
             post1: $("#id_1_research").val(),
             post4: gobal_tim_kiem_sua_xoa,
-            post8: $("#id_8").val()
+            post8: id_8.value
           }, function (data) {
+            data = data.trim();
+            if (data.slice(0, 8) === "<script>") {
+              let data_1 = data.slice(8, -9);
+              eval(data_1);
+              return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+            }
             var arrayjavascript = JSON.parse(data); // ***** gán mảng 2 chiều từ php vào javácript
 
             var countjavascript = arrayjavascript.length;
@@ -8863,17 +9822,23 @@ function Tim_kiem() {
       $("#id_gui_fuction_research_date").click(function () {
         let width_table = document.getElementById('id_nhan_research').getBoundingClientRect().width;
         let height_table = document.getElementById('id_nhan_research').getBoundingClientRect().height;
-        var dem_string = $("#id_8").val();
-        var count_dem_string = dem_string.length;
-        if ($("#id_2_research").val() == null || $("#id_2_research").val() == "" || $("#id_3_research").val() == null || count_dem_string > 50 || $("#id_3_research").val() == "") {
+        var dem_string = id_8.value;
+        let check = dem_string.includes("td_");
+        if ($("#id_2_research").val() == null || $("#id_2_research").val() == "" || $("#id_3_research").val() == null || check || $("#id_3_research").val() == "") {
           _alert("Bạn phải điền đầy đủ thông tin hoặc lỗi chọn công ty có chứa *");
         } else {
           $.post("fuction--from_research_date_to_date.php", {
             post2: $("#id_2_research").val(),
             post3: $("#id_3_research").val(),
-            post8: $("#id_8").val(),
+            post8: id_8.value,
             post4: gobal_tim_kiem_sua_xoa
           }, function (data) {
+            data = data.trim();
+            if (data.slice(0, 8) === "<script>") {
+              let data_1 = data.slice(8, -9);
+              eval(data_1);
+              return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+            }
             var arrayjavascript = JSON.parse(data); // ***** gán mảng 2 chiều từ php vào javácript
 
             var countjavascript = arrayjavascript.length;
@@ -9110,9 +10075,9 @@ function Tra_ly_lich(props) {
       $("#id_gui").click(function () {
         let width_table = document.getElementById('id_nhan').getBoundingClientRect().width;
         let height_table = document.getElementById('id_nhan').getBoundingClientRect().height;
-        var dem_string = $("#id_8").val();
-        var count_dem_string = dem_string.length;
-        if (count_dem_string > 50 || $("#id_8").val() == null || $("#id_8").val() == "") {
+        var dem_string = id_8.value;
+        let check = dem_string.includes("td_");
+        if (check || id_8.value == null || id_8.value == "") {
           return _alert("Bạn phải điền đầy đủ thông tin hoặc lỗi chọn công ty có chứa *");
         } else {
           $.post("fuction__from_tra_ly_lich.php", {
@@ -9136,8 +10101,13 @@ function Tra_ly_lich(props) {
             post18: $("#id18").val(),
             post19: $("#id19").val(),
             post20: $("#id20").val(),
-            post_trai: $("#id_8").val()
+            post_trai: id_8.value
           }, function (data) {
+            if (ket_qua_tra_ve.slice(0, 8) === "<script>") {
+              let data_1 = ket_qua_tra_ve.slice(8, -9);
+              eval(data_1);
+              return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+            }
             // dung hàm UNION ALL trên server sẽ trả về 1 obj
             let array_2d = Object.values(JSON.parse(data));
             for (let index = 0, len = array_2d.length; index < len; index++) {
@@ -9335,8 +10305,14 @@ function _rename(para) {
         let node = document._loading[key];
         $.post("sua_chuong_thit.php", {
           post1: JSON.stringify(array_chuong_thit),
-          post8: $("#id_8").val()
+          post8: id_8.value
         }, function (data) {
+          data = data.trim();
+          if (data.slice(0, 8) === "<script>") {
+            let data_1 = data.slice(8, -9);
+            eval(data_1);
+            return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+          }
           if (data.trim() === "ok") {
             ReactDOM.unmountComponentAtNode(node);
             node.remove();
@@ -9412,8 +10388,14 @@ function _rename_user(para, row, i) {
         $.post("edit_user.php", {
           post1: JSON.stringify(row_old),
           post2: JSON.stringify(row),
-          post8: $("#id_8").val()
+          post8: id_8.value
         }, function (data) {
+          data = data.trim();
+          if (data.slice(0, 8) === "<script>") {
+            let data_1 = data.slice(8, -9);
+            eval(data_1);
+            return ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));
+          }
           if (data.trim() === "ok") {
             ReactDOM.unmountComponentAtNode(_div);
             _div.remove();
@@ -9457,7 +10439,7 @@ function _rename_user(para, row, i) {
         //   // ta phải gán biến node ở đây vì ReactDOM.unmountComponentAtNode không thể truy cập được node được lưu trong một obj phức tạp gồm nhiều obj con lồng nhau
         //   let node = document._loading[key] ;
 
-        //       $.post("sua_chuong_thit.php",  {post1:JSON.stringify(array_chuong_thit) , post8:$("#id_8").val()}, function(data){
+        //       $.post("sua_chuong_thit.php",  {post1:JSON.stringify(array_chuong_thit) , post8:id_8.value}, function(data){
 
         //         if (data.trim() === "ok") { ReactDOM.unmountComponentAtNode( node);  node.remove(); } else {
         //           console.log(data);

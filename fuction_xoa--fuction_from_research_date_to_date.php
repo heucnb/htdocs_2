@@ -5,27 +5,29 @@
 
 
 <?php
-
-// xóa csdl phối
-
-if ($_POST["post_7"]=="phoi")	
-{
-$ma_the_nai =$_POST["post_1"];
-$lan_phoi=$_POST["post_6"];
-$trai=$_POST["post_8"];
-$date_ngay_phoi =$_POST["post_2"];
-
-$ma_lan_phoi = $trai."-".$lan_phoi."-".$ma_the_nai ;
-
-
-// kết nối csdl	
 include "setup/fuction_ket_noi_csdl.php";
+$trai=safeSQL($_POST["post_8"]);
+include "setup/check_token_and_post.php";
+ 
+
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 // Check connection
 	if (!$conn) {
 	die("Connection failed: " . mysqli_connect_error());
-	}
+	} 
+// xóa csdl phối
+
+if (safeSQL($_POST["post_7"])=="phoi")	
+{
+$ma_the_nai =safeSQL($_POST["post_1"]);
+$lan_phoi=safeSQL($_POST["post_6"]);
+
+$date_ngay_phoi =safeSQL($_POST["post_2"]);
+
+$ma_lan_phoi = $trai."-".$lan_phoi."-".$ma_the_nai ;
+
+
 	
 // láy số ngày khóa dữ liệu
 $sql_lay_ngay_khoa_du_lieu = "select `khoa_ngay_sua_du_lieu` from login where `trai`='".$trai."' limit 1 ";
@@ -139,24 +141,16 @@ echo 'Đã xóa' ;
 
 // xóa csdl đẻ
 
-if ($_POST["post_7"]=="de")	
+if (safeSQL($_POST["post_7"])=="de")	
 {
-$ma_the_nai =$_POST["post_1"];
-$lan_phoi=$_POST["post_6"];
-$trai=$_POST["post_8"];
-$date_ngay_de=$_POST["post_2"];
+$ma_the_nai =safeSQL($_POST["post_1"]);
+$lan_phoi=safeSQL($_POST["post_6"]);
+
+$date_ngay_de=safeSQL($_POST["post_2"]);
 
 $ma_lan_phoi = $trai."-".$lan_phoi."-".$ma_the_nai ;
 
 
-// kết nối csdl	
-include('setup/fuction_ket_noi_csdl.php');
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-	if (!$conn) {
-	die("Connection failed: " . mysqli_connect_error());
-	}
 	
 // láy số ngày khóa dữ liệu
 $sql_lay_ngay_khoa_du_lieu = "select `khoa_ngay_sua_du_lieu` from login where `trai`='".$trai."' limit 1 ";
@@ -248,24 +242,16 @@ echo 'Đã xóa' ;
 
 // xóa csdl cai sữa
 
-if ($_POST["post_7"] == "cai_sua")	
+if (safeSQL($_POST["post_7"]) == "cai_sua")	
 {
-$ma_the_nai =$_POST["post_1"];
-$lan_phoi=$_POST["post_6"] ;
-$trai=$_POST["post_8"];
-$date_ngay_cai=$_POST["post_2"];
+$ma_the_nai =safeSQL($_POST["post_1"]);
+$lan_phoi=safeSQL($_POST["post_6"]) ;
+
+$date_ngay_cai=safeSQL($_POST["post_2"]);
 
 $ma_lan_phoi = $trai."-".$lan_phoi."-".$ma_the_nai ;
 
 
-// kết nối csdl	
-include('setup/fuction_ket_noi_csdl.php');
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-	if (!$conn) {
-	die("Connection failed: " . mysqli_connect_error());
-	}
 	
 	// láy số ngày khóa dữ liệu
 $sql_lay_ngay_khoa_du_lieu = "select `khoa_ngay_sua_du_lieu` from login where `trai`='".$trai."' limit 1 ";
@@ -368,25 +354,16 @@ echo 'Đã xóa' ;
 
 // xoa heo van de
 
-if ($_POST["post_7"] == "van_de")	
+if (safeSQL($_POST["post_7"]) == "van_de")	
 {
-$ma_the_nai =$_POST["post_1"];
-$lan_phoi=$_POST["post_6"] ;
-$trai=$_POST["post_8"];
-$date_ngay_heo_van_de=$_POST["post_2"];
+$ma_the_nai =safeSQL($_POST["post_1"]);
+$lan_phoi=safeSQL($_POST["post_6"]) ;
+
+$date_ngay_heo_van_de=safeSQL($_POST["post_2"]);
 
 $ma_lan_phoi = $trai."-".$lan_phoi."-".$ma_the_nai ;
 
 
-// kết nối csdl	
-include('setup/fuction_ket_noi_csdl.php');
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-	if (!$conn) {
-	die("Connection failed: " . mysqli_connect_error());
-	}
-	
 // láy số ngày khóa dữ liệu
 $sql_lay_ngay_khoa_du_lieu = "select `khoa_ngay_sua_du_lieu` from login where `trai`='".$trai."' limit 1 ";
 $result_lay_ngay_khoa_du_lieu = mysqli_query($conn, $sql_lay_ngay_khoa_du_lieu);
@@ -487,24 +464,16 @@ echo 'Đã xóa' ;
 
 // xoa heo nai chet loai
 
-if ($_POST["post_7"] == "nai_chet_loai")	
+if (safeSQL($_POST["post_7"]) == "nai_chet_loai")	
 {
-$ma_the_nai =$_POST["post_1"];
-$lan_phoi=$_POST["post_6"] ;
-$trai=$_POST["post_8"];
-$date_ngay_heo_nai_chet_loai=$_POST["post_2"];
+$ma_the_nai =safeSQL($_POST["post_1"]);
+$lan_phoi=safeSQL($_POST["post_6"]) ;
+
+$date_ngay_heo_nai_chet_loai=safeSQL($_POST["post_2"]);
 
 
 
 
-// kết nối csdl	
-include('setup/fuction_ket_noi_csdl.php');
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-	if (!$conn) {
-	die("Connection failed: " . mysqli_connect_error());
-	}
 	
 // láy số ngày khóa dữ liệu
 $sql_lay_ngay_khoa_du_lieu = "select `khoa_ngay_sua_du_lieu` from login where `trai`='".$trai."' limit 1 ";
@@ -552,25 +521,16 @@ echo "Người quản lý đã khóa không cho thêm, sửa, xóa dữ liệu t
 
 // xóa csdl heo con chet theo me
 
-if ($_POST["post_7"] == "con_chet_loai")	
+if (safeSQL($_POST["post_7"]) == "con_chet_loai")	
 {
-$ma_the_nai =$_POST["post_1"];
-$lan_phoi=$_POST["post_6"] ;
-$trai=$_POST["post_8"];
-$date_ngay_heo_con_chet_theo_me=$_POST["post_2"];
+$ma_the_nai =safeSQL($_POST["post_1"]);
+$lan_phoi=safeSQL($_POST["post_6"]) ;
+
+$date_ngay_heo_con_chet_theo_me=safeSQL($_POST["post_2"]);
 
 $ma_lan_phoi = $trai."-".$lan_phoi."-".$ma_the_nai ;
 
 
-// kết nối csdl	
-include('setup/fuction_ket_noi_csdl.php');
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-	if (!$conn) {
-	die("Connection failed: " . mysqli_connect_error());
-	}
-	
 // láy số ngày khóa dữ liệu
 $sql_lay_ngay_khoa_du_lieu = "select `khoa_ngay_sua_du_lieu` from login where `trai`='".$trai."' limit 1 ";
 $result_lay_ngay_khoa_du_lieu = mysqli_query($conn, $sql_lay_ngay_khoa_du_lieu);
@@ -673,23 +633,13 @@ echo 'Đã xóa' ;
 
 // xóa heo hậu bị
 
-if ($_POST["post_7"]=="hau_bi")	
+if (safeSQL($_POST["post_7"])=="hau_bi")	
 {
-$so_tai =$_POST["post_1"];
-$trai=$_POST["post_8"];
-$date_ngay_heo_hau_bi=$_POST["post_2"];
+$so_tai =safeSQL($_POST["post_1"]);
+
+$date_ngay_heo_hau_bi=safeSQL($_POST["post_2"]);
 
 
-
-// kết nối csdl	
-include('setup/fuction_ket_noi_csdl.php');
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-	if (!$conn) {
-	die("Connection failed: " . mysqli_connect_error());
-	}
-	
 	// láy số ngày khóa dữ liệu
 $sql_lay_ngay_khoa_du_lieu = "select `khoa_ngay_sua_du_lieu` from login where `trai`='".$trai."' limit 1 ";
 $result_lay_ngay_khoa_du_lieu = mysqli_query($conn, $sql_lay_ngay_khoa_du_lieu);
@@ -770,22 +720,13 @@ echo 'Đã xóa' ;
 
 // xóa heo hậu đực
 
-if ($_POST["post_7"]=="duc")	
+if (safeSQL($_POST["post_7"])=="duc")	
 {
-$so_tai =$_POST["post_1"];
-$trai=$_POST["post_8"];
-$date_ngay_heo_duc=$_POST["post_2"];
+$so_tai =safeSQL($_POST["post_1"]);
+
+$date_ngay_heo_duc=safeSQL($_POST["post_2"]);
 
 
-
-// kết nối csdl	
-include('setup/fuction_ket_noi_csdl.php');
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-	if (!$conn) {
-	die("Connection failed: " . mysqli_connect_error());
-	}
 	
 	// láy số ngày khóa dữ liệu
 $sql_lay_ngay_khoa_du_lieu = "select `khoa_ngay_sua_du_lieu` from login where `trai`='".$trai."' limit 1 ";

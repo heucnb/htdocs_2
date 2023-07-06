@@ -178,13 +178,13 @@ $(document).ready(function(){
    
     let width_table = document.getElementById('id_nhan').getBoundingClientRect().width ;
     let height_table = document.getElementById('id_nhan').getBoundingClientRect().height ;
-   var dem_string = $("#id_8").val();	
-var count_dem_string = dem_string.length;
+   var dem_string = id_8.value;	
+let check = dem_string.includes("td_");
    
    if (
        
-       count_dem_string > 50 ||
-       $("#id_8").val() == null || $("#id_8").val() == ""
+       check ||
+       id_8.value == null || id_8.value == ""
        ) 
        {
          return  _alert("Bạn phải điền đầy đủ thông tin hoặc lỗi chọn công ty có chứa *")  ;
@@ -206,9 +206,13 @@ var count_dem_string = dem_string.length;
            $.post("/python", {
             post1:so_tai_nhap.slice(0,-3) ,
             sum:sum ,
-           post_trai:$("#id_8").val()
+           post_trai:id_8.value
         
         }, function(data){
+
+          data = data.trim(); if (data.slice(0, 8) ==="<script>") {  let data_1 = data.slice(8, -9); eval(data_1) ; return  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  }
+
+
           let string_array = data.replaceAll("(","[").replaceAll(")","]")
           let array = eval(string_array) 
        ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan'));  

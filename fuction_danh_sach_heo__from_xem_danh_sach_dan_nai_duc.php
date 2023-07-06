@@ -1,9 +1,10 @@
 
 <?php
-		
-
-// kết nối csdl	
 include "setup/fuction_ket_noi_csdl.php";
+		
+    
+    
+
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 // Check connection
@@ -11,10 +12,10 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 	die("Connection failed: " . mysqli_connect_error());
 	}
 
-$kiem_tra=$_POST["post1"];
+$kiem_tra=safeSQL($_POST["post1"]);
 
-$trai=$_POST["post8"];
-
+$trai=safeSQL($_POST["post8"]);
+include "setup/check_token_and_post.php";
 
 
 //** danh sách heo phối
@@ -567,7 +568,7 @@ for ($x = 0+1; $x < $cout_1+1; $x++) {
 }
 
 
-echo json_encode($arraymysql_1);
+echo str_ireplace("|_|","'",json_encode($arraymysql_1));
 
 ?>	
 

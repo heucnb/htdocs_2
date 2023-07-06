@@ -141,7 +141,7 @@ function hover(event, object_style,object_style_leave, dom) {
 
  
 function _alert(componet_react) {
-  let _div = document.createElement("_div");
+  let _div = document.createElement("div");
   // getElementsByTagName sẽ lấy ra một mảng tag name phù hợp không giống by id lấy ra 1 cái 
   let body = document.getElementsByTagName("body");
   body[0].appendChild(_div);
@@ -151,10 +151,10 @@ function _alert(componet_react) {
   function Alert() {
     let ref_thoat =  useRef(null) ;
     useEffect(() => {   ref_thoat.current.focus();       }, []);
-    return (  <div className={'absolute flex  w-full h-full top-0 left-0 bg-slate-400 bg-opacity-50'}  >  
+    return (  <div className={'absolute flex  w-full h-full top-0 left-0 bg-slate-400 bg-opacity-50'}  style={  {  zIndex : 10  }  } >  
 
       
-                  <div className={'flex flex-wrap absolute rounded border border-solid border-slate-400 bg-amber-400  _shadow '}  style={  { top: '10%', left: '30%' }  } >
+                  <div className={'flex flex-wrap absolute rounded border border-solid border-slate-400 bg-amber-400  _shadow '}  style={  { top: '10%', left: '30%',  zIndex : 10  }  } >
                   <div className={`mx-5 mt-2 w-full`}  > {componet_react} </div>
                   <div className={' my-2 w-full flex justify-end'} >  
                   <input type="button" value="Thoát"  ref={ref_thoat}   className={'mx-10  text-white rounded w-16 flex justify-center bg-sky-500 hover:bg-sky-700 _shadow'} onClick ={( )=>{ ReactDOM.unmountComponentAtNode( _div);  _div.remove(); }}/>
@@ -365,4 +365,16 @@ function _alert(componet_react) {
     </select> 
     )
     
+  }
+
+
+  //---------------------------------------------------------------------------------------------------------------
+  // function loại bỏ dấu tiếng việt
+  function removeAccents(str) {
+    //đổi chữ hoa thành chữ thường
+    str = str.toLowerCase();
+    // loại bỏ dấu tiếng việt
+    return str.normalize('NFD')
+              .replace(/[\u0300-\u036f]/g, '')
+              .replace(/đ/g, 'd').replace(/Đ/g, 'D');
   }

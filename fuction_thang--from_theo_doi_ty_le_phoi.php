@@ -1,9 +1,11 @@
 
 <?php
-		
-$day_post_bat_dau = date('Y-m-d', strtotime($_POST["post1"].'-01-01'. ' - 8 days')) ; 
-$year_them_1 = $_POST["post1"] +1 ;
-$year_tru_1 = $_POST["post1"] -1 ;
+include "setup/fuction_ket_noi_csdl.php";
+	
+    
+$day_post_bat_dau = date('Y-m-d', strtotime(safeSQL($_POST["post1"]).'-01-01'. ' - 8 days')) ; 
+$year_them_1 = safeSQL($_POST["post1"]) +1 ;
+$year_tru_1 = safeSQL($_POST["post1"]) -1 ;
 $day_year_them_1 = $year_them_1.'-01-01' ;
 
 $day_post_ket_thuc =  date('Y-m-d', strtotime($day_year_them_1. ' - 0 days')) ;
@@ -12,11 +14,10 @@ $day_post_ket_thuc =  date('Y-m-d', strtotime($day_year_them_1. ' - 0 days')) ;
 $date_batdau =  $day_post_bat_dau ;
 
 $date_ketthuc = $day_post_ket_thuc;
-$trai=$_POST["post8"];
+$trai=safeSQL($_POST["post8"]);
+include "setup/check_token_and_post.php";
 
 
-// kết nối csdl	
-include "setup/fuction_ket_noi_csdl.php";
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 // Check connection
@@ -25,7 +26,7 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 	}
 
 $sql_1 = "SELECT  *
- FROM (SELECT `stt`,  CONCAT('". $_POST["post1"]."', '-', sheet4.`thang`) as thang5  FROM `sheet4`) as bang5
+ FROM (SELECT `stt`,  CONCAT('". safeSQL($_POST["post1"])."', '-', sheet4.`thang`) as thang5  FROM `sheet4`) as bang5
 LEFT JOIN(Select
          CONCAT(year(sheet1.`ngay phoi`),
                 '-',
@@ -107,7 +108,7 @@ $mien_lay_du_lieu_excel = 'AC2:AO21';
 
 
 
-    echo json_encode($dataexcel);
+    echo str_ireplace("|_|","'",json_encode($dataexcel));
 
 
 ?>	

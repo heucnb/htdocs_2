@@ -13,44 +13,53 @@ function Login() {
     } else {
 
       var array_data_login = JSON.parse(data);
-	console.log(array_data_login);
-   var array_option = new Array();
-   // This will return an array with strings "1", "2", etc.
-   array_option = array_data_login[0][2].split(",");
-   array_option_ten_day_du = array_data_login[0][3].split(",");
 
 
-    var select = document.getElementById("id_8") ;
-    select.innerHTML = '' ;
-      for(var i = 0; i < array_option.length; i++)
-            {
-                var option = document.createElement("OPTION")
-                option.text = array_option_ten_day_du[i];
-                option.value = array_option[i];
-                select.appendChild(option);
-            }
-            
-         // kiểm tra xem có được quyền thêm người dùng và khóa dữ liệu không
-         var quyen_them_nguoi_dung_va_khoa_ngay_sua_du_lieu = array_data_login[0][4] ;
-         if(quyen_them_nguoi_dung_va_khoa_ngay_sua_du_lieu==1)
-         {
-          document.getElementById('id_them_user').style.display = 'inline';   
-          document.getElementById('id_khoa_ngay_nhap_du_lieu').style.display= 'inline';  
-         }
-         else
-         {
-            document.getElementById('id_them_user').style.display= 'none'; 
-             document.getElementById('id_khoa_ngay_nhap_du_lieu').style.display= 'none'; 
-         }    
+	
   
+  localStorage.setItem('username',array_data_login[0][0] );
+  localStorage.setItem('password',array_data_login[0][1] );
+  localStorage.setItem('all', JSON.stringify(array_data_login) );
  
- 
-    document.getElementById('id_td_1').innerHTML="Đăng nhập - " + id_1.textContent;
-    _alert("Đăng nhập thành công");
-    ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index')); 
-      
-      array_chuong_thit = JSON.parse(array_data_login[0][6]) ;
+  arrayjavascript_3 = JSON.parse(localStorage.getItem("all"))  ; 
+console.log(arrayjavascript_3);
+     // This will return an array with strings "1", "2", etc.
+     document.array_option = arrayjavascript_3[0][2].split(",");
+     
+     document.array_option_ten_day_du = arrayjavascript_3[0][3].split(",");
+  
+     ReactDOM.unmountComponentAtNode(id_select); 
+     ReactDOM.render( /*#__PURE__*/React.createElement(Select_list, { value: { trai_value:  document.array_option , trai_ten_day_du: document.array_option_ten_day_du } }), id_select);
+
+
          
+      // kiểm tra xem có được quyền thêm người dùng và khóa dữ liệu không
+      var quyen_them_nguoi_dung_va_khoa_ngay_sua_du_lieu = array_data_login[0][4] ;
+      if(quyen_them_nguoi_dung_va_khoa_ngay_sua_du_lieu==1)
+      {
+       document.getElementById('id_td_20').style.display = 'inline';   
+       document.getElementById('id_khoa_ngay_nhap_du_lieu').style.display= 'inline';  
+      }
+      else
+      {
+         document.getElementById('id_td_20').style.display= 'none'; 
+          document.getElementById('id_khoa_ngay_nhap_du_lieu').style.display= 'none'; 
+      }    
+
+
+
+ document.getElementById('id_td_1').innerHTML="Đăng nhập - " + id_1.textContent;
+ _alert("Đăng nhập thành công");
+ ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index')); 
+
+ //-----------------------------------------------------------------------------
+     //tải cáu hình chuòng thịt cho công ty
+   array_chuong_thit = JSON.parse(array_data_login[0][6]) ;
+      
+
+
+  
+       
          
     }
       

@@ -1,13 +1,14 @@
 
 <?php
-		
-
-$trai=$_POST["post_trai"];
-
-
-
-// kết nối csdl	
 include "setup/fuction_ket_noi_csdl.php";
+
+		  
+
+$trai=safeSQL($_POST["post_trai"]);
+include "setup/check_token_and_post.php";
+
+
+
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 // Check connection
@@ -52,7 +53,7 @@ From
 Where
 sheet1.trai = '".$trai."'
 And 
-`so cat tai` LIKE '%_".$_POST["post1"]."_%' 
+`so cat tai` LIKE '%_".safeSQL($_POST["post1"])."_%' 
 
 UNION ALL
 
@@ -68,7 +69,7 @@ From
 Where
 sheet1.trai = '".$trai."'
 And 
-`so cat tai` LIKE '%_".$_POST["post2"]."_%' 
+`so cat tai` LIKE '%_".safeSQL($_POST["post2"])."_%' 
 
 UNION ALL
 
@@ -84,7 +85,7 @@ From
 Where
 sheet1.trai = '".$trai."'
 And 
-`so cat tai` LIKE '%_".$_POST["post3"]."_%' 
+`so cat tai` LIKE '%_".safeSQL($_POST["post3"])."_%' 
 UNION ALL
 
 
@@ -99,7 +100,7 @@ From
 Where
 sheet1.trai = '".$trai."'
 And 
-`so cat tai` LIKE '%_".$_POST["post4"]."_%' 
+`so cat tai` LIKE '%_".safeSQL($_POST["post4"])."_%' 
 UNION ALL
 
 
@@ -114,7 +115,7 @@ From
 Where
 sheet1.trai = '".$trai."'
 And 
-`so cat tai` LIKE '%_".$_POST["post5"]."_%' 
+`so cat tai` LIKE '%_".safeSQL($_POST["post5"])."_%' 
 UNION ALL
 
 
@@ -129,7 +130,7 @@ From
 Where
 sheet1.trai = '".$trai."'
 And 
-`so cat tai` LIKE '%_".$_POST["post6"]."_%' 
+`so cat tai` LIKE '%_".safeSQL($_POST["post6"])."_%' 
 UNION ALL
 
 
@@ -144,7 +145,7 @@ From
 Where
 sheet1.trai = '".$trai."'
 And 
-`so cat tai` LIKE '%_".$_POST["post7"]."_%' 
+`so cat tai` LIKE '%_".safeSQL($_POST["post7"])."_%' 
 UNION ALL
 
 
@@ -159,7 +160,7 @@ From
 Where
 sheet1.trai = '".$trai."'
 And 
-`so cat tai` LIKE '%_".$_POST["post8"]."_%' 
+`so cat tai` LIKE '%_".safeSQL($_POST["post8"])."_%' 
 UNION ALL
 
 
@@ -174,7 +175,7 @@ From
 Where
 sheet1.trai = '".$trai."'
 And 
-`so cat tai` LIKE '%_".$_POST["post9"]."_%' 
+`so cat tai` LIKE '%_".safeSQL($_POST["post9"])."_%' 
 UNION ALL
 
 
@@ -189,7 +190,7 @@ From
 Where
 sheet1.trai = '".$trai."'
 And 
-`so cat tai` LIKE '%_".$_POST["post10"]."_%' 
+`so cat tai` LIKE '%_".safeSQL($_POST["post10"])."_%' 
 UNION ALL
 
 
@@ -204,7 +205,7 @@ From
 Where
 sheet1.trai = '".$trai."'
 And 
-`so cat tai` LIKE '%_".$_POST["post11"]."_%' 
+`so cat tai` LIKE '%_".safeSQL($_POST["post11"])."_%' 
 UNION ALL
 
 
@@ -219,7 +220,7 @@ From
 Where
 sheet1.trai = '".$trai."'
 And 
-`so cat tai` LIKE '%_".$_POST["post12"]."_%' 
+`so cat tai` LIKE '%_".safeSQL($_POST["post12"])."_%' 
 UNION ALL
 
 
@@ -234,7 +235,7 @@ From
 Where
 sheet1.trai = '".$trai."'
 And 
-`so cat tai` LIKE '%_".$_POST["post13"]."_%' 
+`so cat tai` LIKE '%_".safeSQL($_POST["post13"])."_%' 
 UNION ALL
 
 
@@ -249,7 +250,7 @@ From
 Where
 sheet1.trai = '".$trai."'
 And 
-`so cat tai` LIKE '%_".$_POST["post14"]."_%' 
+`so cat tai` LIKE '%_".safeSQL($_POST["post14"])."_%' 
 UNION ALL
 
 
@@ -264,7 +265,7 @@ From
 Where
 sheet1.trai = '".$trai."'
 And 
-`so cat tai` LIKE '%_".$_POST["post15"]."_%' 
+`so cat tai` LIKE '%_".safeSQL($_POST["post15"])."_%' 
 UNION ALL
 
 
@@ -279,7 +280,7 @@ From
 Where
 sheet1.trai = '".$trai."'
 And 
-`so cat tai` LIKE '%_".$_POST["post16"]."_%' 
+`so cat tai` LIKE '%_".safeSQL($_POST["post16"])."_%' 
 UNION ALL
 
 
@@ -294,7 +295,7 @@ From
 Where
 sheet1.trai = '".$trai."'
 And 
-`so cat tai` LIKE '%_".$_POST["post17"]."_%' 
+`so cat tai` LIKE '%_".safeSQL($_POST["post17"])."_%' 
 UNION ALL
 
 
@@ -309,7 +310,7 @@ From
 Where
 sheet1.trai = '".$trai."'
 And 
-`so cat tai` LIKE '%_".$_POST["post18"]."_%' 
+`so cat tai` LIKE '%_".safeSQL($_POST["post18"])."_%' 
 UNION ALL
 
 
@@ -324,7 +325,7 @@ From
 Where
 sheet1.trai = '".$trai."'
 And 
-`so cat tai` LIKE '%_".$_POST["post19"]."_%' 
+`so cat tai` LIKE '%_".safeSQL($_POST["post19"])."_%' 
 UNION ALL
 
 
@@ -339,7 +340,7 @@ From
 Where
 sheet1.trai = '".$trai."'
 And 
-`so cat tai` LIKE '%_".$_POST["post20"]."_%'
+`so cat tai` LIKE '%_".safeSQL($_POST["post20"])."_%'
 
 
 	
@@ -381,7 +382,8 @@ if ($_POST["post19"]=="khong_co_du_lieu"){$arraymysql_1[19][0] ='';}else{ $array
 if ($_POST["post20"]=="khong_co_du_lieu"){$arraymysql_1[20][0] ='';}else{ $arraymysql_1[20][0] = $_POST["post20"];}
 // dung hàm UNION ALL sẽ trả về 1 obj
 
-  echo json_encode($arraymysql_1);
+  echo str_ireplace("|_|","'",json_encode($arraymysql_1));
+
 ?>	
 
 

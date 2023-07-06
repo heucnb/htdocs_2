@@ -1,19 +1,22 @@
 
 <?php
-		
-$ma_the_nai =$_POST["post1"];
+include "setup/fuction_ket_noi_csdl.php";
 
-$date_ngay_de=$_POST["post2"];
-$scsr_de=$_POST["post3"];
-$chet_de=$_POST["post4"];
-$kho_de=$_POST["post5"];
-$tat_de=$_POST["post6"];
-$coi_de=$_POST["post7"];
+          
+$ma_the_nai =safeSQL($_POST["post1"]);
+
+$date_ngay_de=safeSQL($_POST["post2"]);
+$scsr_de=safeSQL($_POST["post3"]);
+$chet_de=safeSQL($_POST["post4"]);
+$kho_de=safeSQL($_POST["post5"]);
+$tat_de=safeSQL($_POST["post6"]);
+$coi_de=safeSQL($_POST["post7"]);
 $sccs_de= $scsr_de - $chet_de - $kho_de - $tat_de- $coi_de ;
-$trong_luong_so_sinh_de=$_POST["post9"];
-$so_heo_duc =$_POST["post10"];
-$ly_lich =$_POST["post_ly_lich"];
-$trai=$_POST["post8"];
+$trong_luong_so_sinh_de=safeSQL($_POST["post9"]);
+$so_heo_duc =safeSQL($_POST["post10"]);
+$ly_lich =safeSQL($_POST["post_ly_lich"]);
+$trai=safeSQL($_POST["post8"]);
+include "setup/check_token_and_post.php";
 if ($_POST["id_cat_tai_1"]== null || $_POST["id_cat_tai_1"]== ""){ $_POST["id_cat_tai_1"] = "khong_co_du_lieu"; }
 if ($_POST["id_cat_tai_2"]== null || $_POST["id_cat_tai_2"]== ""){ $_POST["id_cat_tai_2"] = "khong_co_du_lieu"; }
 if ($_POST["id_cat_tai_3"]== null || $_POST["id_cat_tai_3"]== ""){ $_POST["id_cat_tai_3"] = "khong_co_du_lieu"; }
@@ -33,8 +36,7 @@ if ($_POST["id_cat_tai_16"]== null || $_POST["id_cat_tai_16"]== ""){ $_POST["id_
 if ($_POST["id_cat_tai_17"]== null || $_POST["id_cat_tai_17"]== ""){ $_POST["id_cat_tai_17"] = "khong_co_du_lieu"; }
 
 
-// kết nối csdl	
-include "setup/fuction_ket_noi_csdl.php";
+
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 // Check connection
@@ -206,7 +208,7 @@ From
 Where
 sheet1.trai = '".$trai."'
 And 
-`so cat tai` LIKE '%_".$_POST["id_cat_tai_1"]."_%' 
+`so cat tai` LIKE '%_".safeSQL($_POST["id_cat_tai_1"])."_%' 
 
 UNION ALL
 
@@ -218,7 +220,7 @@ From
 Where
 sheet1.trai = '".$trai."'
 And 
-`so cat tai` LIKE '%_".$_POST["id_cat_tai_2"]."_%' 
+`so cat tai` LIKE '%_".safeSQL($_POST["id_cat_tai_2"])."_%' 
 
 UNION ALL
 
@@ -231,7 +233,7 @@ From
 Where
 sheet1.trai = '".$trai."'
 And 
-`so cat tai` LIKE '%_".$_POST["id_cat_tai_3"]."_%' 
+`so cat tai` LIKE '%_".safeSQL($_POST["id_cat_tai_3"])."_%' 
 UNION ALL
 
 
@@ -242,7 +244,7 @@ From
 Where
 sheet1.trai = '".$trai."'
 And 
-`so cat tai` LIKE '%_".$_POST["id_cat_tai_4"]."_%' 
+`so cat tai` LIKE '%_".safeSQL($_POST["id_cat_tai_4"])."_%' 
 UNION ALL
 
 
@@ -253,7 +255,7 @@ From
 Where
 sheet1.trai = '".$trai."'
 And 
-`so cat tai` LIKE '%_".$_POST["id_cat_tai_5"]."_%' 
+`so cat tai` LIKE '%_".safeSQL($_POST["id_cat_tai_5"])."_%' 
 UNION ALL
 
 
@@ -264,7 +266,7 @@ From
 Where
 sheet1.trai = '".$trai."'
 And 
-`so cat tai` LIKE '%_".$_POST["id_cat_tai_6"]."_%' 
+`so cat tai` LIKE '%_".safeSQL($_POST["id_cat_tai_6"])."_%' 
 UNION ALL
 
 
@@ -275,7 +277,7 @@ From
 Where
 sheet1.trai = '".$trai."'
 And 
-`so cat tai` LIKE '%_".$_POST["id_cat_tai_7"]."_%' 
+`so cat tai` LIKE '%_".safeSQL($_POST["id_cat_tai_7"])."_%' 
 UNION ALL
 
 
@@ -286,7 +288,7 @@ From
 Where
 sheet1.trai = '".$trai."'
 And 
-`so cat tai` LIKE '%_".$_POST["id_cat_tai_8"]."_%' 
+`so cat tai` LIKE '%_".safeSQL($_POST["id_cat_tai_8"])."_%' 
 UNION ALL
 
 
@@ -297,7 +299,7 @@ From
 Where
 sheet1.trai = '".$trai."'
 And 
-`so cat tai` LIKE '%_".$_POST["id_cat_tai_9"]."_%' 
+`so cat tai` LIKE '%_".safeSQL($_POST["id_cat_tai_9"])."_%' 
 UNION ALL
 
 
@@ -308,63 +310,7 @@ From
 Where
 sheet1.trai = '".$trai."'
 And 
-`so cat tai` LIKE '%_".$_POST["id_cat_tai_10"]."_%' 
-UNION ALL
-
-
-Select
-count(sheet1.`so cat tai`)	
-	
-From
-    sheet1
-Where
-sheet1.trai = '".$trai."'
-And 
-`so cat tai` LIKE '%_".$_POST["id_cat_tai_11"]."_%' 
-UNION ALL
-
-
-Select
-	count(sheet1.`so cat tai`)	
-From
-    sheet1
-Where
-sheet1.trai = '".$trai."'
-And 
-`so cat tai` LIKE '%_".$_POST["id_cat_tai_12"]."_%' 
-UNION ALL
-
-
-Select
-count(sheet1.`so cat tai`)	
-From
-    sheet1
-Where
-sheet1.trai = '".$trai."'
-And 
-`so cat tai` LIKE '%_".$_POST["id_cat_tai_13"]."_%' 
-UNION ALL
-
-
-Select
-	count(sheet1.`so cat tai`)	
-From
-    sheet1
-Where
-sheet1.trai = '".$trai."'
-And 
-`so cat tai` LIKE '%_".$_POST["id_cat_tai_14"]."_%' 
-UNION ALL
-
-
-Select
-count(sheet1.`so cat tai`)	
-From
-    sheet1
-Where
-sheet1.trai = '".$trai."'
-And 
-`so cat tai` LIKE '%_".$_POST["id_cat_tai_15"]."_%' 
+`so cat tai` LIKE '%_".safeSQL($_POST["id_cat_tai_10"])."_%' 
 UNION ALL
 
 
@@ -376,7 +322,18 @@ From
 Where
 sheet1.trai = '".$trai."'
 And 
-`so cat tai` LIKE '%_".$_POST["id_cat_tai_16"]."_%' 
+`so cat tai` LIKE '%_".safeSQL($_POST["id_cat_tai_11"])."_%' 
+UNION ALL
+
+
+Select
+	count(sheet1.`so cat tai`)	
+From
+    sheet1
+Where
+sheet1.trai = '".$trai."'
+And 
+`so cat tai` LIKE '%_".safeSQL($_POST["id_cat_tai_12"])."_%' 
 UNION ALL
 
 
@@ -387,7 +344,52 @@ From
 Where
 sheet1.trai = '".$trai."'
 And 
-`so cat tai` LIKE '%_".$_POST["id_cat_tai_17"]."_%' 
+`so cat tai` LIKE '%_".safeSQL($_POST["id_cat_tai_13"])."_%' 
+UNION ALL
+
+
+Select
+	count(sheet1.`so cat tai`)	
+From
+    sheet1
+Where
+sheet1.trai = '".$trai."'
+And 
+`so cat tai` LIKE '%_".safeSQL($_POST["id_cat_tai_14"])."_%' 
+UNION ALL
+
+
+Select
+count(sheet1.`so cat tai`)	
+From
+    sheet1
+Where
+sheet1.trai = '".$trai."'
+And 
+`so cat tai` LIKE '%_".safeSQL($_POST["id_cat_tai_15"])."_%' 
+UNION ALL
+
+
+Select
+count(sheet1.`so cat tai`)	
+	
+From
+    sheet1
+Where
+sheet1.trai = '".$trai."'
+And 
+`so cat tai` LIKE '%_".safeSQL($_POST["id_cat_tai_16"])."_%' 
+UNION ALL
+
+
+Select
+count(sheet1.`so cat tai`)	
+From
+    sheet1
+Where
+sheet1.trai = '".$trai."'
+And 
+`so cat tai` LIKE '%_".safeSQL($_POST["id_cat_tai_17"])."_%' 
 
 	";
 $result_ly_lich = mysqli_query($conn, $sql_ly_lich);
@@ -559,7 +561,7 @@ for ($x = 1; $x < $cout_1 + 1; $x++) {
     $arraymysql_1[$x] = mysqli_fetch_row($result_1) ;
   }
   
-  echo json_encode($arraymysql_1);
+  echo str_ireplace("|_|","'",json_encode($arraymysql_1));
 
 }
 
