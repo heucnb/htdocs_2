@@ -1,5 +1,5 @@
 function _rename_user(para, row, i) {
-    let _div = document.createElement("_div");
+    let _div = document.createElement("div");
     // getElementsByTagName sẽ lấy ra một mảng tag name phù hợp không giống by id lấy ra 1 cái 
     let body = document.getElementsByTagName("body");
     body[0].appendChild(_div);

@@ -80,8 +80,8 @@ function Table_dong_chuong(props) {
           {data_2d.map((row, i) => {
            
            return (
-              <div   style={{  display: "table-row" } }   >
-                               <div  onClick={(event) => { ((  )=>{ if ([0].includes(i)) { } else {  dong_chuong(event, row,i)   }  })()    }} className={` ${((  )=>{ if ([0].includes(i)) { } else { return "     bg-sky-500 hover:bg-sky-700"}  })()}  `} style={  {    position: 'relative',   border: "1px ridge #ccc", height: "20px", display: "table-cell", paddingLeft: "4px", paddingRight : "4px",  borderRightStyle: 'none',  borderTopStyle: (function(){    if (i===0 ) { return 'ridge'  } else { return 'none'  }         })(),  } }  > { (function(){    if ([0].includes(i) ) { return 'Lựa chọn'  } else { return 'Đóng chuồng'  }          })()  }</div>  
+              <div  className={`bg-white hover:bg-slate-100   `} style={{  display: "table-row" } }   >
+                               <div  onClick={(event) => { ((  )=>{ if ([0].includes(i)) { } else {  dong_chuong(event, row,i)   }  })()    }} className={` ${((  )=>{ if ([0].includes(i)) {return "bg-inherit" } else { return "     bg-sky-500 hover:bg-sky-700"}  })()}  `} style={  {    position: 'relative',   border: "1px ridge #ccc", height: "20px", display: "table-cell", paddingLeft: "4px", paddingRight : "4px",  borderRightStyle: 'none',  borderTopStyle: (function(){    if (i===0 ) { return 'ridge'  } else { return 'none'  }         })(),  } }  > { (function(){    if ([0].includes(i) ) { return 'Lựa chọn'  } else { return 'Đóng chuồng'  }          })()  }</div>  
                             {row.map((cell, j) => { return <div  style={  {    position: 'relative',    border: "1px ridge #ccc", height: "20px", display: "table-cell", paddingLeft: "4px", paddingRight : "4px",  borderRightStyle: (function(){    if (j===data_2d[0].length -1) { return 'ridge'  } else { return 'none'  }         })(), borderTopStyle:  (function(){    if (i===0 ) { return 'ridge'  } else { return 'none'  }         })(), } }    > {  cell  }  </div> })} 
               </div> 
   

@@ -33,6 +33,9 @@ function Table_tieu_de(props) {
                                  _alert('Đã xoá dòng này');
                                  id_table.children[index].style.backgroundColor = '#939597'  ;
                                  id_table.children[index].style.color = '#939597'  ;
+                                 if (index === 1) {
+                                    id_gui.style.display = "none" ;
+                                 }
                              
 
                               } else {
@@ -40,6 +43,7 @@ function Table_tieu_de(props) {
                                  id_table.children[index].style.backgroundColor = '#939597'  ;
 
                                  id_table.children[index].style.color = '#939597'  ;
+
                                   for (let index = 1 ; index < len ; index++) {  
                                     data_2d[index][6] = "0000-00-00" ;
                                     id_table.children[index].children[6].style.backgroundColor = '#939597'  ;
@@ -74,7 +78,7 @@ function Table_tieu_de(props) {
           {data_2d.map((row, i) => {
            
            return (
-              <div  className={`  bg-white  `} style={{  display: "table-row" , position :(function(){    if (i===0 ) { return 'sticky'  }       })() , top: 0, zIndex : 1  } }   >
+              <div  className={` bg-white hover:bg-slate-100   `} style={{  display: "table-row" , position :(function(){    if (i===0 ) { return 'sticky'  }       })() , top: 0, zIndex : 1  } }   >
                                   {row.map((cell, j) => { return <div  className={` ${((  )=>{ if ([0].includes(j)&&i!==0 ) {return "   bg-sky-500 hover:bg-sky-700" } else { return " bg-inherit"  }  })()}  `}  style={  {    position: 'relative',    border: "1px ridge #ccc", height: "20px", display: "table-cell", paddingLeft: "4px", paddingRight : "4px",  borderRightStyle: (function(){    if (j===data_2d[0].length -1) { return 'ridge'  } else { return 'none'  }         })(), borderTopStyle:  (function(){    if (i===0 ) { return 'ridge'  } else { return 'none'  }         })(), } }  > {(function(){  if (+cell===0|| cell==="0000-00-00") { return "" }else{ return cell }         })()}  </div> })}   
               </div> 
   

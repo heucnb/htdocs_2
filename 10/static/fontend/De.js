@@ -675,6 +675,7 @@ function De() {
                 
                    <div className={`flex flex-col shrink-0 `} > 
                    <div> Lý lịch heo con </div>
+              
                    <input className={`  border border-sky-500 `} id="id_cat_tai_1"  type="text" />	
                    <input className={`  border border-sky-500 `} id="id_cat_tai_2"  type="text" />	
                    <input className={`  border border-sky-500 `} id="id_cat_tai_3"  type="text" />	

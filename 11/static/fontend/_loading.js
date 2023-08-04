@@ -36,6 +36,13 @@ function _loading(x,y,width, height, key) {
     return   ReactDOM.render( <Loading />  ,  _div ) ;
      
   }
+
+
+  // để bỏ loading dùng
+
+ // let node = document._loading[key] ;
+ // node.remove();
+
   
 
 

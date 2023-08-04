@@ -19,15 +19,15 @@ if (!$conn) {
 //b1: lưu lại tháng đóng và ngày đóng
 $sql_10 = "SELECT
 data_thit.thang_dong,
-data_thit.ngay_dong
+data_thit.ngay_dong,
+COUNT(data_thit.ngay)
 FROM
 	data_thit
 	WHERE
 	data_thit.cong_ty='".$trai."'
 	AND
 data_thit.ma_lo_nhap  = '".$lo."'
-GROUP BY
-data_thit.ma_lo_nhap  
+
 ";
 
 $result_10 = mysqli_query($conn, $sql_10);
@@ -35,8 +35,65 @@ $row = mysqli_fetch_row($result_10) ;
 
 $thang_dong = $row[0] ;
 $ngay_dong = $row[1] ;
-
+$count_data = $row[2] ;
 // Detele dữ liệu
+// nếu tài khoản admin đăng nhập đồng thời xoá dòng này rồi thì hiện thông báo
+
+$sql_15 =  "SELECT data_thit.id
+FROM data_thit
+WHERE 
+data_thit.cong_ty ='".$trai."'
+AND
+data_thit.`id` = '".$id."'
+";
+
+$result_15 = mysqli_query($conn, $sql_15);
+$count_15 = mysqli_num_rows($result_15);
+
+if( $count_15 === 0 ) {
+
+  // thông báo lỗi   
+ echo "Một tài khoản khác đã xoá dữ liệu này rồi, bạn tải lại trang web để cập nhật dữ liệu mới";
+ exit() ;
+
+}
+
+//*** Nếu trước ngày xoá dữ liệu mà không tìm thấy số lượng heo nhập thì không cho xoá */
+
+$sql_20 = "SELECT
+IFNULL(SUM(data_thit.so_luong_nhap), 0)
+FROM
+	data_thit
+	WHERE
+	data_thit.cong_ty='".$trai."'
+	AND
+data_thit.ma_lo_nhap  = '".$lo."'
+AND
+data_thit.ngay< (SELECT data_thit.ngay
+FROM data_thit
+WHERE 
+data_thit.cong_ty ='".$trai."'
+AND
+data_thit.`id` = '".$id."')
+
+";
+$result_20 = mysqli_query($conn, $sql_20);
+
+
+
+$check_so_luong_nhap = mysqli_fetch_row($result_20)[0] ;
+
+if(   $check_so_luong_nhap  == 0 && $count_data >= 2  )
+{
+ // thông báo lỗi   
+ echo "Không thể xoá dòng này được vì chưa có heo nhập mà đã phát sinh các sự kiện khác rồi . Bạn phải xoá các dòng phía dưới trước";
+exit() ;
+}
+
+
+
+
+
 // b1: xoá ngày đóng chuồng và tháng đóng
 $sql_2 =  "UPDATE data_thit
 SET data_thit.ngay_dong = '0', data_thit.thang_dong = '0'
@@ -48,7 +105,8 @@ data_thit.ma_lo_nhap = '".$lo."'";
 $result_2 = mysqli_query($conn, $sql_2);
 
 
-//b2 lưu lại dòng id dữ liệu và xoá dòng bằng cách thay đổi mã công ty
+//b2 lưu lại dòng id dữ liệu và 
+//xoá dòng bằng cách thay đổi mã công ty
 $sql_11 =  "UPDATE data_thit
 SET data_thit.cong_ty ='0'
 WHERE 
@@ -58,7 +116,6 @@ data_thit.`id` = '".$id."'
 ";
 
 $result_11 = mysqli_query($conn, $sql_11);
-
 
 
 // tính tồn cuối dữ liệu sau khi detele
@@ -82,8 +139,9 @@ $result_3 = mysqli_query($conn, $sql_3);
 
 
 $ton_dau = mysqli_fetch_row($result_3)[0] ;
+
 // nếu tồn cuối heo sau khi detele < 0 thì khôi phục lại dữ liệu và thông báo lỗi
-if(   $ton_dau  <0         )
+if(   $ton_dau  <0   )
 {
   // khôi phục lại dữ liệu  
   // b1: khôi phục lại dòng xoá
@@ -108,7 +166,7 @@ if(   $ton_dau  <0         )
         $result_14 = mysqli_query($conn, $sql_14);  
 
  // thông báo lỗi   
- echo "Không thể xoá dòng này được vì khi xoá tồn heo sẽ là ".$ton_dau.". Bạn phải xoá các dòng phía dưới trước";
+ echo "Không thể xoá dòng này được vì khi xoá tồn heo sẽ là ".$ton_dau.". Bạn phải xoá các dòng phía dưới trước hoặc bạn có thể nhập thêm heo vào ngày này trước sau đó xoá dòng này sau ";
 exit() ;
 }else
 {

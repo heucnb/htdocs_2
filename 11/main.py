@@ -1,11 +1,13 @@
 from flask import Flask, request, render_template, session, redirect 
 import os
 import win32com.client
+
 xl = win32com.client.Dispatch("Excel.Application")  #instantiate excel app
 # mở sẵn file excel
 # xl.Workbooks.Open(r'C:\Users\hieu\Desktop\100\excel\1.xlsm')
 
 app = Flask(__name__)
+
 # CORS(app)
 
 
@@ -80,14 +82,13 @@ def thit_dien_bien():
 # dự án 1
 @app.route('/uploader', methods = ['GET', 'POST'])
 def upload_file():
-    if request.method == 'POST':  
-        f = request.files['file']
+    if request.method == 'POST': 
+        f = request.files['file_gui']
         name_full = f.filename
-        print(name_full)
-        f.save(name_full) 
+        f.save(os.path.join('upload', name_full))
         name =  os.path.splitext(name_full)[0]
         xl.Application.Run('1.xlsm!Module2.save_pdf', name_full,name )
-        return redirect("/10/"+name+".pdf")
+        return os.path.basename(os.path.dirname(__file__))+ "/upload/"+name+".pdf"
   
 # @cross_origin("http://localhost:5000")
 
