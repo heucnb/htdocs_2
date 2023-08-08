@@ -677,9 +677,11 @@ function Upload(props) {
   let ref_FileInput = useRef(null);
   let ref_Upload = useRef(null);
   useEffect( /*#__PURE__*/_asyncToGenerator(function* () {
-    $("#hh").click(function (event) {
-      console.log('88888888888888888888888888');
-      console.log(event);
+    $(document).ready(function () {
+      $("#hh").click(function (event) {
+        console.log('88888888888888888888888888');
+        console.log(event);
+      });
     });
 
     //--------------------------------------
@@ -691,13 +693,12 @@ function Upload(props) {
         // lấy nhiều file
         let files = event.target.files;
         console.log(files[0].name);
-        let data = new FormData();
-        data.append('file_gui', files[0]);
-        console.log(data);
         let host = window.location.hostname;
         const rect = id_list_upload.getBoundingClientRect();
         _loading(rect.left, rect.top, 80, 80, "load_1");
-        $.post("/python/uploader", data, function (data) {
+        $.post("/python/uploader", {
+          file_gui: files[0]
+        }, function (data) {
           console.log('upload xong');
           let node = document._loading["load_1"];
           node.remove();

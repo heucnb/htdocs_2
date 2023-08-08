@@ -100,7 +100,7 @@ button {
 </style>
  <link rel="stylesheet" href="/10/static/style_converted.css">
 <!-- tải bất đồng bộ xong, eval() script xong mới load dom phía sau tiếp -->
-<script type="text/javascript" src="CDN/jquery-3.1.0.min.js"></script>
+<!-- <script type="text/javascript" src="CDN/jquery-3.1.0.min.js"></script> -->
 <script type="text/javascript" src="CDN/tailwindcss.com3.2.4.js"></script>
 <script type="text/javascript" src="CDN/react.development.min.js"></script>
 <script type="text/javascript" src="CDN/react-dom.development.min.js"></script>
@@ -116,6 +116,65 @@ button {
 
 <script id="script_root" >
 
+function $(dom){
+
+
+return  {
+   ready : function (function_obj) { 
+       if ( document.readyState === "complete") {
+           function_obj() ;
+
+           
+       }
+
+   }   , 
+   
+   click : function (function_run) { 
+
+       
+       document.querySelector(dom).onclick = function(event){ return function_run(event) }
+
+   } ,
+   val : function () { 
+
+       
+  return   document.querySelector(dom).value ;
+
+} 
+
+
+}
+
+
+
+}
+
+$.post = function (url,obj, function_run) { 
+        // chú ý dối với python flask không được dùng multipart/form-data
+      // có thể do người thiết kế flask không dùng multipart/form-data
+      // hr.setRequestHeader("Content-type", "multipart/form-data");
+
+      let obj_send = new FormData();
+
+                Object.entries(obj).forEach(([key, value]) => {
+                    obj_send.append(key, value);
+            });
+          
+
+ 
+      
+      var hr = new XMLHttpRequest();
+                        hr.open("POST", url, true);
+                        hr.send(obj_send);
+                        hr.onload = function(){ return function_run(hr.responseText);
+                        
+                        }
+        
+       
+         }
+  
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 let arrayjavascript_3 ;
  

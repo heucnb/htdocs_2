@@ -62,29 +62,34 @@ body{
 <script id="script_root" >
  
 
-function $(dom){
+ function $(dom){
 
 
- return  {
-    ready : function (obj) { 
-        window.onload = function(){
+return  {
+   ready : function (function_obj) { 
+       if ( document.readyState === "complete") {
+           function_obj() ;
 
-            obj
+           
+       }
 
-        }
+   }   , 
+   
+   click : function (function_run) { 
+
+       
+       document.querySelector(dom).onclick = function(event){ return function_run(event) }
+
+   } ,
+   val : function () { 
+
+       
+  return   document.querySelector(dom).value ;
+
+} 
 
 
-    }   , 
-    
-    click : function (function_run) { 
-
-        
-        document.querySelector(dom).onclick = function(event){ return function_run(event) }
-
-    } 
-
-
- }
+}
 
 
 
@@ -94,17 +99,26 @@ $.post = function (url,obj, function_run) {
         // chú ý dối với python flask không được dùng multipart/form-data
       // có thể do người thiết kế flask không dùng multipart/form-data
       // hr.setRequestHeader("Content-type", "multipart/form-data");
-        var hr = new XMLHttpRequest();
-         hr.open("POST", url, true);
-          hr.send(obj);
-           hr.onload = function(){ return function_run(hr.responseText); }
 
+      let obj_send = new FormData();
+
+                Object.entries(obj).forEach(([key, value]) => {
+                    obj_send.append(key, value);
+            });
+          
+
+ 
+      
+      var hr = new XMLHttpRequest();
+                        hr.open("POST", url, true);
+                        hr.send(obj_send);
+                        hr.onload = function(){ return function_run(hr.responseText);
+                        
+                        }
+        
+       
          }
-
-   
-
-
-
+  
 
 
 

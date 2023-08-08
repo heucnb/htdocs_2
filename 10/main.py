@@ -1,9 +1,19 @@
 from flask import Flask, request, render_template, session, redirect 
 import os
 import win32com.client
-xl = win32com.client.Dispatch("Excel.Application")  #instantiate excel app
-# mở sẵn file excel
-# xl.Workbooks.Open(r'C:\Users\hieu\Desktop\100\excel\1.xlsm')
+
+try:
+  wb_opening = xl.Workbooks('1.xlsm')
+  wb_opening.Close(SaveChanges=False)
+except:
+  print("--------------------------------")
+
+
+path_excel =  os.path.join(os.path.dirname(__file__), "excel-python","1.xlsm")
+
+xl.Workbooks.Open(path_excel)
+xl.Visible = True
+
 
 app = Flask(__name__)
 # CORS(app)
