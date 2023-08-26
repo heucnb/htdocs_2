@@ -429,13 +429,13 @@ function Thit_nhap() {
     
             let data_them = props.value.data ;
 
-            let data_2d = useRef(  array_chuong_thit  );
+          
           
                     if (data_them !== false) {
-                        data_2d.current = data_them ;   
+                        array_chuong_thit = JSON.parse(JSON.stringify(data_them));
                     }
                   
-        
+                    let data_2d = useRef(  array_chuong_thit  );
                     console.log(data_2d.current);
 //--------------------------------------------------------------------------------------------------------------------------------------------
                     function chon_chuong(event,index, i, j, item , cell ) {

@@ -140,6 +140,46 @@ $result_3 = mysqli_query($conn, $sql_3);
 
 $ton_dau = mysqli_fetch_row($result_3)[0] ;
 
+
+
+// xác định id chuyển chuồng (id_chuyen_đi) để xoá dữ liệu chuyển chuồng
+$sql_15 =  "SELECT data_thit.`id_chuyen_di`
+FROM
+	data_thit
+WHERE 
+data_thit.`id` = '".$id."'
+";
+
+$result_15 = mysqli_query($conn, $sql_15);
+$id_chuyen_chuong_xoa = mysqli_fetch_row($result_15)[0] ;
+
+
+// kiểm tra xem chuồng chuyển heo kết nối đã đóng  chuồng chưa ?
+if(   $id_chuyen_chuong_xoa  ==0   )
+{
+  $check_ngay_dong = "0000-00-00"  ;
+}
+else
+{
+  $sql_17 = "SELECT
+  data_thit.ngay_dong
+  
+  FROM
+    data_thit
+    WHERE
+  
+    data_thit.`id_chuyen_di`='".$id_chuyen_chuong_xoa."'
+    AND
+  
+  data_thit.ma_lo_nhap   <> '".$lo."'";
+  $result_17 = mysqli_query($conn, $sql_17);
+ 
+  $check_ngay_dong = mysqli_fetch_row($result_17)[0] ;
+ 
+}
+
+
+
 // nếu tồn cuối heo sau khi detele < 0 thì khôi phục lại dữ liệu và thông báo lỗi
 if(   $ton_dau  <0   )
 {
@@ -168,19 +208,52 @@ if(   $ton_dau  <0   )
  // thông báo lỗi   
  echo "Không thể xoá dòng này được vì khi xoá tồn heo sẽ là ".$ton_dau.". Bạn phải xoá các dòng phía dưới trước hoặc bạn có thể nhập thêm heo vào ngày này trước sau đó xoá dòng này sau ";
 exit() ;
-}else
-{
-
-   // b2: xoá dòng
-$sql_1 = "DELETE FROM `data_thit` WHERE data_thit.`id` = '".$id."' and data_thit.`cong_ty` = '0'        ";
-$result_1 = mysqli_query($conn, $sql_1); 
+}
 
 
-echo "ok" ;
-}	
+if ( $check_ngay_dong   != "0000-00-00"  ) {
+
+    // khôi phục lại dữ liệu  
+  // b1: khôi phục lại dòng xoá
+
+  $sql_13 =  "UPDATE data_thit
+  SET data_thit.cong_ty ='".$trai."'
+  WHERE 
+  data_thit.cong_ty ='0'
+  AND
+  data_thit.`id` = '".$id."'
+  ";
+
+  $result_13 = mysqli_query($conn, $sql_13);
+// b2: khôi phục lại ngày đóng chuồng và tháng đóng chuồng   
+  $sql_14 =  "UPDATE data_thit
+  SET data_thit.ngay_dong = '".$ngay_dong."', data_thit.thang_dong = '".$thang_dong."'
+  WHERE 
+  data_thit.cong_ty ='".$trai."'
+  AND
+  data_thit.ma_lo_nhap = '".$lo."'";
+
+  $result_14 = mysqli_query($conn, $sql_14);  
+
+// thông báo lỗi   
+
+  echo "Chuồng có heo chuyển kết nối với chuồng này đã đóng rồi, bạn hãy kiểm tra lại";
+ exit() ;
+}
 
 
-
+//--------------------------------------------------------------------------------------------------------------------------------------
+ // b2: xoá dòng
+ $sql_1 = "DELETE FROM `data_thit` WHERE data_thit.`id` = '".$id."' and data_thit.`cong_ty` = '0'        ";
+ $result_1 = mysqli_query($conn, $sql_1); 
+               //--- xoá chuyển chuồng
+               if(   $id_chuyen_chuong_xoa  >0   )
+                 {
+                   $sql_16 = "DELETE FROM `data_thit` WHERE data_thit.`id_chuyen_di` = '".$id_chuyen_chuong_xoa."'    ";
+                   $result_16 = mysqli_query($conn, $sql_16); 
+                 }
+ 
+ echo "ok" ;
 
 
 ?>

@@ -140,6 +140,13 @@ return  {
        
   return   document.querySelector(dom).value ;
 
+} ,
+
+keypress : function () { 
+
+       
+    document.querySelector(dom).onkeypress = function(event){ return function_run(event) }
+
 } 
 
 
@@ -195,12 +202,17 @@ window.onload = function()
  newScript_1.src ="10/static/index_ghep_file.js";
  // load hết index_ghep_file.js xong mới post server kiểm tra đăng nhập và lấy cấu hình
  newScript_1.onload = function(){
+
+  // kiểm tra login, nếu chưa login báo đăng nhập lại
+  // nếu login rồi thì trong bộ nhớ của browser sẽ lưu cấu hình chuồng, kho.. tiến hành tải về và lưu vào biến toàn cục  
   $.post("main.php", {}, function(data){
    
   data = data.trim(); if (data.slice(0, 8) ==="<script>") {
     let data_1 = data.slice(8, -9);
     console.log(data_1);
-    
+
+    // nếu lỗi thì báo đăng nhập lại
+     // nếu login rồi thì trong bộ nhớ của browser sẽ lưu cấu hình chuồng, kho.. tiến hành tải về và lưu vào biến toàn cục  
      eval(data_1) ;
 
      
@@ -243,7 +255,7 @@ window.onload = function()
         }
 
     // sau đó tiếp tục gán các sự kiện lên dom --------------------------------------------------------------------------------------------------
-    
+    // nếu chưa đăng nhập vẫn tiếp tục gán các sự kiện lên dom 
     let	id_nhan_index  =  document.getElementById('id_nhan_index') ;
         
        
@@ -252,6 +264,8 @@ window.onload = function()
         
         $(document).ready(function(){
             $("#id_td_0").click(function(){
+                ReactDOM.unmountComponentAtNode(id_nhan_index);
+                ReactDOM.unmountComponentAtNode(id_td_22_con); 
                
               ReactDOM.render( /*#__PURE__*/React.createElement(Dang_ky, null), id_nhan_index);
                 
@@ -271,11 +285,15 @@ window.onload = function()
                 if(document.getElementById('id_td_1').innerHTML=="Đăng nhập")
             {
                 
+                ReactDOM.unmountComponentAtNode(id_nhan_index);
+                ReactDOM.unmountComponentAtNode(id_td_22_con); 
               ReactDOM.render( /*#__PURE__*/React.createElement(Login, null), id_nhan_index);
             
             }
             else
             {
+                ReactDOM.unmountComponentAtNode(id_nhan_index);
+                ReactDOM.unmountComponentAtNode(id_td_22_con); 
               ReactDOM.render( /*#__PURE__*/React.createElement(Logout, null), id_nhan_index);
                 
             }
@@ -312,7 +330,8 @@ window.onload = function()
                    
                     
                 
-            
+                    ReactDOM.unmountComponentAtNode(id_nhan_index);
+                ReactDOM.unmountComponentAtNode(id_td_22_con); 
                 ReactDOM.render(React.createElement(Phoi, null), id_nhan_index);
                 gobal_tim_kiem_sua_xoa = "phoi"  ;  
                 id_click = id_td_2 ;
@@ -348,6 +367,8 @@ window.onload = function()
                 return    _alert('Bạn phải chọn công ty để nhập dữ liệu hoặc lỗi chọn công ty có chứa *') 
                 }
              
+                ReactDOM.unmountComponentAtNode(id_nhan_index);
+                ReactDOM.unmountComponentAtNode(id_td_22_con); 
                  ReactDOM.render(React.createElement(De, null), id_nhan_index);
                  gobal_tim_kiem_sua_xoa = "de"  ;  
                  id_click = id_td_13 ; 
@@ -382,6 +403,8 @@ window.onload = function()
                 return    _alert('Bạn phải chọn công ty để nhập dữ liệu hoặc lỗi chọn công ty có chứa *') 
                 }
                
+                ReactDOM.unmountComponentAtNode(id_nhan_index);
+                ReactDOM.unmountComponentAtNode(id_td_22_con); 
                 ReactDOM.render(React.createElement(Cai_sua, null), id_nhan_index);
                 gobal_tim_kiem_sua_xoa = "cai_sua"  ; 
                 id_click = id_td_13 ;
@@ -418,6 +441,8 @@ window.onload = function()
                 return    _alert('Bạn phải chọn công ty để nhập dữ liệu hoặc lỗi chọn công ty có chứa *') 
                 }
                
+                ReactDOM.unmountComponentAtNode(id_nhan_index);
+                ReactDOM.unmountComponentAtNode(id_td_22_con); 
                 ReactDOM.render(React.createElement(Heo_van_de, null), id_nhan_index);
                 gobal_tim_kiem_sua_xoa = "van_de"  ; 
                 id_click = id_td_4 ;
@@ -452,7 +477,8 @@ window.onload = function()
                     ReactDOM.unmountComponentAtNode(id_nhan_index); 
                 return     _alert('Bạn phải chọn công ty để nhập dữ liệu hoặc lỗi chọn công ty có chứa *') 
                 }
-               
+                ReactDOM.unmountComponentAtNode(id_nhan_index);
+                ReactDOM.unmountComponentAtNode(id_td_22_con); 
                 ReactDOM.render(React.createElement(Nai_chet, null), id_nhan_index);
         
                 gobal_tim_kiem_sua_xoa = "nai_chet_loai"  ; 
@@ -487,7 +513,8 @@ window.onload = function()
                     ReactDOM.unmountComponentAtNode(id_nhan_index); 
                 return    _alert('Bạn phải chọn công ty để nhập dữ liệu hoặc lỗi chọn công ty có chứa *') 
                 }
-                
+                ReactDOM.unmountComponentAtNode(id_nhan_index); 
+                ReactDOM.unmountComponentAtNode(id_td_22_con); 
                 ReactDOM.render(React.createElement(Heo_con_chet, null), id_nhan_index);
                 gobal_tim_kiem_sua_xoa = "con_chet_loai"  ; 
                 id_click = id_td_6 ;
@@ -522,6 +549,7 @@ window.onload = function()
                 }
         
                   ReactDOM.unmountComponentAtNode(id_nhan_index);  
+                  ReactDOM.unmountComponentAtNode(id_td_22_con); 
                 ReactDOM.render(React.createElement(Hau_bi, null), id_nhan_index);
                 gobal_tim_kiem_sua_xoa = "hau_bi"  ; 
                 id_click = id_td_7 ;
@@ -556,6 +584,7 @@ window.onload = function()
                 }
         
                 ReactDOM.unmountComponentAtNode(id_nhan_index);  
+                ReactDOM.unmountComponentAtNode(id_td_22_con); 
                 ReactDOM.render(React.createElement(Duc, null), id_nhan_index);
                 gobal_tim_kiem_sua_xoa = "duc"  ; 
                 id_click = id_td_8 ;
@@ -581,6 +610,7 @@ window.onload = function()
             {
                 try { Table_hieu_2.remove_EventListener(); } catch (error) { }
                 ReactDOM.unmountComponentAtNode(id_nhan_index);  	
+                ReactDOM.unmountComponentAtNode(id_td_22_con); 
         gobal_post_month = "fuction_thang__from_bao_cao_thang.php" ;	 
         gobal_post = "fuction_tuan__from_bao_cao_thang.php" ;
         ReactDOM.render(React.createElement(from_bao_cao_thang, null), id_nhan_index);
@@ -606,7 +636,8 @@ window.onload = function()
             else
             {
                 try { Table_hieu_2.remove_EventListener(); } catch (error) { }
-                ReactDOM.unmountComponentAtNode(id_nhan_index);  	
+                ReactDOM.unmountComponentAtNode(id_nhan_index);  
+                ReactDOM.unmountComponentAtNode(id_td_22_con); 	
                 gobal_post_month = "fuction_thang__from_bao_cao_tinh_theo_phoi.php" ;	
                 gobal_post = "fuction_tuan__from_bao_cao_tinh_theo_phoi.php" ;
         ReactDOM.render(React.createElement(from_bao_cao_thang, null), id_nhan_index);
@@ -637,6 +668,7 @@ window.onload = function()
             {
                 try { Table_hieu_2.remove_EventListener(); } catch (error) { }
                 ReactDOM.unmountComponentAtNode(id_nhan_index);  	
+                ReactDOM.unmountComponentAtNode(id_td_22_con); 
                 gobal_post_month = "fuction_thang--from_theo_doi_ty_le_phoi.php" ;	
                 gobal_post = "fuction_tuan--from_theo_doi_ty_le_phoi.php" ;
         ReactDOM.render(React.createElement(from_bao_cao_thang, null), id_nhan_index);
@@ -673,6 +705,7 @@ window.onload = function()
                 }
          
                 ReactDOM.unmountComponentAtNode(id_nhan_index);  
+                ReactDOM.unmountComponentAtNode(id_td_22_con); 
                 ReactDOM.render(React.createElement(Tra_ly_lich, null), id_nhan_index);
                 id_click = id_td_14 ;
                     
@@ -709,6 +742,7 @@ window.onload = function()
     
     
                 ReactDOM.unmountComponentAtNode(id_nhan_index);  
+                ReactDOM.unmountComponentAtNode(id_td_22_con); 
                 ReactDOM.render(React.createElement(Ghep_phoi, null), id_nhan_index);
                 id_click = id_td_15 ;
     
@@ -744,6 +778,7 @@ window.onload = function()
                 return     _alert('Bạn phải chọn công ty để nhập dữ liệu hoặc lỗi chọn công ty có chứa *') 
                 }
                 ReactDOM.unmountComponentAtNode(id_nhan_index); 
+                ReactDOM.unmountComponentAtNode(id_td_22_con); 
             ReactDOM.render(React.createElement(Danh_sach_heo, null), id_nhan_index);
             id_click = id_td_16 ;
     
@@ -781,6 +816,7 @@ window.onload = function()
     
     
                     ReactDOM.unmountComponentAtNode(id_nhan_index);  
+                    ReactDOM.unmountComponentAtNode(id_td_22_con); 
                     ReactDOM.render(React.createElement(from_bao_cao_thang_thit, null), id_nhan_index);
 
                     id_click = id_td_17 ;
@@ -819,6 +855,7 @@ window.onload = function()
     
     
                     ReactDOM.unmountComponentAtNode(id_nhan_index);  
+                    ReactDOM.unmountComponentAtNode(id_td_22_con); 
                     ReactDOM.render(React.createElement(from_dien_bien_thit, null), id_nhan_index);
                     id_click = id_td_18 ;
         
@@ -854,7 +891,7 @@ window.onload = function()
                     }
     
                     ReactDOM.unmountComponentAtNode(id_nhan_index); 
-    
+                    ReactDOM.unmountComponentAtNode(id_td_22_con); 
                     ReactDOM.render( /*#__PURE__*/React.createElement(Setup_chuong, { value: { data: false } }), id_nhan_index);
                         id_click = id_td_19 ;
         
@@ -878,7 +915,7 @@ window.onload = function()
                
       
                 ReactDOM.unmountComponentAtNode(id_nhan_index); 
-    
+                ReactDOM.unmountComponentAtNode(id_td_22_con); 
                 ReactDOM.render( /*#__PURE__*/React.createElement(Add_user, null), id_nhan_index);
                     id_click = id_td_20 ;
     
@@ -902,10 +939,36 @@ window.onload = function()
                
       
                 ReactDOM.unmountComponentAtNode(id_nhan_index); 
-    
+                ReactDOM.unmountComponentAtNode(id_td_22_con); 
                 ReactDOM.render( /*#__PURE__*/React.createElement(Thit_nhap, null), id_nhan_index);
 
                     id_click = id_td_21 ;
+    
+    
+            }
+                
+                
+            
+        }
+
+
+         /*Quan_ly_cam*/
+         id_td_22.onclick = function () {
+            
+            if(document.getElementById('id_td_1').innerHTML=="Đăng nhập")
+            {
+                ReactDOM.unmountComponentAtNode(id_nhan_index); 
+                _alert('Bạn phải đăng nhập trước đã')
+            }
+            else
+            {
+               
+      
+                ReactDOM.unmountComponentAtNode(id_nhan_index); 
+               
+                ReactDOM.render( /*#__PURE__*/React.createElement(Quan_ly_cam, null), id_td_22_con);
+
+                    id_click = id_td_22 ;
     
     
             }

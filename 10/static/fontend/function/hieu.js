@@ -378,3 +378,20 @@ function _alert(componet_react) {
               .replace(/[\u0300-\u036f]/g, '')
               .replace(/đ/g, 'd').replace(/Đ/g, 'D');
   }
+
+ 
+
+  //----------------------------------------------------------------------------------------------------
+  function array2d_to_1d(array2d) {
+    let array_1d  = [] ;
+    for (let i = 0 , len = array2d.length ; i < len ; i++) { 
+     
+        for (let j = 0 , len_j = array2d[i].length ; j < len_j ; j++) {
+
+          array_1d.push(array2d[i][j]) ;
+          }
+   }
+
+    return array_1d ;
+  }
+

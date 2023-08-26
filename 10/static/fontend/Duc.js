@@ -109,7 +109,7 @@ $(document).ready(function(){
     
             }, []);
         
-      return (  <div  className={`mt-2 flex grow h-full w-full `} >  
+      return (  <div  className={`mt-2 flex grow  w-full `} >  
        
       <div className={`shrink-0 ml-2 `} >
      
@@ -233,7 +233,7 @@ $(document).ready(function(){
     
             }, []);
         
-      return (  <div  className={`mt-2 flex grow h-full w-full   `} >  
+      return (  <div  className={`mt-2 flex grow  w-full   `} >  
        
       <div className={`shrink-0 ml-2 `} >
       

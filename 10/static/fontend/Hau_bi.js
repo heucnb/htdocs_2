@@ -7,8 +7,8 @@ function Hau_bi() {
 
             $(document).ready(function(){
                 $("#id_gui").click(function(){
-                    let width_table = document.getElementById('id_nhan').getBoundingClientRect().width ;
-                    let height_table = document.getElementById('id_nhan').getBoundingClientRect().height ;
+                    let width_table = document.getElementById('id_nhan_hb').getBoundingClientRect().width ;
+                    let height_table = document.getElementById('id_nhan_hb').getBoundingClientRect().height ;
                      var gia_tri_nhap = document.getElementById("id_1").value ;
                   if ( gia_tri_nhap == null || gia_tri_nhap == "" ||  gia_tri_nhap.indexOf(' ') >= 0 )
                 {return _alert("Mã thẻ tai không được để trống, hoặc chứa khoảng trắng")  }	
@@ -119,7 +119,7 @@ $(document).ready(function(){
     
             }, []);
         
-      return (  <div  className={`mt-2 flex grow h-full w-full  `} >  
+      return (  <div  className={`mt-2 flex grow  w-full  `} >  
        
       <div className={`shrink-0 ml-2 `} >
      
@@ -155,8 +155,8 @@ $(document).ready(function(){
             
 $(document).ready(function(){
 	$("#id_gui").click(function(){
-        let width_table = document.getElementById('id_nhan').getBoundingClientRect().width ;
-        let height_table = document.getElementById('id_nhan').getBoundingClientRect().height ;
+        let width_table = document.getElementById('id_nhan_hb').getBoundingClientRect().width ;
+        let height_table = document.getElementById('id_nhan_hb').getBoundingClientRect().height ;
 	     var gia_tri_nhap = document.getElementById("id_1").value ;
       if ( gia_tri_nhap == null || gia_tri_nhap == "" ||  gia_tri_nhap.indexOf(' ') >= 0 )
 	{return _alert("Mã thẻ tai không được để trống, hoặc chứa khoảng trắng")   }	
@@ -245,7 +245,7 @@ $(document).ready(function(){
     
             }, []);
         
-      return (  <div  className={`mt-2 flex grow h-full w-full  `} >  
+      return (  <div  className={`mt-2 flex grow  w-full  `} >  
        
       <div className={`shrink-0 ml-2 `} >
       
