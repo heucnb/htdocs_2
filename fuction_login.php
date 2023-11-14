@@ -52,7 +52,24 @@ if($cout==1)
 
 		$string_array_setup_chuong = json_encode($arraymysql_2) ;
 
+			// lấy cấu hình kho cám
+			$sql_3 = "SELECT setup_kho.id, setup_kho.id_ten, setup_kho.ten, setup_kho.don_vi_tinh, setup_kho.nha_cung_cap , setup_kho.ghi_chu FROM `setup_kho` WHERE setup_kho.cong_ty ='".$cong_ty."' and setup_kho.kho = 'Cám'";
+			$result_3 = mysqli_query($conn, $sql_3);
+			$count_3 = mysqli_num_rows($result_3);	
+			$arraymysql_3 = [["id","Mã sản phẩm", "Tên sản phẩm", "Đơn vị tính", "Nhà cung cấp", "Ghi chú"]];
+			for ($x = 1; $x < $count_3+1; $x++) {
+				$arraymysql_3[$x] = mysqli_fetch_row($result_3) ;
+			}
+	
+		
+			$string_array_setup_kho = json_encode($arraymysql_3) ;
+	
+
+
+
+
 		$arraymysql[0][6] = $string_array_setup_chuong ;
+		$arraymysql[0][7] = $string_array_setup_kho ;
 
 
 		

@@ -86,6 +86,8 @@ FROM
 	WHERE
 	data_thit.ngay<='".$ngay."' AND
 	data_thit.cong_ty='".$trai."'
+  and
+ data_thit.kho = ''
 	AND
 data_thit.ngay_dong =0
 AND
@@ -169,6 +171,8 @@ FROM
 	WHERE
 	data_thit.ngay<='".$ngay."' AND
 	data_thit.cong_ty='".$trai."'
+  and
+ data_thit.kho = ''
 	AND
 data_thit.ngay_dong =0
 AND
@@ -257,6 +261,8 @@ FROM
 	WHERE
 	data_thit.ngay<='".$ngay."' AND
 	data_thit.cong_ty='".$trai."'
+  and
+ data_thit.kho = ''
 	AND
 data_thit.ngay_dong =0
 AND
@@ -345,6 +351,8 @@ FROM
 	WHERE
 	data_thit.ngay<='".$ngay."' AND
 	data_thit.cong_ty='".$trai."'
+  and
+ data_thit.kho = ''
 	AND
 data_thit.ngay_dong =0
 AND
@@ -496,6 +504,8 @@ FROM
 	data_thit
 	WHERE
 	data_thit.cong_ty='".$trai."'
+  and
+  data_thit.kho = ''
 	AND
 data_thit.ngay_dong =0
 AND
@@ -574,6 +584,8 @@ if ( $su_kien == "Đóng chuồng" ) {
           data_thit
           WHERE
           data_thit.cong_ty=  '".$trai."'
+          and
+          data_thit.kho = ''
           AND
         data_thit.ngay_dong =0
         GROUP BY
@@ -628,6 +640,8 @@ data_thit.gia,
 data_thit.chuyen_den,
 data_thit.chuyen_di FROM `data_thit` WHERE 
 data_thit.cong_ty = '".$trai."'
+ and
+ data_thit.kho = ''
  and
  data_thit.ma_lo_nhap ='".$lo."'
  ORDER BY data_thit.ngay  ASC
@@ -723,6 +737,8 @@ FROM
 	WHERE
 	data_thit.ngay<='".$ngay."' AND
 	data_thit.cong_ty='".$trai."'
+  and
+ data_thit.kho = ''
 	AND
 data_thit.ngay_dong =0
 AND

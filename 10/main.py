@@ -1,23 +1,28 @@
 from flask import Flask, request, render_template, session, redirect 
 import os
 import win32com.client
+xl = win32com.client.Dispatch("Excel.Application")  #instantiate excel app
+# try:
+#   wb_opening = xl.Workbooks('1.xlsm')
+#   wb_opening.Close(SaveChanges=False)
+# except:
+#   print("--------------------------------")
 
-try:
-  wb_opening = xl.Workbooks('1.xlsm')
-  wb_opening.Close(SaveChanges=False)
-except:
-  print("--------------------------------")
 
+# path_excel =  os.path.join(os.path.dirname(__file__), "excel-python","1.xlsm")
 
-path_excel =  os.path.join(os.path.dirname(__file__), "excel-python","1.xlsm")
-
-xl.Workbooks.Open(path_excel)
-xl.Visible = True
+# xl.Workbooks.Open(path_excel)
+# xl.Visible = True
 
 
 app = Flask(__name__)
 # CORS(app)
 
+pid = os.getpid() 
+print(pid)  
+wb = xl.Workbooks('1.xlsm')
+ws = wb.Worksheets('setup')
+ws.Cells(1,8).Value = pid     
 
 @app.route("/",methods = ['POST', 'GET'])
 def ghep_phoi():
@@ -98,6 +103,10 @@ def upload_file():
         name =  os.path.splitext(name_full)[0]
         xl.Application.Run('1.xlsm!Module2.save_pdf', name_full,name )
         return redirect("/10/"+name+".pdf")
+
+@app.route('/hh', methods = ['GET', 'POST'])
+def hh():
+    return 'hhhhhh----'
   
 # @cross_origin("http://localhost:5000")
 

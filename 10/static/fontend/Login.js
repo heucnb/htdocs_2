@@ -55,7 +55,8 @@ console.log(arrayjavascript_3);
  //-----------------------------------------------------------------------------
      //tải cáu hình chuòng thịt cho công ty
    array_chuong_thit = JSON.parse(array_data_login[0][6]) ;
-      
+    //tải cáu hình kho cám cho công ty
+    array_kho_cam = JSON.parse(array_data_login[0][7]) ;   
 
 
   

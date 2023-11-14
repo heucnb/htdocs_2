@@ -98,9 +98,8 @@ button {
 }
 
 </style>
- <link rel="stylesheet" href="/10/static/style_converted.css">
+ <!-- <link rel="stylesheet" href="/10/static/style_converted.css"> -->
 <!-- tải bất đồng bộ xong, eval() script xong mới load dom phía sau tiếp -->
-<!-- <script type="text/javascript" src="CDN/jquery-3.1.0.min.js"></script> -->
 <script type="text/javascript" src="CDN/tailwindcss.com3.2.4.js"></script>
 <script type="text/javascript" src="CDN/react.development.min.js"></script>
 <script type="text/javascript" src="CDN/react-dom.development.min.js"></script>
@@ -223,8 +222,13 @@ window.onload = function()
          document.getElementById('id_td_1').innerHTML="Đăng nhập - " + arrayjavascript_3[0][0];
         //----------------------------------
         //tải cáu hình chuòng thịt cho công ty
-         array_chuong_thit = JSON.parse(arrayjavascript_3[0][6]) ;
+        array_chuong_thit = JSON.parse(arrayjavascript_3[0][6]) ;
          console.log( array_chuong_thit);
+
+         //tải cáu hình kho cám cho công ty
+        array_kho_cam = JSON.parse(arrayjavascript_3[0][7]) ;   
+
+
       //------------------------------------------------------
       
      
@@ -894,6 +898,41 @@ window.onload = function()
                     ReactDOM.unmountComponentAtNode(id_td_22_con); 
                     ReactDOM.render( /*#__PURE__*/React.createElement(Setup_chuong, { value: { data: false } }), id_nhan_index);
                         id_click = id_td_19 ;
+        
+                }
+                 
+            
+        }
+
+           // Cấu hình kho cám
+           id_td_23.onclick = function () {
+            
+            if(document.getElementById('id_td_1').innerHTML=="Đăng nhập")
+                {
+                    ReactDOM.unmountComponentAtNode(id_nhan_index); 
+                    _alert('Bạn phải đăng nhập trước đã')
+                }
+                else
+                {
+    
+                    var dem_string = id_8.value;	
+                    let check = dem_string.includes("td_");
+                
+                    if (
+                    check ||
+                    id_8.value == null || id_8.value == ""
+                        ) 
+                    {
+                    ReactDOM.unmountComponentAtNode(id_nhan_index);   
+                    return     _alert('Bạn phải chọn công ty để nhập dữ liệu hoặc lỗi chọn công ty có chứa *') 
+                    }
+    
+                    ReactDOM.unmountComponentAtNode(id_nhan_index); 
+                    ReactDOM.unmountComponentAtNode(id_td_22_con); 
+                    let width_table = document.getElementById('id_nhan_index').getBoundingClientRect().width ;
+                    let height_table = document.getElementById('id_nhan_index').getBoundingClientRect().height ;
+                    ReactDOM.render( /*#__PURE__*/React.createElement(Table_kho_cam, { value: { data: array_kho_cam   , width:width_table , height :height_table } }), id_nhan_index);
+                        id_click = id_td_23 ;
         
                 }
                  

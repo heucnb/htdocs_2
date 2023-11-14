@@ -25,6 +25,7 @@ function _rename_user(para, row, i) {
         ref_cancel.current.onclick =function click_cancel(event) {
          
           ReactDOM.unmountComponentAtNode(_div);
+          _div.remove();
         }
        
   

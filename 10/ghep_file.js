@@ -4,8 +4,10 @@ var UglifyJS = require("uglify-js");
 const app = express();
 const fs = require('fs');
 const path = require('path');
+
+console.log(__dirname);
 function ghep_file(){
-    const Folder = './static/fontend';
+    const Folder = __dirname +'/static/fontend';
     function get_all_path_in_folder(folder) {
 
      let ket_qua = [] ;
@@ -44,13 +46,13 @@ function ghep_file(){
  let all_path_js = [] ;
 
  for (let index = 0 , len = array_path.length ; index < len ; index++) { 
-     if (path.extname(array_path[index]) === ".js" && array_path[index] !== './static/fontend/index.js' ){
+     if (path.extname(array_path[index]) === ".js" && array_path[index] !==  __dirname +'/static/fontend/index.js' ){
           all_path_js.push(array_path[index]);
      }
 
   }
 
-  all_path_js.push('./static/fontend/index.js');
+  all_path_js.push( __dirname +'/static/fontend/index.js');
 
 
 
@@ -96,7 +98,7 @@ function ghep_file(){
 
 
 
-fs.writeFileSync("./static/index_ghep_file.js", data_convert.code, { flag: 'w+' });
+fs.writeFileSync( __dirname +"/static/index_ghep_file.js", data_convert.code, { flag: 'w+' });
 
 
 /// cách 2 sử dụng hàm bất đòng bộ --------------------------------------------------------------

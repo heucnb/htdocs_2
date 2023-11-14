@@ -395,3 +395,137 @@ function _alert(componet_react) {
     return array_1d ;
   }
 
+//----------------------------------------------------------------------------------------------------
+function combobox_(id,array) {
+
+                function  handleChange(e){
+                  console.log('handle change called') ;
+                  console.log(e.target.value) ;
+
+                    let array_result_new = array.filter(check_item_in_array_get_true);
+
+                    function check_item_in_array_get_true(item) {
+                      console.log('---------------  ' + item.toString());
+                      return removeAccents(item.toString()).indexOf(removeAccents(e.target.value))!== -1;
+                    }
+                    ReactDOM.unmountComponentAtNode(id_Combox) ;  
+                  ReactDOM.render(<Combox value={{data : array_result_new }}  /> ,id_Combox);
+
+                }
+
+                  
+                  function Combox(props) {
+                    let props_array = props.value.data ;
+            
+                    console.log(props_array);
+                    let ref_select =  useRef(null) ; 
+                      useEffect(() => {   
+
+                        ref_select.current.onscroll = function (event) {
+
+                          console.log('Combox onscroll---------------');
+                          
+                          document.getElementById(id).turnoff_blur = false ;
+                          document.getElementById(id).focus();  
+                            }
+                        //-------------------------------------------------------------------------------------------------     
+                            ref_select.current.onmousedown = function (event) {
+
+                              console.log('Combox cha onmousedown---------------');
+                              
+                              document.getElementById(id).turnoff_blur = true ;
+                                    
+                                }
+                                //--------------------------------------------------------------------
+                                ref_select.current.onblur = function (event) {
+
+                                  console.log('Combox cha onblur---------------');
+                                  
+                                  ReactDOM.unmountComponentAtNode(id_Combox) ;   
+                                            
+                                    }
+
+
+
+                        let len =  props_array.length ;
+                        if (len >=1) {
+                          for (let index = 0  ; index < len ; index++) {
+
+                            ref_select.current.children[index].onmousedown = function (event) {
+  
+                        console.log('Combox con onmousedown---------------');
+                        
+                        console.log(props_array);
+                        console.log(index);
+                        
+                        
+                        document.getElementById(id).value = props_array[index] ;
+                              ReactDOM.unmountComponentAtNode(id_Combox) ;   
+                            }
+                          }
+
+
+
+                          
+                        }
+
+                      
+
+                      
+
+                        }, []);
+   
+
+    return ( 
+
+           <div ref={ ref_select  }  className={`top-0 left-0 w-full h-24 overflow-y-scroll  bg-slate-100   flex flex-col relative justify-start items-start _shadow mt-1 z-40 `}  > 
+           { props_array.map(( i, index )=>{  return <button type="button"   className={`whitespace-nowrap hover:bg-gray-400 hover:bg-opacity-50 w-full pl-2 flex items-start  justify-start `}   >{props_array[index] }</button> })}
+       
+           </div>
+       
+    
+
+    );
+
+
+   } ;
+ 
+     useEffect(() => {      
+
+      document.getElementById(id).onmousedown = function (e) {
+
+        document.getElementById(id).turnoff_blur = false ;
+        ReactDOM.render(<Combox value={{data : array  }}  /> ,id_Combox);
+
+        document.getElementById(id).addEventListener("blur",  myFunction_2   );
+
+        function myFunction_2(e) {
+
+          if (document.getElementById(id).turnoff_blur === false) {
+            console.log('blur------------------');
+
+          ReactDOM.unmountComponentAtNode(id_Combox) ;
+          document.getElementById(id).removeEventListener("blur", myFunction_2);
+          }
+            
+          
+
+           }
+
+        
+      }
+
+
+        }, []);
+
+  return    <div  className={`relative `}  > 
+  <input  id={id}  onChange={(e) => {return handleChange(e) }}
+                                                                  
+
+                                                                  className={`w-full p-1 text-black border border-gray-300 `}   /> 
+  
+  
+  <button id="id_Combox" className={`absolute w-full flex flex-col `}  >  </button>
+  </div>;
+}
+

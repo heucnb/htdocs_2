@@ -25,6 +25,8 @@ FROM
 	data_thit
 	WHERE
 	data_thit.cong_ty='".$trai."'
+  and
+  data_thit.kho = ''
 	AND
 data_thit.ma_lo_nhap  = '".$lo."'
 
@@ -43,6 +45,8 @@ $sql_15 =  "SELECT data_thit.id
 FROM data_thit
 WHERE 
 data_thit.cong_ty ='".$trai."'
+and
+data_thit.kho = ''
 AND
 data_thit.`id` = '".$id."'
 ";
@@ -66,6 +70,8 @@ FROM
 	data_thit
 	WHERE
 	data_thit.cong_ty='".$trai."'
+  and
+  data_thit.kho = ''
 	AND
 data_thit.ma_lo_nhap  = '".$lo."'
 AND
@@ -130,6 +136,8 @@ FROM
 	data_thit
 	WHERE
 	data_thit.cong_ty='".$trai."'
+  and
+  data_thit.kho = ''
 	AND
 data_thit.ngay_dong =0
 AND

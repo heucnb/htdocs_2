@@ -103,6 +103,7 @@ function Rename() {
                     localStorage.setItem('all', JSON.stringify(arrayjavascript_3) );
                     ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  
                     ReactDOM.unmountComponentAtNode(_div);
+                    _div.remove();
                     ReactDOM.render(<Setup_chuong value={{data :  array_chuong_thit   }} /> 
                     ,document.getElementById('id_nhan_index'));
                     _alert("Cập nhật thành công") ;
@@ -173,6 +174,7 @@ function Rename() {
                   if ( data.trim().slice(0, 2) !== "ok") {
 
                     ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  
+
                     ReactDOM.render(<Setup_chuong value={{data :  array_chuong_thit_truoc_delete   }} /> 
                     ,document.getElementById('id_nhan_index'));
 
@@ -183,6 +185,7 @@ function Rename() {
                     localStorage.setItem('all', JSON.stringify(arrayjavascript_3) );
                     ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  
                     ReactDOM.unmountComponentAtNode(_div);
+                    _div.remove();
                     ReactDOM.render(<Setup_chuong value={{data :  array_chuong_thit   }} /> 
                     ,document.getElementById('id_nhan_index'));
                     _alert("Cập nhật thành công") ;

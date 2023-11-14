@@ -75,6 +75,7 @@ function Table_dong_chuong(props) {
       }
       
       
+      
        return (  
           <div id="id_table"  style={  {    height: `${table_excel_height}px`, width :  `${table_excel_width}px`,     overflow: 'scroll',  position: 'relative',} }  >
           {data_2d.map((row, i) => {

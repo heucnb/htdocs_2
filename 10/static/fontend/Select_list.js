@@ -164,12 +164,14 @@ function Select_list(props) {
       
  
        return ( <button  id="id_8" className={` focus:outline-0  bg-green-400 w-56 `} type="button"    >
-              <div className={` whitespace-nowrap flex justify-start `} >  {document.array_option_ten_day_du[0] } </div>
+              <div className={ ` whitespace-nowrap flex justify-start `} >  {document.array_option_ten_day_du[0] } </div>
+
+
               <div className={`h-3/4 overflow-y-scroll  bg-slate-100   flex flex-col absolute justify-start items-start _shadow mt-1 z-40 `}  > 
               <input id="id_tim"  style={  {  padding: 1, }  } className={`  h-6  outline-0  w-full  `} type={"text"} placeholder="Filter"  /> 
               { trai_value.current.map(( i, index )=>{  return <button type="button"  className={`whitespace-nowrap hover:bg-gray-400 hover:bg-opacity-50 w-full pl-2 flex items-start  justify-start `}  value ={trai_value.current[index] } >{trai_ten_day_du.current[index] }</button> })}
           
-                </div>
+              </div>
           
         </button>
   

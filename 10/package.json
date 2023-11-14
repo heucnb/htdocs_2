@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "//": "watch ở đây sẽ theo dõi sự thay đổi ở các file trong tailwind.config.js",
-    "ghep_file": "nodemon ghep_file.js --legacy-watch --watch static/fontend  --watch ghep_file.js  ",
+    "ghep_file": "npx nodemon ghep_file.js --legacy-watch --watch static/fontend  --watch ghep_file.js  ",
     "css": "npx tailwindcss -i ./src/tailwind.css -o ./static/style_converted.css --watch"
   },
   "keywords": [],
