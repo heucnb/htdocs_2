@@ -10,6 +10,7 @@ $khu_cu=safeSQL($_POST["post9"]);
 $chuong_cu=safeSQL($_POST["post10"]);
 $khu=safeSQL($_POST["post11"]);
 $chuong=safeSQL($_POST["post12"]);
+$id=safeSQL($_POST["post13"]);
 include "setup/check_token_and_post.php";
 
 
@@ -36,7 +37,23 @@ $count_chuong = mysqli_fetch_row($result_6)[0] ;
 		
 	}
 
-	
+
+	// thực hiện update bằng cách xoá tất cả dữ liệu cũ và thay thế bằng dữ liệu mới do người dùng post lên
+	//B1: kiểm tra xem dữ liệu người dùng post lên có khớp với trên sever không nếu không khớp thì thông báo lỗi, nếu khớp thì tiến hành update
+
+	$sql = "SELECT min(setup_chuong.id) FROM `setup_chuong` WHERE setup_chuong.cong_ty = '".$trai."'  ";
+	$result = mysqli_query($conn, $sql);
+
+
+	$min_id = mysqli_fetch_row($result)[0] ;
+
+		if ($min_id != $id) {
+			echo "Cấu hình chuồng đã được cập nhật mới rồi. Bạn tải lại trang web để nhận danh sách chuồng mới";
+		exit() ;
+		} 
+
+
+
 	$string_update = "(";
 	$len = count($data_chuong_new) ;
 	for ($i=0; $i < $len-1 ; $i++) { 
@@ -45,16 +62,24 @@ $count_chuong = mysqli_fetch_row($result_6)[0] ;
 	}
 
 	$string_update = $string_update."'".$trai."'".','."'".$data_chi_nhanh[$len-1]."'".','."'".$data_chuong_new[$len-1]."'".')';
- // xoá tất cả dữ liệu cũ
+ //B2: xoá tất cả dữ liệu cũ
  $sql_1 = "DELETE FROM setup_chuong WHERE setup_chuong.cong_ty = '".$trai."'   ";
  $result_1 = mysqli_query($conn, $sql_1); 
-//update dữ liệu vào mysql
+// B3: update dữ liệu vào mysql
 
 $sql_3 = "INSERT INTO setup_chuong (setup_chuong.cong_ty, setup_chuong.chi_nhanh, setup_chuong.chuong)
 VALUES ".$string_update.";";
 
 
 $result_3 = mysqli_query($conn, $sql_3);	
+
+
+
+$sql_9 = "SELECT LAST_INSERT_ID() ";
+	$result_9 = mysqli_query($conn, $sql_9);
+
+
+	$id_begin_update = mysqli_fetch_row($result_9)[0] ;
 
 //-----------------------------------------------------------------------------------------
 
@@ -80,7 +105,7 @@ $result_5 = mysqli_query($conn, $sql_5);
 	
 
 
-  echo 'ok' ;
+  echo 'ok|_|'.$id_begin_update ;
 
 
 ?>	

@@ -29,7 +29,7 @@ if (isset($_COOKIE['token_cookie'])) {
                 if (!$conn_1) {
                   die("Connection failed: " . mysqli_connect_error());
                 }
-                $sql_expire = "select* from login where username='".$payload[1]['username']."'and password='".$payload[1]['password']."'";
+                $sql_expire = "select * from login where username='".$payload[1]['username']."'and password='".$payload[1]['password']."'";
                 $result_expire = mysqli_query($conn_1, $sql_expire);
                 $cout_expire = mysqli_num_rows($result_expire);	
                 $arraymysql_expire = [];
@@ -47,6 +47,8 @@ if (isset($_COOKIE['token_cookie'])) {
                       // Generate token
                       $token = Token::Sign(['username' => $arraymysql_expire[0][0] ,'password' => $arraymysql_expire[0][1] , 'trai'=> $arraymysql_expire[0][2] , 'trai_day_du'=> $arraymysql_expire[0][3] ] ,  $KEY , (60*10) );
                       @ setcookie("token_cookie",$token, time() + (86400 * 5), "/");
+
+
                         // sau đó tiếp tục thực hiện câu lệnh sau...........
 
 
@@ -62,7 +64,9 @@ if (isset($_COOKIE['token_cookie'])) {
               
               }else{
 
-             
+
+
+                
 
                //ngược lại Verigy Signature là đúng và không quá hạn tiếp tục thực hiện câu lệnh sau...........
 

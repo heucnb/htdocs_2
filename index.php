@@ -100,9 +100,12 @@ button {
 </style>
  <!-- <link rel="stylesheet" href="/10/static/style_converted.css"> -->
 <!-- tải bất đồng bộ xong, eval() script xong mới load dom phía sau tiếp -->
+
 <script type="text/javascript" src="CDN/tailwindcss.com3.2.4.js"></script>
 <script type="text/javascript" src="CDN/react.development.min.js"></script>
 <script type="text/javascript" src="CDN/react-dom.development.min.js"></script>
+<script type="text/javascript" src="CDN/exceljs4.3.min.js"></script>
+<script type="text/javascript" src="CDN/FileSaver.js"></script>
 
 </head>
 
@@ -130,7 +133,6 @@ return  {
    
    click : function (function_run) { 
 
-       
        document.querySelector(dom).onclick = function(event){ return function_run(event) }
 
    } ,
@@ -141,7 +143,7 @@ return  {
 
 } ,
 
-keypress : function () { 
+keypress : function (function_run) { 
 
        
     document.querySelector(dom).onkeypress = function(event){ return function_run(event) }
@@ -203,7 +205,7 @@ window.onload = function()
  newScript_1.onload = function(){
 
   // kiểm tra login, nếu chưa login báo đăng nhập lại
-  // nếu login rồi thì trong bộ nhớ của browser sẽ lưu cấu hình chuồng, kho.. tiến hành tải về và lưu vào biến toàn cục  
+  // nếu login rồi thì trong bộ nhớ của browser sẽ lưu cấu hình chuồng, kho.. nhưng có thể không giống với trên sever nên ta  tiến hành tải về lại và lưu vào biến toàn cục  
   $.post("main.php", {}, function(data){
    
   data = data.trim(); if (data.slice(0, 8) ==="<script>") {
@@ -217,6 +219,14 @@ window.onload = function()
      
      
      console.log( arrayjavascript_3);
+  
+  
+localStorage.setItem('username',arrayjavascript_3[0][0] );
+localStorage.setItem('password',arrayjavascript_3[0][1] );
+localStorage.setItem('all', JSON.stringify(arrayjavascript_3) );
+
+
+
         if(arrayjavascript_3[0]!=="error")
         {
          document.getElementById('id_td_1').innerHTML="Đăng nhập - " + arrayjavascript_3[0][0];
