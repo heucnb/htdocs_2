@@ -7,6 +7,9 @@ function _rename(kiem_tra, para) {
   _div.style.zIndex = "10000";
 
   let name_change_old ;
+
+  
+
   if (kiem_tra === 1) { name_change_old = para[0] } else { name_change_old = array_chuong_thit[para[1]][0] } ;
 function Rename() {
   let ref_0 = useRef(null) ;
@@ -89,7 +92,7 @@ function Rename() {
 
           let array_khu_data = array_chuong.map(( i, index )=>{return  i.map(( j, index_j )=>{return j = array_khu[index]  }) }) ;
 
-          $.post("sua_chuong_thit.php", {  post1: JSON.stringify(   array2d_to_1d(array_chuong) ) , post2: JSON.stringify(  array2d_to_1d(array_khu_data) ) ,  post8:id_8.value, post9:para[5], post10:para[6] , post11:khu, post12:chuong }, function(data){
+          $.post("sua_chuong_thit.php", {  post1: JSON.stringify(   array2d_to_1d(array_chuong) ) , post2: JSON.stringify(  array2d_to_1d(array_khu_data) ) ,  post8:id_8.value, post9:para[5], post10:para[6] , post11:khu, post12:chuong  , post13:array_chuong_thit[0][2]     }, function(data){
 
 
             data = data.trim(); if (data.slice(0, 8) ==="<script>") {  let data_1 = data.slice(8, -9); eval(data_1) ; return  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  }
@@ -99,6 +102,7 @@ function Rename() {
                       _alert(data) ;
                   } else {
                     // lưu cấu hình chuồng vào local storage
+                    array_chuong_thit[0][2] = data.split("|_|")[1] ;
                     arrayjavascript_3[0][6] =JSON.stringify(array_chuong_thit)  ;
                     localStorage.setItem('all', JSON.stringify(arrayjavascript_3) );
                     ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  
@@ -166,7 +170,7 @@ function Rename() {
 
        
 
-          $.post("sua_chuong_thit.php", {  post1: JSON.stringify(   array2d_to_1d(array_chuong) ) , post2: JSON.stringify(  array2d_to_1d(array_khu_data) ) ,  post8:id_8.value, post9:para[5], post10:para[6] , post11:khu, post12:chuong }, function(data){
+          $.post("sua_chuong_thit.php", {  post1: JSON.stringify(   array2d_to_1d(array_chuong) ) , post2: JSON.stringify(  array2d_to_1d(array_khu_data) ) ,  post8:id_8.value, post9:para[5], post10:para[6] , post11:khu, post12:chuong  , post13:array_chuong_thit[0][2]   }, function(data){
 
 
             data = data.trim(); if (data.slice(0, 8) ==="<script>") {  let data_1 = data.slice(8, -9); eval(data_1) ; return  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  }
@@ -181,7 +185,10 @@ function Rename() {
                       _alert(data) ;
                   } else {
                     // lưu cấu hình chuồng vào local storage
+
+                    array_chuong_thit[0][2] = data.split("|_|")[1] ;
                     arrayjavascript_3[0][6] =JSON.stringify(array_chuong_thit)  ;
+             
                     localStorage.setItem('all', JSON.stringify(arrayjavascript_3) );
                     ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  
                     ReactDOM.unmountComponentAtNode(_div);

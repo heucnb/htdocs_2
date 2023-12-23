@@ -4,7 +4,12 @@ function Setup_chuong(props) {
             if (data_them !== false) {
                 array_chuong_thit = JSON.parse(JSON.stringify(data_them));
             }
-          
+
+
+              //tải cáu hình chuòng thịt cho công ty
+
+        array_chuong_thit =     JSON.parse(    JSON.parse(localStorage.getItem("all"))[0][6]    ) ;
+  
             let data_2d = useRef(  array_chuong_thit  );
 
             console.log(data_2d.current);
@@ -12,6 +17,7 @@ function Setup_chuong(props) {
         
 
             function them_chuong(event,item ,index) {
+
              
                 let count = data_2d.current[index][1].length ;
          
@@ -61,7 +67,7 @@ function Setup_chuong(props) {
 
                   let array_khu_data = array_chuong.map(( i, index )=>{return  i.map(( j, index_j )=>{return j = array_khu[index]  }) }) ;
 
-                  $.post("sua_chuong_thit.php", {  post1: JSON.stringify(  array2d_to_1d(array_chuong) ) , post2: JSON.stringify(  array2d_to_1d(array_khu_data) ) ,  post8:id_8.value  , post9:"", post10:"", post11:"", post12:""}, function(data){
+                  $.post("sua_chuong_thit.php", {  post1: JSON.stringify(  array2d_to_1d(array_chuong) ) , post2: JSON.stringify(  array2d_to_1d(array_khu_data) ) ,  post8:id_8.value  , post9:"", post10:"", post11:"", post12:"" , post13:data_2d.current[0][2] }, function(data){
         
      
                     data = data.trim(); if (data.slice(0, 8) ==="<script>") {  let data_1 = data.slice(8, -9); eval(data_1) ; return  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  }
@@ -70,8 +76,13 @@ function Setup_chuong(props) {
 
                               _alert(data) ;
                           } else {
+                            
+                            data_2d.current[0][2] = data.split("|_|")[1] ;
+                            array_chuong_thit[0][2] =  data_2d.current[0][2] ;
+                            arrayjavascript_3[0][6] =array_chuong_thit ;
+                            console.log(data_2d.current[0][2]);
                             // lưu cấu hình chuồng vào local storage
-                            arrayjavascript_3[0][6] =JSON.stringify(data_2d.current)  ;
+                     
                             localStorage.setItem('all', JSON.stringify(arrayjavascript_3) );
                             ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  
                             ReactDOM.render(<Setup_chuong value={{data :  data_2d.current    }} /> 
@@ -125,7 +136,7 @@ function Setup_chuong(props) {
 
            let array_khu_data = array_chuong.map(( i, index )=>{return  i.map(( j, index_j )=>{return j = array_khu[index]  }) }) ;
 
-           $.post("sua_chuong_thit.php", {  post1: JSON.stringify(  array2d_to_1d(array_chuong) ) , post2: JSON.stringify(  array2d_to_1d(array_khu_data) ) ,  post8:id_8.value  , post9:"", post10:"", post11:"", post12:""}, function(data){
+           $.post("sua_chuong_thit.php", {  post1: JSON.stringify(  array2d_to_1d(array_chuong) ) , post2: JSON.stringify(  array2d_to_1d(array_khu_data) ) ,  post8:id_8.value  , post9:"", post10:"", post11:"", post12:"" , post13:data_2d.current[0][2]   }, function(data){
  
 
              data = data.trim(); if (data.slice(0, 8) ==="<script>") {  let data_1 = data.slice(8, -9); eval(data_1) ; return  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  }
@@ -134,8 +145,13 @@ function Setup_chuong(props) {
 
                        _alert(data) ;
                    } else {
+
+                    data_them_xong[0][2] = data.split("|_|")[1] ;
+                    array_chuong_thit[0][2] =   data_them_xong[0][2]  ;
+                    arrayjavascript_3[0][6] =array_chuong_thit ;
+
                      // lưu cấu hình chuồng vào local storage
-                     arrayjavascript_3[0][6] =JSON.stringify(data_them_xong)  ;
+       
                      localStorage.setItem('all', JSON.stringify(arrayjavascript_3) );
                      ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  
                      ReactDOM.render(<Setup_chuong value={{data :  data_them_xong    }} /> 

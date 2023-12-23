@@ -1,3 +1,10 @@
+// tính tổng bỏ qua dòng đầu tiên
+function sum(array) {
+  let total = 0;
+  for (var i = 1; i < array.length; i++) total += array[i];
+  return total;
+}
+
 function getCookie(name) {
   // Split cookie string and get all individual name=value pairs in an array
   var cookieArr = document.cookie.split(";");
@@ -405,6 +412,7 @@ function combobox_(id,array) {
                     let array_result_new = array.filter(check_item_in_array_get_true);
 
                     function check_item_in_array_get_true(item) {
+                      console.log(item);
                       console.log('---------------  ' + item.toString());
                       return removeAccents(item.toString()).indexOf(removeAccents(e.target.value))!== -1;
                     }

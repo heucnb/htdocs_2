@@ -11,7 +11,7 @@ function Nai_chet() {
         }
   
         }
-    
+        ReactDOM.unmountComponentAtNode(document.getElementById('id_tim_1')); 
      ReactDOM.render(<Input_find value={{data :  new_array , dom_1 : document.getElementById('id_1'), dom_2 : document.getElementById('id_2'),dom_3 : document.getElementById('id_tim_1') }} /> 
              ,document.getElementById('id_tim_1'));
      
