@@ -8,7 +8,7 @@ function Setup_chuong(props) {
 
               //tải cáu hình chuòng thịt cho công ty
 
-        array_chuong_thit =     JSON.parse(    JSON.parse(localStorage.getItem("all"))[0][6]    ) ;
+        array_chuong_thit =     JSON.parse(localStorage.getItem("chuong"))  ;
   
             let data_2d = useRef(  array_chuong_thit  );
 
@@ -79,11 +79,11 @@ function Setup_chuong(props) {
                             
                             data_2d.current[0][2] = data.split("|_|")[1] ;
                             array_chuong_thit[0][2] =  data_2d.current[0][2] ;
-                            arrayjavascript_3[0][6] =array_chuong_thit ;
+                  
                             console.log(data_2d.current[0][2]);
                             // lưu cấu hình chuồng vào local storage
                      
-                            localStorage.setItem('all', JSON.stringify(arrayjavascript_3) );
+                            localStorage.setItem('chuong', JSON.stringify(array_chuong_thit)  );
                             ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  
                             ReactDOM.render(<Setup_chuong value={{data :  data_2d.current    }} /> 
                             ,document.getElementById('id_nhan_index'));
@@ -148,11 +148,11 @@ function Setup_chuong(props) {
 
                     data_them_xong[0][2] = data.split("|_|")[1] ;
                     array_chuong_thit[0][2] =   data_them_xong[0][2]  ;
-                    arrayjavascript_3[0][6] =array_chuong_thit ;
+             
 
                      // lưu cấu hình chuồng vào local storage
-       
-                     localStorage.setItem('all', JSON.stringify(arrayjavascript_3) );
+                     localStorage.setItem('chuong', JSON.stringify(array_chuong_thit)  );
+                     
                      ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  
                      ReactDOM.render(<Setup_chuong value={{data :  data_them_xong    }} /> 
                      ,document.getElementById('id_nhan_index'));

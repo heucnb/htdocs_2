@@ -7,21 +7,25 @@ function Login() {
     function dang_nhap(event) {
       $.post("fuction_login.php", {post1:id_1.textContent , post2:$("#id_2").val() }, function(data){
 
+        let check_json_array = data.trim().slice(0, 1) ;
 
-      if ( data.trim().slice(0, 2) !== "[[") {
+      if ( check_json_array !== "[") {
         _alert(data)
     } else {
 
       var array_data_login = JSON.parse(data);
 
-
-	
-  
-  localStorage.setItem('username',array_data_login[0][0] );
-  localStorage.setItem('password',array_data_login[0][1] );
-  localStorage.setItem('all', JSON.stringify(array_data_login) );
  
-  arrayjavascript_3 = JSON.parse(localStorage.getItem("all"))  ; 
+  localStorage.setItem('chuong', JSON.stringify(array_data_login[0][20]) );
+  localStorage.setItem('kho', JSON.stringify(array_data_login[0][21]) );
+
+    //tải cáu hình chuòng thịt cho công ty
+    array_chuong_thit = array_data_login[0][20] ;
+    //tải cáu hình kho cám cho công ty
+    array_kho_cam = array_data_login[0][21] ;   
+
+ 
+  arrayjavascript_3 = array_data_login ; 
 console.log(arrayjavascript_3);
      // This will return an array with strings "1", "2", etc.
      document.array_option = arrayjavascript_3[0][2].split(",");
@@ -53,11 +57,7 @@ console.log(arrayjavascript_3);
  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index')); 
 
  //-----------------------------------------------------------------------------
-     //tải cáu hình chuòng thịt cho công ty
-   array_chuong_thit = JSON.parse(array_data_login[0][6]) ;
-    //tải cáu hình kho cám cho công ty
-    array_kho_cam = JSON.parse(array_data_login[0][7]) ;   
-
+   
 
   
        

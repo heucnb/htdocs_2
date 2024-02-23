@@ -5,6 +5,7 @@ include "setup/fuction_ket_noi_csdl.php";
 // nếu đăng nhập rồi thì hiện thông tin đăng nhập
 
 $arraymysql = [];
+// lấy thông tin đăng nhập từ token khi đăng nhập rồi hoặc lấy từ refesh token
 $arraymysql[0]  = array_values($payload[1]) ;
 
 $cong_ty = $payload[1]['trai']  ;
@@ -30,7 +31,7 @@ for ($x = 0; $x < $count_2; $x++) {
     $arraymysql_2[$x][1] =array_chunk( explode('|_|', $arraymysql_2[$x][1])  , 6)  ;
 }
 
-$string_array_setup_chuong = json_encode($arraymysql_2) ;
+
 
     // lấy cấu hình kho cám
     $sql_3 = "SELECT setup_kho.id, setup_kho.id_ten, setup_kho.ten, setup_kho.don_vi_tinh, setup_kho.nha_cung_cap , setup_kho.ghi_chu, setup_kho.kho  FROM `setup_kho` WHERE setup_kho.cong_ty ='".$cong_ty."' and setup_kho.kho = 'Cám'";
@@ -42,13 +43,13 @@ $string_array_setup_chuong = json_encode($arraymysql_2) ;
     }
 
 
-    $string_array_setup_kho = json_encode($arraymysql_3) ;
+
 
 
 
  
-$arraymysql[0][6] = $string_array_setup_chuong ;
-$arraymysql[0][7] = $string_array_setup_kho ;
+$arraymysql[0][20] = $arraymysql_2 ;
+$arraymysql[0][21] = $arraymysql_3 ;
 
 
 $string_data = str_ireplace("|_|","'",json_encode($arraymysql)) ;

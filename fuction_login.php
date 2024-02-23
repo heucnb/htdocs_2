@@ -50,7 +50,7 @@ if($cout==1)
 			$arraymysql_2[$x][1] =array_chunk( explode('|_|', $arraymysql_2[$x][1])  , 6)  ;
 		}
 
-		$string_array_setup_chuong = json_encode($arraymysql_2) ;
+
 
 			// lấy cấu hình kho cám
 			$sql_3 = "SELECT setup_kho.id, setup_kho.id_ten, setup_kho.ten, setup_kho.don_vi_tinh, setup_kho.nha_cung_cap , setup_kho.ghi_chu  , setup_kho.kho   FROM `setup_kho` WHERE setup_kho.cong_ty ='".$cong_ty."' and setup_kho.kho = 'Cám'";
@@ -62,14 +62,9 @@ if($cout==1)
 			}
 	
 		
-			$string_array_setup_kho = json_encode($arraymysql_3) ;
-	
 
-
-
-
-		$arraymysql[0][6] = $string_array_setup_chuong ;
-		$arraymysql[0][7] = $string_array_setup_kho ;
+		$arraymysql[0][20] = $arraymysql_2 ;
+		$arraymysql[0][21] = $arraymysql_3 ;
 
 
 		

@@ -126,6 +126,11 @@ saveAs(blob, 'filename' + EXCEL_EXTENSION);
     
     function xoa(event, row,i) {
 
+// cập nhật lại bảng table kho cám cho các tab khớp nhau nếu trên cùng 1 máy tính người dùng mở nhiều tab 
+id_click.onclick(); 
+
+
+
       let total_id = sum(   data_2d.map( (item)=> { return parseInt(item[0])  ; })   ) ;
         $.post("them_xoa_setup_kho.php",  {json_array: JSON.stringify(data_2d[i])  , post1: data_2d[i][0]  ,  post2: "xoa" , post3: data_2d[i][2]  ,  post4: data_2d[i][1]  ,post5: data_2d[i][3]  ,post6: data_2d[i][4]  , post7: data_2d[i][5]  ,  post8:id_8.value , post9:  total_id , post10:  "Cám" }, function(data){
   
@@ -138,10 +143,8 @@ saveAs(blob, 'filename' + EXCEL_EXTENSION);
         // xoá dòng đó
           array_kho_cam.splice(i, 1);
 
-         // lưu cấu hình chuồng vào local storage
-         arrayjavascript_3[0][7] =array_kho_cam ;
-
-         localStorage.setItem('all', JSON.stringify(arrayjavascript_3) );
+         // lưu cấu hình kho vào local storage
+         localStorage.setItem('kho', JSON.stringify( array_kho_cam  ) );
 
          ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  
          let width_table = document.getElementById('id_nhan_index').getBoundingClientRect().width ;
@@ -165,6 +168,12 @@ saveAs(blob, 'filename' + EXCEL_EXTENSION);
 
 //---------------------------------------------------------------------------------------------------------------------------------------------
 function sua(event, row,i) {
+
+
+// cập nhật lại bảng table kho cám cho các tab khớp nhau nếu trên cùng 1 máy tính người dùng mở nhiều tab 
+id_click.onclick(); 
+
+
  
   // chạy function
   _sua(event, row,i);
@@ -183,7 +192,11 @@ function sua(event, row,i) {
             
               let array_unique_nha_cung_cap =  data_2d.map( (item, index )=> {  if (index>0) {return item[4] ; }     }).filter((value, index, array) => { return index > 0 && array.indexOf(value) === index}  ) 
        
-                useEffect(() => {    
+                useEffect(() => {   
+                  
+                  // data_2d ở đây là của bảng cũ chứ không phải là của bảng mới sau khi chạy lệnh id_click.onclick(); 
+                  console.log(data_2d);
+
                   id_1.value = row[1] ;
                   id_2.value = row[2] ;
                   id_4.value = row[4] ;
@@ -214,10 +227,9 @@ function sua(event, row,i) {
                          array_kho_cam[i][4] = id_4.value ;
                
                          array_kho_cam[i][5] = id_5.value ;
-                        // lưu cấu hình chuồng vào local storage
-                        arrayjavascript_3[0][7] =array_kho_cam ;
-               
-                        localStorage.setItem('all', JSON.stringify(arrayjavascript_3) );
+
+                         localStorage.setItem('kho', JSON.stringify( array_kho_cam  ) );
+
                         ReactDOM.unmountComponentAtNode(_div); _div.remove();
                         ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  
                         let width_table = document.getElementById('id_nhan_index').getBoundingClientRect().width ;
@@ -291,7 +303,12 @@ function sua(event, row,i) {
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 function them(event) {
- 
+
+
+  // cập nhật lại bảng table kho cám cho các tab khớp nhau nếu trên cùng 1 máy tính người dùng mở nhiều tab 
+  id_click.onclick(); 
+
+
   // chạy function
   _them(event);
 
@@ -313,9 +330,8 @@ function them(event) {
 
                 useEffect(() => {    
 
+               
                   
-
-
 
                   id_1.value = "" ;
                   id_2.value = "" ;
@@ -343,13 +359,13 @@ function them(event) {
                
                
                       if (  data.trim().slice(0, 2) === "ok") {
+                        console.log([ data.trim().slice(2),id_1.value, id_2.value, id_3.value, id_4.value, id_5.value , "Cám"]);
+                        
                    
                         array_kho_cam.push([ data.trim().slice(2),id_1.value, id_2.value, id_3.value, id_4.value, id_5.value , "Cám"]) ;
                     
-                        // lưu cấu hình chuồng vào local storage
-                        arrayjavascript_3[0][7] = array_kho_cam  ;
-               
-                        localStorage.setItem('all', JSON.stringify(arrayjavascript_3) );
+                         localStorage.setItem('kho', JSON.stringify( array_kho_cam  ) );
+
                         ReactDOM.unmountComponentAtNode(_div); _div.remove();
                         ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  
                         let width_table = document.getElementById('id_nhan_index').getBoundingClientRect().width ;
@@ -446,7 +462,8 @@ function change_name(event) {
             
               
             function Change_name() {
-
+                // cập nhật lại bảng table kho cám cho các tab khớp nhau nếu trên cùng 1 máy tính người dùng mở nhiều tab 
+                id_click.onclick(); 
 
               let array_unique_nha_cung_cap =  data_2d.map( (item, index )=> {  if (index>0) {return item[4] ; }     }).filter((value, index, array) => { return index > 0 && array.indexOf(value) === index}  ) 
        
@@ -480,7 +497,7 @@ function change_name(event) {
                
                       if (  data.trim().slice(0, 2) === "ok") {
                    
-                        // array_kho_cam.push([ data.trim().slice(2),id_1.value, id_2.value, id_3.value, id_4.value, id_5.value , "Cám"]) ;
+                    
                         len = array_kho_cam.length ;
                          for (let index = 1  ; index < len ; index++) {
 
@@ -489,11 +506,9 @@ function change_name(event) {
                               }
 
                            }
-                    
-                        // lưu cấu hình chuồng vào local storage
-                        arrayjavascript_3[0][7] = array_kho_cam  ;
-               
-                        localStorage.setItem('all', JSON.stringify(arrayjavascript_3) );
+                  
+                      localStorage.setItem('kho', JSON.stringify( array_kho_cam  ) );
+
                         ReactDOM.unmountComponentAtNode(_div); _div.remove();
                         ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  
                         let width_table = document.getElementById('id_nhan_index').getBoundingClientRect().width ;

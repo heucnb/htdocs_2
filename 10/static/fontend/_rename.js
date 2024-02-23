@@ -103,8 +103,9 @@ function Rename() {
                   } else {
                     // lưu cấu hình chuồng vào local storage
                     array_chuong_thit[0][2] = data.split("|_|")[1] ;
-                    arrayjavascript_3[0][6] =JSON.stringify(array_chuong_thit)  ;
-                    localStorage.setItem('all', JSON.stringify(arrayjavascript_3) );
+                    
+                    localStorage.setItem('chuong', JSON.stringify(array_chuong_thit)  );
+
                     ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  
                     ReactDOM.unmountComponentAtNode(_div);
                     _div.remove();
@@ -187,9 +188,9 @@ function Rename() {
                     // lưu cấu hình chuồng vào local storage
 
                     array_chuong_thit[0][2] = data.split("|_|")[1] ;
-                    arrayjavascript_3[0][6] =JSON.stringify(array_chuong_thit)  ;
-             
-                    localStorage.setItem('all', JSON.stringify(arrayjavascript_3) );
+ 
+                    localStorage.setItem('chuong', JSON.stringify(array_chuong_thit)  );
+
                     ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  
                     ReactDOM.unmountComponentAtNode(_div);
                     _div.remove();

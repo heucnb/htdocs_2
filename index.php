@@ -221,22 +221,19 @@ window.onload = function()
      console.log( arrayjavascript_3);
   
   
-localStorage.setItem('username',arrayjavascript_3[0][0] );
-localStorage.setItem('password',arrayjavascript_3[0][1] );
-localStorage.setItem('all', JSON.stringify(arrayjavascript_3) );
-
-
+  localStorage.setItem('chuong', JSON.stringify(arrayjavascript_3[0][20]) );
+  localStorage.setItem('kho', JSON.stringify(arrayjavascript_3[0][21]) );
 
         if(arrayjavascript_3[0]!=="error")
         {
          document.getElementById('id_td_1').innerHTML="Đăng nhập - " + arrayjavascript_3[0][0];
         //----------------------------------
         //tải cáu hình chuòng thịt cho công ty
-        array_chuong_thit = JSON.parse(arrayjavascript_3[0][6]) ;
+        array_chuong_thit = arrayjavascript_3[0][20];
          console.log( array_chuong_thit);
 
          //tải cáu hình kho cám cho công ty
-        array_kho_cam = JSON.parse(arrayjavascript_3[0][7]) ;   
+        array_kho_cam = arrayjavascript_3[0][21] ;   
 
 
       //------------------------------------------------------
@@ -903,6 +900,10 @@ localStorage.setItem('all', JSON.stringify(arrayjavascript_3) );
                     ReactDOM.unmountComponentAtNode(id_nhan_index);   
                     return     _alert('Bạn phải chọn công ty để nhập dữ liệu hoặc lỗi chọn công ty có chứa *') 
                     }
+
+                    array_chuong_thit = JSON.parse(localStorage.getItem("chuong"))  ; 
+                 
+                    console.log(array_chuong_thit);
     
                     ReactDOM.unmountComponentAtNode(id_nhan_index); 
                     ReactDOM.unmountComponentAtNode(id_td_22_con); 
@@ -914,7 +915,7 @@ localStorage.setItem('all', JSON.stringify(arrayjavascript_3) );
             
         }
 
-           // Cấu hình kho cám
+           // Cấu hình kho 
            id_td_23.onclick = function () {
             
             if(document.getElementById('id_td_1').innerHTML=="Đăng nhập")
@@ -936,6 +937,10 @@ localStorage.setItem('all', JSON.stringify(arrayjavascript_3) );
                     ReactDOM.unmountComponentAtNode(id_nhan_index);   
                     return     _alert('Bạn phải chọn công ty để nhập dữ liệu hoặc lỗi chọn công ty có chứa *') 
                     }
+
+                    array_kho_cam = JSON.parse(localStorage.getItem("kho"))  ; 
+                 
+                 console.log(array_kho_cam);
     
                     ReactDOM.unmountComponentAtNode(id_nhan_index); 
                     ReactDOM.unmountComponentAtNode(id_td_22_con); 

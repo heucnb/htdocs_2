@@ -32,11 +32,15 @@ function Thit_nhap() {
                       id_from.style.display = 'flex' ;
                       id_chuong.textContent = "Chọn chuồng";
                       id_chuong.value = "Chọn chuồng";
-                      id_lo.innerHTML = "" ;
+
+                    //   id_lo.innerHTML = "" ;
+                    // hiện lại tất cả  
                        for (let index = 0 , len = from.length ; index < len ; index++) { 
                         from[index].style.display = 'flex' ;
 
                         }
+
+                    
                         if (su_kien === "Báo chết") {
                             id_ngay.style.display = 'block' ;
                             id_ngay.previousElementSibling.style.display = 'block' ;
@@ -46,6 +50,11 @@ function Thit_nhap() {
 
                             id_lo_nhap.style.display = 'none' ;
                             id_lo_nhap.previousElementSibling.style.display = 'none' ;
+
+
+
+                            id_lo.style.display = 'none' ;
+                            id_lo.previousElementSibling.style.display = 'none' ;
 
 
                             id_chuong_ds_chuyen_den.style.display = 'none' ;
@@ -83,7 +92,10 @@ function Thit_nhap() {
                             id_nguon_nhap.style.display = 'none' ;
                             id_nguon_nhap.previousElementSibling.style.display = 'none' ;
 
-                            
+                            id_lo.style.display = 'none' ;
+                            id_lo.previousElementSibling.style.display = 'none' ;
+
+
                             id_lo_nhap.style.display = 'none' ;
                             id_lo_nhap.previousElementSibling.style.display = 'none' ;
 
@@ -122,7 +134,10 @@ function Thit_nhap() {
                             id_lo_nhap.style.display = 'none' ;
                             id_lo_nhap.previousElementSibling.style.display = 'none' ;
 
-                           
+                             id_lo.style.display = 'none' ;
+                            id_lo.previousElementSibling.style.display = 'none' ;
+
+
                             id_chuong_ds_chuyen_den.style.display = 'none' ;
                           
                             id_chuong_chuyen_den.style.display = 'none' ;
@@ -150,11 +165,14 @@ function Thit_nhap() {
                             id_nguon_nhap.style.display = 'none' ;
                             id_nguon_nhap.previousElementSibling.style.display = 'none' ;
 
-                            
+                            id_lo.style.display = 'none' ;
+                            id_lo.previousElementSibling.style.display = 'none' ;
+
                             id_lo_nhap.style.display = 'none' ;
                             id_lo_nhap.previousElementSibling.style.display = 'none' ;
 
                          
+
                             id_chuong_ds_chuyen_den.style.display = 'none' ;
                           
                             id_chuong_chuyen_den.style.display = 'none' ;
@@ -184,7 +202,9 @@ function Thit_nhap() {
                             id_nguon_nhap.style.display = 'none' ;
                             id_nguon_nhap.previousElementSibling.style.display = 'none' ;
 
-                            
+                            id_lo.style.display = 'none' ;
+                            id_lo.previousElementSibling.style.display = 'none' ;
+
                             id_lo_nhap.style.display = 'none' ;
                             id_lo_nhap.previousElementSibling.style.display = 'none' ;
 
@@ -213,7 +233,8 @@ function Thit_nhap() {
                             id_ngay.previousElementSibling.style.display = 'block' ;
 
                           
-
+                            id_lo.style.display = 'none' ;
+                            id_lo.previousElementSibling.style.display = 'none' ;
 
                             id_chuong_ds_chuyen_den.style.display = 'none' ;
                           
@@ -342,7 +363,9 @@ function Thit_nhap() {
                             id_lo_chuyen_den.style.display = 'none' ;
                             id_lo_chuyen_den.previousElementSibling.style.display = 'none' ;
 
-                           
+                            id_lo.style.display = 'none' ;
+                            id_lo.previousElementSibling.style.display = 'none' ;
+
                             id_nguyen_nhan.style.display = 'none' ;
                             id_nguyen_nhan.previousElementSibling.style.display = 'none' ;
 
@@ -434,7 +457,9 @@ function Thit_nhap() {
                     if (data_them !== false) {
                         array_chuong_thit = JSON.parse(JSON.stringify(data_them));
                     }
-                  
+
+
+                     array_chuong_thit = JSON.parse(localStorage.getItem("chuong"))  ; 
                     let data_2d = useRef(  array_chuong_thit  );
                     console.log(data_2d.current);
 //--------------------------------------------------------------------------------------------------------------------------------------------
@@ -461,6 +486,7 @@ function Thit_nhap() {
                                     id_lo_nhap.style.display = 'flex' ;
                                     id_lo_nhap.previousElementSibling.style.display = 'flex' ;
                                     let select = document.getElementById("id_lo") ;
+                                    select.innerHTML ="" ;
                                     let option_lo_moi = document.createElement("OPTION");
                                     option_lo_moi.text = "Tạo lô mới";
                                         
@@ -476,12 +502,16 @@ function Thit_nhap() {
                                         _alert("Chuồng này chưa có dữ liệu")
                                         id_chuong.textContent = "Chọn chuồng";
                                         id_chuong.value = "Chọn chuồng";
+                                        id_lo.style.display = 'none' ;
+                                        id_lo.previousElementSibling.style.display = 'none' ;  
                                         id_lo.innerHTML = "" ;
                                         
                                     } else {
                                         _alert("Chuồng này chưa nhập heo (mở chuồng, tạo lô mới). Bạn phải chọn sự kiện nhập heo để mở chuồng, tạo lô mới")
                                         id_chuong.textContent = "Chọn chuồng";
                                         id_chuong.value = "Chọn chuồng";
+                                        id_lo.style.display = 'none' ;
+                                        id_lo.previousElementSibling.style.display = 'none' ;  
                                         id_lo.innerHTML = "" ;
                                         
                                     }
@@ -494,11 +524,18 @@ function Thit_nhap() {
                             else{
 
                                 if ( data.trim().slice(0, 2) !== "[[") {
+
+                                    id_lo.style.display = 'none' ;
+                                    id_lo.previousElementSibling.style.display = 'none' ;  
                                     _alert(data)
                                 } else {
 
                                     let array_lo = JSON.parse(data) ;
                                     let select = document.getElementById("id_lo") ;
+
+                                    id_lo.style.display = 'flex' ;
+                                    id_lo.previousElementSibling.style.display = 'flex' ;
+
                                     select.innerHTML ="" ;
                                       for(let i = 0; i < array_lo.length; i++)
                                             {
@@ -664,50 +701,36 @@ function Chuong_chuyen_den(props) {
                     data = data.trim(); if (data.slice(0, 8) ==="<script>") {  let data_1 = data.slice(8, -9); eval(data_1) ; return  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  }
                   
                     if ( data.trim() === "[]") {
-                        if (id_su_kien.textContent.trim()=== "Nhập heo" ) {
-                            id_lo.textContent = "";
-                            id_lo.value = "";
-
-
-                            id_lo.style.display = 'none' ;
-                            id_lo.previousElementSibling.style.display = 'none' ;
-
-                            id_lo_nhap.style.display = 'flex' ;
-                            id_lo_nhap.previousElementSibling.style.display = 'flex' ;
-
-
-
-                            
-                            
-                        } else {
-
-                            if (id_su_kien.textContent.trim()=== "Tìm kiếm") {
-                                _alert("Chuồng này chưa có dữ liệu")
-                                id_chuong.textContent = "Chọn chuồng";
-                                id_chuong.value = "Chọn chuồng";
-                                id_lo.innerHTML = "" ;
-                                
-                            } else {
-                                _alert("Chuồng này chưa nhập heo, số lượng heo = 0 . Bạn phải chọn sự kiện nhập heo")
-                                id_chuong.textContent = "Chọn chuồng";
-                                id_chuong.value = "Chọn chuồng";
-                                id_lo.innerHTML = "" ;
-                                
-                            }
-                           
-
-                            
-                        }
+                       
+                        _alert("Chuồng chuyển đến này chưa tạo lô mới . Bạn phải chọn sự kiện nhập heo để tạo lô mới")
+                        id_chuong_chuyen_den.textContent = "Chọn chuồng";
+                        id_chuong_chuyen_den.value = "Chọn chuồng";
+                        id_lo_chuyen_den.style.display = 'none' ;
+                        id_lo_chuyen_den.previousElementSibling.style.display = 'none' ;  
+                        id_lo_chuyen_den.innerHTML = "" ;
+                        
+                       
                        
                     }
                     else{
 
                         if ( data.trim().slice(0, 2) !== "[[") {
+
+                          
+                            id_lo_chuyen_den.style.display = 'none' ;
+                            id_lo_chuyen_den.previousElementSibling.style.display = 'none' ;  
                             _alert(data)
                         } else {
 
+
+
                             let array_lo = JSON.parse(data) ;
                             let select = document.getElementById("id_lo_chuyen_den") ;
+
+                            id_lo_chuyen_den.style.display = 'flex' ;
+                            id_lo_chuyen_den.previousElementSibling.style.display = 'flex' ;
+
+                         
                             select.innerHTML ="" ;
                               for(let i = 0; i < array_lo.length; i++)
                                     {
@@ -818,7 +841,13 @@ function Chuong_chuyen_den(props) {
         {
             return _alert("Bạn phải chọn chuồng và chọn lô trước đã")  
         }
+
+
+        console.log(id_ngay.style.display);
         
+
+          if ( id_ngay.style.display !=="none"  && (id_ngay.value == null ||id_ngay.value == ""  ) )
+     {return _alert("Bạn chưa chọn ngày") }
         if ( id_so_luong.style.display ==="flex"  &&  (isNaN(Number(id_so_luong.value)) || id_so_luong.value < 0 || id_so_luong.value == null ||id_so_luong.value == "" )   )
      {return _alert("Số lượng phải lớn hơn = 0 và không được để trống") }
      if (   id_trong_luong.style.display ==="flex"  &&  (isNaN(Number(id_trong_luong.value)) || id_trong_luong.value < 0 || id_trong_luong.value == null ||id_trong_luong.value == "" )  )
@@ -882,10 +911,14 @@ function Chuong_chuyen_den(props) {
 
     //---------------------------------------------------------------------------------------------------------
     id_su_kien.onclick = function () {
+
+
+
         ReactDOM.render( /*#__PURE__*/React.createElement(Ten_su_kien, null), id_su_kien_ds)
         const rect = id_su_kien.getBoundingClientRect();
         id_su_kien_ds.style.top = rect.top + "px";
   
+     
       
      
 
@@ -894,14 +927,25 @@ function Chuong_chuyen_den(props) {
 
     //---------------------------------------------------------------------------------------------------------
     id_chuong.onclick = function () {
-        ReactDOM.render( /*#__PURE__*/React.createElement(Chuong, { value: { data: false } }), id_chuong_ds)
+     
+        if (id_su_kien.textContent.trim() != "Chọn sự kiện") {
+            ReactDOM.render( /*#__PURE__*/React.createElement(Chuong, { value: { data: false } }), id_chuong_ds)
         const rect = id_chuong.getBoundingClientRect();
-        id_chuong_ds.style.top = rect.top + "px";
+        id_chuong_ds.style.top = rect.top + "px"; 
+
+        }else{
+
+            _alert('Bạn phải chọn sự kiện trước') 
+        }
+
+       
   
       
      
 
     }
+
+      //---------------------------------------------------------------------------------------------------------
 
 
      //---------------------------------------------------------------------------------------------------------
@@ -941,8 +985,10 @@ function Chuong_chuyen_den(props) {
 
                 <div id="id_from"  style={  {  display: 'none',  }  } className={` flex flex-col  `} > 
                 <div className={` mt-2   `} > Lô: </div>
-                <select  id="id_lo" style={{color : "black" ,  }} className={`focus:outline-0 w-full  border border-sky-500  `}  > 
+                <select  id="id_lo" style={{color : "black" ,  }} className={`focus:outline-0 w-full  border border-sky-500  `}  >  
+        
                 </select> 
+                
                 <div className={` mt-2   `} > Tên lô nhập: </div>
                 <input  id="id_lo_nhap"  className={`  border border-sky-500 `}    /> 
                 <div className={` mt-2   `} > Nguồn nhập: </div>

@@ -28,6 +28,7 @@ function Quan_ly_cam() {
                              
                                 <div className={` mt-2   `}> Ngày giá trị: </div>
                                 <input id="id_ngay" type="date"  className={`  border border-sky-500 `}    /> 
+                                
                                <button  id="id_loai_cam" className={`  mt-2  border  border-sky-500 flex justify-start `} type="button"    > Chọn loại cám </button>
                                <button id="id_loai_cam_ds" className={`w-auto absolute   _shadow  `} type="button"> </button>
                            
