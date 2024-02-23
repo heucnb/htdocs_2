@@ -154,7 +154,7 @@ $(document).ready(function(){
         }, []);
     
   return (  <div  className={`flex flex-col h-full w-full  bg-gray-100   `} > 
-  <input id="id_gui_research" type="button" value="Tìm kiếm, sửa, xóa"/> 
+  <input id="id_gui_research" type="button" className={`  ml-1 mr-1 mt-1  rounded  bg-sky-500 hover:bg-sky-700 h-8 flex items-center justify-center   font-medium `}  value="Tìm kiếm, sửa, xóa"/> 
   <div className={`ml-1 border-b border-sky-500 mr-1`}> Nhập con chết, loại </div>
   <div  className={` flex grow  mt-2 `} >  
   <div className={`shrink-0 ml-2 `} >

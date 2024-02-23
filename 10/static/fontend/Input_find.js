@@ -1,7 +1,8 @@
 function Input_find(props) {
     
     function select_click(event, dom_1, dom_2, dom_3) {
-  
+      console.log('11999');
+      console.log(event.target.textContent.trim());
      dom_1.value =  event.target.textContent.trim() ;
        ReactDOM.unmountComponentAtNode(dom_3); 
        dom_2.focus();
@@ -15,7 +16,7 @@ function Input_find(props) {
 
           for (let index = 0 ; index < count_children ; index++) { 
 
-            Input_find_id_0.children[index+1].onmousedown = function (event) {  return select_click(event , props.value.dom_1 , props.value.dom_2,  props.value.dom_3) ; }
+            Input_find_id_0.children[index].onmousedown = function (event) {  return select_click(event , props.value.dom_1 , props.value.dom_2,  props.value.dom_3) ; }
 
 
            }
