@@ -233,7 +233,7 @@ function Tra_ly_lich(props) {
               
               post_trai:id_8.value }, function(data){
 
-                if (ket_qua_tra_ve.slice(0, 8) ==="<script>") {  let data_1 = ket_qua_tra_ve.slice(8, -9); eval(data_1) ; return  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  }
+                if (data.slice(0, 8) ==="<script>") {  let data_1 = data.slice(8, -9); eval(data_1) ; return  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  }
                 // dung hàm UNION ALL trên server sẽ trả về 1 obj
                 let array_2d = Object.values(JSON.parse(data)) ;
                  for (let index = 0 , len = array_2d.length ; index < len ; index++) {

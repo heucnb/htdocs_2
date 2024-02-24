@@ -111,7 +111,25 @@ $.post = function (url,obj, function_run) {
       
       var hr = new XMLHttpRequest();
                         hr.open("POST", url, true);
+                        hr.onreadystatechange = function (oEvent) {
+                            if (hr.readyState === 4) {
+                                if (hr.status === 200) {
+
+                            //    không làm gì tiép tục  hr.onload 
+
+                                } else {
+                                    
+                                    _alert(hr.statusText)
+
+                                console.log("Error", hr.statusText);
+                                }
+
+                            }
+                        };
+
+
                         hr.send(obj_send);
+
                         hr.onload = function(){ return function_run(hr.responseText);
                         
                         }

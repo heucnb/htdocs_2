@@ -20,7 +20,7 @@ $(document).ready(function(){
 
         try { Table_hieu_2.remove_EventListener(); } catch (error) { }
         ReactDOM.unmountComponentAtNode(id_nhan); 
-			$.post("fuction_danh_sach_heo__from_xem_danh_sach_dan_nai_duc.php", { post1:$("#id_xem_danh_sach_1").text(), post8:id_8.value }, function(data){
+			$.post("fuction_danh_sach_heo__from_xem_danh_sach_dan_nai_duc.php", { post1:id_xem_danh_sach_1.textContent, post8:id_8.value }, function(data){
 		
                
   data = data.trim(); if (data.slice(0, 8) ==="<script>") {  let data_1 = data.slice(8, -9); eval(data_1) ; return  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  }
@@ -44,7 +44,7 @@ $(document).ready(function(){
 	$("#id_xem_danh_sach_2").click(function(){
         try { Table_hieu_2.remove_EventListener(); } catch (error) { }
         ReactDOM.unmountComponentAtNode(id_nhan); 
-			$.post("fuction_danh_sach_heo__from_xem_danh_sach_dan_nai_duc.php", { post1:$("#id_xem_danh_sach_2").text(), post8:id_8.value }, function(data){
+			$.post("fuction_danh_sach_heo__from_xem_danh_sach_dan_nai_duc.php", { post1:id_xem_danh_sach_2.textContent, post8:id_8.value }, function(data){
                
 
                                 data = data.trim(); if (data.slice(0, 8) ==="<script>") {  let data_1 = data.slice(8, -9); eval(data_1) ; return  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  }
@@ -69,7 +69,7 @@ $(document).ready(function(){
         try { Table_hieu_2.remove_EventListener(); } catch (error) { }
         ReactDOM.unmountComponentAtNode(id_nhan); 
 	    
-			$.post("fuction_danh_sach_heo__from_xem_danh_sach_dan_nai_duc.php", { post1:$("#id_xem_danh_sach_3").text(), post8:id_8.value }, function(data){
+			$.post("fuction_danh_sach_heo__from_xem_danh_sach_dan_nai_duc.php", { post1:id_xem_danh_sach_3.textContent, post8:id_8.value }, function(data){
 		
                  
   data = data.trim(); if (data.slice(0, 8) ==="<script>") {  let data_1 = data.slice(8, -9); eval(data_1) ; return  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  }
@@ -94,7 +94,7 @@ $(document).ready(function(){
 
 	    try { Table_hieu_2.remove_EventListener(); } catch (error) { }
         ReactDOM.unmountComponentAtNode(id_nhan); 
-			$.post("fuction_danh_sach_heo__from_xem_danh_sach_dan_nai_duc.php", { post1:$("#id_xem_danh_sach_4").text(), post8:id_8.value }, function(data){
+			$.post("fuction_danh_sach_heo__from_xem_danh_sach_dan_nai_duc.php", { post1:id_xem_danh_sach_4.textContent, post8:id_8.value }, function(data){
               
               
   data = data.trim(); if (data.slice(0, 8) ==="<script>") {  let data_1 = data.slice(8, -9); eval(data_1) ; return  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  }
@@ -117,7 +117,7 @@ $(document).ready(function(){
 
         try { Table_hieu_2.remove_EventListener(); } catch (error) { }
         ReactDOM.unmountComponentAtNode(id_nhan); 
-			$.post("fuction_danh_sach_heo__from_xem_danh_sach_dan_nai_duc.php", { post1:$("#id_xem_danh_sach_5").text(), post8:id_8.value }, function(data){
+			$.post("fuction_danh_sach_heo__from_xem_danh_sach_dan_nai_duc.php", { post1:id_xem_danh_sach_5.textContent, post8:id_8.value }, function(data){
 			
              
   data = data.trim(); if (data.slice(0, 8) ==="<script>") {  let data_1 = data.slice(8, -9); eval(data_1) ; return  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  }
@@ -140,7 +140,7 @@ $(document).ready(function(){
 
         try { Table_hieu_2.remove_EventListener(); } catch (error) { }
         ReactDOM.unmountComponentAtNode(id_nhan); 
-			$.post("fuction_danh_sach_heo__from_xem_danh_sach_dan_nai_duc.php", { post1:$("#id_xem_danh_sach_6").text(), post8:id_8.value }, function(data){
+			$.post("fuction_danh_sach_heo__from_xem_danh_sach_dan_nai_duc.php", { post1:id_xem_danh_sach_6.textContent, post8:id_8.value }, function(data){
                
                
   data = data.trim(); if (data.slice(0, 8) ==="<script>") {  let data_1 = data.slice(8, -9); eval(data_1) ; return  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  }
@@ -165,7 +165,7 @@ $(document).ready(function(){
 
         try { Table_hieu_2.remove_EventListener(); } catch (error) { }
         ReactDOM.unmountComponentAtNode(id_nhan); 
-			$.post("fuction_danh_sach_heo__from_xem_danh_sach_dan_nai_duc.php", { post1:$("#id_xem_danh_sach_7").text(), post8:id_8.value }, function(data){
+			$.post("fuction_danh_sach_heo__from_xem_danh_sach_dan_nai_duc.php", { post1:id_xem_danh_sach_7.textContent, post8:id_8.value }, function(data){
                
                
   data = data.trim(); if (data.slice(0, 8) ==="<script>") {  let data_1 = data.slice(8, -9); eval(data_1) ; return  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  }
@@ -189,7 +189,7 @@ $(document).ready(function(){
         try { Table_hieu_2.remove_EventListener(); } catch (error) { }
         ReactDOM.unmountComponentAtNode(id_nhan); 
 	
-			$.post("fuction_danh_sach_heo__from_xem_danh_sach_dan_nai_duc.php", { post1:$("#id_xem_danh_sach_8").text(), post8:id_8.value }, function(data){
+			$.post("fuction_danh_sach_heo__from_xem_danh_sach_dan_nai_duc.php", { post1:id_xem_danh_sach_8.textContent, post8:id_8.value }, function(data){
              
              
   data = data.trim(); if (data.slice(0, 8) ==="<script>") {  let data_1 = data.slice(8, -9); eval(data_1) ; return  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  }
@@ -213,7 +213,7 @@ $(document).ready(function(){
 
 	    try { Table_hieu_2.remove_EventListener(); } catch (error) { }
         ReactDOM.unmountComponentAtNode(id_nhan); 
-			$.post("fuction_danh_sach_heo__from_xem_danh_sach_dan_nai_duc.php", { post1:$("#id_xem_danh_sach_9").text(), post8:id_8.value }, function(data){
+			$.post("fuction_danh_sach_heo__from_xem_danh_sach_dan_nai_duc.php", { post1:id_xem_danh_sach_9.textContent, post8:id_8.value }, function(data){
             
             
   data = data.trim(); if (data.slice(0, 8) ==="<script>") {  let data_1 = data.slice(8, -9); eval(data_1) ; return  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  }
@@ -237,7 +237,7 @@ $(document).ready(function(){
 
 	    try { Table_hieu_2.remove_EventListener(); } catch (error) { }
         ReactDOM.unmountComponentAtNode(id_nhan); 
-			$.post("fuction_danh_sach_heo__from_xem_danh_sach_dan_nai_duc.php", { post1:$("#id_xem_danh_sach_10").text(), post8:id_8.value }, function(data){
+			$.post("fuction_danh_sach_heo__from_xem_danh_sach_dan_nai_duc.php", { post1:id_xem_danh_sach_10.textContent, post8:id_8.value }, function(data){
               
               
   data = data.trim(); if (data.slice(0, 8) ==="<script>") {  let data_1 = data.slice(8, -9); eval(data_1) ; return  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  }
@@ -262,7 +262,7 @@ $(document).ready(function(){
 
         try { Table_hieu_2.remove_EventListener(); } catch (error) { }
         ReactDOM.unmountComponentAtNode(id_nhan); 
-			$.post("fuction_danh_sach_heo__from_xem_danh_sach_dan_nai_duc.php", { post1:$("#id_xem_danh_sach_11").text(), post8:id_8.value }, function(data){
+			$.post("fuction_danh_sach_heo__from_xem_danh_sach_dan_nai_duc.php", { post1:id_xem_danh_sach_11.textContent, post8:id_8.value }, function(data){
                 
               
   data = data.trim(); if (data.slice(0, 8) ==="<script>") {  let data_1 = data.slice(8, -9); eval(data_1) ; return  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  }

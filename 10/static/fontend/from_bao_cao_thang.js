@@ -7,7 +7,7 @@ function from_bao_cao_thang(props) {
     function bao_cao_thang(){
         id_gui.style.color = "blue";
         id_gui_1.style.color = "black";
-        try { Table_hieu_2.remove_EventListener(); } catch (error) { }
+        try { Table_nguoc.remove_EventListener(); } catch (error) { }
         ReactDOM.unmountComponentAtNode(id_nhan);  
        
            $.post(gobal_post_month,  {post1:id_year.children[0].value  , post8:id_8.value}, function(data){
@@ -20,11 +20,12 @@ function from_bao_cao_thang(props) {
                 let arrayjavascript  = JSON.parse(data);
 
             // mặc định undefined là convert row to col
+                // convert_row_to_col dùng cho Table_hieu_2
             let convert_row_to_col ;
         
             if (gobal_post_month === "fuction_thang--from_theo_doi_ty_le_phoi.php") { convert_row_to_col = false } 
             
-            ReactDOM.render(React.createElement(Table_hieu_2,  { value: { data : arrayjavascript , width:width_table , height :height_table , convert : convert_row_to_col  }}), document.getElementById('id_nhan'));
+            ReactDOM.render(React.createElement(Table,  { value: { data : arrayjavascript , width:width_table , height :height_table , convert : convert_row_to_col  }}), document.getElementById('id_nhan'));
            
                 
             }
@@ -40,7 +41,7 @@ function from_bao_cao_thang(props) {
        $("#id_gui_1").click(function(){
         id_gui_1.style.color = "blue";
         id_gui.style.color = "black";
-        try { Table_hieu_2.remove_EventListener(); } catch (error) { }
+        try { Table.remove_EventListener(); } catch (error) { }
         ReactDOM.unmountComponentAtNode(id_nhan);  
 
            $.post(gobal_post, {post1:id_year.children[0].value  , post8:id_8.value}, function(data){
@@ -55,9 +56,10 @@ function from_bao_cao_thang(props) {
             let arrayjavascript  = JSON.parse(data);
 
             // mặc định undefined là convert row to col
+            // convert_row_to_col dùng cho Table_hieu_2
             let convert_row_to_col ;
             if (gobal_post === "fuction_tuan--from_theo_doi_ty_le_phoi.php") { convert_row_to_col = false } 
-            ReactDOM.render(React.createElement(Table_hieu_2,  { value: { data : arrayjavascript , width:width_table , height :height_table , convert : convert_row_to_col  }}), document.getElementById('id_nhan'));
+            ReactDOM.render(React.createElement(Table,  { value: { data : arrayjavascript , width:width_table , height :height_table , convert : convert_row_to_col  }}), document.getElementById('id_nhan'));
        
             }
            
