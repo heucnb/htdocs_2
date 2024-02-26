@@ -83,7 +83,7 @@ finally:
 
         wb = xl.Workbooks('1.xlsm')
         ws = wb.Worksheets('thit_dien_bien')
-        cell_end = str(ws.Range('AA1'))
+        cell_end = str(ws.Range('AB1'))
         
         # trả về giá trị đã tính toán từ file excel
         return str(ws.Range(cell_end))
