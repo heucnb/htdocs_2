@@ -36,7 +36,7 @@ function App(props) {
 <div  className={` flex flex-row  grow bg-orange-200  _shadow `} >
 
 
-            <div id="id_menu"  className={`  flex-shrink-0 w-[180px] h-full `}  >
+            <div id="id_menu"  className={`  flex-shrink-0 w-[210px] h-full `}  >
                 <div id="id_td_0" className={` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `}  onClick={(event)=>{ remove_color_click('id_menu'); event.target.style.color =  "blue"; }} >Đăng ký</div>
 
                 <div id="id_td_1"  className={` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `} onClick={(event)=>{ remove_color_click('id_menu'); event.target.style.color =  "blue"; }} >Đăng nhập</div>
@@ -57,20 +57,21 @@ function App(props) {
 
                 <div id="id_td_8" className={` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `} onClick={(event)=>{ remove_color_click('id_menu'); event.target.style.color =  "blue"; }} >Heo Đực</div>
 
-                <div id="id_td_9" className={` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `} onClick={(event)=>{ remove_color_click('id_menu'); event.target.style.color =  "blue"; }} >Báo cáo tỷ lệ phối</div>
+                <div id="id_td_9" className={` pl-1 hover:bg-gray-200 hover:bg-opacity-50 flex flex-nowrap 	text-align: center`} onClick={(event)=>{ remove_color_click('id_menu'); event.target.style.color =  "blue"; }} >  <img className={` w-5 h-5 justify-center items-center`} src = "10/static/SVG/calculator-svgrepo-com.svg"   />
+               Báo cáo tỷ lệ phối</div>
 
-                <div id="id_td_10" className={` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `} onClick={(event)=>{ remove_color_click('id_menu'); event.target.style.color =  "blue"; }} >Báo cáo tháng</div>
+                <div id="id_td_10" className={` pl-1 hover:bg-gray-200 hover:bg-opacity-50 flex flex-nowrap 	text-align: center`} onClick={(event)=>{ remove_color_click('id_menu'); event.target.style.color =  "blue"; }} > <img className={` w-5 h-5 justify-center items-center `} src = "10/static/SVG/calculator-svgrepo-com.svg"   />Báo cáo tháng</div>
 
-                <div id="id_td_12"  className={` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `} onClick={(event)=>{ remove_color_click('id_menu'); event.target.style.color =  "blue"; }} >Báo cáo 41 chỉ tiêu</div>
+                <div id="id_td_12"  className={` pl-1 hover:bg-gray-200 hover:bg-opacity-50 flex flex-nowrap 	text-align: center`} onClick={(event)=>{ remove_color_click('id_menu'); event.target.style.color =  "blue"; }} > <img className={`w-5 h-5 justify-center items-center `} src = "10/static/SVG/calculator-svgrepo-com.svg"   />Báo cáo 41 chỉ tiêu</div>
 
                 <div  id="id_td_14" className={` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `} onClick={(event)=>{ remove_color_click('id_menu'); event.target.style.color =  "blue"; }} >Tra lý lịch</div>
 
-                <div  id="id_td_15" className={` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `} onClick={(event)=>{ remove_color_click('id_menu'); event.target.style.color =  "blue"; }}>Chọn đực phối tránh cận huyết</div>
+                <div  id="id_td_15" className={` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `} onClick={(event)=>{ remove_color_click('id_menu'); event.target.style.color =  "blue"; }}>Ghép phối tránh cận huyết</div>
 
                 <div  id="id_td_16" className={` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `} onClick={(event)=>{ remove_color_click('id_menu'); event.target.style.color =  "blue"; }} >Xem danh sách đàn heo</div>
 
-                <div  id="id_td_17" className={` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `} onClick={(event)=>{ remove_color_click('id_menu'); event.target.style.color =  "blue"; }}>Báo cáo đóng chuồng heo thịt</div>
-                <div  id="id_td_18" className={` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `} onClick={(event)=>{ remove_color_click('id_menu'); event.target.style.color =  "blue"; }}>Báo cáo diễn biến đàn heo thịt</div>
+                <div  id="id_td_17" className={` pl-1 hover:bg-gray-200 hover:bg-opacity-50  flex flex-nowrap 	text-align: center`} onClick={(event)=>{ remove_color_click('id_menu'); event.target.style.color =  "blue"; }}> <img className={` w-5 h-5 justify-center items-center `} src = "10/static/SVG/calculator-svgrepo-com.svg"   />BC đóng chuồng heo thịt</div>
+                <div  id="id_td_18" className={` pl-1 hover:bg-gray-200 hover:bg-opacity-50 flex flex-nowrap 	text-align: center`} onClick={(event)=>{ remove_color_click('id_menu'); event.target.style.color =  "blue"; }}> <img className={` w-5 h-5 justify-center items-center`} src = "10/static/SVG/calculator-svgrepo-com.svg"   />BC diễn biến đàn heo thịt</div>
                 <div  id="id_td_19" className={` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `} onClick={(event)=>{ remove_color_click('id_menu'); event.target.style.color =  "blue"; }}>Cấu hình chuồng</div>
                 <div  id="id_td_23" className={` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `} onClick={(event)=>{ remove_color_click('id_menu'); event.target.style.color =  "blue"; }}>Cấu hình kho Cám</div>
                 <div  id="id_td_24" className={` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `} onClick={(event)=>{ remove_color_click('id_menu'); event.target.style.color =  "blue"; }}>Cấu hình kho Thuốc</div>

@@ -42,7 +42,7 @@ $result_22 = mysqli_query($conn, $sql_22);
 $total_id_server = mysqli_fetch_row($result_22)[0] ;
 
 if ($total_id != $total_id_server) {
-	echo "Cấu hình kho cám đã được cập nhật mới bởi Admin rồi. Bạn tải lại trang web để nhận danh sách  mới";
+	echo "Cấu hình kho  '".$kho."'  đã được cập nhật mới bởi Admin rồi. Bạn tải lại trang web để nhận danh sách  mới";
 exit() ;
 } 
 
@@ -56,7 +56,7 @@ $result_20 = mysqli_query($conn, $sql_20);
 $count_id = mysqli_fetch_row($result_20)[0] ;
 
 if ($count_id == 0) {
-	echo "Cấu hình kho cám đã được cập nhật mới bởi Admin rồi. Bạn tải lại trang web để nhận danh sách  mới";
+	echo "Cấu hình kho  '".$kho."'  đã được cập nhật mới bởi Admin rồi. Bạn tải lại trang web để nhận danh sách  mới";
 exit() ;
 } 
 
@@ -97,7 +97,7 @@ $result_22 = mysqli_query($conn, $sql_22);
 $total_id_server = mysqli_fetch_row($result_22)[0] ;
 
 if ($total_id != $total_id_server) {
-	echo "Cấu hình kho cám đã được cập nhật mới bởi Admin rồi. Bạn tải lại trang web để nhận danh sách  mới";
+	echo "Cấu hình kho  '".$kho."'  đã được cập nhật mới bởi Admin rồi. Bạn tải lại trang web để nhận danh sách  mới";
 exit() ;
 } 
 
@@ -110,7 +110,7 @@ $result_21 = mysqli_query($conn, $sql_21);
 $count_id = mysqli_fetch_row($result_21)[0] ;
 
 if ($count_id == 0) {
-	echo "Cấu hình kho cám đã được cập nhật mới bởi Admin rồi. Bạn tải lại trang web để nhận danh sách  mới";
+	echo "Cấu hình kho  '".$kho."'  đã được cập nhật mới bởi Admin rồi. Bạn tải lại trang web để nhận danh sách  mới";
 exit() ;
 } 
 
@@ -204,7 +204,7 @@ $result_22 = mysqli_query($conn, $sql_22);
 $total_id_server = mysqli_fetch_row($result_22)[0] ;
 
 if ($total_id != $total_id_server) {
-	echo "Cấu hình kho cám đã được cập nhật mới bởi Admin rồi. Bạn tải lại trang web để nhận danh sách  mới";
+	echo "Cấu hình kho  '".$kho."'  đã được cập nhật mới bởi Admin rồi. Bạn tải lại trang web để nhận danh sách  mới";
 exit() ;
 } 
 
@@ -285,7 +285,7 @@ $result_22 = mysqli_query($conn, $sql_22);
 $total_id_server = mysqli_fetch_row($result_22)[0] ;
 
 if ($total_id != $total_id_server) {
-	echo "Cấu hình kho cám đã được cập nhật mới bởi Admin rồi. Bạn tải lại trang web để nhận danh sách  mới";
+	echo "Cấu hình kho  '".$kho."'  đã được cập nhật mới bởi Admin rồi. Bạn tải lại trang web để nhận danh sách  mới";
 exit() ;
 } 
 

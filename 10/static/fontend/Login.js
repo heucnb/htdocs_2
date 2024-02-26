@@ -18,13 +18,17 @@ function Login() {
  
   localStorage.setItem('chuong', JSON.stringify(array_data_login[0][20]) );
   localStorage.setItem('kho', JSON.stringify(array_data_login[0][21]) );
+  localStorage.setItem('kho_thuoc', JSON.stringify(array_data_login[0][22]) );
 
     //tải cáu hình chuòng thịt cho công ty
     array_chuong_thit = array_data_login[0][20] ;
     //tải cáu hình kho cám cho công ty
     array_kho_cam = array_data_login[0][21] ;   
 
- 
+   //tải cáu hình kho thuốc cho công ty
+   array_kho_thuoc = arrayjavascript_3[0][22] ;   
+
+
   arrayjavascript_3 = array_data_login ; 
 console.log(arrayjavascript_3);
      // This will return an array with strings "1", "2", etc.

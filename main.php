@@ -43,13 +43,20 @@ for ($x = 0; $x < $count_2; $x++) {
     }
 
 
+	// lấy cấu hình kho thuốc
+    $sql_4 = "SELECT setup_kho.id, setup_kho.id_ten, setup_kho.ten, setup_kho.don_vi_tinh, setup_kho.nha_cung_cap , setup_kho.ghi_chu  , setup_kho.kho   FROM `setup_kho` WHERE setup_kho.cong_ty ='".$cong_ty."' and setup_kho.kho = 'Thuốc' ";
+    $result_4 = mysqli_query($conn, $sql_4);
+    $count_4 = mysqli_num_rows($result_4);	
+    $arraymysql_4 = [["id","Mã sản phẩm", "Tên sản phẩm", "Đơn vị tính", "Nhà cung cấp", "Ghi chú" , "Loại sản phẩm"]];
+    for ($x = 1; $x < $count_4+1; $x++) {
+        $arraymysql_4[$x] = mysqli_fetch_row($result_4) ;
+    }
 
 
+    $arraymysql[0][20] = $arraymysql_2 ;
+    $arraymysql[0][21] = $arraymysql_3 ;
+    $arraymysql[0][22] = $arraymysql_4 ;
 
-
- 
-$arraymysql[0][20] = $arraymysql_2 ;
-$arraymysql[0][21] = $arraymysql_3 ;
 
 
 $string_data = str_ireplace("|_|","'",json_encode($arraymysql)) ;

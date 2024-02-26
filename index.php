@@ -242,6 +242,7 @@ window.onload = function()
   
   localStorage.setItem('chuong', JSON.stringify(arrayjavascript_3[0][20]) );
   localStorage.setItem('kho', JSON.stringify(arrayjavascript_3[0][21]) );
+  localStorage.setItem('kho_thuoc', JSON.stringify(arrayjavascript_3[0][22] ) );  
 
         if(arrayjavascript_3[0]!=="error")
         {
@@ -253,8 +254,11 @@ window.onload = function()
 
          //tải cáu hình kho cám cho công ty
         array_kho_cam = arrayjavascript_3[0][21] ;   
+            //tải cáu hình kho thuốc cho công ty
+            array_kho_thuoc = arrayjavascript_3[0][22] ;   
 
-
+             
+           
       //------------------------------------------------------
       
      
@@ -973,6 +977,46 @@ window.onload = function()
             
         }
     
+
+
+         // Cấu hình kho thuốc
+         id_td_24.onclick = function () {
+            
+            if(document.getElementById('id_td_1').innerHTML=="Đăng nhập")
+                {
+                    ReactDOM.unmountComponentAtNode(id_nhan_index); 
+                    _alert('Bạn phải đăng nhập trước đã')
+                }
+                else
+                {
+    
+                    var dem_string = id_8.value;	
+                    let check = dem_string.includes("td_");
+                
+                    if (
+                    check ||
+                    id_8.value == null || id_8.value == ""
+                        ) 
+                    {
+                    ReactDOM.unmountComponentAtNode(id_nhan_index);   
+                    return     _alert('Bạn phải chọn công ty để nhập dữ liệu hoặc lỗi chọn công ty có chứa *') 
+                    }
+
+                    array_kho_thuoc = JSON.parse(localStorage.getItem("kho_thuoc"))  ; 
+                 
+                 console.log(array_kho_thuoc);
+    
+                    ReactDOM.unmountComponentAtNode(id_nhan_index); 
+                    ReactDOM.unmountComponentAtNode(id_td_22_con); 
+                    let width_table = document.getElementById('id_nhan_index').getBoundingClientRect().width ;
+                    let height_table = document.getElementById('id_nhan_index').getBoundingClientRect().height ;
+                    ReactDOM.render( /*#__PURE__*/React.createElement(Table_kho_thuoc, { value: { data: array_kho_thuoc   , width:width_table , height :height_table } }), id_nhan_index);
+                        id_click = id_td_24 ;
+        
+                }
+                 
+            
+        }
      
         
         /*Quản lý user*/
