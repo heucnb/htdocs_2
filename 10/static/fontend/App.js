@@ -56,6 +56,8 @@ function App(props) {
                 <div id="id_td_7" className={` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `} onClick={(event)=>{ remove_color_click('id_menu'); event.target.style.color =  "blue"; }} >Heo Hậu bị</div>
 
                 <div id="id_td_8" className={` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `} onClick={(event)=>{ remove_color_click('id_menu'); event.target.style.color =  "blue"; }} >Heo Đực</div>
+               
+                <div id="id_td_25" className={` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `} onClick={(event)=>{ remove_color_click('id_menu'); event.target.style.color =  "blue"; }} >Xuất heo con</div>
 
                 <div id="id_td_9" className={` pl-1 hover:bg-gray-200 hover:bg-opacity-50 flex flex-nowrap 	text-align: center`} onClick={(event)=>{ remove_color_click('id_menu'); event.target.style.color =  "blue"; }} >  <img className={` w-5 h-5 justify-center items-center`} src = "10/static/SVG/calculator-svgrepo-com.svg"   />
                Báo cáo tỷ lệ phối</div>

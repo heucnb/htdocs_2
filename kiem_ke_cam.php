@@ -36,7 +36,8 @@ if ( $su_kien == "kiểm kê nhập cám" ) {
 
 $sql_2 =  "SELECT 
 'Xoá',
-data_thit.ngay,
+DATE_FORMAT(data_thit.ngay, '%d/%m/%Y')  ,
+
 data_thit.id,
 data_thit.ten_sp_kho,
 data_thit.ma_chung_tu_nhap_kho,
@@ -102,7 +103,7 @@ if ( $su_kien == "kiểm kê xuất cám" ) {
 
 $sql_2 =  "SELECT 
 'Xoá',
-data_thit.ngay,
+DATE_FORMAT(data_thit.ngay, '%d/%m/%Y')  ,
 data_thit.id,
 
   data_thit.trai, 
@@ -122,7 +123,7 @@ data_thit.cong_ty = '".$trai."'
  data_thit.kho = '".$kho."'
  and
  data_thit.ngay >= '".$ngay."' And
- data_thit.ngay < '".$ngay_kt."'
+ data_thit.ngay <= '".$ngay_kt."'
 
 
  ORDER BY data_thit.ngay  ASC

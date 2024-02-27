@@ -181,7 +181,7 @@ $.post = function (url,obj, function_run) {
                             //    không làm gì tiép tục  hr.onload 
 
                                 } else {
-                                    
+
                                     _alert(hr.statusText)
 
                                 console.log("Error", hr.statusText);
@@ -629,7 +629,42 @@ window.onload = function()
         }
         
       
-        
+          /* xuất heo con */
+
+          id_td_25.onclick = function () {
+            
+            if(document.getElementById('id_td_1').innerHTML=="Đăng nhập")
+            {
+                ReactDOM.unmountComponentAtNode(id_nhan_index); 
+                _alert('Bạn phải đăng nhập trước đã')
+            }
+            else
+            {
+                
+                var dem_string = id_8.value;	
+                let check = dem_string.includes("td_");
+              
+                if (
+                    check ||
+                id_8.value == null || id_8.value == ""
+                    ) 
+                {
+                    ReactDOM.unmountComponentAtNode(id_nhan_index); 
+                return    _alert('Bạn phải chọn công ty để nhập dữ liệu hoặc lỗi chọn công ty có chứa *') 
+                }
+               
+                ReactDOM.unmountComponentAtNode(id_nhan_index);
+                ReactDOM.unmountComponentAtNode(id_td_22_con); 
+                ReactDOM.render(React.createElement(Xuat_heo, null), id_nhan_index);
+              
+                id_click = id_td_25 ;
+            
+
+            }
+            
+            
+        }
+    
         
         /*báo cáo tháng*/
         id_td_10.onclick = function () {
