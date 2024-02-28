@@ -1,7 +1,4 @@
 
-<script>
-
-
 <?php
 include "setup/fuction_ket_noi_csdl.php";
 
@@ -28,48 +25,11 @@ $sql_3 = "UPDATE login SET
 
 WHERE `trai`='".$trai."' 
 ";
-$result_3 = mysqli_query($conn, $sql_3);	
-// láy dữ liệu lên
-$sql = "select `khoa_ngay_sua_du_lieu`,`trai_day_du` from login where `trai`='".$trai."' limit 1 ";
-$result = mysqli_query($conn, $sql);
-$cout = mysqli_num_rows($result);	
-$arraymysql = [];
- $arraymysql[0] =[
-"Số ngày khóa cũ",
-"Công ty áp dụng"
-];
-for ($x = 1; $x < $cout + 1; $x++) {
-    $arraymysql[$x] = mysqli_fetch_row($result) ;
-  }
- 
-  
-a:   
-    
-    
 
+$result = mysqli_query($conn, $sql_3);
 
+echo 'ok' ;
 
 
 
 ?>
-
-document.getElementById('table1').innerHTML = "";
-
- var arrayjavascript = <?php
-include "setup/fuction_ket_noi_csdl.php"; echo str_ireplace("|_|","'",json_encode($arraymysql));	?>
-var countjavascript = arrayjavascript.length ;	
- 
-    for(var r=0;r<countjavascript;r++)
-  {
-   var x= document.getElementById('table1').insertRow(r);
-    
-   for(var c=0;c<2;c++)  
-    {
-     x.insertCell(c);
-	   document.getElementById('table1').rows[r].cells[c].innerHTML =arrayjavascript[r][c]; 
-    }
-	
-   } 
-   
-   
-   </script>

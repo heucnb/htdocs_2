@@ -78,7 +78,7 @@ if($cout==1)
 		
 
 // Generate token
-$token = Token::Sign(['username' => $username_post ,'password' => $password_post , 'trai'=> $arraymysql[0][2] , 'trai_day_du'=> $arraymysql[0][3] ] ,  $KEY , (60*10) );
+$token = Token::Sign(['username' => $username_post ,'password' => $password_post , 'trai'=> $arraymysql[0][2] , 'trai_day_du'=> $arraymysql[0][3] , 'duoc_quyen_them_user'=> $arraymysql[0][4]  , 'khoa_ngay_sua_du_lieu'=> $arraymysql[0][5]  ] ,   $KEY , (60*10) );
 @ setcookie("token_cookie",$token, time() + (86400 * 5), "/");
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------lưu cấu hình chuồng vào localstroge browser client

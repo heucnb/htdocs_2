@@ -7,7 +7,7 @@ $password_post=safeSQL($_POST["post2"]);
 $trai=safeSQL($_POST["post8"]);
 include "setup/check_token_and_post.php";
 $ten_trai_day_du=safeSQL($_POST["post9"]);
-$chuong=safeSQL($_POST["post10"]);	
+
 
 header("Content-type: text/html; charset=utf-8"); // thêm tiếng việt mới lấy được câu lệnh sql đã chạy
 // Create connection
@@ -41,15 +41,15 @@ if($cout_1==1)
             `password`, 
             `trai`,
             `trai_day_du`, 
-            `duoc_quyen_them_user`,
-            `chuong`
+            `duoc_quyen_them_user`
+        
             )VALUES (
               '".$username_post."', 
               '".$password_post."', 
               '".$trai."', 
               '".$ten_trai_day_du."', 
-            0, 
-              '".$chuong."'
+            0
+          
 
               )";
 
@@ -65,15 +65,15 @@ if($cout_1==1)
             `password`, 
             `trai`,
             `trai_day_du`, 
-            `duoc_quyen_them_user`,
-            `chuong`
+            `duoc_quyen_them_user`
+      
             )VALUES (
               '".$username_post."', 
               '".$password_post."', 
               '".$payload[1]['trai']."', 
               '".$payload[1]['trai_day_du']."', 
-            0, 
-              '".$chuong."'
+            0
+    
 
               )";
 
@@ -106,9 +106,12 @@ for ($x = 1; $x < $cout + 1; $x++) {
   }
 
 
+
+  echo str_ireplace("|_|","'",json_encode($arraymysql));
+
  
     }
 
-    echo str_ireplace("|_|","'",json_encode($arraymysql));
+  
 
 ?>

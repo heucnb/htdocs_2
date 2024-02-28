@@ -1156,7 +1156,18 @@ window.onload = function()
              
     
             $.post("from_khoa_ngay_nhap_du_lieu.php", {post8:id_8.value }, function(data){
-                    $("#id_nhan_index").html(data);	});	
+
+                ReactDOM.unmountComponentAtNode(id_nhan_index); 
+                    ReactDOM.unmountComponentAtNode(id_td_22_con); 
+                    let width_table = document.getElementById('id_nhan_index').getBoundingClientRect().width ;
+                    let height_table = document.getElementById('id_nhan_index').getBoundingClientRect().height ;
+                    ReactDOM.render( /*#__PURE__*/React.createElement(Khoa_du_lieu, { value: { data: JSON.parse(data)   , width:width_table , height :height_table } }), id_nhan_index);
+                        id_click = id_khoa_ngay_nhap_du_lieu ;
+        
+                
+                
+                
+                });	
             }
                 
                
