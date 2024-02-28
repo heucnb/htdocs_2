@@ -30,10 +30,10 @@ body{
 
 
 input {
- width: 180px;  
+ width: 220px;  
 }
 button {
- width: 180px;  
+ width: 220px;  
 }
 
 

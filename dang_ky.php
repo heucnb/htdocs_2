@@ -75,10 +75,7 @@ $value_bat_dau =mysqli_fetch_row($result)[0] ;
 
   }
   
-   
- $chuong_default = '[["'.$ten_cong_ty.'", [  ["Cai Sữa 1", "Cai Sữa 2", "Cai Sữa 3", "Cai Sữa 4", "Cai Sữa 5", "Cai Sữa 6"], ["Thịt 1", "Thịt 2", "Thịt 3", "Thịt 4", "Thịt 5", "Thịt 6"] ] ] , ["Chi nhánh 1", [ ["Thịt 1", "Thịt 2", "Thịt 3", "Thịt 4", "Thịt 5", "Thịt 6"], ["Thịt 7", "Thịt 8", "Thịt 9", "Thịt 10", "", ""] ] ]]' ;
-
-   
+ 
 
 $sql_2 =  "INSERT INTO
 `login` 
@@ -87,14 +84,14 @@ $sql_2 =  "INSERT INTO
 `trai`,
 `trai_day_du`, 
 `duoc_quyen_them_user`,
-`chuong`
+`khoa_ngay_sua_du_lieu`
 )VALUES (
   '".$username_post."', 
   '".$password_post."', 
   '".$value_cong_ty."', 
   '".$ten_cong_ty."', 
  1, 
-  '".$chuong_default."'
+  '9999'
 
   )";
 
@@ -102,7 +99,51 @@ $sql_2 =  "INSERT INTO
 
 $result_2 = mysqli_query($conn, $sql_2);
 
+
+$sql_3 =  "INSERT INTO setup_chuong
+(setup_chuong.cong_ty,setup_chuong.chi_nhanh,setup_chuong.chuong)
+VALUES
+  ( '".$value_cong_ty."','Chi nhánh 1','Thịt 1'),
+( '".$value_cong_ty."','Chi nhánh 1','Thịt 2'),
+( '".$value_cong_ty."','Chi nhánh 1','Thịt 3'),
+( '".$value_cong_ty."','Chi nhánh 1','Thịt 4'),
+( '".$value_cong_ty."','Chi nhánh 1','Thịt 5'),
+( '".$value_cong_ty."','Chi nhánh 1','Thịt 6'),
+( '".$value_cong_ty."','Chi nhánh 2','Thịt 1'),
+( '".$value_cong_ty."','Chi nhánh 2','Thịt 2'),
+( '".$value_cong_ty."','Chi nhánh 2','Thịt 3'),
+( '".$value_cong_ty."','Chi nhánh 2','Thịt 4'),
+( '".$value_cong_ty."','Chi nhánh 2','Thịt 5'),
+( '".$value_cong_ty."','Chi nhánh 2','Thịt 6')
+
+";
+
+
+
+$result_3 = mysqli_query($conn, $sql_3);
+
+$sql_4 =  "INSERT INTO setup_kho
+(setup_kho.cong_ty,
+setup_kho.kho,
+setup_kho.id_ten,
+setup_kho.ten,
+setup_kho.don_vi_tinh,
+setup_kho.nha_cung_cap
+)
+VALUES
+(".$value_cong_ty.", 'Cám', 'C11', 'TAHH 11', 'Kg', 'Dabaco' ),
+(".$value_cong_ty.", 'Thuốc', 'T0001', 'Amox 15% tiêm - 100ml', 'Chai', 'Thái Dương' )
+";
+
+
+
+$result_4 = mysqli_query($conn, $sql_4);
+
+
 setcookie("token_cookie","", time() - 3600, "/");	
+
+
+
 echo 'ok';
 
 

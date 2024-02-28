@@ -203,10 +203,12 @@ $result_22 = mysqli_query($conn, $sql_22);
 
 $total_id_server = mysqli_fetch_row($result_22)[0] ;
 
-if ($total_id != $total_id_server) {
+if ($total_id != $total_id_server && $total_id_server != NULL && $total_id != 0 ) {
 	echo "Cấu hình kho  '".$kho."'  đã được cập nhật mới bởi Admin rồi. Bạn tải lại trang web để nhận danh sách  mới";
 exit() ;
 } 
+
+
 
 	// nếu tên sản phẩm này có rồi thì dừng lại thông báo lỗi
 	

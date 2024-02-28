@@ -1,21 +1,18 @@
 function Heo_con_chet() {
-    let arrayjavascript_so_tai ;
-    function handleChange(event) {
-      var gia_tri_tim = event.target.value ;	
-  
-      let new_array = [] ;
-       for (let index = 0 , len = arrayjavascript_so_tai.length ; index < len ; index++) { 
-       
-        if (arrayjavascript_so_tai[index][0].includes(gia_tri_tim.toUpperCase())) {
-          new_array.push(arrayjavascript_so_tai[index][0])
-        }
-  
-        }
-        ReactDOM.unmountComponentAtNode(document.getElementById('id_tim_1')); 
-     ReactDOM.render(<Input_find value={{data :  new_array , dom_1 : document.getElementById('id_1'), dom_2 : document.getElementById('id_2'),dom_3 : document.getElementById('id_tim_1') }} /> 
-             ,document.getElementById('id_tim_1'));
+    let arrayjavascript_so_tai =[
+      [
+          "Số tai",
+          "Tuần phối",
+          "Ngày đẻ"
+      ],
+      [
+          "HN63",
+          "6",
+          "10/02/2020"
      
-      }
+      ]
+  ] ;
+
 
 
     useEffect(() => {  
@@ -23,7 +20,12 @@ function Heo_con_chet() {
           
   data = data.trim(); if (data.slice(0, 8) ==="<script>") {  let data_1 = data.slice(8, -9); eval(data_1) ; return  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  }
 
-          arrayjavascript_so_tai =JSON.parse(data) ; });
+console.log(JSON.parse(data));
+
+          arrayjavascript_so_tai =JSON.parse(data) ; 
+        
+        
+        });
         
 $(document).ready(function(){
 $("#id_gui").click(function(){
@@ -34,8 +36,8 @@ $("#id_gui").click(function(){
   {return _alert("Mã thẻ tai không được để trống, hoặc chứa khoảng trắng")   }	
 
 
-    if (isNaN(Number($("#id_3").val())) || $("#id_3").val() < 0 || $("#id_3").val() > 50 || $("#id_3").val() == null || $("#id_3").val() == "" )
-	{return _alert("Số heo con chết  phải định dạng số từ 0-50 và không được để trống")   }
+    if (isNaN(Number($("#id_3").val())) || $("#id_3").val() < 0 ||  $("#id_3").val() == null || $("#id_3").val() == "" )
+	{return _alert("Số heo con chết  phải định dạng số và không được để trống")   }
 	
 	    
 	    
@@ -101,52 +103,6 @@ $("#id_gui_research").click(function(){
 });
 
 
-     
-
-/* phím enter */
-$(document).ready(function(){
-    $('#id_1').keypress(function(){
-    var x = event.keyCode;
-  if (x == 13) {
-	 
-    document.getElementById("id_2").focus();
-  }
-    });
-});
- //-------------------------------------------------------
- id_1.onblur   = function () {
-  ReactDOM.unmountComponentAtNode(document.getElementById('id_tim_1')); 
-}
- //--------------------------------------------------------------
-
-$(document).ready(function(){
-    $('#id_2').keypress(function(){
-    var x = event.keyCode;
-  if (x == 13) {
-    document.getElementById("id_3").focus();
-  }
-    });
-});
-
-$(document).ready(function(){
-    $('#id_3').keypress(function(){
-    var x = event.keyCode;
-  if (x == 13) {
-    document.getElementById("id_4").focus();
-  }
-    });
-});
- 
-$(document).ready(function(){
-    $('#id_4').keypress(function(event ){
-	 event.preventDefault();	
-    var x = event.keyCode;
-  if (x == 13) {
-    document.getElementById("id_gui").focus();
-  }
-    });
-});
-
 
 
       
@@ -160,8 +116,11 @@ $(document).ready(function(){
   <div className={`shrink-0 ml-2 `} >
   
   <div> Mã thẻ tai :  </div>
-  <input  id="id_1" className={`  border border-sky-500 `} onChange={handleChange}   />
-  <div  id="id_tim_1"  type="text" ></div>
+  {
+       combobox_2("id_10", arrayjavascript_so_tai )        
+   }
+
+ 
   <div> Ngày heo con chết: </div>
   <input id="id_2" type="date"  className={`  border border-sky-500 `}    /> 
   <div> Số con chết: </div>

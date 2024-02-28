@@ -18,12 +18,20 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 
  // sql lấy dữ liệu
 	$sql_4_1 = "
-SELECT `so tai`  FROM `sheet1` WHERE `lan phoi` = 1 AND `ngay ban loai chet` IS NULL AND `trai` = '".$trai."'
-			 ";
+	SELECT `so tai`,WEEK(sheet1.`ngay phoi`,2) , DATE_FORMAT(sheet1.`ngay phoi`, '%d/%m/%Y') FROM `sheet1` WHERE  `ngay ban loai chet` IS NULL AND `trai` = '".$trai."' and sheet1.`ngay de` is not null and sheet1.`ngay cai` IS NULL
+		 ";
 $result_4_1 = mysqli_query($conn, $sql_4_1);
 $cout_4_1 = mysqli_num_rows($result_4_1);
 $arraymysql_4_1 = [];
-for ($x = 0; $x < $cout_4_1; $x++) {
+$arraymysql_4_1[0] = ["Số tai",
+
+"Tuần phối",
+"Ngày đẻ"
+
+
+
+];
+for ($x = 1; $x < $cout_4_1; $x++) {
     $arraymysql_4_1[$x] = mysqli_fetch_row($result_4_1) ;
   } 
  

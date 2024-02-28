@@ -589,12 +589,8 @@ function change_name(event) {
 
           
 
-                  
-
-
-
-
-          let len = data_2d.length;
+          try {
+            let len = data_2d.length;
           // ẩn cột id
           for (let index = 0 ; index < len ; index++) {  
           
@@ -605,6 +601,16 @@ function change_name(event) {
            }
 
            id_table.children[1].children[1].style.whiteSpace = 'nowrap'  ;
+         } catch (err) {
+          console.log(err); 
+         } finally {
+            // ... luôn luôn chạy ...
+         }
+
+
+
+
+         
 
 
 
