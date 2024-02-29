@@ -80,7 +80,9 @@ function App(props) {
                 <div  id="id_td_20" className={` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `} onClick={(event)=>{ remove_color_click('id_menu'); event.target.style.color =  "blue"; }}>Quản lý User</div>
                 <div  id="id_td_21" className={` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `} onClick={(event)=>{ remove_color_click('id_menu'); event.target.style.color =  "blue"; }}>Nhập heo thịt</div>
                 <div  id="id_td_22" className={` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `} onClick={(event)=>{ remove_color_click('id_menu'); event.target.style.color =  "blue"; }}>Quản lý cám</div>
-                <div  id="id_td_22_con"  ></div>                     
+                <div  id="id_td_22_con"  ></div>   
+                <div  id="id_td_26" className={` pl-1 hover:bg-gray-200 hover:bg-opacity-50 `} onClick={(event)=>{ remove_color_click('id_menu'); event.target.style.color =  "blue"; }}>Quản lý Thuốc</div>
+                <div  id="id_td_26_con"  ></div>                   
             </div>
             <div className={` flex h-full grow  bg-gray-100 text-sm `}  id="id_nhan_index"  >-------------------</div>	
 

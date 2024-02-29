@@ -5,7 +5,7 @@ $servername = "36.50.54.224";
 $username = "nhdabkah_hieu";
 $password = "Hieu771339";
 $dbname = "nhdabkah_hh";
-$KEY = 'thisisademokey';
+$KEY = 'thisisademokey_2';
 
 function safeSQL($INPUT){
     $safe_input = trim($INPUT);

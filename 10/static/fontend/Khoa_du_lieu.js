@@ -15,7 +15,7 @@ function Khoa_du_lieu(props) {
 
               // id_table.children[index].children[1].textContent
 
-                $.post("fuction__from_khoa_ngay_nhap_du_lieu.php", { post1: id_table.children[index].children[1].value,   post8:id_8.value  }, function(data){
+                $.post("fuction__from_khoa_ngay_nhap_du_lieu.php", { post1: id_table.children[index].children[1].textContent,   post8:id_8.value  }, function(data){
     
       
                    data = data.trim(); if (data.slice(0, 8) ==="<script>") {  let data_1 = data.slice(8, -9); eval(data_1) ; return  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  }

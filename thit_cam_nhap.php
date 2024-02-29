@@ -58,7 +58,7 @@ if (!$conn) {
 if ( $su_kien == "nhập cám" ) {
   $ma_chung_tu_nhap=safeSQL($_POST["post5"]);
 
-  $nguon_nhap=safeSQL($_POST["post6"]);
+
   
   $ngay_het_han = safeSQL($_POST["post7"]);
 
@@ -84,7 +84,7 @@ if ( $su_kien == "nhập cám" ) {
   
   
   
-  data_thit.nguon_nhap_kho, 
+
 
   data_thit.han_su_dung_kho
 
@@ -97,13 +97,16 @@ if ( $su_kien == "nhập cám" ) {
     '".$kho."', 
      '".$ten_sp."', 
 
-
+     '".$ma_chung_tu_nhap."', 
 
     '".$so_luong."', 
 
     '".$dvt."', 
     
-    '".$tong_so_tien."'
+    '".$tong_so_tien."',
+
+ '".$ngay_het_han."'
+
   
     )";
 
@@ -177,6 +180,148 @@ $result_2 = mysqli_query($conn, $sql_2);
  echo "ok" ;
 
 }
+
+
+
+
+
+
+
+
+
+
+if ( $su_kien == "nhập thuốc" ) {
+  $ma_chung_tu_nhap=safeSQL($_POST["post5"]);
+
+
+  
+  $ngay_het_han = safeSQL($_POST["post7"]);
+
+  $kho="Thuốc";
+  $dvt = safeSQL($_POST["post9"]);
+  $sql_2 =  "INSERT INTO
+  data_thit
+  (data_thit.ngay, 
+  data_thit.nam, 
+  data_thit.cong_ty,
+  data_thit.kho, 
+
+  data_thit.ten_sp_kho,
+
+  data_thit.ma_chung_tu_nhap_kho, 
+  
+  data_thit.so_luong_nhap_kho,
+  
+  data_thit.don_vi_tinh, 
+
+
+  data_thit.tien_nhap_kho, 
+  
+  
+
+  data_thit.han_su_dung_kho
+
+
+  
+  )VALUES (
+    '".$ngay."', 
+    '".$year."', 
+    '".$trai."', 
+    '".$kho."', 
+     '".$ten_sp."', 
+
+     '".$ma_chung_tu_nhap."', 
+
+    '".$so_luong."', 
+
+    '".$dvt."', 
+    
+    '".$tong_so_tien."',
+
+    '".$ngay_het_han."'
+
+  
+    )";
+
+
+
+$result_2 = mysqli_query($conn, $sql_2);
+
+
+
+ echo "ok" ;
+
+}
+
+
+
+
+
+
+
+if ( $su_kien == "xuất thuốc" ) {
+
+  $khu =safeSQL($_POST["post5"]);
+  $chuong =safeSQL($_POST["post6"]);
+  $lo =safeSQL($_POST["post7"]);
+    $kho="Thuốc";
+    $dvt = safeSQL($_POST["post10"]);
+    $sql_2 =  "INSERT INTO
+    data_thit
+    (data_thit.ngay, 
+    data_thit.nam, 
+    data_thit.cong_ty,
+    data_thit.trai, 
+    data_thit.chuong,
+    data_thit.ma_lo_nhap,
+    data_thit.kho, 
+  
+    data_thit.ten_sp_kho,
+  
+  
+    
+    data_thit.so_luong_xuat_kho,
+    
+    data_thit.don_vi_tinh, 
+  
+  
+    data_thit.tien_xuat_kho
+    
+    
+    
+  
+  
+    
+    )VALUES (
+      '".$ngay."', 
+      '".$year."', 
+      '".$trai."', 
+      '".$khu."', 
+      '".$chuong."', 
+      '".$lo."', 
+      '".$kho."', 
+       '".$ten_sp."', 
+  
+  
+  
+      '".$so_luong."', 
+  
+      '".$dvt."', 
+      
+      '".$tong_so_tien."'
+  
+   
+    
+      )";
+  
+  
+  
+  $result_2 = mysqli_query($conn, $sql_2);
+  
+   echo "ok" ;
+  
+  }
+  
 
 
 ?>

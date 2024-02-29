@@ -11,7 +11,7 @@ if (isset($_COOKIE['token_cookie'])) {
         $payload = Token::Verify($_COOKIE['token_cookie'], $KEY);
   
         if ($payload[0] == 'error_SHA256') {
-          echo '<script> arrayjavascript_3 = ["error","Thông tin đăng nhập không đúng"]  ;document.cookie = "token_cookie" +"=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT"; _alert(arrayjavascript_3[1])  ; </script>  ' ;
+          echo '<script> arrayjavascript_3 = ["error","Vui lòng đăng nhập lại"]  ;document.cookie = "token_cookie" +"=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT"; _alert(arrayjavascript_3[1])  ; </script>  ' ;
           exit();
         }else {
           
@@ -45,7 +45,7 @@ if (isset($_COOKIE['token_cookie'])) {
                        
 
                       // Generate token
-                      $token = Token::Sign(['username' => $arraymysql_expire[0][0] ,'password' => $arraymysql_expire[0][1] , 'trai'=> $arraymysql_expire[0][2] , 'trai_day_du'=> $arraymysql_expire[0][3] ] ,  $KEY , (60*10) );
+                      $token = Token::Sign(['username' => $arraymysql_expire[0][0] ,'password' => $arraymysql_expire[0][1] , 'trai'=> $arraymysql_expire[0][2] , 'trai_day_du'=> $arraymysql_expire[0][3]  , 'duoc_quyen_them_user'=> $arraymysql_expire[0][4]  , 'khoa_ngay_sua_du_lieu'=> $arraymysql_expire[0][5]  ] ,  $KEY , (60*10) );
                       @ setcookie("token_cookie",$token, time() + (86400 * 5), "/");
 
 

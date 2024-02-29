@@ -1,4 +1,4 @@
-function Quan_ly_cam() {
+function Quan_ly_thuoc() {
    
   let ref_nhap_cam =  useRef(null) ; 
 
@@ -8,13 +8,13 @@ function Quan_ly_cam() {
 
 
 
-            function Nhap_cam() {
+            function Nhap_thuoc() {
 
               
             
-                let array_ten_cam =  JSON.parse(localStorage.getItem("kho")).map( (item, index )=> {  if (index>0) {return item[2] ; }     })
+                let array_ten_thuoc =  JSON.parse(localStorage.getItem("kho_thuoc")).map( (item, index )=> {  if (index>0) {return item[2] ; }     })
        
-                console.log(array_ten_cam);
+                console.log(array_ten_thuoc);
   
 
 
@@ -34,7 +34,7 @@ function Quan_ly_cam() {
      {return _alert("Tổng số tiền phải lớn hơn = 0 và không được để trống") }
 
    
-        $.post("thit_cam_nhap.php", { post0: "nhập cám", post1: id_ngay.value, post2:id_loai_cam_ds.value ,  post8:id_8.value , post3:id_so_luong.value ,post4:id_tong_so_tien.value ,post5:id_ma_chung_tu_nhap.value ,post7:id_hsd.value  }, function(data){
+        $.post("thit_cam_nhap.php", { post0: "nhập thuốc", post1: id_ngay.value, post2:id_loai_cam_ds.value ,  post8:id_8.value , post3:id_so_luong.value ,post4:id_tong_so_tien.value ,post5:id_ma_chung_tu_nhap.value ,post7:id_hsd.value ,post9:id_don_vi_tinh.value   }, function(data){
 			
         
             data = data.trim(); if (data.slice(0, 8) ==="<script>") {  let data_1 = data.slice(8, -9); eval(data_1) ; return  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  }
@@ -78,7 +78,7 @@ function Quan_ly_cam() {
                 
                 return ( 
                     <div  className={`flex flex-col w-full h-full  bg-gray-100  `} > 
-                    <div className={`ml-1 border-b border-sky-500 mr-1`}> Nhập cám </div>
+                    <div className={`ml-1 border-b border-sky-500 mr-1`}> Nhập thuốc </div>
                
                     <div  className={` flex grow  mt-2 `} >  
                             <div className={` flex flex-col  shrink-0 ml-2 `} >
@@ -87,9 +87,9 @@ function Quan_ly_cam() {
                                 <div className={` mt-2   `}> Ngày giá trị: </div>
                                 <input id="id_ngay" type="date"  className={`  border border-sky-500 `}    /> 
 
-                                <div className={` mt-2   `} > Chọn loại cám:   </div>
+                                <div className={` mt-2   `} > Chọn loại thuốc:   </div>
                             {
-                              combobox_("id_loai_cam_ds", array_ten_cam )
+                              combobox_("id_loai_cam_ds", array_ten_thuoc )
                             }
                                 
                              
@@ -97,11 +97,12 @@ function Quan_ly_cam() {
                              
                                <div className={` mt-2   `} > Mã chứng từ nhập: </div>
                                <input  id="id_ma_chung_tu_nhap"  className={`  border border-sky-500 `}    /> 
-                           
+                        
+               
                                <div className={` mt-2   `} > Số lượng: </div>
                                <input  id="id_so_luong"  className={`  border border-sky-500 `}    /> 
                                <div className={` mt-2   `} > Đơn vị tính: </div>
-                               <input  id="id_don_vi_tinh" value={ "Kg"} className={`  border border-sky-500 `}    /> 
+                               <input  id="id_don_vi_tinh"  className={`  border border-sky-500 `}    /> 
                               
                                <div className={` mt-2   `} > Tổng số tiền: </div>
                                <input  id="id_tong_so_tien"  className={`  border border-sky-500 `}    /> 
@@ -131,7 +132,7 @@ function Quan_ly_cam() {
             } ;
 
 
-            function Xuat_cam() {
+            function Xuat_thuoc() {
 
                 let khu  ;
                 let chuong ;
@@ -160,7 +161,7 @@ function Quan_ly_cam() {
         
                                   ReactDOM.unmountComponentAtNode(id_chuong_ds);
                                   id_gui.style.display = 'none' ;
-                                  $.post("chon_lo.php", { post2: khu, post3: chuong,   post8:id_8.value , post9:"khác tìm kiếm" , }, function(data){
+                                  $.post("chon_lo.php", { post2: khu, post3: chuong,   post8:id_8.value , post9:"khác tìm kiếm" ,  post10: id_don_vi_tinh.value  }, function(data){
                     
                 
                                     data = data.trim(); if (data.slice(0, 8) ==="<script>") {  let data_1 = data.slice(8, -9); eval(data_1) ; return  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  }
@@ -286,9 +287,9 @@ function Quan_ly_cam() {
 
               
             
-                let array_ten_cam =  JSON.parse(localStorage.getItem("kho")).map( (item, index )=> {  if (index>0) {return item[2] ; }     })
+                let array_ten_thuoc =  JSON.parse(localStorage.getItem("kho_thuoc")).map( (item, index )=> {  if (index>0) {return item[2] ; }     })
        
-                console.log(array_ten_cam);
+                console.log(array_ten_thuoc);
   
 
 
@@ -328,7 +329,7 @@ function Quan_ly_cam() {
      {return _alert("Tổng số tiền phải lớn hơn = 0 và không được để trống") }
 
    
-        $.post("thit_cam_nhap.php", { post0: "xuất cám", post1: id_ngay.value, post2:id_loai_cam_ds.value ,  post8:id_8.value , post3:id_so_luong.value ,post4:id_tong_so_tien.value ,post5:khu ,post6:chuong,post7:id_lo.value  }, function(data){
+        $.post("thit_cam_nhap.php", { post0: "xuất thuốc", post1: id_ngay.value, post2:id_loai_cam_ds.value ,  post8:id_8.value , post3:id_so_luong.value ,post4:id_tong_so_tien.value ,post5:khu ,post6:chuong,post7:id_lo.value ,post10:id_don_vi_tinh.value  }, function(data){
 			
         
             data = data.trim(); if (data.slice(0, 8) ==="<script>") {  let data_1 = data.slice(8, -9); eval(data_1) ; return  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  }
@@ -372,7 +373,7 @@ function Quan_ly_cam() {
                 
                 return ( 
                     <div  className={`flex flex-col w-full h-full  bg-gray-100  `} > 
-                    <div className={`ml-1 border-b border-sky-500 mr-1`}> Xuất cám </div>
+                    <div className={`ml-1 border-b border-sky-500 mr-1`}> Xuất thuốc </div>
                
                     <div  className={` flex grow  mt-2 `} >  
                             <div className={` flex flex-col  shrink-0 ml-2 `} >
@@ -381,9 +382,9 @@ function Quan_ly_cam() {
                                 <div className={` mt-2   `}> Ngày giá trị: </div>
                                 <input id="id_ngay" type="date"  className={`  border border-sky-500 `}    /> 
 
-                                <div className={` mt-2   `} > Chọn loại cám:   </div>
+                                <div className={` mt-2   `} > Chọn loại thuốc:   </div>
                             {
-                              combobox_("id_loai_cam_ds", array_ten_cam )
+                              combobox_("id_loai_cam_ds", array_ten_thuoc )
                             }
                                 <div className={` mt-2   `} > Chuồng: </div>
                 <button  id="id_chuong" className={`border  border-sky-500 flex justify-start `} type="button"    > Chọn chuồng </button>
@@ -400,7 +401,7 @@ function Quan_ly_cam() {
                                <div className={` mt-2   `} > Số lượng: </div>
                                <input  id="id_so_luong"  className={`  border border-sky-500 `}    /> 
                                <div className={` mt-2   `} > Đơn vị tính: </div>
-                               <input  id="id_don_vi_tinh" value={ "Kg"} className={`  border border-sky-500 `}    /> 
+                               <input  id="id_don_vi_tinh"  className={`  border border-sky-500 `}    /> 
                               
                                <div className={` mt-2   `} > Tổng số tiền: </div>
                                <input  id="id_tong_so_tien"  className={`  border border-sky-500 `}    /> 
@@ -427,7 +428,7 @@ function Quan_ly_cam() {
             
             } ;
 
-            function Kiem_ke_cam() {
+            function Kiem_ke_thuoc() {
 
             
 
@@ -444,7 +445,7 @@ function Quan_ly_cam() {
         let height_table = document.getElementById('id_nhan').getBoundingClientRect().height ;
    
          
-        $.post("kiem_ke_cam.php", { post0: "kiểm kê nhập cám", post1: id_ngay.value, post2:id_ngay_kt.value ,  post8:id_8.value  }, function(data){
+        $.post("kiem_ke_cam.php", { post0: "kiểm kê nhập thuốc", post1: id_ngay.value, post2:id_ngay_kt.value ,  post8:id_8.value  }, function(data){
 			
         
             data = data.trim(); if (data.slice(0, 8) ==="<script>") {  let data_1 = data.slice(8, -9); eval(data_1) ; return  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  }
@@ -480,7 +481,7 @@ function Quan_ly_cam() {
         let height_table = document.getElementById('id_nhan').getBoundingClientRect().height ;
    
          
-        $.post("kiem_ke_cam.php", { post0: "kiểm kê xuất cám", post1: id_ngay_2.value, post2:id_ngay_kt_2.value ,  post8:id_8.value  }, function(data){
+        $.post("kiem_ke_cam.php", { post0: "kiểm kê xuất thuốc", post1: id_ngay_2.value, post2:id_ngay_kt_2.value ,  post8:id_8.value  }, function(data){
 			
         
             data = data.trim(); if (data.slice(0, 8) ==="<script>") {  let data_1 = data.slice(8, -9); eval(data_1) ; return  ReactDOM.unmountComponentAtNode(document.getElementById('id_nhan_index'));  }
@@ -519,7 +520,7 @@ function Quan_ly_cam() {
                 
                 return ( 
                     <div  className={`flex flex-col w-full h-full  bg-gray-100  `} > 
-                    <div className={`ml-1 border-b border-sky-500 mr-1`}> Kiểm kê cám </div>
+                    <div className={`ml-1 border-b border-sky-500 mr-1`}> Kiểm kê Thuốc </div>
                
                     <div  className={` flex grow  mt-2 `} >  
                             <div className={` flex flex-col  shrink-0 ml-2 `} >
@@ -533,7 +534,7 @@ function Quan_ly_cam() {
                                 <input id="id_ngay_kt" type="date"  className={`  border border-sky-500 `}    /> 
 
                                 
-                                <input type="button" value="Kiểm kê Nhập cám"   id="id_gui" className={` mt-2 mb-2  _shadow rounded   bg-sky-500 hover:bg-sky-700 h-8 flex items-center justify-center pl-2  font-medium `}   /> 
+                                <input type="button" value="Kiểm kê Nhập thuốc"   id="id_gui" className={` mt-2 mb-2  _shadow rounded   bg-sky-500 hover:bg-sky-700 h-8 flex items-center justify-center pl-2  font-medium `}   /> 
                                
 
                                 <div className={` mt-2   `}> Ngày bắt đầu: </div>
@@ -544,7 +545,7 @@ function Quan_ly_cam() {
                                 <input id="id_ngay_kt_2" type="date"  className={`  border border-sky-500 `}    /> 
 
                                
-                                <input type="button" value="Kiểm kê Xuất Cám"   id="id_gui_2" className={` mt-2 mb-2  _shadow rounded   bg-sky-500 hover:bg-sky-700 h-8 flex items-center justify-center pl-2  font-medium `}   /> 
+                                <input type="button" value="Kiểm kê Xuất thuốc"   id="id_gui_2" className={` mt-2 mb-2  _shadow rounded   bg-sky-500 hover:bg-sky-700 h-8 flex items-center justify-center pl-2  font-medium `}   /> 
                               
                
                             </div>
@@ -571,14 +572,14 @@ function Quan_ly_cam() {
     
     ref_nhap_cam.current.onclick = function () {
 
-        ReactDOM.render(<Nhap_cam /> ,document.getElementById('id_nhan_index'));
+        ReactDOM.render(<Nhap_thuoc /> ,document.getElementById('id_nhan_index'));
         
     }
 
  // Xuất cám
  ref_xuat_cam.current.onclick = function () {
 
-    ReactDOM.render(<Xuat_cam /> ,document.getElementById('id_nhan_index'));
+    ReactDOM.render(<Xuat_thuoc /> ,document.getElementById('id_nhan_index'));
     
 }
  
@@ -587,7 +588,7 @@ function Quan_ly_cam() {
 
  ref_kiem_ke_cam.current.onclick = function () {
 
-    ReactDOM.render(<Kiem_ke_cam /> ,document.getElementById('id_nhan_index'));
+    ReactDOM.render(<Kiem_ke_thuoc /> ,document.getElementById('id_nhan_index'));
     
 }
  
@@ -598,12 +599,14 @@ function Quan_ly_cam() {
      
     
   return (  <div  className={`flex flex-col w-full  bg-orange-200  `} > 
-     <div  ref={ ref_nhap_cam  }  className={`pl-4 hover:bg-gray-200 hover:bg-opacity-50 pr-1`}> Nhập cám </div>
-     <div  ref={ ref_xuat_cam  }  className={`pl-4 hover:bg-gray-200 hover:bg-opacity-50 pr-1`}> Xuất cám </div>
-     <div  ref={ ref_kiem_ke_cam  }  className={`pl-4 hover:bg-gray-200 hover:bg-opacity-50 pr-1`}> Kiểm kê kho cám</div>
+  
+     <div  ref={ ref_nhap_cam  }  className={`pl-4 hover:bg-gray-200 hover:bg-opacity-50 pr-1`}> Nhập thuốc </div>
+     <div  ref={ ref_xuat_cam  }  className={`pl-4 hover:bg-gray-200 hover:bg-opacity-50 pr-1`}> Xuất thuốc </div>
+     <div  ref={ ref_kiem_ke_cam  }  className={`pl-4 hover:bg-gray-200 hover:bg-opacity-50 pr-1`}> Kiểm kê kho thuốc</div>
 
      
     </div>
+
   );
 
 

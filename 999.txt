@@ -1,0 +1,43 @@
+INSERT INTO
+  data_thit
+  (data_thit.ngay, 
+  data_thit.nam, 
+  data_thit.cong_ty,
+  data_thit.kho, 
+
+  data_thit.ten_sp_kho,
+
+  data_thit.ma_chung_tu_nhap_kho, 
+  
+  data_thit.so_luong_nhap_kho,
+  
+  data_thit.don_vi_tinh, 
+
+
+  data_thit.tien_nhap_kho, 
+  
+  
+
+  data_thit.han_su_dung_kho
+
+
+  
+  )VALUES (
+    '2024-02-01', 
+    '2024', 
+    '23000', 
+    'Thuốc', 
+     'Enro 5', 
+
+     '145258', 
+
+    '12', 
+
+    'Kg', 
+    
+    '14252',
+
+    '2024-02-29'
+
+  
+    )
