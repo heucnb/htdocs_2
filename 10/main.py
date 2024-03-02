@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template, session, redirect 
 import os
 import win32com.client
+
 xl = win32com.client.Dispatch("Excel.Application")  #instantiate excel app
 
 # đóng file excel sau đó mở lại
@@ -25,6 +26,7 @@ finally:
     ws = wb.Worksheets('setup')
     ws.Cells(1,8).Value = pid     
 
+    
     @app.route("/",methods = ['POST', 'GET'])
     def ghep_phoi():
    
