@@ -971,7 +971,7 @@ function Chuong_chuyen_den(props) {
   return (  <div  className={`flex flex-col w-full h-full  bg-gray-100  `} > 
      <div className={`ml-1 border-b border-sky-500 mr-1`}> Nhập dữ liệu </div>
 
-     <div  className={` flex grow  mt-2 `} >  
+     <div  className={` flex grow  mt-2  `} >  
              <div className={` flex flex-col  shrink-0 ml-2 `} >
            
                  <button  id="id_su_kien" className={`border border-sky-500 flex justify-start `} type="button"    > Chọn sự kiện   </button>

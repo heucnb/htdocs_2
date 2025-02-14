@@ -1,0 +1,15 @@
+
+// ở đây ta dùng plugins: ["@babel/plugin-transform-async-to-generator"]
+// để chuyển async-await thành generator function để trình duyệt cũ hiểu được 
+// bây giờ trình duyệt mới hiểu được ta có thể bỏ qua plugins: này cũng được
+  {
+    "presets": [ "@babel/preset-react"],
+     "plugins": ["@babel/plugin-transform-async-to-generator"],
+  }
+
+
+
+// {
+//   "presets": [ "@babel/preset-react"],
+
+// }
