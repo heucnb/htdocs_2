@@ -1,8 +1,14 @@
 from flask import Flask, request, render_template, session, redirect 
+# argparse: For parsing command-line arguments.
+import argparse
 import os
 import win32com.client
 
-xl = win32com.client.Dispatch("Excel.Application")  #instantiate excel app
+xl = win32com.client.DispatchEx("Excel.Application")  #instantiate excel app
+xl_2 = win32com.client.DispatchEx("Excel.Application")  #instantiate 2 excel app
+# xl_3 = win32com.client.Dispatch("Excel.Application")  #instantiate excel app
+# xl_4 = win32com.client.Dispatch("Excel.Application")  #instantiate excel app
+# xl_5 = win32com.client.Dispatch("Excel.Application")  #instantiate excel app
 
 # đóng file excel sau đó mở lại
 try:
@@ -11,10 +17,23 @@ try:
   path_excel =  os.path.join(os.path.dirname(__file__), "excel-python","1.xlsm")
   xl.Workbooks.Open(path_excel)
   xl.Visible = True
+
+#   wb_2_opening = xl_2.Workbooks('2.xlsm')
+#   wb_2_opening.Close(SaveChanges=False)
+#   path_excel_2 =  os.path.join(os.path.dirname(__file__), "excel-python","2.xlsm")
+#   xl_2.Workbooks.Open(path_excel_2)
+#   xl_2.Visible = True
+
 except:
     path_excel =  os.path.join(os.path.dirname(__file__), "excel-python","1.xlsm")
     xl.Workbooks.Open(path_excel)
     xl.Visible = True
+    # xl_2.Workbooks.Open(path_excel)
+    # xl_2.Visible = True
+
+    # path_excel_2 =  os.path.join(os.path.dirname(__file__), "excel-python","2.xlsm")
+    # xl_2.Workbooks.Open(path_excel_2)
+    # xl_2.Visible = True
 
 finally:
     app = Flask(__name__)
@@ -116,8 +135,13 @@ finally:
 
 
     if __name__ == "__main__":
+        parser = argparse.ArgumentParser(description='Run a Flask app with a specified port.')
+        parser.add_argument('--port', type=int, default=5000, help='Port number to run the app on.')
+        args = parser.parse_args()
+
+
     #   win32com là tác vụ nặng ta phải tắt đa nhiệm bằng lệnh threaded=False thì mới chạy được  
-        app.run(threaded=False)
+        app.run(threaded=False, port=args.port )
     
 
     
